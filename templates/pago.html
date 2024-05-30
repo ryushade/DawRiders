@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/static/css/anicollection.css">
+    <link rel="stylesheet" href="/static/css/index_flask.css">
+    <title>Pago</title>
+</head>
+
+<body id="bod">
+    <div class="container-fluid mb-3" id="header">
+        <div class="row py-3 d-flex align-items-center" style="background: #4A748C;">
+            <div class="col-lg-3 col-md-6 d-flex justify-content-center">
+                <img src="/static/img/logocicloriders_2-removebg-preview 1.png"
+                    style="width: 180px; margin-top:0px; margin-bottom: 0px;" alt="logo"
+                    data-anijs="if: mouseover, do: pulse animated">
+            </div>
+            <div class="col-lg-5 col-md-6">
+                <nav class="">
+                    <div class="container-fluid">
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2 w-100" type="search" placeholder="Search"
+                                aria-label="Search">
+                            <button data-anijs="if: mouseover, do: pulse animated" class="btn" type="submit"><i
+                                    class="fa-solid fa-magnifying-glass fa-2xl"></i></button>
+
+                        </form>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-4 col-md-12 row container text-center my-1">
+                <div class="container col">
+                    <a href="login.html"><i data-anijs="if: mouseover, do: pulse animated"
+                            class="fa-regular fa-user fa-3x" style="color: #212529;"></i></a>
+                </div>
+                <div class="container col">
+                    <a href="comparar.html"><i data-anijs="if: mouseover, do: pulse animated"
+                            class="fa-solid fa-money-bill-transfer fa-3x" style="color: #212529;"></i></a>
+                </div>
+                <div class="container col">
+                    <a href="carritoCompra.html"><i data-anijs="if: mouseover, do: pulse animated"
+                            class="fa-solid fa-cart-shopping fa-3x" style="color: #212529;"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row py-2" id="navbar" style="background: #213140;">
+            <ul class="nav justify-content-center">
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" aria-current="page"
+                        href="index.html" style="color: white; font-size: 14px;">INICIO</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="nosotros.html"
+                        style="color: white; font-size: 14px;">NOSOTROS</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="categorías.html"
+                        style="color: white; font-size: 14px;">CATEGORIAS</a>
+                </li>
+                <li data-anijs="if: mouseover, do: pulse animated" class="nav-item px-3">
+                    <a class="nav-link barra" href="accesorios.html"
+                        style="color: white; font-size: 14px;">ACCESORIOS</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="#"
+                        style="color: white; font-size: 14px;">OFERTAS</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="marcas.html"
+                        style="color: white; font-size: 14px;">MARCAS</a>
+                </li>
+                <li class="nav-item px-3 barra">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link" href="blog.html"
+                        style="color: white; font-size: 14px;">BLOG</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="#"
+                        style="color: white; font-size: 14px;">AYUDA</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="contacto.html"
+                        style="color: white; font-size: 14px;">CONTACTO</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row ms-5 mt-4">
+        <nav aria-label="breadcrumb" class="ms-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="#">Carrito de Compras</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Pago</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="row ms-4 mt-4 mb-5">
+
+        <div class="row ms-4">
+            <form method="post" action="{{url_for('guardar_venta')}}">
+                <div class="col-lg-8 col-md-6 col-sm-12">
+
+
+                    <div class="row mt-4">
+                        <div style="border: solid 1px #212529; border-radius: 5px; width: 90%;">
+
+                            <div class="row m-5">
+                                <div class="row mb-4">
+                                    <h2>Detalles de Pago</h2>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="row">
+                                            <h6>Nombre</h6>
+                                        </div>
+                                        <div>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Nombre"
+                                                    aria-label="Titular" aria-describedby="basic-addon1" name="nombre">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="row">
+                                            <h6>Apellidos</h6>
+                                        </div>
+                                        <div>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Apellidos"
+                                                    aria-label="Titular" aria-describedby="basic-addon1"
+                                                    name="apellidos">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div>
+                                        <div>
+                                            <h6>País</h6>
+                                        </div>
+                                        <div>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Pais"
+                                                    aria-label="Titular" aria-describedby="basic-addon1" name="pais">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div>
+                                            <h6>Dirección</h6>
+                                        </div>
+                                        <div>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Dirección"
+                                                    aria-label="Titular" aria-describedby="basic-addon1"
+                                                    name="direccion">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="row">
+                                            <h6>Región / Departamento</h6>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Región / Departamento" aria-label="Titular"
+                                                    aria-describedby="basic-addon1" name="departamento">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <h6>Teléfono</h6>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Teléfono"
+                                                    aria-label="Titular" aria-describedby="basic-addon1"
+                                                    name="telefono">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row mt-4">
+                                            <h6>Fecha de expiración de la tarjeta </h6>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                                <select class="form-select"
+                                                    aria-label="Ejemplo de select predeterminado" name="mes">
+                                                    <option selected="">Mes</option>
+                                                    <option value="Enero">Enero</option>
+                                                    <option value="Febrero">Febrero</option>
+                                                    <option value="Marzo">Marzo</option>
+                                                    <option value="Abril">Abril</option>
+                                                    <option value="Mayo">Mayo</option>
+                                                    <option value="Julio">Julio</option>
+                                                    <option value="Agosto">Agosto</option>
+                                                    <option value="Septiembre">Septiembre</option>
+                                                    <option value="Octubre">Octubre</option>
+                                                    <option value="Noviembre">Noviembre</option>
+                                                    <option value="Diciembre">Diciembre</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                                <select class="form-select"
+                                                    aria-label="Ejemplo de select predeterminado" name="año">
+                                                    <option selected="">Año</option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2025">2025</option>
+                                                    <option value="2026">2026</option>
+                                                    <option value="2027">2027</option>
+                                                    <option value="2028">2028</option>
+                                                    <option value="2029">2029</option>
+                                                    <option value="2030">2030</option>
+                                                    <option value="2031">2031</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="row">
+                                            <h6>Localidad / Ciudad</h6>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-group mb-3" style="width: 100%;">
+                                                <input type="text" class="form-control" placeholder="Localidad / Ciudad"
+                                                    aria-label="Titular" aria-describedby="basic-addon1"
+                                                    name="localidad">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <h6>Correo Electrónico</h6>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Correo Electrónico"
+                                                    aria-label="Titular" aria-describedby="basic-addon1" name="correo">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row mt-4">
+                                            <h6>CVV</h6>
+                                        </div>
+                                        <div class="row" style="width: 40%;">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="CVV"
+                                                    aria-label="Titular" aria-describedby="basic-addon1" name="cvv">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="">
+                                        <div class="row">
+                                            <h6>Número de Tarjeta</h6>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-group mb-3" style="width: 100%;">
+                                                <input type="text" class="form-control"
+                                                    placeholder="XXXX XXXX XXXX XXXX" aria-label="Titular"
+                                                    aria-describedby="basic-addon1" name="num_tarjeta">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="row me-5">
+                        <div style="border: solid 1px #212529;">
+                            <div class="m-4 ">
+                                <div class="row">
+                                    <div class="col-lg-7 col-md-10 col-sm-10">
+                                        <h3>Tu Carrito</h3>
+                                    </div>
+                                    <div class="col-lg-5 col-md-2 col-sm-2">
+                                        <i class="fa-solid fa-cart-shopping fa-xl"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <table class="table ms-2 mt-5">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col"></th>
+                                                <th scope="col">Precio</th>
+                                                <th scope="col">SubTotal</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="detalle">
+                                            {% for item in items %}
+                                            <input type="hidden" name="idProducto" value="{{item[0]}}">
+                                            <input type="hidden" name="monto_final" value="{{item[5]}}">
+                                            <tr>
+                                                <td><img src="../static/img/{{ item[1] }}" alt="{{ item[2] }}"
+                                                        width="90" height="60"></td>
+                                                <td>{{ item[3] }}</td>
+                                                <td>{{ item[5] }}</td>
+                                                <td></td>
+                                            </tr>
+                                            {% endfor %}
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <h4>Total: S/<span></span></h3>
+                                </div>
+                                <div class="row" data-anijs="if: mouseover, do: pulse animated">
+
+                                    <button type="submit" style="width: 100%;" class="btn btn-primary"
+                                        href="{{url_for('formulario_detalle_categoria')}}">Pagar</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <div id="descuentos">
+        <div class="row mt-3">
+            <div class="mt-5 mb-0 text-center">
+                <h3>RECIBE DESCUENTOS ESPECIALES</h3>
+
+            </div>
+        </div>
+        <div class="row d-flex align-items-center mb-5">
+            <div>
+
+            </div>
+            <div class="col-lg-2 col-md-0">
+
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="input-group flex-nowrap py-2">
+                    <span class="input-group-text" id="addon-wrapping"><i
+                            class="fa-regular fa-envelope fa-xl"></i></span>
+                    <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                        aria-describedby="addon-wrapping">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-5">
+                <div class="input-group flex-nowrap mx-2">
+                    <span class="input-group-text" id="addon-wrapping">+51</span>
+                    <input type="text" class="form-control" placeholder="Numero Telefónico" aria-label="Username"
+                        aria-describedby="addon-wrapping">
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-1">
+                <button type="button" class="btn btn-primary">SUSCRIBIRTE</button>
+
+            </div>
+            <div class="col-lg-2 col-md-0">
+
+            </div>
+
+        </div>
+
+
+        <div class="row container-fluid mx-0" style="background: #72A2BE;">
+            <div class="col-lg-3 col-md-6 col-sm-12 mt-5 ms-4 me-3">
+                <ul class="list-group">
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1 py-1"><iframe
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1981.0094960514577!2d-79.8491092263135!3d-6.767538082152489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2spe!4v1699890278132!5m2!1ses-419!2spe"
+                            width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe></li>
+                    <li class="list-inline-item py-1" style="color: #213140;"
+                        data-anijs="if: mouseover, do: pulse animated">Direccion 1: Casa de Ñofi</li>
+                    <li class="list-inline-item py-1" style="color: #213140;"
+                        data-anijs="if: mouseover, do: pulse animated">Direccion 2: Choza de Chiscol</li>
+                    <li class="list-inline-item py-1" style="color: #213140;"
+                        data-anijs="if: mouseover, do: pulse animated">Telefono: 074 231613</li>
+                    <li class="list-inline-item py-1" style="color: #213140;"
+                        data-anijs="if: mouseover, do: pulse animated">Celular: +51 968 633 311</li>
+                </ul>
+            </div>
+
+            <!-- Acerca de nosotros-->
+            <div class="col-lg-3 col-md-6 col-sm-12 mt-5 ms-5 me-3">
+                <h5 class="h5  fw-bold" style="color: #213140;">Acerca de Nosotros</h5>
+                <ul class="list-group">
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                            href="nosotros.html" style="text-decoration: none;color: #213140;">Nosotros</a>
+                    </li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
+                            style="text-decoration: none; color: #213140;">Soporte
+                            Tecnico</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
+                            style="text-decoration: none;color: #213140;">Redes
+                            Sociales</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><i
+                            class="fa-brands fa-square-facebook fa-2xl"></i> <i
+                            class="fa-brands fa-instagram fa-2xl"></i> <i class="fa-brands fa-whatsapp fa-2xl"></i>
+                    </li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1">Correo: <a href=""
+                            style="text-decoration: none; color: #213140;">marco123@gmail.com</a></li>
+                </ul>
+            </div>
+            <!-- Informacion -->
+            <div class="col-lg-3 col-md-6 col-sm-12 mt-5">
+                <h5 class="h5 fw-bold">
+                    Informacion
+                </h5>
+                <ul class="list-group">
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                            href="preguntasFrecuentes.html" style="text-decoration: none; color: #213140;">Terminos
+                            y
+                            condiciones</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                            href="terminosGarantia.html" style="text-decoration: none;color: #213140;">Terminos
+                            de
+                            Garantia</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                            href="libroReclamaciones.html" style="text-decoration: none;color: #213140;">Libro
+                            de
+                            Reclamos</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
+                            style="text-decoration: none;color: #213140;">Politicas
+                            de
+                            privacidad</a></li>
+                </ul>
+            </div>
+
+            <!-- metodos de pago -->
+            <div class="col-lg-2 col-md-6 col-sm-12 mt-5">
+                <h5 class="h5 fw-bold">
+                    Pagos online
+                </h5>
+                <ul class="list-group">
+                    <li class="list-inline-item"><img src="img/american-express.png" alt=""> American Express</li>
+                    <li class="list-inline-item"><img src="img/mastercard.png" alt=""> Mastercard</li>
+                    <li class="list-inline-item"><img src="img/visa.png" alt=""> Visa</li>
+                    <li class="list-inline-item"><img src="img/paypal.png" alt=""> PayPal</li>
+                </ul>
+            </div>
+            <div class="row mt-4" style="text-align: right;">
+                <h6>Última Actualización: 06/12/2023</h6>
+            </div>
+            <div class="row mt-3">
+                <h6
+                    style="font-weight: bold; text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    Copyright 2023 © CicloRiders. Todos los derechos Reservados</h6>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="js/anijs-min.js"></script>
+<script src="js/bootstrap.js"></script>
+
+</html>

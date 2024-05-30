@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/static/css/anicollection.css">
+    <link rel="stylesheet" href="/static/css/index_flask.css">
+    <title>Blog</title>
+</head>
+
+<body id="bod">
+    <div class="container-fluid mb-3" id="header">
+        <div class="row py-3 d-flex align-items-center" style="background: #4A748C;">
+            <div class="col-lg-3 col-md-6 d-flex justify-content-center">
+                <img src="/static/img/logocicloriders_2-removebg-preview 1.png"
+                    style="width: 180px; margin-top:0px; margin-bottom: 0px;" alt="logo"
+                    data-anijs="if: mouseover, do: pulse animated">
+            </div>
+            <div class="col-lg-5 col-md-6">
+                <nav class="">
+                    <div class="container-fluid">
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2 w-100" type="search" placeholder="Search"
+                                aria-label="Search">
+                            <button data-anijs="if: mouseover, do: pulse animated" class="btn" type="submit"><i
+                                    class="fa-solid fa-magnifying-glass fa-2xl"></i></button>
+
+                        </form>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-4 col-md-12 row container text-center my-1">
+                <div class="container col">
+                    <a href="{{url_for('formulario_login_cliente')}}"><i data-anijs="if: mouseover, do: pulse animated"
+                            class="fa-regular fa-user fa-3x" style="color: #212529;"></i></a>
+                </div>
+                <div class="container col">
+                    <a href="{{url_for('formulario_comparar')}}"><i data-anijs="if: mouseover, do: pulse animated"
+                            class="fa-solid fa-money-bill-transfer fa-3x" style="color: #212529;"></i></a>
+                </div>
+                <div class="container col">
+                    <a href="{{url_for('formulario_carrito')}}"><i data-anijs="if: mouseover, do: pulse animated" class="fa-solid fa-cart-shopping fa-3x"
+                            style="color: #212529;"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row py-2" id="navbar" style="background: #213140;">
+            <ul class="nav justify-content-center">
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" aria-current="page"
+                        href="{{url_for('formulario_principal')}}" style="color: white; font-size: 14px;">INICIO</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="{{url_for('formulario_nosotros')}}"
+                        style="color: white; font-size: 14px;">NOSOTROS</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="{{url_for('formulario_detalle_categoria')}}"
+                        style="color: white; font-size: 14px;">CATEGORIAS</a>
+                </li>
+                <li data-anijs="if: mouseover, do: pulse animated" class="nav-item px-3">
+                    <a class="nav-link barra" href="{{url_for('formulario_accesorios')}}"
+                        style="color: white; font-size: 14px;">ACCESORIOS</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="#"
+                        style="color: white; font-size: 14px;">OFERTAS</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="{{url_for('formulario_marcas')}}"
+                        style="color: white; font-size: 14px;">MARCAS</a>
+                </li>
+                <li class="nav-item px-3 barra">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link" href="{{url_for('formulario_blog')}}"
+                        style="color: white; font-size: 14px;">BLOG</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="#"
+                        style="color: white; font-size: 14px;">AYUDA</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="{{url_for('formulario_contacto')}}"
+                        style="color: white; font-size: 14px;">CONTACTO</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row ms-5 mt-5 me-5 mb-2">
+        <h1>Blog - CicloRiders</h1>
+    </div>
+    <div class="row ms-5 me-4 mb-5" style="border-bottom:solid 1px #212529;">
+
+    </div>
+
+    <div class="row m-5 mt-4 mb-2">
+        <div id="carouselExampleInterval" class="carousel slide mt-0 me-0" data-bs-ride="carousel" data-anijs="if: mouseover, do: pulse animated">
+            <div class="carousel-inner mt-0">
+                <div class="carousel-item active" data-bs-interval="4000">
+                    <img src="/static/img/blog1.jpg" class="d-block w-100" alt="1">
+                </div>
+                <div class="carousel-item" data-bs-interval="4000">
+                    <img src="/static/img/blog-4.jpg" class="d-block w-100" alt="2">
+                </div>
+                <div class="carousel-item">
+                    <img src="/static/img/blog-5.jpg" class="d-block w-100" alt="3">
+                </div>
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="row mt-5">
+            <h3>Noticias y Recomendaciones</h3>
+        </div>
+    </div>
+
+    <div class="row" id="men_carrusel">
+        <div class="row">
+            <div class="col-lg-7 col-md-6 col-sm-12" style="border-right: solid 1px #212529;">
+                <div class="ms-4">
+                    <div class="row ms-5 mt-5 me-5">
+                        <div class="row" style="border: solid 1px #212529;" data-anijs="if: mouseover, do: pulse animated">
+                            <div class="col-lg-7 col-md-6 col-sm-12">
+                                <div style="height: 100%; width: 111%;">
+                                    <img src="/static/img/blog2.jpg" alt="1"
+                                        style="width: 100%; height: 100%; position: relative; margin-left: -24px;">
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-6 col-sm-12">
+                                <p class="m-2 ms-3">En invierno, son muchas las personas que dejan aparcados sus
+                                    vehículos de dos ruedas por
+                                    las
+                                    lluvias, las bajas temperaturas o las posibles heladas pero, seamos honestos:
+                                    nosotros,
+                                    los
+                                    apasionados de las motos, podríamos subirnos a la nuestra incluso en las peores
+                                    condiciones
+                                    posibles. Eso sí, extremando la precaución. Ahora en invierno, a la hora de conducir
+                                    nuestra
+                                    moto, debemos llevar el correcto mantenimiento de nuestra moto al milímetro, tanto,
+                                    que
+                                    meticuloso bien podría ser nuestro segundo nombre. Si es tu primer invierno en un
+                                    dos
+                                    ruedas
+                                    o si quieres conocer todas las claves para mantener tu moto impecable, incluso
+                                    durante
+                                    el
+                                    invierno, esta es tu guía perfecta.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: -8px; z-index: 1;">
+                            <div class="col-lg-7 col-md-6 col-sm-6">
+                                <div style="text-align: center;">
+                                    <div
+                                        style="text-align: center; background-color: #212529; color: white; height: auto; display: flex; align-items: center; border-radius: 4px;">
+                                        <h6
+                                            style="color: white; display: flex; align-items: center; margin-left: 28%; margin-top: 2%;">
+                                            RECOMENDACIÓN</h6>
+                                    </div>
+
+                                    <h5 class="mt-3">Usa la moto en Invierno</h5>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-6 col-sm-6">
+                                <div style="text-align: center;" data-anijs="if: mouseover, do: pulse animated">
+                                    <button type="button" class="btn btn-primary">LEER MÁS</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row m-5">
+                        <div class="row" style="border: solid 1px #212529;" data-anijs="if: mouseover, do: pulse animated">
+                            <div class="col-lg-7 col-md-6 col-sm-12">
+                                <div style="height: 100%; width: 111%;">
+                                    <img src="/static/img/blog3.jpg" alt="1"
+                                        style="width: 100%; height: 100%; position: relative; margin-left: -24px;">
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-6 col-sm-12">
+                                <p class="m-2 ms-3">Todos sabemos que tener una moto es una buena manera de moverse por
+                                    la ciudad y ¡de ahorrar! Pero para poder alargar la vida útil de nuestra fiel amiga,
+                                    es útil seguir algunos consejos. No hace falta ser un experto para tener tu moto a
+                                    punto en todo momento, lo importante es aplicar algunas sencillas directrices para
+                                    que te asegures de que tu vehículo rendirá convenientemente durante mucho tiempo.
+                                    De hecho, existen guías para hacer mantenimiento de tu moto que ten vendrán
+                                    fenomenal para empezar a cuidar tu moto y que aumente su vida útil. De todas
+                                    maneras, os dejamos una serie de consejos con los que estamos seguros que estarás de
+                                    acuerdo.
+
+
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: -8px; z-index: 1;">
+                            <div class="col-lg-7 col-md-6 col-sm-6">
+                                <div
+                                    style="text-align: center; background-color: #212529; color: white; height: auto; display: flex; align-items: center; border-radius: 4px;">
+                                    <h6
+                                        style="color: white; display: flex; align-items: center; margin-left: 34%; margin-top: 2%;">
+                                        INFORMACIÓN</h6>
+                                </div>
+                                <h5 class="mt-3" style="justify-content: center; text-align: center;">¿Como cuidar tu
+                                    moto?</h5>
+                            </div>
+                            <div class="col-lg-5 col-md-6 col-sm-6">
+                                <div style="text-align: center;" data-anijs="if: mouseover, do: pulse animated">
+                                    <button type="button" class="btn btn-primary">LEER MÁS</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-md-6 col-sm-12">
+                <div id="articulo" class="ms-5">
+                    <div class="mt-5 me-4" style="border: solid 1px #212529;" data-anijs="if: mouseover, do: pulse animated">
+                        <div class="row justify-content-center">
+                            <img src="/static/img/blog4.webp" alt="">
+                            <div
+                                style="text-align: center; background-color: #212529; color: white; height: auto; width: 50%; display: flex; align-items: center; border-radius: 4px; margin-top: -12px;">
+                                <h6
+                                    style="color: white; display: flex; align-items: center; margin-left: 31%; margin-top: 4%;">
+                                    ARTÍCULO</h6>
+                            </div>
+                        </div>
+                        <div class="rowjustify-content-center m-4">
+                            <p style="width: auto; text-align: justify;">Contar con una moto con un sistema de frenos
+                                ABS hoy en día es prácticamente indispensable para tener una mayor seguridad con nuestra
+                                moto, por lo que entender qué es y para qué sirve, nos resolverá muchas dudas sobre su
+                                funcionamiento. Si tienes una moto, o estás interesado en comprarte una, en este
+                                artículo encontrarás información detallada del uso correcto de los frenos.
+                            </p>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: -17px;" data-anijs="if: mouseover, do: pulse animated">
+                        <button type="button" class="btn btn-primary">LEER MÁS</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="descuentos">
+        <div class="row mt-3">
+            <div class="mt-5 mb-0 text-center">
+                <h3>RECIBE DESCUENTOS ESPECIALES</h3>
+
+            </div>
+        </div>
+        <div class="row d-flex align-items-center mb-5">
+            <div>
+
+            </div>
+            <div class="col-lg-2 col-md-0">
+
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="input-group flex-nowrap py-2">
+                    <span class="input-group-text" id="addon-wrapping"><i
+                            class="fa-regular fa-envelope fa-xl"></i></span>
+                    <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                        aria-describedby="addon-wrapping">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-5">
+                <div class="input-group flex-nowrap mx-2">
+                    <span class="input-group-text" id="addon-wrapping">+51</span>
+                    <input type="text" class="form-control" placeholder="Numero Telefónico" aria-label="Username"
+                        aria-describedby="addon-wrapping">
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-1">
+                <button type="button" class="btn btn-primary">SUSCRIBIRTE</button>
+
+            </div>
+            <div class="col-lg-2 col-md-0">
+
+            </div>
+
+        </div>
+
+
+        <div class="row container-fluid mx-0" style="background: #72A2BE;">
+            <div class="col-lg-3 col-md-6 col-sm-12 mt-5 ms-4 me-3">
+                <ul class="list-group">
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1 py-1"><iframe
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1981.0094960514577!2d-79.8491092263135!3d-6.767538082152489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2spe!4v1699890278132!5m2!1ses-419!2spe"
+                            width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe></li>
+                    <li class="list-inline-item py-1" style="color: #213140;"
+                        data-anijs="if: mouseover, do: pulse animated">Direccion 1: Casa de Ñofi</li>
+                    <li class="list-inline-item py-1" style="color: #213140;"
+                        data-anijs="if: mouseover, do: pulse animated">Direccion 2: Choza de Chiscol</li>
+                    <li class="list-inline-item py-1" style="color: #213140;"
+                        data-anijs="if: mouseover, do: pulse animated">Telefono: 074 231613</li>
+                    <li class="list-inline-item py-1" style="color: #213140;"
+                        data-anijs="if: mouseover, do: pulse animated">Celular: +51 968 633 311</li>
+                </ul>
+            </div>
+
+            <!-- Acerca de nosotros-->
+            <div class="col-lg-3 col-md-6 col-sm-12 mt-5 ms-5 me-3">
+                <h5 class="h5  fw-bold" style="color: #213140;">Acerca de Nosotros</h5>
+                <ul class="list-group">
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                            href="nosotros.html" style="text-decoration: none;color: #213140;">Nosotros</a>
+                    </li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
+                            style="text-decoration: none; color: #213140;">Soporte
+                            Tecnico</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
+                            style="text-decoration: none;color: #213140;">Redes
+                            Sociales</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><i
+                            class="fa-brands fa-square-facebook fa-2xl"></i> <i
+                            class="fa-brands fa-instagram fa-2xl"></i> <i class="fa-brands fa-whatsapp fa-2xl"></i>
+                    </li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1">Correo: <a href=""
+                            style="text-decoration: none; color: #213140;">marco123@gmail.com</a></li>
+                            <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                                href="autores.html" style="text-decoration: none;color: #213140;">Autores</a>
+                        </li>
+                </ul>
+            </div>
+            <!-- Informacion -->
+            <div class="col-lg-3 col-md-6 col-sm-12 mt-5">
+                <h5 class="h5 fw-bold">
+                    Informacion
+                </h5>
+                <ul class="list-group">
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href="preguntasFrecuentes.html"
+                            style="text-decoration: none; color: #213140;">Terminos
+                            y
+                            condiciones</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                            href="terminosGarantia.html" style="text-decoration: none;color: #213140;">Terminos
+                            de
+                            Garantia</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                            href="libroReclamaciones.html" style="text-decoration: none;color: #213140;">Libro
+                            de
+                            Reclamos</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
+                            style="text-decoration: none;color: #213140;">Politicas
+                            de
+                            privacidad</a></li>
+                </ul>
+            </div>
+
+            <!-- metodos de pago -->
+            <div class="col-lg-2 col-md-6 col-sm-12 mt-5">
+                <h5 class="h5 fw-bold">
+                    Pagos online
+                </h5>
+                <ul class="list-group">
+                    <li class="list-inline-item"><img src="/static/img/american-express.png" alt=""> American Express</li>
+                    <li class="list-inline-item"><img src="/static/img/mastercard.png" alt=""> Mastercard</li>
+                    <li class="list-inline-item"><img src="/static/img/visa.png" alt=""> Visa</li>
+                    <li class="list-inline-item"><img src="/static/img/paypal.png" alt=""> PayPal</li>
+                </ul>
+                
+            </div>
+            <div class="row mt-4" style="text-align: right;">
+                <h6>Última Actualización: 06/12/2023</h6>
+            </div>
+            <div class="row mt-3">
+                <h6
+                    style="font-weight: bold; text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    Copyright 2023 © CicloRiders. Todos los derechos Reservados</h6>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/static/js/anijs-min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+
+</html>

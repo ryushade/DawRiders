@@ -1,0 +1,206 @@
+* {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#descuentos {
+    background-color: #91c4d9;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+#bod {
+    background-color: #E3F0F6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    color: #213140;
+}
+
+.img1,
+.moto0,
+.moto1,
+.moto5,
+.moto6,
+.moto7,
+.moto8,
+.acce1,
+.acce2,
+.acce3,
+.acce4,
+.llanta1,
+.llanta2,
+.llanta3,
+.llanta4 {
+    margin: 10px;
+    width: 90%;
+}
+
+h6,
+#descu {
+    text-align: justify;
+}
+
+.caja,
+.caja2 {
+    background-color: #91c4d9;
+    border: solid 1px #213140;
+    width: 90%;
+    /* Ajustado d
+    esde diferentes secciones */
+}
+
+.my-table {
+    overflow: auto;
+}
+#men_carrusel {
+    border-top: solid 1px #213140;
+    border-bottom: solid 1px #213140;
+    background-color: white;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+p,
+.peq {
+    font-size: 14px;
+    text-align: justify;
+}
+
+.table {
+    width: 100%;
+    text-align: center;
+    border: solid 1px #213140;
+    background-color: transparent;
+}
+
+.table thead th {
+    background-color: transparent;
+    border: none;
+}
+
+.table tbody th,
+.table tbody td {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+}
+
+.monto,
+.mon,
+.res,
+.mid,
+.colum,
+.fil3,
+.fil,
+.nov,
+.nomMoto,
+.precioTac,
+.precio,
+.prod {
+    font-weight: bold;
+    font-size: 13px;
+    color: gray;
+}
+
+#moto5,
+#moto8 {
+    height: 275px;
+    margin-bottom: -8px;
+}
+
+.prod {
+    box-shadow: 0 0 20pte;
+}
+
+#caja {
+    width: 60%;
+    justify-content: center;
+    margin-left: 20%;
+}
+
+.container-fluid {
+    width: 100%;
+    margin: 0 auto;
+    /* Centers the container */
+}
+
+
+.imagen {
+    width: 100%;
+}
+
+.fa-cart-shopping {
+    position: relative;
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    .nav-item {
+        flex-grow: 1;
+        text-align: center;
+    }
+}
+
+.fa-cart-shopping span {
+    background-color: red;
+    border-radius: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    position: absolute;
+    top: -25px;
+    left: 80%;
+    padding: 3px 3px;
+    font-size: 0.5em;
+}
+
+.monto {
+    border: solid 1px #213140;
+}
+
+
+.quantity_button input {
+    text-align: center;
+    width: 32px;
+    font-size: 12px;
+    color: #43484D;
+    font-weight: 300;
+}
+
+
+
+button.plus-btn,
+button.minus-btn {
+    width: 30px;
+    height: 30px;
+    background-color: #b3b3b3;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.closer {
+    margin-left: 0.5px;
+    /* Adjust as needed */
+    margin-right: 0.5px;
+    /* Adjust as needed */
+}
+
+.input-closer {
+    margin-left: 0.5px;
+    /* Adjust as needed */
+    margin-right: 0.5px;
+    /* Adjust as needed */
+}

@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/anicollection.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/index_flask.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>CicloRiders - Inicio</title>
+</head>
+
+<body id="bod">
+    <div class="container-fluid mb-3" id="header">
+        <div class="row py-3 d-flex align-items-center" style="background: #4A748C;">
+                    <div class="col-lg-3 col-md-6 d-flex justify-content-center">
+                <img src="/static/img/logocicloriders_2-removebg-preview 1.png"
+                    style="width: 180px; margin-top:0px; margin-bottom: 0px;" alt="logo"
+                    data-anijs="if: mouseover, do: pulse animated">
+            </div>
+            <div class="col-lg-5 col-md-6">
+                <nav class="">
+                    <div class="container-fluid">
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2 w-100" type="search" placeholder="Buscar"
+                                aria-label="Search">
+                            <button data-anijs="if: mouseover, do: pulse animated" class="btn" type="submit"><i
+                                    class="fa-solid fa-magnifying-glass fa-2xl"></i></button>
+
+                        </form>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-4 col-md-12 row container text-center my-1">
+                <div class="container col">
+                    <a href="{{url_for('formulario_login_cliente')}}"><i data-anijs="if: mouseover, do: pulse animated"
+                            class="fa-regular fa-user fa-3x" style="color: #212529;"></i></a>
+                </div>
+                <div class="container col">
+                    <a href="{{url_for('formulario_comparar')}}"><i data-anijs="if: mouseover, do: pulse animated"
+                            class="fa-solid fa-money-bill-transfer fa-3x" style="color: #212529;"></i></a>
+                </div>
+                <div class="container col">
+                    <a href="{{url_for('formulario_carrito')}}"><i data-anijs="if: mouseover, do: pulse animated"
+                            class="fa-solid fa-cart-shopping fa-3x" style="color: #212529;"></i></a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row py-2" id="navbar" style="background: #213140;">
+            <ul class="nav justify-content-center">
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" aria-current="page"
+                        href="{{url_for('formulario_principal')}}" style="color: white; font-size: 14px;">INICIO</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra"
+                        href="{{url_for('formulario_nosotros')}}" style="color: white; font-size: 14px;">NOSOTROS</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra"
+                        href="{{url_for('formulario_detalle_categoria')}}"
+                        style="color: white; font-size: 14px;">CATEGORIAS</a>
+                </li>
+                <li data-anijs="if: mouseover, do: pulse animated" class="nav-item px-3">
+                    <a class="nav-link barra" href="" style="color: white; font-size: 14px;">ACCESORIOS</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="#"
+                        style="color: white; font-size: 14px;">OFERTAS</a>
+                </li>
+                <li class="nav-item px-3 barra">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link"
+                        href="{{url_for('formulario_blog')}}" style="color: white; font-size: 14px;">BLOG</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href=""
+                        style="color: white; font-size: 14px;">AYUDA</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra"
+                        href="{{url_for('formulario_contacto')}}" style="color: white; font-size: 14px;">CONTACTO</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="container-fluid fil">
+        <div class="row fil3">
+            <div class="col-lg-5 col-md-6 d-flex align-items-center">
+                <div class="ms-5 me-4">
+                    <h1>Descúbrenos</h1>
+                    <p id="descu">Somos la principal elección en el Perú cuando se trata de todo lo relacionado con
+                        motocicletas.
+                        Nuestra concesionaria se especializa en la comercialización de motos, piezas de repuesto, y
+                        accesorios, brindando todo lo que tu hevículo de dos ruedas pueda requerir.</p>
+                </div>
+            </div>
+
+
+            <div class="col-lg-7 col-md-6 mt-0">
+                <div style="margin-right: -12px;">
+                    <div id="carouselExampleInterval" class="carousel slide mt-0 me-0 ms-10" data-bs-ride="carousel">
+                        <div class="carousel-inner mt-0">
+                            <div class="carousel-item active" data-bs-interval="4000">
+                                <img src="/static/img/carrusel_moto1.webp" class="d-block w-100" alt="1">
+                            </div>
+                            <div class="carousel-item" data-bs-interval="4000">
+                                <img src="/static/img/carrusel_moto2.webp" class="d-block w-100" alt="2">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/static/img/carrusel_moto3.webp" class="d-block w-100" alt="3">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/static/img/carrusel_moto5.webp" class="d-block w-100" style="height: 425px;"
+                                    alt="5">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="mt-5 ms-5 mb-4 nov">
+            <h1>Novedades</h1>
+
+        </div>
+    </div>
+
+    <div class="row ms-5 me-5">
+
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="cardGrande" data-anijs="if: mouseover, do: pulse animated" style="height: 100%;">
+                <div class="card" style="width: 100%;">
+                    <a href="detalleProducto.html"><img src="/static/img/1.png" class="card-img-top img_prod"
+                            alt="1"></a>
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="card-title nombre_prod" style="text-align: center;">125Z</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precioTac">S/. 7,500.00</h6>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precio">S/. <span class="precio_prod">6000.00</span></h6>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="cardGrande" data-anijs="if: mouseover, do: pulse animated" style="height: 100%;">
+                <!-- buscar dentro del cardGrande -->
+                <div class="card" style="width: 100%; height: 100%;">
+                    <a href="detalleProducto.html"><img src="/static/img/2.png" class="card-img-top img_prod" id=""
+                            alt="2"></a>
+                    <div class="card-body">
+                        <div class="row mt-4">
+                            <h5 class="card-title nombre_prod" style="text-align:center;">200 DUKE 2022</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precioTac">S/. 15,000.00</h6>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precio">S/. <span class="precio_prod">11500.00</span></h6>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mt-5 ms-5 me-5">
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="cardMediano" data-anijs="if: mouseover, do: pulse animated" style="height: 100%;">
+                <div class="card" style="width: 100%; height: 100%;">
+                    <div class="row">
+                        <a href="detalleProducto.html"><img src="/static/img/3 (2).png" class="card-img-top img_prod"
+                                alt="2"></a>
+                    </div>
+                    <div class="card-body mt-3">
+                        <h5 class="card-title nombre_prod" style="text-align: center;">N250 - 2023</h5>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precioTac">S/. 14,000.00</h6>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precio">S/. <span class="precio_prod">11800.00</span></h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="cardMediano" data-anijs="if: mouseover, do: pulse animated" style="height: 100%;">
+                <div class="card" style="width: 100%; height: 100%;">
+                    <a href="detalleProducto.html"><img src="/static/img/4 (2).png" class="card-img-top img_prod"
+                            alt="2"></a>
+                    <div class="card-body">
+                        <div class="row mt-3">
+                            <h5 class="card-title nombre_prod" style="text-align: center;">DOMINAR 250 - 2023</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precioTac">S/. 16,000.00</h6>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precio">S/. <span class="precio_prod">14200.00</span></h6>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-12">
+            <div class="cardMediano" data-anijs="if: mouseover, do: pulse animated" style="height: 100%;">
+                <div class="card" style="width: 100%; height: 100%;">
+                    <div class="row">
+                        <a href="detalleProducto.html"><img src="/static/img/5 (2).png" class="card-img-top img_prod"
+                                alt="2"></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="card-title nombre_prod" style="text-align: center;">GIXXER SF 150</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precioTac">S/. 11,000.00</h6>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precio">S/. <span class="precio_prod">10100.00</span></h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5 mb-4 ms-5 me-5">
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="cardPequeño" data-anijs="if: mouseover, do: pulse animated" style="height: 100%;">
+                <div class="card" style="width: 100%; height: 100%;">
+                    <div class="row">
+                        <a href="detalleProducto.html"><img src="/static/img/6 (2).png" class="card-img-top img_prod"
+                                alt="2"></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="card-title nombre_prod" style="text-align: center;">BAJAJ DOMINAR 250</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precioTac">S/. 15,653.00</h6>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precio">S/. <span class="precio_prod">13900.00</span></h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="cardPequeño" data-anijs="if: mouseover, do: pulse animated" style="height: 100%;">
+                <div class="card" style="width: 100%; height: 100%;">
+                    <div class="row">
+                        <a href="detalleProducto.html"><img src="/static/img/7.png" class="card-img-top img_prod"
+                                alt="2"></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="card-title nombre_prod" style="text-align: center;">CF MOTO 450 SR</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precioTac">S/. 26,500.00</h6>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precio">S/. <span class="precio_prod">23850.00</span></h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="cardPequeño" data-anijs="if: mouseover, do: pulse animated" style="height: 100%;">
+                <div class="card" style="width: 100%; height: 100%;">
+                    <div class="row">
+                        <a href="detalleProducto.html"><img src="/static/img/8.png" class="card-img-top img_prod"
+                                alt="2"></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="card-title nombre_prod" style="text-align: center;">BAJAJ DOMINAR 400</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precioTac">S/. 19,300.00</h6>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precio">S/. <span class="precio_prod">18400.00</span></h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="cardPequeño" data-anijs="if: mouseover, do: pulse animated" style="height: 100%;">
+                <div class="card" style="width: 100%; height: 100%;">
+                    <div class="row">
+                        <a href="detalleProducto.html"><img src="/static/img/9.png" class="card-img-top img_prod"
+                                alt="2"></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="card-title nombre_prod" style="text-align: center;">HONDA CB 190 REPSOL</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precioTac">S/. 12,900.00</h6>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precio">S/. <span class="precio_prod">10000.00</span></h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="mt-5 mb-0 nov">
+            <h1>Lo más vendido en Accesorios</h1>
+
+        </div>
+    </div>
+
+    <div class="row mt-4 mb-4 ms-5 me-5">
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="cardPequeño2" data-anijs="if: mouseover, do: pulse animated" style="height: 100%;">
+                <div class="card" style="width: 100%; height: 100%;">
+                    <div class="row">
+                        <a href="detalleProducto.html"><img src="/static/img/cascohr.png" class="card-img-top img_prod"
+                                alt="2"></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="card-title nombre_prod" style="text-align: center;">CASCO HRO - MX330DV</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precioTac">S/. 420.00</h6>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precio">S/. <span class="precio_prod">350.00</span></h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="cardPequeño2" data-anijs="if: mouseover, do: pulse animated" style="height: 100%;">
+                <div class="card" style="width: 100%; height: 100%;">
+                    <div class="row">
+                        <a href="detalleProducto.html"><img src="/static/img/guantescpy.png"
+                                class="card-img-top img_prod" alt="2"></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="card-title nombre_prod" style="text-align: center;">GUANTE SCOYCO MC75</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precioTac">S/. 150.00</h6>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precio">S/. <span class="precio_prod">110.00</span></h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="cardPequeño2" data-anijs="if: mouseover, do: pulse animated" style="height: 100%;">
+                <div class="card" style="width: 100%; height: 100%;">
+                    <div class="row">
+                        <a href="detalleProducto.html"><img src="/static/img/cajuelain.png"
+                                class="card-img-top img_prod" alt="2"></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="card-title nombre_prod" style="text-align: center;">CAJUELA BOX 45LT</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precioTac">S/. 675.00</h6>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precio">S/. <span class="precio_prod">500.00</span></h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="cardPequeño2" data-anijs="if: mouseover, do: pulse animated" style="height: 100%;">
+                <div class="card" style="width: 100%; height: 100%;">
+                    <div class="row">
+                        <a href="detalleProducto.html"><img src="/static/img/lentes.png" class="card-img-top img_prod"
+                                alt="2"></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="card-title nombre_prod" style="text-align: center;">LENTES KTM</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precioTac">S/. 300.00</h6>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precio">S/. <span class="precio_prod">200.00</span></h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="mt-5 mb-0 nov">
+            <h1>Lo más vendido en llantas</h1>
+
+        </div>
+    </div>
+
+    <div class="row mt-4 mb-5 ms-5 me-5">
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="cardPequeño2" data-anijs="if: mouseover, do: pulse animated" style="height: 100%;">
+                <div class="card" style="width: 100%; height: 100%;">
+                    <div class="row">
+                        <a href="detalleProducto.html"><img src="/static/img/llanta1.png" class="card-img-top img_prod"
+                                alt="2"></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="card-title nombre_prod" style="text-align: center;">PILOT STREET RADIAL</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precioTac">S/. 500.00</h6>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precio">S/. <span class="precio_prod">450.00</span></h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="cardPequeño2" data-anijs="if: mouseover, do: pulse animated" style="height: 100%;">
+                <div class="card" style="width: 100%; height: 100%;">
+                    <div class="row">
+                        <a href="detalleProducto.html"><img src="/static/img/llanta2.png" class="card-img-top img_prod"
+                                alt="2"></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="card-title nombre_prod" style="text-align: center;">POWER GP</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precioTac">S/. 630.00</h6>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precio">S/. <span class="precio_prod">480.00</span></h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="cardPequeño2" data-anijs="if: mouseover, do: pulse animated" style="height: 100%;">
+                <div class="card" style="width: 100%; height: 100%;">
+                    <div class="row">
+                        <a href="detalleProducto.html"><img src="/static/img/llanta3.png" class="card-img-top img_prod"
+                                alt="2"></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="card-title nombre_prod" style="text-align: center;">POWER CUP EVO</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precioTac">S/. 440.00</h6>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precio">S/. <span class="precio_prod">350.00</span></h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="cardPequeño2" data-anijs="if: mouseover, do: pulse animated" style="height: 100%;">
+                <div class="card" style="width: 100%; height: 100%;">
+                    <div class="row">
+                        <a href="detalleProducto.html"><img src="/static/img/llanta4.png" class="card-img-top img_prod"
+                                alt="2"></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="card-title nombre_prod" style="text-align: center;">PILOT ROAD 4 GT</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precioTac">S/. 530.00</h6>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <h6 class="precio">S/. <span class="precio_prod">400.00</span></h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="descuentos">
+        <div class="row mt-3">
+            <div class="mt-5 mb-0 text-center">
+                <h3>RECIBE DESCUENTOS ESPECIALES</h3>
+
+            </div>
+        </div>
+        <div class="row d-flex align-items-center mb-5">
+            <div>
+
+            </div>
+            <div class="col-lg-2 col-md-0">
+
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="input-group flex-nowrap py-2">
+                    <span class="input-group-text" id="addon-wrapping"><i
+                            class="fa-regular fa-envelope fa-xl"></i></span>
+                    <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                        aria-describedby="addon-wrapping">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-5">
+                <div class="input-group flex-nowrap mx-2">
+                    <span class="input-group-text" id="addon-wrapping">+51</span>
+                    <input type="text" class="form-control" placeholder="Numero Telefónico" aria-label="Username"
+                        aria-describedby="addon-wrapping">
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-1">
+                <button type="button" class="btn btn-primary">SUSCRIBIRTE</button>
+
+            </div>
+            <div class="col-lg-2 col-md-0">
+
+            </div>
+
+        </div>
+
+
+        <div class="row container-fluid mx-0" style="background: #72A2BE;">
+            <div class="col-lg-3 col-md-6 col-sm-12 mt-5 ms-4 me-3">
+                <ul class="list-group">
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1 py-1"><iframe
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1981.0094960514577!2d-79.8491092263135!3d-6.767538082152489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2spe!4v1699890278132!5m2!1ses-419!2spe"
+                            width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe></li>
+                    <li class="list-inline-item py-1" style="color: #213140;"
+                        data-anijs="if: mouseover, do: pulse animated">Direccion 1: Casa de Ñofi</li>
+                    <li class="list-inline-item py-1" style="color: #213140;"
+                        data-anijs="if: mouseover, do: pulse animated">Direccion 2: Choza de Chiscol</li>
+                    <li class="list-inline-item py-1" style="color: #213140;"
+                        data-anijs="if: mouseover, do: pulse animated">Telefono: 074 231613</li>
+                    <li class="list-inline-item py-1" style="color: #213140;"
+                        data-anijs="if: mouseover, do: pulse animated">Celular: +51 968 633 311</li>
+                </ul>
+            </div>
+
+            <!-- Acerca de nosotros-->
+            <div class="col-lg-3 col-md-6 col-sm-12 mt-5 ms-5 me-3">
+                <h5 class="h5  fw-bold" style="color: #213140;">Acerca de Nosotros</h5>
+                <ul class="list-group">
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                            href="nosotros.html" style="text-decoration: none;color: #213140;">Nosotros</a>
+                    </li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
+                            style="text-decoration: none; color: #213140;">Soporte
+                            Tecnico</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
+                            style="text-decoration: none;color: #213140;">Redes
+                            Sociales</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><i
+                            class="fa-brands fa-square-facebook fa-2xl"></i> <i
+                            class="fa-brands fa-instagram fa-2xl"></i> <i class="fa-brands fa-whatsapp fa-2xl"></i>
+                    </li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1">Correo: <a href=""
+                            style="text-decoration: none; color: #213140;">marco123@gmail.com</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                            href="autores.html" style="text-decoration: none;color: #213140;">Autores</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Informacion -->
+            <div class="col-lg-3 col-md-6 col-sm-12 mt-5">
+                <h5 class="h5 fw-bold">
+                    Informacion
+                </h5>
+                <ul class="list-group">
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                            href="preguntasFrecuentes.html" style="text-decoration: none; color: #213140;">Terminos
+                            y
+                            condiciones</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                            href="terminosGarantia.html" style="text-decoration: none;color: #213140;">Terminos
+                            de
+                            Garantia</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                            href="libroReclamaciones.html" style="text-decoration: none;color: #213140;">Libro
+                            de
+                            Reclamos</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
+                            style="text-decoration: none;color: #213140;">Politicas
+                            de
+                            privacidad</a></li>
+                </ul>
+            </div>
+
+            <!-- metodos de pago -->
+            <div class="col-lg-2 col-md-6 col-sm-12 mt-5">
+                <h5 class="h5 fw-bold">
+                    Pagos online
+                </h5>
+                <ul class="list-group">
+                    <li class="list-inline-item"><img src="/static/img/american-express.png" alt=""> American Express
+                    </li>
+                    <li class="list-inline-item"><img src="/static/img/mastercard.png" alt=""> Mastercard</li>
+                    <li class="list-inline-item"><img src="/static/img/visa.png" alt=""> Visa</li>
+                    <li class="list-inline-item"><img src="/static/img/paypal.png" alt=""> PayPal</li>
+                </ul>
+
+            </div>
+            <div class="row mt-4" style="text-align: right;">
+                <h6>Última Actualización: 06/12/2023</h6>
+            </div>
+            <div class="row mt-3">
+                <h6
+                    style="font-weight: bold; text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    Copyright 2023 © CicloRiders. Todos los derechos Reservados</h6>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script src="/static/js/anijs-min.js"></script>
+
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/carrito.js"></script>
+
+</html>

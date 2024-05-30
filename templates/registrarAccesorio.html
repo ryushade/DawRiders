@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/anicollection.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/index_flask.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Registrar Accesorio - Admin</title>
+</head>
+
+<body id="bod">
+    
+    <div class="container-fluid mb-3" id="header">
+        <div class="row py-3 d-flex align-items-center" style="background: #4A748C;">
+            <div class="col-lg-3 col-md-6 d-flex justify-content-center">
+                <img src="/static/img/logocicloriders_2-removebg-preview 1.png"
+                    style="width: 180px; margin-top:0px; margin-bottom: 0px;" alt="logo"
+                    data-anijs="if: mouseover, do: pulse animated">
+            </div>
+            <div class="col-lg-5 col-md-6">
+                <nav class="">
+                    <div class="container-fluid">
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2 w-100" type="search" placeholder="Search"
+                                aria-label="Search">
+                            <button data-anijs="if: mouseover, do: pulse animated" class="btn" type="submit"><i
+                                    class="fa-solid fa-magnifying-glass fa-2xl"></i></button>
+
+                        </form>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-4 col-md-12 row container text-center my-1">
+                <div class="container col">
+                    <a href="{{url_for('formulario_login_cliente')}}"><i data-anijs="if: mouseover, do: pulse animated"
+                            class="fa-regular fa-user fa-3x" style="color: #212529;"></i></a>
+                </div>
+                <div class="container col">
+                    <a href="{{url_for('formulario_comparar')}}"><i data-anijs="if: mouseover, do: pulse animated"
+                            class="fa-solid fa-money-bill-transfer fa-3x" style="color: #212529;"></i></a>
+                </div>
+                <div class="container col">
+                    <a href="{{url_for('formulario_carrito')}}"><i data-anijs="if: mouseover, do: pulse animated"
+                            class="fa-solid fa-cart-shopping fa-3x" style="color: #212529;"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row py-2" id="navbar" style="background: #213140;">
+            <ul class="nav justify-content-center">
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" aria-current="page"
+                        href="{{url_for('formulario_principal')}}" style="color: white; font-size: 14px;">INICIO</a>
+                </li>
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="{{url_for('formulario_registrar_moto')}}"
+                        style="color: white; font-size: 14px;">REGISTRAR MOTO</a>
+                </li>
+
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="{{url_for('listar_motos')}}"
+                        style="color: white; font-size: 14px;">LISTAR MOTO REGISTRADA</a>
+                </li>
+
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="{{url_for('formulario_registrar_accesorio')}}"
+                        style="color: white; font-size: 14px;">REGISTRAR ACCESORIO</a>
+                </li>
+
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="{{url_for('listar_accesorios')}}"
+                        style="color: white; font-size: 14px;">LISTAR ACCESORIO REGISTRADO</a>
+                </li>
+
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="{{url_for('listar_productosM')}}"
+                        style="color: white; font-size: 14px;">LISTAR PRODUCTOS - MOTOS</a>
+                </li>
+
+                <li class="nav-item px-3">
+                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="{{url_for('listar_productosA')}}"
+                        style="color: white; font-size: 14px;">LISTAR PRODUCTOS - ACCESORIOS</a>
+                </li>
+
+                <li data-anijs="if: mouseover, do: pulse animated" class="nav-item px-3">
+                    <a class="nav-link barra" href=""
+                        style="color: white; font-size: 14px;">MANTENIMIENTO</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <form class="ms-4" method="post" action="{{url_for('guardar_accesorio')}}">
+
+        <div class="row ms-3 me-3 mt-5 me-5">
+            <div class="col-lg-12">
+                <h6>Codigo de Accesorio</h6>
+                <div class="input-group mb-3">
+                    <input  type="text" class="form-control" placeholder="Codigo de Accesorio" aria-label="Username"
+                        aria-describedby="basic-addon1" name="codaccesorio" id="codaccesorio">
+                </div>
+            </div>
+        </div>
+
+        <div class="row ms-3 me-3 mt-5 me-5">
+            <div class="col-lg-6">
+                <h6>Tipo de Accesorio</h6>
+                <div class="input-group mb-3">
+                    <input  type="text" class="form-control" placeholder="Posición de Manejo" aria-label="Username"
+                        aria-describedby="basic-addon1" name="tipo" id="tipo">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h6>Material de Accesorio</h6>
+                <div class="input-group mb-3">
+                    <input  type="text" class="form-control" placeholder="Material" aria-label="Username"
+                        aria-describedby="basic-addon1" name="material" id="material">
+                </div>
+            </div>
+        </div>
+
+        <div class="row ms-3 me-3 mt-5 me-5">
+            <div class="col-lg-4">
+                <h6>Descripcion</h6>
+                <div class="input-group mb-3">
+                    <input  type="text" class="form-control" placeholder="Descripcion" aria-label="Username"
+                        aria-describedby="basic-addon1" name="descripcion" id="descripcion">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h6>Precio</h6>
+                <div class="input-group mb-3">
+                    <input  type="float" class="form-control" placeholder="Precio" aria-label="Username"
+                        aria-describedby="basic-addon1" name="precio" id="precio">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h6>Stock</h6>
+                <div class="input-group mb-3">
+                    <input  type="number" class="form-control" placeholder="Stock" aria-label="Username"
+                        aria-describedby="basic-addon1" name="stock" id="stock">
+                </div>
+            </div>
+        </div>
+
+        <div class="row ms-3 me-3 mt-5 me-5">
+            <div class="col-lg-4">
+                <h6>Marca</h6>
+                <div class="input-group mb-3">
+                    <input  type="text" class="form-control" placeholder="Marca" aria-label="Username"
+                        aria-describedby="basic-addon1" name="marca" id="marca">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h6>Modelo</h6>
+                <div class="input-group mb-3">
+                    <input  type="float" class="form-control" placeholder="Modelo" aria-label="Username"
+                        aria-describedby="basic-addon1" name="modelo" id="modelo">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h6>Color</h6>
+                <div class="input-group mb-3">
+                    <input  type="float" class="form-control" placeholder="Color" aria-label="Username"
+                        aria-describedby="basic-addon1" name="color" id="color">
+                </div>
+            </div>
+        </div>
+
+        <div class="row ms-3 me-3 mt-5 me-5">
+            <div class="col-lg-12">
+                <h6>Imagen</h6>
+                <div class="input-group mb-3">
+                    <input  type="float" class="form-control" placeholder="Imagen" aria-label="Username"
+                        aria-describedby="basic-addon1" name="imagen" id="imagen">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5 mt-5 ms-5 me-5">
+            <div class="col-lg-6">
+                 <button type="submit" style="width: 100%;" class="btn btn-primary"><a style="color: white;text-decoration:none" href="{{url_for('formulario_registrar_accesorio')}}" class="button is-primary mt-2">Registrar</a></button>
+
+             </div> 
+             <div class="col-lg-6">
+                 <button type="button" style="width: 100%;"  class="btn btn-primary"><a style="color: white;text-decoration:none" href="{{url_for('formulario_registrar_accesorio')}}" class="button is-primary mt-2">Cancelar</a></button>
+
+             </div>
+         </div>
+
+    </form>
+
+    <div id="descuentos">
+        <div class="row mt-5">
+            <div class="mt-5 mb-0 text-center">
+                <h3>RECIBE DESCUENTOS ESPECIALES</h3>
+
+            </div>
+        </div>
+        <div class="row d-flex align-items-center mb-5">
+            <div>
+
+            </div>
+            <div class="col-lg-2 col-md-0">
+
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="input-group flex-nowrap py-2">
+                    <span class="input-group-text" id="addon-wrapping"><i
+                            class="fa-regular fa-envelope fa-xl"></i></span>
+                    <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                        aria-describedby="addon-wrapping">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-5">
+                <div class="input-group flex-nowrap mx-2">
+                    <span class="input-group-text" id="addon-wrapping">+51</span>
+                    <input type="text" class="form-control" placeholder="Numero Telefónico" aria-label="Username"
+                        aria-describedby="addon-wrapping">
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-1">
+                <button type="button" class="btn btn-primary">SUSCRIBIRTE</button>
+
+            </div>
+            <div class="col-lg-2 col-md-0">
+
+            </div>
+
+        </div>
+
+
+        <div class="row container-fluid mx-0" style="background: #72A2BE;">
+            <div class="col-lg-3 col-md-6 col-sm-12 mt-5 ms-4 me-3">
+                <ul class="list-group">
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1 py-1"><iframe
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1981.0094960514577!2d-79.8491092263135!3d-6.767538082152489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2spe!4v1699890278132!5m2!1ses-419!2spe"
+                            width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe></li>
+                    <li class="list-inline-item py-1" style="color: #213140;"
+                        data-anijs="if: mouseover, do: pulse animated">Direccion 1: Casa de Ñofi</li>
+                    <li class="list-inline-item py-1" style="color: #213140;"
+                        data-anijs="if: mouseover, do: pulse animated">Direccion 2: Choza de Chiscol</li>
+                    <li class="list-inline-item py-1" style="color: #213140;"
+                        data-anijs="if: mouseover, do: pulse animated">Telefono: 074 231613</li>
+                    <li class="list-inline-item py-1" style="color: #213140;"
+                        data-anijs="if: mouseover, do: pulse animated">Celular: +51 968 633 311</li>
+                </ul>
+            </div>
+
+            <!-- Acerca de nosotros-->
+            <div class="col-lg-3 col-md-6 col-sm-12 mt-5 ms-5 me-3">
+                <h5 class="h5  fw-bold" style="color: #213140;">Acerca de Nosotros</h5>
+                <ul class="list-group">
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                            href="nosotros.html" style="text-decoration: none;color: #213140;">Nosotros</a>
+                    </li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
+                            style="text-decoration: none; color: #213140;">Soporte
+                            Tecnico</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
+                            style="text-decoration: none;color: #213140;">Redes
+                            Sociales</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><i
+                            class="fa-brands fa-square-facebook fa-2xl"></i> <i
+                            class="fa-brands fa-instagram fa-2xl"></i> <i class="fa-brands fa-whatsapp fa-2xl"></i>
+                    </li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1">Correo: <a href=""
+                            style="text-decoration: none; color: #213140;">marco123@gmail.com</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                            href="autores.html" style="text-decoration: none;color: #213140;">Autores</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Informacion -->
+            <div class="col-lg-3 col-md-6 col-sm-12 mt-5">
+                <h5 class="h5 fw-bold">
+                    Informacion
+                </h5>
+                <ul class="list-group">
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                            href="preguntasFrecuentes.html" style="text-decoration: none; color: #213140;">Terminos
+                            y
+                            condiciones</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                            href="terminosGarantia.html" style="text-decoration: none;color: #213140;">Terminos
+                            de
+                            Garantia</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
+                            href="libroReclamaciones.html" style="text-decoration: none;color: #213140;">Libro
+                            de
+                            Reclamos</a></li>
+                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
+                            style="text-decoration: none;color: #213140;">Politicas
+                            de
+                            privacidad</a></li>
+                </ul>
+            </div>
+
+            <!-- metodos de pago -->
+            <div class="col-lg-2 col-md-6 col-sm-12 mt-5">
+                <h5 class="h5 fw-bold">
+                    Pagos online
+                </h5>
+                <ul class="list-group">
+                    <li class="list-inline-item"><img src="/static/img/american-express.png" alt=""> American Express</li>
+                    <li class="list-inline-item"><img src="/static/img/mastercard.png" alt=""> Mastercard</li>
+                    <li class="list-inline-item"><img src="/static/img/visa.png" alt=""> Visa</li>
+                    <li class="list-inline-item"><img src="/static/img/paypal.png" alt=""> PayPal</li>
+                </ul>
+
+            </div>
+            <div class="row mt-4" style="text-align: right;">
+                <h6>Última Actualización: 06/12/2023</h6>
+            </div>
+            <div class="row mt-3">
+                <h6
+                    style="font-weight: bold; text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    Copyright 2023 © CicloRiders. Todos los derechos Reservados</h6>
+            </div>
+        </div>
+    </div>
+
+</body>
