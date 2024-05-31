@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash, jsonify, url_for, session,json  
+from flask import Flask, render_template, request, redirect, flash, jsonify, url_for, session,json
 from flask_login import login_user
 import os
 import controlador_pago
@@ -6,14 +6,21 @@ from bd import obtener_conexion
 
 import urllib
 import os
-import controlador_cliente 
+import controlador_cliente
 import controlador_moto
 import controlador_producto
 import controlador_accesorio
 import controlador_carrito
+import controlador_administrador
+from clases.clase_moto import clsMoto
+from clases.clase_cliente import clsCliente
+from clases.clase_administrador import clsAdministrador
+from clases.clase_carrito import clsItemCarrito
+from clases.clase_venta1 import clsVenta1
+
 app = Flask(__name__, static_folder='static')
 
-app.secret_key = '1234' 
+app.secret_key = '1234'
 
 @app.route("/")
 @app.route("/CicloRiders")
@@ -87,7 +94,7 @@ def guardar_cliente():
 
     controlador_cliente.insertar_cliente(nombre, apellidos, email, contraseña, telefono)
     # De cualquier modo, y si todo fue bien, redireccionar
-    return redirect("/crud_cliente")
+    return redirect("/login")
 
 @app.route("/eliminar_cliente", methods=["POST"])
 def eliminar_cliente():
@@ -105,7 +112,7 @@ def procesar_login():
     contraseña = request.form["contraseña"]
     usuario = controlador_cliente.obtener_usuario_por_email(email)
 
-    if usuario['contraseña'] == contraseña:        
+    if usuario['contraseña'] == contraseña:
         session['user_id'] = usuario['id']
         session['is_admin'] = usuario['is_admin']  # This is now coming directly from your query
         if usuario['is_admin']:
@@ -113,10 +120,103 @@ def procesar_login():
             return redirect(url_for("crud_moto"))
         else:
             flash('Login exitoso', 'success')
-            return redirect(url_for("index"))
+            return redirect("/login")
     else:
         flash('Error al logearse. Intente nuevamente', 'error')
         return render_template("login.html")
+
+@app.route("/api_obteneradministrador")
+def api_obteneradministrador():
+    rpta = dict()
+    try:
+        listaadmin = list()
+        administradores = controlador_administrador.obtener_administradores()
+
+        for administrador in administradores:
+            print(administrador)
+
+            objAdmin = clsAdministrador(administrador[0], administrador[1], administrador[2])
+            listaadmin.append(objAdmin.diccadmin)
+
+        rpta["code"] = 1
+        rpta["message"] = "Listado correcto de Administradores registrados"
+        rpta["data"] = listaadmin
+        return jsonify(rpta)
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Problemas en el servicio web: {str(e)}"
+        rpta["data"] = dict()
+        return jsonify(rpta)
+
+
+@app.route("/api_guardaradministrador", methods=["POST"])
+def api_guardaradministrador():
+    rpta = dict()
+    try:
+        cliente_id = request.json["cliente_id"]
+        fecha_asignacion = request.json["fecha_asignacion"]
+
+        idgenerado = controlador_administrador.insertar_administrador(cliente_id, fecha_asignacion)
+
+        rpta["code"] = 1
+        rpta["message"] = "Administrador registrado correctamente. "
+        rpta["data"] = {"idgenerado" : idgenerado}
+
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = "Ocurrió un problema: " + repr(e)
+        rpta["data"] = dict()
+    return rpta
+
+ ####APIS CLIENTE ####
+
+@app.route("/api_obtener_cliente")
+def api_obtener_cliente():
+    response = dict()
+    try:
+        datos = []
+        clientes = controlador_cliente.obtener_clientes()
+        for cliente in clientes:
+            if len(cliente) != 6:
+                raise ValueError(f"Esperaba 6 elementos, pero recibí {len(cliente)} elementos: {cliente}")
+
+            miobjcli = clsCliente(cliente[0], cliente[1], cliente[2], cliente[3], cliente[4], cliente[5])
+            datos.append(miobjcli.obtenerObjetoSerializable())
+
+        response["data"] = datos
+        response["status"] = 1
+        response["message"] = "Correcto listado de cliente"
+    except Exception as e:
+        response["data"] = []
+        response["status"] = 0
+        response["message"] = f"Problemas en el servicio web: {str(e)}"
+    return jsonify(response)
+
+
+@app.route("/api_guardar_cliente", methods=["POST"])
+def api_guardar_cliente():
+	try:
+		nombre, apellidos, email, contraseña, telefono = (
+			request.json["nombre"],
+			request.json["apellidos"],
+			request.json["email"],
+			request.json["contraseña"],
+			request.json["telefono"],
+		)
+
+		controlador_cliente.insertar_cliente(nombre, apellidos, email, contraseña, telefono)
+		datos = []
+		return jsonify({"data": datos, "code": 1, "message": "Cliente registrado correctamente"})
+	except Exception as e:
+		return jsonify({"data": None, "code": 0, "message": f"Error al registrar el vendedor: {str(e)}"}), 500
+
+
+
+
+
+
+
+
 
 # ---------------MOTO------------------------
 @app.route("/registrarMoto")
@@ -162,10 +262,71 @@ def guardar_moto():
         controlador_producto.insertar_producto(descripcion, precio, stock, marca, modelo, color, imagen_codificada, idMoto, None)
 
         return redirect("/crud_producto")
-    
+
     except Exception as e:
         error_message = f"Error al guardar la moto: {str(e)}"
         return error_message
+
+
+@app.route("/api_obtenermotos")
+def api_obtenermotos():
+    rpta = dict()
+    try:
+        listamotos = list()
+        motos = controlador_moto.obtener_motos_api()
+
+        for moto in motos:
+            print(moto)
+
+            if len(moto) != 14:
+                raise ValueError(f"Esperaba 14 elementos, pero recibí {len(moto)} elementos: {moto}")
+
+            objMoto = clsMoto(moto[0], moto[1], moto[2],
+                              moto[3], moto[4], moto[5],
+                              moto[6], moto[7], moto[8],
+                              moto[9], moto[10], moto[11],
+                              moto[12], moto[13])
+            listamotos.append(objMoto.diccmoto)
+
+        rpta["code"] = 1
+        rpta["message"] = "Listado correcto de Motos registradas"
+        rpta["data"] = listamotos
+        return jsonify(rpta)
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Problemas en el servicio web: {str(e)}"
+        rpta["data"] = dict()
+        return jsonify(rpta)
+
+@app.route("/api_guardarmoto", methods=["POST"])
+def api_guardarmoto():
+    rpta = dict()
+    try:
+        codmoto = request.json["codmoto"]
+        tipo = request.json["tipo"]
+        posicionManejo = request.json["posicionManejo"]
+        numAsientos = request.json["numAsientos"]
+        numPasajeros = request.json["numPasajeros"]
+        largo = request.json["largo"]
+        ancho = request.json["ancho"]
+        alto = request.json["alto"]
+        tipoMotor = request.json["tipoMotor"]
+        combustible = request.json["combustible"]
+        numCilindros = request.json["numCilindros"]
+        capacidadTanque = request.json["capacidadTanque"]
+        rendimiento = request.json["rendimiento"]
+        idgenerado = controlador_moto.insertar_moto(codmoto, tipo, posicionManejo, numAsientos, numPasajeros, largo, ancho, alto, tipoMotor, combustible, numCilindros, capacidadTanque, rendimiento)
+
+        rpta["code"] = 1
+        rpta["message"] = "Moto registrado correctamente. "
+        rpta["data"] = {"idgenerado" : idgenerado}
+
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = "Ocurrió un problema: " + repr(e)
+        rpta["data"] = dict()
+    return rpta
+
 
 @app.route("/crud_moto")
 def crud_moto():
@@ -209,7 +370,7 @@ def guardar_accesorio():
         controlador_producto.insertar_producto(descripcion, precio, stock, marca, modelo, color, imagen, None, idAccesorio)
 
         return redirect("/")
-    
+
     except Exception as e:
         error_message = f"Error al guardar el accesorio: {str(e)}"
         return error_message
@@ -257,7 +418,7 @@ def agregar_carrito():
     try:
         with conexion.cursor() as cursor:
             # Primero, crea un nuevo carrito y obtén su ID
-            cursor.execute("INSERT INTO carrito (/* campos necesarios */) VALUES (/* valores */)")
+            cursor.execute("INSERT INTO CARRITO (/* campos necesarios */) VALUES (/* valores */)")
             idCarrito = cursor.lastrowid
 
             # Luego, inserta el ítem en el carrito
@@ -276,6 +437,59 @@ def agregar_carrito():
 def formulario_detalle_categoria():
     productosm = controlador_producto.obtener_moto_producto()
     return render_template("categorias.html" , productosm=productosm)
+
+
+
+@app.route("/api_obteneritemcarrito")
+def api_obteneritemcarrito():
+    rpta = dict()
+    try:
+        listaitemcarrito = list()
+        itemcarrito = controlador_carrito.obtener_carrito_api()
+
+        if len(itemcarrito) == 0:
+            rpta["code"] = 1
+            rpta["message"] = "El carrito está vacío"
+            rpta["data"] = listaitemcarrito
+            return jsonify(rpta)
+
+        for carrito in itemcarrito:
+            objCarrito = clsItemCarrito(carrito[0], carrito[1], carrito[2],
+                              carrito[3], carrito[4], carrito[5])
+            listaitemcarrito.append(objCarrito.diccItemCarrito)
+
+        rpta["code"] = 1
+        rpta["message"] = "Listado correcto de items carrito"
+        rpta["data"] = listaitemcarrito
+        return jsonify(rpta)
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Problemas en el servicio web: {str(e)}"
+        rpta["data"] = dict()
+        return jsonify(rpta)
+
+@app.route("/api_guardarcarrito", methods=["POST"])
+def api_guardarcarrito():
+    rpta = dict()
+    try:
+        idCarrito = request.json["idCarrito"]
+        idProducto = request.json["idProducto"]
+        cantidad = request.json["cantidad"]
+        precioPorUnidad = request.json["precioPorUnidad"]
+        subtotal = request.json["subtotal"]
+        idgenerado = controlador_carrito.insertar_carrito(idCarrito, idProducto, cantidad, precioPorUnidad, subtotal)
+
+        rpta["code"] = 1
+        rpta["message"] = "Item carrito registrado correctamente. "
+        rpta["data"] = {"idgenerado" : idgenerado}
+
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = "Ocurrió un problema: " + repr(e)
+        rpta["data"] = dict()
+    return rpta
+
+
 
 #######
 
@@ -299,7 +513,7 @@ def eliminar_productoA():
 @app.route("/pago")
 def formulario_pago():
     items = controlador_carrito.obtener_items_carrito()
-    
+
     return render_template("pago.html", items=items)
 
 @app.route("/actualizar_productoM", methods=["POST"])
@@ -351,7 +565,7 @@ def actualizar_productoA():
     codaccesorio = request.form["codaccesorio"]#8
     tipo = request.form["tipo"]
     material = request.form["material"]
-    
+
     idAccesorio = controlador_accesorio.obtener_cod_accesorio(codaccesorio)
     idProducto = controlador_accesorio.obtener_cod_accesorio(codaccesorio)
 
@@ -399,6 +613,69 @@ def guardar_venta():
         controlador_pago.insertar_venta(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final)
 
         return redirect("/compra_exitosa")
+
+
+@app.route("/api_obtenerventa1")
+def api_obtenerventa1():
+    rpta = dict()
+    try:
+        listaventa1 = list()
+        venta1 = controlador_pago.obtener_venta_por_id_api()
+
+        if venta1 is None:
+            venta1 = []
+
+        if len(venta1) == 0:
+            rpta["code"] = 1
+            rpta["message"] = "No hay datos de venta disponibles"
+            rpta["data"] = listaventa1
+            return jsonify(rpta)
+
+        for venta in venta1:
+            objVenta1 = clsItemCarrito(venta[0], venta[1], venta[2],
+                              venta[3], venta[4], venta[5], venta[6], venta[7], venta[8],
+                              venta[9], venta[10], venta[11], venta[12], venta[13], venta[14])
+            listaventa1.append(objVenta1.diccVenta1)
+
+        rpta["code"] = 1
+        rpta["message"] = "Listado correcto de la venta"
+        rpta["data"] = listaventa1
+        return jsonify(rpta)
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Problemas en el servicio web: {str(e)}"
+        rpta["data"] = dict()
+        return jsonify(rpta)
+
+@app.route("/api_guardarventa", methods=["POST"])
+def api_guardarventa():
+    rpta = dict()
+    try:
+        nombre = request.json["nombre"]
+        apellidos = request.json["apellidos"]
+        pais = request.json["pais"]
+        direccion = request.json["direccion"]
+        region = request.json["region"]
+        localidad = request.json["localidad"]
+        telefono = request.json["telefono"]
+        correo = request.json["correo"]
+        mes = request.json["mes"]
+        año = request.json["año"]
+        cvv = request.json["cvv"]
+        numtarjeta = request.json["numtarjeta"]
+        idProducto = request.json["idProducto"]
+        monto_final = request.json["monto_final"]
+        idgenerado = controlador_pago.insertar_venta(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final)
+
+        rpta["code"] = 1
+        rpta["message"] = "Venta1 registrada correctamente. "
+        rpta["data"] = {"idgenerado" : idgenerado}
+
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = "Ocurrió un problema: " + repr(e)
+        rpta["data"] = dict()
+    return rpta
 
 
 

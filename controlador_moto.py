@@ -17,6 +17,14 @@ def obtener_motos():
     conexion.close()
     return motos
 
+def obtener_motos_api():
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT idMoto, codmoto, tipo, posicionManejo, numAsientos, numPasajeros, largo, ancho, alto, tipoMotor, combustible, numCilindros, capacidadTanque, rendimiento FROM MOTO")
+        motos = cursor.fetchall()
+    conexion.close()
+    return motos
+
 def eliminar_moto(id_moto):
     conexion = obtener_conexion()
     try:
@@ -57,6 +65,6 @@ def obtener_cod_moto(codMoto):
 def eliminar_moto(codmoto):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("DELETE FROM moto WHERE codmoto = %s", (codmoto,))
+        cursor.execute("DELETE FROM MOTO WHERE codmoto = %s", (codmoto,))
     conexion.commit()
     conexion.close()

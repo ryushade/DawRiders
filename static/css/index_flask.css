@@ -204,3 +204,7 @@ button.minus-btn {
     margin-right: 0.5px;
     /* Adjust as needed */
 }
+
+.precioTac {
+    text-align: right;
+}

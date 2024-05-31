@@ -46,7 +46,7 @@ def obtener_producto_por_id(id_producto):
 def obtener_moto_producto():
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("select pr.*, mo.* from producto as pr inner join moto as mo on pr.idMoto = mo.idMoto")
+        cursor.execute("select pr.*, mo.* from PRODUCTO as pr inner join MOTO as mo on pr.idMoto = mo.idMoto")
         productos = cursor.fetchall()
     conexion.close()
     return productos
@@ -54,7 +54,7 @@ def obtener_moto_producto():
 def obtener_moto_producto_nuevo_one(id):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("select pr.*, mo.* from producto as pr inner join moto as mo on pr.idMoto = mo.idMoto WHERE pr.idProducto = %s", (id,))
+        cursor.execute("select pr.*, mo.* from PRODUCTO as pr inner join MOTO as mo on pr.idMoto = mo.idMoto WHERE pr.idProducto = %s", (id,))
         productos = cursor.fetchone()
     conexion.close()
     return productos
@@ -62,7 +62,7 @@ def obtener_moto_producto_nuevo_one(id):
 def obtener_moto_producto_nuevo(id):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("select pr.*, mo.* from producto as pr inner join moto as mo on pr.idMoto = mo.idMoto WHERE pr.idProducto = %s", (id,))
+        cursor.execute("select pr.*, mo.* from PRODUCTO as pr inner join MOTO as mo on pr.idMoto = mo.idMoto WHERE pr.idProducto = %s", (id,))
         productos = cursor.fetchall()
     conexion.close()
     return productos
@@ -72,7 +72,7 @@ def obtener_moto_producto_nuevo(id):
 def obtener_accesorio_producto():
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("select pr.*, ac.* from producto as pr inner join accesorio as ac on pr.idAccesorio = ac.idAccesorio")
+        cursor.execute("select pr.*, ac.* from PRODUCTO as pr inner join ACCESORIO as ac on pr.idAccesorio = ac.idAccesorio")
         productos = cursor.fetchall()
     conexion.close()
     return productos
@@ -80,7 +80,7 @@ def obtener_accesorio_producto():
 def obtener_accesorio_producto_nuevo_one(id):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("select pr.*, ac.* from producto as pr inner join accesorio as ac on pr.idAccesorio = ac.idAccesorio WHERE pr.idProducto = %s", (id,))
+        cursor.execute("select pr.*, ac.* from PRODUCTO as pr inner join ACCESORIO as ac on pr.idAccesorio = ac.idAccesorio WHERE pr.idProducto = %s", (id,))
         productos = cursor.fetchone()
     conexion.close()
     return productos
@@ -88,7 +88,7 @@ def obtener_accesorio_producto_nuevo_one(id):
 def obtener_accesorio_producto_nuevo(id):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("select pr.*, ac.* from producto as pr inner join accesorio as ac on pr.idAccesorio = ac.idAccesorio WHERE pr.idProducto = %s", (id,))
+        cursor.execute("select pr.*, ac.* from PRODUCTO as pr inner join ACCESORIO as ac on pr.idAccesorio = ac.idAccesorio WHERE pr.idProducto = %s", (id,))
         productos = cursor.fetchall()
     conexion.close()
     return productos

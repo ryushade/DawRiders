@@ -40,17 +40,17 @@ def actualizar_cantidad_producto_carrito(id_item_carrito, nueva_cantidad):
         conexion.commit()
     finally:
         conexion.close()
-        
+
 def obtener_items_carrito():
     conexion = obtener_conexion()
-    try: 
+    try:
         with conexion.cursor() as cursor:
-            cursor.execute("SELECT p.idProducto, p.imagen, CONCAT(p.marca, ' ', p.modelo) AS modelo, p.precio, ic.cantidad, ic.subtotal FROM ITEM_CARRITO ic INNER JOIN PRODUCTO p ON ic.idProducto = p.idProducto")            
+            cursor.execute("SELECT p.idProducto, p.imagen, CONCAT(p.marca, ' ', p.modelo) AS modelo, p.precio, ic.cantidad, ic.subtotal FROM ITEM_CARRITO ic INNER JOIN PRODUCTO p ON ic.idProducto = p.idProducto")
             items = cursor.fetchall()
             return items
     finally:
         conexion.close()
-        
+
 
 def obtener_carrito(id_carrito):
     conexion = obtener_conexion()
@@ -62,3 +62,12 @@ def obtener_carrito(id_carrito):
     finally:
         conexion.close()
 
+def obtener_carrito_api():
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("SELECT * FROM ITEM_CARRITO")
+            items = cursor.fetchall()
+        return items
+    finally:
+        conexion.close()

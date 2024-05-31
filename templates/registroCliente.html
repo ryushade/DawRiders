@@ -88,10 +88,6 @@
                     <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="contacto.html"
                         style="color: white; font-size: 14px;">CONTACTO</a>
                 </li>
-                <li data-anijs="if: mouseover, do: pulse animated" class="nav-item px-3">
-                    <a class="nav-link barra" href="{{url_for('listar_clientes')}}"
-                        style="color: white; font-size: 14px;">LISTAR CLIENTES</a>
-                </li>
             </ul>
         </div>
     </div>
@@ -145,10 +141,10 @@
                 <div class="row mt-4 ms-1 me-1 mb-3">
                     <input type="password" id="inputPassword5" class="form-control"  placeholder="Ingrese Nuevamente la Contraseña" aria-describedby="passwordHelpBlock">
                     <div id="passwordHelpBlock" class="form-text">
-    
+
                     </div>
                 </div>
-    
+
                 <div class="row ms-1 me-1 mb-3">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -159,12 +155,12 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-lg-6">
-                        <button type="submit" style="width: 100%;" class="btn btn-primary"><a style="color: white;text-decoration:none" href="{{url_for('formulario_login_cliente')}}" class="button is-primary mt-2">Registrar</a></button>
-    
+                        <button type="submit" style="width: 100%;" class="btn btn-primary" href="{{url_for('formulario_login_cliente')}}" >Registrar</button>
+
                     </div>
                     <div class="col-lg-6">
                         <button type="button" style="width: 100%;"  class="btn btn-primary"><a style="color: white;text-decoration:none" href="{{url_for('formulario_login_cliente')}}" class="button is-primary mt-2">Cancelar</a></button>
-    
+
                     </div>
                 </div>
 
