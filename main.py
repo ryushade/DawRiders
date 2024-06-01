@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, flash, jsonify, url_for, session,json
 from flask_login import login_user
 import os
+from flask_jwt import JWT, jwt_required, current_identity
 import controlador_pago
 from bd import obtener_conexion
 
@@ -12,13 +13,44 @@ import controlador_producto
 import controlador_accesorio
 import controlador_carrito
 import controlador_administrador
+import controlador_users
 from clases.clase_moto import clsMoto
 from clases.clase_cliente import clsCliente
 from clases.clase_administrador import clsAdministrador
 from clases.clase_carrito import clsItemCarrito
 from clases.clase_venta1 import clsVenta1
 
+##### SEGURIDAD - INICIO ######
+class User(object):
+    def __init__(self, id, username, password):
+        self.id = id
+        self.username = username
+        self.password = password
+
+    def __str__(self):
+        return "User(id='%s')" % self.id
+
+def authenticate(username, password):
+    userfrombd = controlador_users.obtener_user_por_username(username)
+    user = None
+    if userfrombd is not None:
+        user = User(userfrombd[0], userfrombd[1], userfrombd[2])
+    if user is not None and (user.password.encode('utf-8') == password.encode('utf-8')):
+        return user
+
+def identity(payload):
+    user_id = payload['identity']
+    userfrombd = controlador_users.obtener_user_por_id(user_id)
+    if userfrombd is not None:
+        user = User(userfrombd[0], userfrombd[1], userfrombd[2])
+    return user
+
+
 app = Flask(__name__, static_folder='static')
+app.debug = True
+app.config['SECRET_KEY'] = 'super-secret'
+
+jwt = JWT(app, authenticate, identity)
 
 app.secret_key = '1234'
 
@@ -126,6 +158,7 @@ def procesar_login():
         return render_template("login.html")
 
 @app.route("/api_obteneradministrador")
+@jwt_required()
 def api_obteneradministrador():
     rpta = dict()
     try:
@@ -150,6 +183,7 @@ def api_obteneradministrador():
 
 
 @app.route("/api_guardaradministrador", methods=["POST"])
+@jwt_required()
 def api_guardaradministrador():
     rpta = dict()
     try:
@@ -171,6 +205,7 @@ def api_guardaradministrador():
  ####APIS CLIENTE ####
 
 @app.route("/api_obtener_cliente")
+@jwt_required()
 def api_obtener_cliente():
     response = dict()
     try:
@@ -194,6 +229,7 @@ def api_obtener_cliente():
 
 
 @app.route("/api_guardar_cliente", methods=["POST"])
+@jwt_required()
 def api_guardar_cliente():
 	try:
 		nombre, apellidos, email, contraseña, telefono = (
@@ -269,6 +305,7 @@ def guardar_moto():
 
 
 @app.route("/api_obtenermotos")
+@jwt_required()
 def api_obtenermotos():
     rpta = dict()
     try:
@@ -299,6 +336,7 @@ def api_obtenermotos():
         return jsonify(rpta)
 
 @app.route("/api_guardarmoto", methods=["POST"])
+@jwt_required()
 def api_guardarmoto():
     rpta = dict()
     try:
@@ -329,6 +367,7 @@ def api_guardarmoto():
 
 
 @app.route("/crud_moto")
+@jwt_required()
 def crud_moto():
     moto = controlador_moto.obtener_motos()
     return render_template("crud_moto.html", moto=moto)
@@ -392,6 +431,8 @@ def crud_producto():
     productosm = controlador_producto.obtener_moto_producto()
     return render_template("crud_producto.html", productosm=productosm)
 
+
+
 @app.route("/detalle_producto_moto")
 def formulario_detalle_producto():
     productosm = controlador_producto.obtener_moto_producto()
@@ -441,6 +482,7 @@ def formulario_detalle_categoria():
 
 
 @app.route("/api_obteneritemcarrito")
+@jwt_required()
 def api_obteneritemcarrito():
     rpta = dict()
     try:
@@ -469,6 +511,7 @@ def api_obteneritemcarrito():
         return jsonify(rpta)
 
 @app.route("/api_guardarcarrito", methods=["POST"])
+@jwt_required()
 def api_guardarcarrito():
     rpta = dict()
     try:
@@ -491,9 +534,40 @@ def api_guardarcarrito():
 
 
 
-#######
 
-@app.route("/listar_ProductoA")
+@app.route("/api_obtenerproductos")
+@jwt_required()
+def api_obtenerproductos():
+    try:
+        productos = controlador_producto.obtener_moto()
+        # Convertir las tuplas a diccionarios directamente
+        productos_lista = [{
+            "idProducto": prod[0],
+            "descripcion": prod[1],
+            "precio": prod[2],
+            "stock": prod[3],
+            "marca": prod[4],
+            "modelo": prod[5],
+            "color": prod[6],
+            "imagen": prod[7],
+            "idMoto": prod[8],
+            "idAccesorio": prod[9]
+        } for prod in productos]
+        return jsonify({
+            "code": 200,
+            "message": "Productos cargados exitosamente",
+            "data": productos_lista
+        })
+    except Exception as e:
+        return jsonify({
+            "code": 404,
+            "message": f"Error interno del servidor: {str(e)}",
+            "data": []
+        }), 404
+
+
+@app.route("/listarProductoA")
+@jwt_required()
 def listar_productosA():
     productosa = controlador_producto.obtener_accesorio_producto()
     return render_template("listaProductoA.html", productosa=productosa)
@@ -616,6 +690,7 @@ def guardar_venta():
 
 
 @app.route("/api_obtenerventa1")
+@jwt_required()
 def api_obtenerventa1():
     rpta = dict()
     try:
@@ -631,11 +706,16 @@ def api_obtenerventa1():
             rpta["data"] = listaventa1
             return jsonify(rpta)
 
-        for venta in venta1:
-            objVenta1 = clsItemCarrito(venta[0], venta[1], venta[2],
+        for index, venta in enumerate(venta1):
+            try:
+                print(f"Procesando venta #{index}: {venta}")
+                objVenta1 = clsItemCarrito(venta[0], venta[1], venta[2],
                               venta[3], venta[4], venta[5], venta[6], venta[7], venta[8],
                               venta[9], venta[10], venta[11], venta[12], venta[13], venta[14])
-            listaventa1.append(objVenta1.diccVenta1)
+                listaventa1.append(objVenta1.diccVenta1)
+            except Exception as e:
+                print(f"Error procesando venta #{index}: {e}")
+                raise e
 
         rpta["code"] = 1
         rpta["message"] = "Listado correcto de la venta"
@@ -648,6 +728,7 @@ def api_obtenerventa1():
         return jsonify(rpta)
 
 @app.route("/api_guardarventa", methods=["POST"])
+@jwt_required()
 def api_guardarventa():
     rpta = dict()
     try:

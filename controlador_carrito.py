@@ -55,7 +55,7 @@ def obtener_items_carrito():
 def obtener_carrito(id_carrito):
     conexion = obtener_conexion()
     try:
-        with conexion.cursor() as cursor:
+        with conexion.cursor() as cursor:Po
             cursor.execute("SELECT * FROM ITEM_CARRITO WHERE idCarrito = %s", (id_carrito,))
             items = cursor.fetchall()
         return items
@@ -71,3 +71,12 @@ def obtener_carrito_api():
         return items
     finally:
         conexion.close()
+
+def insertar_item_carrito(idCarrito, idProducto, cantidad, precioPorUnidad, subtotal):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute(
+            "INSERT INTO ITEM_CARRITO(idCarrito, idProducto, cantidad, precioPorUnidad, subtotal) VALUES (%s, %s, %s, %s, %s)",
+            (idCarrito, idProducto, cantidad, precioPorUnidad, subtotal))
+    conexion.commit()
+    conexion.close()
