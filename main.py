@@ -57,7 +57,7 @@ app.secret_key = '1234'
 @app.route("/")
 @app.route("/CicloRiders")
 def formulario_principal():
-    return render_template("index.html")
+    return render_template("indexresp.html")
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'static', 'img')
 if not os.path.exists(UPLOAD_FOLDER):
