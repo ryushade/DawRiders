@@ -532,6 +532,8 @@ img {
 .features__img {
   width: 150px;
   justify-self: center;
+  transform: rotate(90deg);
+
 }
 
 .features__card {
