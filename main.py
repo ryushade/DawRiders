@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, flash, jsonify, url_for, session,json
 from flask_login import login_user
-import os
 from flask_jwt import JWT, jwt_required, current_identity
 import controlador_pago
 from bd import obtener_conexion

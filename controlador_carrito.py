@@ -55,12 +55,13 @@ def obtener_items_carrito():
 def obtener_carrito(id_carrito):
     conexion = obtener_conexion()
     try:
-        with conexion.cursor() as cursor:Po
+        with conexion.cursor() as cursor:
             cursor.execute("SELECT * FROM ITEM_CARRITO WHERE idCarrito = %s", (id_carrito,))
             items = cursor.fetchall()
         return items
     finally:
         conexion.close()
+
 
 def obtener_carrito_api():
     conexion = obtener_conexion()
