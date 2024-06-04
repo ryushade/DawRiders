@@ -477,7 +477,7 @@ def agregar_carrito():
 @app.route("/detalle_producto_categoria")
 def formulario_detalle_categoria():
     productosm = controlador_producto.obtener_moto_producto()
-    return render_template("categorias.html" , productosm=productosm)
+    return render_template("categoriasresp.html" , productosm=productosm)
 
 
 

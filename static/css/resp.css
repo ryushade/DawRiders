@@ -1,0 +1,12 @@
+:root {
+    --font-chivo: 'Chivo', sans-serif;
+    --font-libre_franklin: 'Libre Franklin', sans-serif;
+}
+
+body {
+    font-family: var(--font-chivo);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-libre_franklin);
+}
