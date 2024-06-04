@@ -77,36 +77,34 @@
             <div class="popular__container container">
                 <div class="row">
                     {% for carta in productosm %}
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                            <article class="popular__card">
-                                <div class="shape shape__smaller"></div>
+                        <article class="popular__card swiper-slide col-md-6"> <!-- Añadir aquí la clase col-md-6 -->
+                            <div class="shape shape__smaller"></div>
         
-                                <h1 class="popular__title">{{ carta[5] }}</h1>
-                                <h3 class="popular__subtitle">{{ carta[1] }}</h3>
+                            <h1 class="popular__title">{{ carta[5] }}</h1>
+                            <h3 class="popular__subtitle">{{ carta[1] }}</h3>
         
-                                <a href="{{url_for('detalle_producto_moto', id=carta[0])}}">
-                                    <img src="{{ url_for('static', filename='img/' + carta[7])}}" alt="" class="popular__img">
-                                </a>
+                            <a href="{{url_for('detalle_producto_moto', id=carta[0])}}">
+                                <img src="{{ url_for('static', filename='img/' + carta[7])}}" alt="" class="popular__img">
+                            </a>
         
-                                <div class="popular__data">
-                                    <div class="popular__data-group">
-                                        <i class="ri-dashboard-3-line"></i> {{ carta[3] }} Sec
-                                    </div>
-                                    <div class="popular__data-group">
-                                        <i class="ri-funds-box-line"></i> {{ carta[4] }} Km/h
-                                    </div>
-                                    <div class="popular__data-group">
-                                        <i class="ri-charging-pile-2-line"></i> {{ carta[6] }}
-                                    </div>
+                            <div class="popular__data">
+                                <div class="popular__data-group">
+                                    <i class="ri-dashboard-3-line"></i> {{ carta[3] }} Sec
                                 </div>
+                                <div class="popular__data-group">
+                                    <i class="ri-funds-box-line"></i> {{ carta[4] }} Km/h
+                                </div>
+                                <div class="popular__data-group">
+                                    <i class="ri-charging-pile-2-line"></i> {{ carta[6] }}
+                                </div>
+                            </div>
         
-                                <h3 class="popular__price">S/.{{ carta[2] }}</h3>
+                            <h3 class="popular__price">S/.{{ carta[2] }}</h3>
         
-                                <button class="button popular__button">
-                                    <i class="ri-shopping-bag-2-line"></i>
-                                </button>
-                            </article>
-                        </div>
+                            <button class="button popular__button">
+                                <i class="ri-shopping-bag-2-line"></i>
+                            </button>
+                        </article>
                     {% endfor %}
                 </div>
             </div>
