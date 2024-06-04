@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== FAVICON ===============-->
+    <link rel="shortcut icon" href="/static/img/logocicloriders_2-removebg-preview 1.png" type="image/x-icon">
+
+    <!--=============== REMIX ICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== SWIPER CSS ===============-->
+    <link rel="stylesheet" href="/static/assets/css/swiper-bundle.min.css">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="/static/assets/css/styles.css">
+
+    <title>CicloRiders -Motocicletas y Accesorios</title>
+</head>
+
+<body>
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo">
+                <i class="ri-steering-line"></i>
+                CicloRiders
+            </a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="{{url_for('formulario_principal')}}" class="nav__link">Inicio</a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="#about" class="nav__link">Nosotros</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="{{url_for('formulario_detalle_categoria')}}" class="nav__link active-link">Catalogo</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="{{url_for('formulario_login_cliente')}}" class="nav__link">Login</a>
+                    </li>
+                    
+                </ul>
+
+                <div class="nav__close" id="nav-close">
+                    <i class="ri-close-line"></i>
+                </div>
+            </div>
+
+            <!-- Toggle button -->
+            <div class="nav__toggle" id="nav-toggle">
+                <i class="ri-menu-line"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!--==================== MAIN ====================-->
+    <main class="main">
+        <!--==================== HOME ====================-->
+        <section class="home section" id="home">
+            <div class="shape shape__big"></div>
+            <div class="shape shape__small"></div>
+
+
+            </div>
+        </section>
+
+     
+
+        <!--==================== POPULAR ====================-->
+        <section class="popular section" id="popular">
+            <div class="popular__container container swiper">
+                <div class="swiper-wrapper">
+                    {% for carta in productosm %}
+                        <article class="popular__card swiper-slide">
+                            <div class="shape shape__smaller"></div>
+        
+                            <h1 class="popular__title">{{ carta[5] }}</h1>
+                            <h3 class="popular__subtitle">{{ carta[1] }}</h3>
+        
+                            <a href="{{url_for('detalle_producto_moto', id=carta[0])}}">
+                                <img src="{{ url_for('static', filename='img/' + carta[7])}}" alt="" class="popular__img">
+                            </a>
+        
+                            <div class="popular__data">
+                                <div class="popular__data-group">
+                                    <i class="ri-dashboard-3-line"></i> {{ carta[3] }} Sec
+                                </div>
+                                <div class="popular__data-group">
+                                    <i class="ri-funds-box-line"></i> {{ carta[4] }} Km/h
+                                </div>
+                                <div class="popular__data-group">
+                                    <i class="ri-charging-pile-2-line"></i> {{ carta[6] }}
+                                </div>
+                            </div>
+        
+                            <h3 class="popular__price">S/.{{ carta[2] }}</h3>
+        
+                            <button class="button popular__button">
+                                <i class="ri-shopping-bag-2-line"></i>
+                            </button>
+                        </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        
+
+                   
+
+                   
+<!--                     
+                    <article class="popular__card swiper-slide">
+                        <div class="shape shape__smaller"></div>
+
+                        <h1 class="popular__title">Porsche</h1>
+                        <h3 class="popular__subtitle">Boxster 718</h3>
+
+                        <img src="/static/assets/img/popular4.png" alt="" class="popular__img">
+
+                        <div class="popular__data">
+                            <div class="popular__data-group">
+                                <i class="ri-dashboard-3-line"></i> 3.7 Sec
+                            </div>
+                            <div class="popular__data-group">
+                                <i class="ri-funds-box-line"></i> 356 Km/h
+                            </div>
+                            <div class="popular__data-group">
+                                <i class="ri-charging-pile-2-line"></i> Electric
+                            </div>
+                        </div>
+
+                        <h3 class="popular__price">$125,900</h3>
+
+                        <button class="button popular__button">
+                            <i class="ri-shopping-bag-2-line"></i>
+                        </button>
+                    </article> -->
+<!-- 
+                    <article class="popular__card swiper-slide">
+                        <div class="shape shape__smaller"></div>
+
+                        <h1 class="popular__title">Porsche</h1>
+                        <h3 class="popular__subtitle">Cayman</h3>
+
+                        <img src="/static/assets/img/popular5.png" alt="" class="popular__img">
+
+                        <div class="popular__data">
+                            <div class="popular__data-group">
+                                <i class="ri-dashboard-3-line"></i> 3.7 Sec
+                            </div>
+                            <div class="popular__data-group">
+                                <i class="ri-funds-box-line"></i> 356 Km/h
+                            </div>
+                            <div class="popular__data-group">
+                                <i class="ri-charging-pile-2-line"></i> Electric
+                            </div>
+                        </div>
+
+                        <h3 class="popular__price">$128,900</h3>
+
+                        <button class="button popular__button">
+                            <i class="ri-shopping-bag-2-line"></i>
+                        </button>
+                    </article> -->
+                </div>
+
+                <!-- <div class="swiper-pagination"></div> -->
+            </div>
+        </section>
+
+        <!--==================== FEATURES ====================-->
+        
+        <!--==================== FEATURED ====================-->
+        
+
+        <!--==================== OFFER ====================-->
+        <!-- <section class="offer section">
+            <div class="offer__container container grid">
+                <img src="/static/assets/img/offer-bg.png" alt="" class="offer__bg">
+
+                <div class="offer__data">
+                    <h2 class="section__title offer__title">
+                        Quieres recibir <br> ofertas especiales?
+                    </h2>
+
+                    <p class="offer__description">
+                        Sé el primero en recibir toda la información sobre nuestros productos por correo
+                        electrónico suscribiéndote a nuestra lista de correo."
+                    </p>
+
+                    <a href="#" class="button">
+                        Suscribirse
+                    </a>
+                </div>
+
+                <img src="/static/assets/img/offer.png" alt="" class="offer__img">
+            </div>
+        </section> -->
+
+        <!--==================== LOGOS ====================-->
+       
+    </main>
+
+    <!--==================== FOOTER ====================-->
+    <footer class="footer section">
+        <div class="shape shape__big"></div>
+        <div class="shape shape__small"></div>
+
+        <div class="footer__container container grid">
+            <div class="footer__content">
+                <a href="#" class="footer__logo">
+                    <i class="ri-steering-line"></i> CicloRiders
+                </a>
+                <p class="footer__description">
+                    Ofrecemos las mejores motocicletas y accesorios <br>
+                    de las marcas más reconocidas de todo el mundo <br>
+                </p>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Empresa
+                </h3>
+
+                <ul class="footer__links">
+                    <li>
+                        <a href="#" class="footer__link">Nosotros</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Motos</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Producto</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Catalogo</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Login</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Informacion
+                </h3>
+
+                <ul class="footer__links">
+
+                    <a href="#" class="footer__link">Contactanos</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Servicios</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Siguenos en nuestras redes:
+                </h3>
+
+                <ul class="footer__social">
+                    <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-facebook-fill"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-instagram-line"></i>
+                    </a>
+                    <a href="https://twitter.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-twitter-line"></i>
+                    </a>
+                </ul>
+            </div>
+        </div>
+
+        <span class="footer__copy">
+            &#169; CicloRiders. Todos los derechos reservados 2023-2024
+        </span>
+    </footer>
+
+
+    <!--========== SCROLL UP ==========-->
+    <a href="#" class="scrollup" id="scroll-up">
+        <i class="ri-arrow-up-line"></i>
+    </a>
+
+    <!--=============== SCROLL REVEAL ===============-->
+    <script src="/static/assets/js/scrollreveal.min.js"></script>
+
+    <!--=============== SWIPER JS ===============-->
+    <script src="/static/assets/js/swiper-bundle.min.js"></script>
+
+    <!--=============== MIXITUP JS ===============-->
+    <script src="/static/assets/js/mixitup.min.js"></script>
+
+    <!--=============== MAIN JS ===============-->
+    <script src="/static/assets/js/main.js"></script>
+</body>
+
+</html>
