@@ -152,3 +152,29 @@
     --color: var(--red-salsa);
   }
 
+
+/*-----------------------------------*\
+  #MEDIA QUERIES
+\*-----------------------------------*/
+
+/**
+ * responsive for large than 350px screen
+ */
+
+ @media (min-width: 350px) {
+
+    /**
+     * FEATURED CAR
+     */
+  
+    .featured-car-card .card-list { grid-template-columns: 1fr 1fr; }
+  
+    .featured-car-card .card-price { margin-right: auto; }
+  
+    .featured-car-card .btn:last-child {
+      min-width: max-content;
+      padding-inline: 15px;
+    }
+  
+  }
+  
