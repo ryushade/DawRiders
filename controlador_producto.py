@@ -17,6 +17,14 @@ def obtener_producto():
     conexion.close()
     return productos
 
+def obtener_producto_api():
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT idProducto, descripcion, precio, stock, marca, modelo, color, imagen, idmoto, idaccesorio FROM PRODUCTO")
+        productos = cursor.fetchall()
+    conexion.close()
+    return productos
+
 def eliminar_producto(id_producto):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:

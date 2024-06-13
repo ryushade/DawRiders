@@ -18,6 +18,7 @@ from clases.clase_cliente import clsCliente
 from clases.clase_administrador import clsAdministrador
 from clases.clase_carrito import clsItemCarrito
 from clases.clase_venta1 import clsVenta1
+from clases.clase_producto import clsProducto
 
 ##### SEGURIDAD - INICIO ######
 class User(object):
@@ -230,20 +231,24 @@ def api_obtener_cliente():
 @app.route("/api_guardar_cliente", methods=["POST"])
 @jwt_required()
 def api_guardar_cliente():
-	try:
-		nombre, apellidos, email, contraseña, telefono = (
-			request.json["nombre"],
-			request.json["apellidos"],
-			request.json["email"],
-			request.json["contraseña"],
-			request.json["telefono"],
-		)
+    rpta = dict()
+    try:
+        nombre = request.json["nombre"]
+        apellidos = request.json["apellidos"]
+        email = request.json["email"]
+        contraseña = request.json["contraseña"]
+        telefono = request.json["telefono"]
+        idgenerado = controlador_cliente.insertar_cliente(nombre, apellidos, email, contraseña, telefono)
 
-		controlador_cliente.insertar_cliente(nombre, apellidos, email, contraseña, telefono)
-		datos = []
-		return jsonify({"data": datos, "code": 1, "message": "Cliente registrado correctamente"})
-	except Exception as e:
-		return jsonify({"data": None, "code": 0, "message": f"Error al registrar el vendedor: {str(e)}"}), 500
+        rpta["code"] = 1
+        rpta["message"] = "Cliente registrado correctamente."
+        rpta["data"] = {"idgenerado": idgenerado}
+
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = "Ocurrió un problema: " + repr(e)
+        rpta["data"] = dict()
+    return jsonify(rpta)
 
 
 
@@ -537,32 +542,54 @@ def api_guardarcarrito():
 @app.route("/api_obtenerproductos")
 @jwt_required()
 def api_obtenerproductos():
+    rpta = dict()
     try:
-        productos = controlador_producto.obtener_moto()
-        # Convertir las tuplas a diccionarios directamente
-        productos_lista = [{
-            "idProducto": prod[0],
-            "descripcion": prod[1],
-            "precio": prod[2],
-            "stock": prod[3],
-            "marca": prod[4],
-            "modelo": prod[5],
-            "color": prod[6],
-            "imagen": prod[7],
-            "idMoto": prod[8],
-            "idAccesorio": prod[9]
-        } for prod in productos]
-        return jsonify({
-            "code": 200,
-            "message": "Productos cargados exitosamente",
-            "data": productos_lista
-        })
+        listaproductos = list()
+        productos = controlador_producto.obtener_producto_api()
+
+        for producto in productos:
+
+            objProducto = clsProducto(producto[0], producto[1], producto[2],
+                              producto[3], producto[4], producto[5],
+                              producto[6], producto[7], producto[8],
+                              producto[9])
+            listaproductos.append(objProducto.dicctemp)
+
+        rpta["code"] = 1
+        rpta["message"] = "Listado correcto de Productos registradas"
+        rpta["data"] = listaproductos
+        return jsonify(rpta)
     except Exception as e:
-        return jsonify({
-            "code": 404,
-            "message": f"Error interno del servidor: {str(e)}",
-            "data": []
-        }), 404
+        rpta["code"] = 0
+        rpta["message"] = f"Problemas en el servicio web: {str(e)}"
+        rpta["data"] = dict()
+        return jsonify(rpta)
+
+@app.route("/api_guardar_producto", methods=["POST"])
+@jwt_required()
+def api_guardar_producto():
+    rpta = dict()
+    try:
+        descripcion = request.json["descripcion"]
+        precio = request.json["precio"]
+        stock = request.json["stock"]
+        marca = request.json["marca"]
+        modelo = request.json["modelo"]
+        color = request.json["color"]
+        imagen = request.json["imagen"]
+        idMoto = request.json["idMoto"]
+        idAccesorio = request.json["idAccesorio"]
+        idgenerado = controlador_producto.insertar_producto(descripcion, precio, stock, marca, modelo, color, imagen, idMoto, idAccesorio)
+
+        rpta["code"] = 1
+        rpta["message"] = "Producto registrado correctamente."
+        rpta["data"] = {"idgenerado": idgenerado}
+
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = "Ocurrió un problema: " + repr(e)
+        rpta["data"] = dict()
+    return jsonify(rpta)
 
 
 @app.route("/listarProductoA")
