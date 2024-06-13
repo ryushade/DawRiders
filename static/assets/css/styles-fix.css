@@ -12,8 +12,8 @@
     --text-color: hsl(219, 8%, 75%);
     --text-color-light: hsl(219, 4%, 55%);
     --white-color: #fff;
-    --body-color: hsl(219, 4%, 4%);
-    --container-color: hsl(219, 4%, 7%);
+    --body-color: hsl(0, 0%, 100%);
+    --container-color: hsl(0, 0%, 100%);
     /*========== Font and typography ==========*/
     /*.5rem = 8px | 1rem = 16px ...*/
     --body-font: 'Exo', sans-serif;
@@ -108,7 +108,7 @@ img {
 }
 
 .shape {
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(55, 74, 109, 0.5);
     filter: blur(112px);
     border-radius: 50%;
 }
