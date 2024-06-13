@@ -20,30 +20,32 @@
      * colors
      */
 
-    --pale-purple-pantone: hsl(262, 63%, 92%);
-    --medium-sea-green: hsl(152, 63%, 43%);
-    --lavender-blush: hsl(336, 35%, 92%);
-    --carolina-blue: hsl(204, 91%, 53%);
-    --columbia-blue: hsl(204, 92%, 90%);
-    --alice-blue-1: hsl(216, 59%, 42%);
-    --alice-blue-5: hsl(262, 63%, 92%);
-
-    --alice-blue-2: hsl(216, 75%, 97%);
-    --alice-blue-3: hsl(216, 38%, 95%);
-    --alice-blue-4: hsl(217, 33%, 92%);
-    --independence: hsl(219, 21%, 39%);
-    --deep-cerise: hsl(329, 63%, 52%);
-    --eerie-black: hsl(210, 11%, 15%);
-    --space-cadet: hsl(240, 22%, 25%);
-    --blue-jeans: hsl(204, 80%, 63%);
-    --slate-blue: hsl(262, 60%, 57%);
-    --beau-blue: hsl(208, 86%, 92%);
-    --honey-dew: hsl(152, 48%, 89%);
-    --mimi-pink: hsl(329, 63%, 90%);
-    --red-salsa: hsl(0, 79%, 63%);
-    --sapphire: hsl(211, 100%, 35%);
-    --manatee: hsl(219, 14%, 60%);
-    --white: hsl(0, 0%, 100%);
+     --header-height: 3.5rem;
+     /*========== Colors ==========*/
+     /*Color mode HSL(hue, saturation, lightness)*/
+     --first-color: hsl(219, 69%, 56%);
+     --first-color-alt: hsl(219, 69%, 52%);
+     --title-color: hsl(219, 8%, 95%);
+     --text-color: hsl(219, 8%, 75%);
+     --text-color-light: hsl(219, 4%, 55%);
+     --white-color: #fff;
+     --body-color: hsl(219, 4%, 4%);
+     --container-color: hsl(219, 4%, 7%);
+     /*========== Font and typography ==========*/
+     /*.5rem = 8px | 1rem = 16px ...*/
+     --body-font: 'Exo', sans-serif;
+     --h1-font-size: 1.5rem;
+     --h2-font-size: 1.25rem;
+     --h3-font-size: 1rem;
+     --normal-font-size: .938rem;
+     --small-font-size: .813rem;
+     --smaller-font-size: .75rem;
+     /*========== Font weight ==========*/
+     --font-medium: 500;
+     --font-semi-bold: 600;
+     /*========== z index ==========*/
+     --z-tooltip: 10;
+     --z-fixed: 100;
 
     --gradient: linear-gradient(to top, var(--alice-blue-2), var(--alice-blue-3));
 
@@ -156,7 +158,7 @@ html {
 }
 
 body {
-    background: var(--alice-blue-5);
+    background: var(--alice-blue-1);
     overflow-x: hidden;
 }
 
@@ -281,7 +283,7 @@ a {
 }
 
 .header {
-    background: var(--alice-blue-1);
+    background: transparent;
     position: fixed;
     top: 0;
     left: 0;
@@ -958,7 +960,7 @@ a {
   \*-----------------------------------*/
 
 .footer {
-    background: var(--alice-blue-1);
+    background: var(--alice-blue-4);
     color: var(--independence);
 }
 
