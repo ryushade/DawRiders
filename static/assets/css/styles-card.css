@@ -26,6 +26,8 @@
     --carolina-blue: hsl(204, 91%, 53%);
     --columbia-blue: hsl(204, 92%, 90%);
     --alice-blue-1: hsl(216, 59%, 42%);
+    --alice-blue-5: hsl(262, 63%, 92%);
+
     --alice-blue-2: hsl(216, 75%, 97%);
     --alice-blue-3: hsl(216, 38%, 95%);
     --alice-blue-4: hsl(217, 33%, 92%);
@@ -154,7 +156,7 @@ html {
 }
 
 body {
-    background: var(--alice-blue-1);
+    background: var(--alice-blue-5);
     overflow-x: hidden;
 }
 
@@ -956,7 +958,7 @@ a {
   \*-----------------------------------*/
 
 .footer {
-    background: var(--alice-blue-4);
+    background: var(--alice-blue-1);
     color: var(--independence);
 }
 
