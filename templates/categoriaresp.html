@@ -65,132 +65,90 @@
         <section class="home section" id="home">
             <div class="shape shape__big"></div>
             <div class="shape shape__small"></div>
-
-
-            </div>
         </section>
-        <!--
-      - BANNER
-    -->
-
+        <!--==================== BANNER ====================-->
         <div class="banner">
-
             <div class="container">
-
                 <div class="slider-container has-scrollbar">
-
                     <div class="slider-item">
-
                         <img src="./assets/images/banner-1.jpg" alt="women's latest fashion sale" class="banner-img">
-
                         <div class="banner-content">
-
                             <p class="banner-subtitle">Trending item</p>
-
                             <h2 class="banner-title">Women's latest fashion sale</h2>
-
-                            <p class="banner-text">
-                                starting at &dollar; <b>20</b>.00
-                            </p>
-
+                            <p class="banner-text">starting at &dollar; <b>20</b>.00</p>
                             <a href="#" class="banner-btn">Shop now</a>
-
                         </div>
-
                     </div>
-
                     <div class="slider-item">
-
                         <img src="./assets/images/banner-2.jpg" alt="modern sunglasses" class="banner-img">
-
                         <div class="banner-content">
-
                             <p class="banner-subtitle">Trending accessories</p>
-
                             <h2 class="banner-title">Modern sunglasses</h2>
-
-                            <p class="banner-text">
-                                starting at &dollar; <b>15</b>.00
-                            </p>
-
+                            <p class="banner-text">starting at &dollar; <b>15</b>.00</p>
                             <a href="#" class="banner-btn">Shop now</a>
-
                         </div>
-
                     </div>
-
                     <div class="slider-item">
-
                         <img src="./assets/images/banner-3.jpg" alt="new fashion summer sale" class="banner-img">
-
                         <div class="banner-content">
-
                             <p class="banner-subtitle">Sale Offer</p>
-
                             <h2 class="banner-title">New fashion summer sale</h2>
-
-                            <p class="banner-text">
-                                starting at &dollar; <b>29</b>.99
-                            </p>
-
+                            <p class="banner-text">starting at &dollar; <b>29</b>.99</p>
                             <a href="#" class="banner-btn">Shop now</a>
-
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
+
+
+
+
+    <!--==================== FEATURED CARS ====================-->
+    <section class="section popular" id="featured-car">
+        <h2 class="section__title">
+            Escoge tu coche preferido<br> de nuestra colección
+        </h2>
+
+        <div class="popular__container container">
+            <div class="swiper-wrapper">
+                {% for carta in productosm %}
+                <article class="popular__card swiper-slide">
+                    <div class="shape shape__smaller"></div>
+                    <h1 class="popular__title">{{ carta[5] }}</h1> <!-- Assuming carta[5] is the car model name -->
+                    <h3 class="popular__subtitle">{{ carta[1] }}</h3>
+                    <!-- Assuming carta[1] for model specifics or type -->
+
+                    <img src="{{ url_for('static', filename='img/' + carta[7]) }}" alt="{{ carta[5] }}"
+                        class="popular__img">
+
+                    <div class="popular__data">
+                        <div class="popular__data-group">
+                            <i class="ri-dashboard-3-line"></i> {{ carta[8] }} Sec
+                            <!-- Assuming carta[8] for performance data -->
+                        </div>
+                        <div class="popular__data-group">
+                            <i class="ri-funds-box-line"></i> {{ carta[9] }} Km/h
+                            <!-- Assuming carta[9] for speed -->
+                        </div>
+                        <div class="popular__data-group">
+                            <i class="ri-charging-pile-2-line"></i> {{ carta[10] }}
+                            <!-- Assuming carta[10] for fuel type -->
+                        </div>
                     </div>
 
-                </div>
+                    <h3 class="popular__price">$ {{ carta[2] }} / month</h3> <!-- Price per month -->
 
+                    <button class="button popular__button">
+                        <i class="ri-shopping-bag-2-line"></i>
+                    </button>
+                </article>
+                {% endfor %}
             </div>
-
         </div>
-
-
-
-
-        <!--==================== FEATURED CARS ====================-->
-        <section class="section popular" id="featured-car">
-            <h2 class="section__title">
-                Escoge tu coche preferido<br> de nuestra colección
-            </h2>
-
-            <div class="popular__container container">
-                <div class="swiper-wrapper">
-                    {% for carta in productosm %}
-                    <article class="popular__card swiper-slide">
-                        <div class="shape shape__smaller"></div>
-                        <h1 class="popular__title">{{ carta[5] }}</h1> <!-- Assuming carta[5] is the car model name -->
-                        <h3 class="popular__subtitle">{{ carta[1] }}</h3>
-                        <!-- Assuming carta[1] for model specifics or type -->
-
-                        <img src="{{ url_for('static', filename='img/' + carta[7]) }}" alt="{{ carta[5] }}"
-                            class="popular__img">
-
-                        <div class="popular__data">
-                            <div class="popular__data-group">
-                                <i class="ri-dashboard-3-line"></i> {{ carta[8] }} Sec
-                                <!-- Assuming carta[8] for performance data -->
-                            </div>
-                            <div class="popular__data-group">
-                                <i class="ri-funds-box-line"></i> {{ carta[9] }} Km/h
-                                <!-- Assuming carta[9] for speed -->
-                            </div>
-                            <div class="popular__data-group">
-                                <i class="ri-charging-pile-2-line"></i> {{ carta[10] }}
-                                <!-- Assuming carta[10] for fuel type -->
-                            </div>
-                        </div>
-
-                        <h3 class="popular__price">$ {{ carta[2] }} / month</h3> <!-- Price per month -->
-
-                        <button class="button popular__button">
-                            <i class="ri-shopping-bag-2-line"></i>
-                        </button>
-                    </article>
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
+    </section>
 
 
 
@@ -198,7 +156,7 @@
 
 
 
-        <!--                     
+    <!--                     
                     <article class="popular__card swiper-slide">
                         <div class="shape shape__smaller"></div>
 
@@ -225,7 +183,7 @@
                             <i class="ri-shopping-bag-2-line"></i>
                         </button>
                     </article> -->
-        <!-- 
+    <!-- 
                     <article class="popular__card swiper-slide">
                         <div class="shape shape__smaller"></div>
 
@@ -252,19 +210,19 @@
                             <i class="ri-shopping-bag-2-line"></i>
                         </button>
                     </article> -->
-        </div>
+    </div>
 
-        <!-- <div class="swiper-pagination"></div> -->
-        </div>
-        </section>
+    <!-- <div class="swiper-pagination"></div> -->
+    </div>
+    </section>
 
-        <!--==================== FEATURES ====================-->
+    <!--==================== FEATURES ====================-->
 
-        <!--==================== FEATURED ====================-->
+    <!--==================== FEATURED ====================-->
 
 
-        <!--==================== OFFER ====================-->
-        <!-- <section class="offer section">
+    <!--==================== OFFER ====================-->
+    <!-- <section class="offer section">
             <div class="offer__container container grid">
                 <img src="/static/assets/img/offer-bg.png" alt="" class="offer__bg">
 
@@ -287,7 +245,7 @@
             </div>
         </section> -->
 
-        <!--==================== LOGOS ====================-->
+    <!--==================== LOGOS ====================-->
 
     </main>
 
