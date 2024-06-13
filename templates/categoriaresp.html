@@ -111,7 +111,7 @@
             <ul class="featured-car-list">
                 {% for producto in productosm %}
                 {% if loop.index0 % 3 == 0 %}
-                <div class="featured-car-card">
+                <div class="row"> <!-- Opening row for every 3 products -->
                     {% endif %}
                     <li>
                         <div class="featured-car-card">
@@ -160,7 +160,7 @@
                         </div>
                     </li>
                     {% if loop.index0 % 3 == 2 or loop.last %}
-                </div> <!-- Cierra la fila si es el tercer elemento o el último del loop -->
+                </div> <!-- Closing row if it's the third product or the last one -->
                 {% endif %}
                 {% endfor %}
             </ul>
