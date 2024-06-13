@@ -78,10 +78,9 @@
                 Escoge tu coche preferido<br> de nuestra colección
             </h2>
 
-            <div class="popular__container container swiper">
-                <div class="swiper-wrapper">
+            <div class="popular__container container">
                     {% for carta in productosm %}
-                    <article class="popular__card swiper-slide">
+                    <article class="popular__card">
                         <div class="shape shape__smaller"></div>
                         <h1 class="popular__title">{{ carta[5] }}</h1> <!-- Assuming carta[5] is the car model name -->
                         <h3 class="popular__subtitle">{{ carta[1] }}</h3>
