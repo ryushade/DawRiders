@@ -110,10 +110,10 @@
                     <ion-icon name="arrow-forward-outline"></ion-icon>
                 </a>
             </div>
-
-            <ul class="featured-car-list">
-                {% for producto in productosm %}
+            {% for producto in productosm %}
                 {% if loop.index0 % 3 == 0 %}
+            <ul class="featured-car-list">
+                
                 <div class="row"> <!-- Opening row for every 3 products -->
                     {% endif %}
                     <li>
