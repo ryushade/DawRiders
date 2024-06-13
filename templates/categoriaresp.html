@@ -101,172 +101,68 @@
 
 
     <!--==================== FEATURED CARS ====================-->
+    <!-- FEATURED CAR -->
     <section class="section featured-car" id="featured-car">
         <div class="container">
             <div class="title-wrapper">
-                <h2 class="h2 section-title">Productos Destacados</h2>
+                <h2 class="h2 section-title">Featured cars</h2>
                 <a href="#" class="featured-car-link">
-                    <span>Ver más</span>
+                    <span>View more</span>
                     <ion-icon name="arrow-forward-outline"></ion-icon>
                 </a>
             </div>
-            {% for producto in productosm %}
-                {% if loop.index0 % 3 == 0 %}
             <ul class="featured-car-list">
-                
-                <div class="row"> <!-- Opening row for every 3 products -->
+                {% for carta in productosm %}
+                {% if loop.index0 % 3 == 0 %}
+                <div class="row mb-4">
                     {% endif %}
-                    <li>
-                        <div class="featured-car-card">
+                    <li class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="featured-car-card" style="height: 100%;">
                             <figure class="card-banner">
-                                <img src="{{ url_for('static', filename='img/' + producto[7]) }}"
-                                    alt="{{ producto[5] }}" loading="lazy" width="440" height="300" class="w-100">
+                                <img src="{{ url_for('static', filename='img/' + carta[7])}}"
+                                    alt="Imagen de {{ carta[5] }}" loading="lazy" width="440" height="300"
+                                    class="w-100">
                             </figure>
-
                             <div class="card-content">
                                 <div class="card-title-wrapper">
                                     <h3 class="h3 card-title">
-                                        <a href="{{ url_for('detalle_producto_moto', id=producto[0]) }}">{{ producto[5]
-                                            }}</a>
+                                        <a href="{{url_for('detalle_producto_moto', id=carta[0])}}">{{ carta[5] }}</a>
                                     </h3>
-                                    <data class="year" value="{{ producto[6] }}">{{ producto[6] }}</data>
+                                    <data class="year" value="{{ carta[1] }}">{{ carta[1] }}</data>
                                 </div>
                                 <ul class="card-list">
                                     <li class="card-list-item">
                                         <ion-icon name="people-outline"></ion-icon>
-                                        <span class="card-item-text">{{ producto[1] }} Personas</span>
+                                        <span class="card-item-text">4 People</span>
                                     </li>
                                     <li class="card-list-item">
                                         <ion-icon name="flash-outline"></ion-icon>
-                                        <span class="card-item-text">{{ producto[2] }}</span>
+                                        <span class="card-item-text">Hybrid</span>
                                     </li>
                                     <li class="card-list-item">
                                         <ion-icon name="speedometer-outline"></ion-icon>
-                                        <span class="card-item-text">{{ producto[3] }} km/l</span>
+                                        <span class="card-item-text">{{ carta[6] }} km / 1-litre</span>
                                     </li>
                                     <li class="card-list-item">
                                         <ion-icon name="hardware-chip-outline"></ion-icon>
-                                        <span class="card-item-text">{{ producto[4] }}</span>
+                                        <span class="card-item-text">Automatic</span>
                                     </li>
                                 </ul>
-
                                 <div class="card-price-wrapper">
                                     <p class="card-price">
-                                        <strong>S/. {{ producto[8] }}</strong>
+                                        <strong>S/. {{ carta[2] }}</strong>
                                     </p>
-                                    <button class="btn fav-btn" aria-label="Añadir a lista de favoritos">
-                                        <ion-icon name="heart-outline"></ion-icon>
-                                    </button>
-                                    <button class="btn">Comprar</button>
                                 </div>
                             </div>
                         </div>
                     </li>
                     {% if loop.index0 % 3 == 2 or loop.last %}
-                </div> <!-- Closing row if it's the third product or the last one -->
+                </div>
                 {% endif %}
                 {% endfor %}
             </ul>
         </div>
     </section>
-
-
-
-
-
-
-
-
-    <!--                     
-                    <article class="popular__card swiper-slide">
-                        <div class="shape shape__smaller"></div>
-
-                        <h1 class="popular__title">Porsche</h1>
-                        <h3 class="popular__subtitle">Boxster 718</h3>
-
-                        <img src="/static/assets/img/popular4.png" alt="" class="popular__img">
-
-                        <div class="popular__data">
-                            <div class="popular__data-group">
-                                <i class="ri-dashboard-3-line"></i> 3.7 Sec
-                            </div>
-                            <div class="popular__data-group">
-                                <i class="ri-funds-box-line"></i> 356 Km/h
-                            </div>
-                            <div class="popular__data-group">
-                                <i class="ri-charging-pile-2-line"></i> Electric
-                            </div>
-                        </div>
-
-                        <h3 class="popular__price">$125,900</h3>
-
-                        <button class="button popular__button">
-                            <i class="ri-shopping-bag-2-line"></i>
-                        </button>
-                    </article> -->
-    <!-- 
-                    <article class="popular__card swiper-slide">
-                        <div class="shape shape__smaller"></div>
-
-                        <h1 class="popular__title">Porsche</h1>
-                        <h3 class="popular__subtitle">Cayman</h3>
-
-                        <img src="/static/assets/img/popular5.png" alt="" class="popular__img">
-
-                        <div class="popular__data">
-                            <div class="popular__data-group">
-                                <i class="ri-dashboard-3-line"></i> 3.7 Sec
-                            </div>
-                            <div class="popular__data-group">
-                                <i class="ri-funds-box-line"></i> 356 Km/h
-                            </div>
-                            <div class="popular__data-group">
-                                <i class="ri-charging-pile-2-line"></i> Electric
-                            </div>
-                        </div>
-
-                        <h3 class="popular__price">$128,900</h3>
-
-                        <button class="button popular__button">
-                            <i class="ri-shopping-bag-2-line"></i>
-                        </button>
-                    </article> -->
-    </div>
-
-    <!-- <div class="swiper-pagination"></div> -->
-    </div>
-    </section>
-
-    <!--==================== FEATURES ====================-->
-
-    <!--==================== FEATURED ====================-->
-
-
-    <!--==================== OFFER ====================-->
-    <!-- <section class="offer section">
-            <div class="offer__container container grid">
-                <img src="/static/assets/img/offer-bg.png" alt="" class="offer__bg">
-
-                <div class="offer__data">
-                    <h2 class="section__title offer__title">
-                        Quieres recibir <br> ofertas especiales?
-                    </h2>
-
-                    <p class="offer__description">
-                        Sé el primero en recibir toda la información sobre nuestros productos por correo
-                        electrónico suscribiéndote a nuestra lista de correo."
-                    </p>
-
-                    <a href="#" class="button">
-                        Suscribirse
-                    </a>
-                </div>
-
-                <img src="/static/assets/img/offer.png" alt="" class="offer__img">
-            </div>
-        </section> -->
-
-    <!--==================== LOGOS ====================-->
 
     </main>
 
