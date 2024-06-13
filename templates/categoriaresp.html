@@ -73,19 +73,19 @@
                     <div class="slider-item">
                         <img src="/static/img/carrusel_moto1.webp" alt="ultimos productos de motos" class="banner-img">
                         <div class="banner-content">
-                        
+
                         </div>
                     </div>
                     <div class="slider-item">
                         <img src="/static/img/carrusel_moto2.webp" alt="moto numero 2" class="banner-img">
                         <div class="banner-content">
-                           
+
                         </div>
                     </div>
                     <div class="slider-item">
                         <img src="/static/img/carrusel_moto3.webp" alt="moto numero 3" class="banner-img">
                         <div class="banner-content">
-                         
+
                         </div>
                     </div>
                 </div>
@@ -103,41 +103,42 @@
             Escoge tu coche preferido<br> de nuestra colección
         </h2>
 
-        <div class="popular__container container swiper">
-            <div class="swiper-wrapper">
-                {% for carta in productosm %}
-                <article class="popular__card swiper-slide">
-                    <div class="shape shape__smaller"></div>
-                    <h1 class="popular__title">{{ carta[5] }}</h1> <!-- Assuming carta[5] is the car model name -->
-                    <h3 class="popular__subtitle">{{ carta[1] }}</h3>
-                    <!-- Assuming carta[1] for model specifics or type -->
-
-                    <img src="{{ url_for('static', filename='img/' + carta[7]) }}" alt="{{ carta[5] }}"
-                        class="popular__img">
-
-                    <div class="popular__data">
-                        <div class="popular__data-group">
-                            <i class="ri-dashboard-3-line"></i> {{ carta[8] }} Sec
-                            <!-- Assuming carta[8] for performance data -->
+        <div class="row mb-4">
+            {% endif %}
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="cardMediano" style="height: 100%;" data-anijs="if: mouseover, do: pulse animated">
+                    <div class="card" style="width: 100%; height: 100%;">
+                        <div class="row">
+                            <a href="{{url_for('detalle_producto_moto', id=carta[0])}}"><img
+                                    src="{{ url_for('static', filename='img/' + carta[7])}}"
+                                    class="card-img-top img_prod" alt="2"></a>
                         </div>
-                        <div class="popular__data-group">
-                            <i class="ri-funds-box-line"></i> {{ carta[9] }} Km/h
-                            <!-- Assuming carta[9] for speed -->
+                        <div class="row mt-3" style="justify-content: center;">
+                            <div style="background-color: orangered; width: 20px; width: 20px; border-radius: 50%;">
+                                .
+                            </div>
+
                         </div>
-                        <div class="popular__data-group">
-                            <i class="ri-charging-pile-2-line"></i> {{ carta[10] }}
-                            <!-- Assuming carta[10] for fuel type -->
+                        <div class="card-body mt-3">
+                            <h5 class="card-title nombre_prod" style="text-align: center;">{{ carta[5] }}
+                            </h5>
+                            <div class="row">
+
+                                <h6 class="precio" style="text-align: center;">S/ <span class="precio_prod">{{
+                                        carta[2] }}</span></h6>
+
+                            </div>
+                            <div class="row mt-3">
+                                <!-- <input type="hidden" name="product_id" value="{{ productosm.idProducto }}">
+                                    <input type="number" name="cantidad" value="1" min="1">
+                                    <button type="submit" class="btn btn-primary">Agregar al Carrito</button>
+                                </form> -->
+                            </div>
                         </div>
                     </div>
-
-                    <h3 class="popular__price">$ {{ carta[2] }} / month</h3> <!-- Price per month -->
-
-                    <button class="button popular__button">
-                        <i class="ri-shopping-bag-2-line"></i>
-                    </button>
-                </article>
-                {% endfor %}
+                </div>
             </div>
+            {% if loop.index0 % 3 == 2 or loop.last %}
         </div>
     </section>
 
