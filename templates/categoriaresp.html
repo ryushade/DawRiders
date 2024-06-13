@@ -98,23 +98,23 @@
 
 
     <!--==================== FEATURED CARS ====================-->
-    <section class="section featured-products" id="featured-products">
+    <section class="section featured-car" id="featured-car">
         <div class="container">
             <div class="title-wrapper">
                 <h2 class="h2 section-title">Productos Destacados</h2>
-                <a href="#" class="featured-product-link">
+                <a href="#" class="featured-car-link">
                     <span>Ver más</span>
                     <ion-icon name="arrow-forward-outline"></ion-icon>
                 </a>
             </div>
 
-            <ul class="featured-product-list">
+            <ul class="featured-car-list">
                 {% for producto in productosm %}
                 {% if loop.index0 % 3 == 0 %}
                 <div class="row mb-4">
                     {% endif %}
                     <li>
-                        <div class="featured-product-card">
+                        <div class="featured-car-card">
                             <figure class="card-banner">
                                 <img src="{{ url_for('static', filename='img/' + producto[7]) }}"
                                     alt="{{ producto[5] }}" loading="lazy" width="440" height="300" class="w-100">
