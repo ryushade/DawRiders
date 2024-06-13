@@ -20,32 +20,28 @@
      * colors
      */
 
-    --header-height: 3.5rem;
-    /*========== Colors ==========*/
-    /*Color mode HSL(hue, saturation, lightness)*/
-    --first-color: hsl(219, 69%, 56%);
-    --first-color-alt: hsl(219, 69%, 52%);
-    --title-color: hsl(219, 8%, 95%);
-    --text-color: hsl(219, 8%, 75%);
-    --text-color-light: hsl(219, 4%, 55%);
-    --white-color: #fff;
-    --body-color: hsl(219, 4%, 4%);
-    --container-color: hsl(219, 4%, 7%);
-    /*========== Font and typography ==========*/
-    /*.5rem = 8px | 1rem = 16px ...*/
-    --body-font: 'Exo', sans-serif;
-    --h1-font-size: 1.5rem;
-    --h2-font-size: 1.25rem;
-    --h3-font-size: 1rem;
-    --normal-font-size: .938rem;
-    --small-font-size: .813rem;
-    --smaller-font-size: .75rem;
-    /*========== Font weight ==========*/
-    --font-medium: 500;
-    --font-semi-bold: 600;
-    /*========== z index ==========*/
-    --z-tooltip: 10;
-    --z-fixed: 100;
+    --pale-purple-pantone: hsl(262, 63%, 92%);
+    --medium-sea-green: hsl(152, 63%, 43%);
+    --lavender-blush: hsl(336, 35%, 92%);
+    --carolina-blue: hsl(204, 91%, 53%);
+    --columbia-blue: hsl(204, 92%, 90%);
+    --alice-blue-1: hsl(216, 38%, 95%);
+    --alice-blue-2: hsl(216, 75%, 97%);
+    --alice-blue-3: hsl(216, 38%, 95%);
+    --alice-blue-4: hsl(217, 33%, 92%);
+    --independence: hsl(219, 21%, 39%);
+    --deep-cerise: hsl(329, 63%, 52%);
+    --eerie-black: hsl(210, 11%, 15%);
+    --space-cadet: hsl(240, 22%, 25%);
+    --blue-jeans: hsl(204, 80%, 63%);
+    --slate-blue: hsl(262, 60%, 57%);
+    --beau-blue: hsl(208, 86%, 92%);
+    --honey-dew: hsl(152, 48%, 89%);
+    --mimi-pink: hsl(329, 63%, 90%);
+    --red-salsa: hsl(0, 79%, 63%);
+    --sapphire: hsl(211, 100%, 35%);
+    --manatee: hsl(219, 14%, 60%);
+    --white: hsl(0, 0%, 100%);
 
     --gradient: linear-gradient(to top, var(--alice-blue-2), var(--alice-blue-3));
 
@@ -278,107 +274,127 @@ a {
     #HEADER
   \*-----------------------------------*/
 
-/*=============== HEADER & NAV ===============*/
+.header-contact {
+    display: none;
+}
+
 .header {
-    width: 100%;
-    background-color: transparent;
+    background: var(--eerie-black);
     position: fixed;
     top: 0;
     left: 0;
-    z-index: var(--z-fixed);
+    width: 100%;
+    transition: var(--transition);
+    z-index: 4;
 }
 
-.nav {
-    height: var(--header-height);
+.header.active {
+    box-shadow: var(--shadow-1);
+}
+
+.header .container {
+    height: 70px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.nav__logo,
-.nav__toggle {
-    color: var(--title-color);
-    display: inline-flex;
-}
-
-.nav__logo {
-    align-items: center;
-    column-gap: .25rem;
-    font-weight: var(--font-medium);
-    transition: .3s;
-}
-
-.nav__logo i {
-    font-size: 1.25rem;
-}
-
-.nav__logo:hover {
-    color: var(--first-color);
-}
-
-.nav__toggle {
-    font-size: 1.25rem;
-    cursor: pointer;
-}
-
-@media screen and (max-width: 767px) {
-    .nav__menu {
-        position: fixed;
-        background-color: rgba(255, 255, 255, 0.1);
-        top: 0;
-        right: -100%;
-        width: 100%;
-        height: 100%;
-        backdrop-filter: blur(96px);
-        transition: .3s;
-    }
-}
-
-.nav__list {
+.header-actions {
     display: flex;
-    flex-direction: column;
-    text-align: center;
-    row-gap: 3rem;
-    padding-top: 9rem;
+    align-items: center;
+    gap: 20px;
 }
 
-.nav__link {
-    text-transform: uppercase;
-    color: var(--title-color);
-    font-size: var(--h2-font-size);
-    font-weight: var(--font-medium);
-    transition: .3s;
+.header-actions .btn span {
+    display: none;
 }
 
-.nav__link:hover {
-    color: var(--first-color);
+.user-btn {
+    --color: var(--independence);
+    --background: var(--white);
+    --shadow-2: var(--shadow-1);
+    box-shadow: var(--shadow-1);
 }
 
-.nav__close {
-    font-size: 2rem;
-    color: var(--white-color);
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    cursor: pointer;
+.nav-toggle-btn span {
+    background: var(--independence);
+    width: 22px;
+    height: 2px;
+    border-radius: 2px;
+    margin-block: 8px;
+    transform-origin: right;
+    transition: var(--transition);
 }
 
-/* Show menu */
-.show-menu {
+.nav-toggle-btn span.two {
+    transform: scaleX(0.7);
+}
+
+.nav-toggle-btn span.three {
+    transform: scaleX(0.4);
+}
+
+.nav-toggle-btn:is(:hover, :focus) span {
+    background: var(--carolina-blue);
+}
+
+.nav-toggle-btn.active span {
+    transform: scaleX(1);
+    background: var(--carolina-blue);
+}
+
+.navbar {
+    background: var(--alice-blue-1);
+    position: fixed;
+    top: 70px;
+    bottom: 0;
+    right: -260px;
+    max-width: 260px;
+    width: 100%;
+    padding: 20px 25px;
+    border: 1px solid var(--white);
+    box-shadow: var(--shadow-1);
+    visibility: hidden;
+    transition: 0.25s cubic-bezier(0.51, 0.03, 0.64, 0.28);
+}
+
+.navbar.active {
+    visibility: visible;
+    transform: translateX(-100%);
+    transition: 0.5s cubic-bezier(0.33, 0.85, 0.56, 1.02);
+}
+
+.navbar-link {
+    color: var(--independence);
+    font-family: var(--ff-nunito);
+    font-size: var(--fs-6);
+    padding-block: 5px;
+    margin-bottom: 15px;
+}
+
+.navbar-link:is(:hover, :focus) {
+    color: var(--carolina-blue);
+}
+
+.overlay {
+    position: fixed;
+    top: 70px;
+    background: hsl(216, 38%, 95%);
+    left: 0;
     right: 0;
+    bottom: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition);
 }
 
-/* Change background header */
-.scroll-header {
-    border-radius: 0 0 1rem 1rem;
-    background-color: var(--body-color);
-    box-shadow: 0 2px 4px #030303;
+.overlay.active {
+    opacity: 0.7;
+    pointer-events: all;
 }
 
-/* Active link */
-.active-link {
-    color: var(--first-color);
-}
+
+
 
 
 /*-----------------------------------*\
