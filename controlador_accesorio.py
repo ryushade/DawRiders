@@ -17,6 +17,14 @@ def obtener_accesorios():
     conexion.close()
     return accesorios
 
+def obtener_accesorios_api():
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT idAccesorio, codaccesorio, tipo, material FROM ACCESORIO")
+        accesorios = cursor.fetchall()
+    conexion.close()
+    return accesorios
+
 def eliminar_accesorio(codaccesorio):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:

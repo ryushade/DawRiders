@@ -16,9 +16,11 @@ import controlador_users
 from clases.clase_moto import clsMoto
 from clases.clase_cliente import clsCliente
 from clases.clase_administrador import clsAdministrador
-from clases.clase_carrito import clsItemCarrito
+from clases.clase_itemcarrito import clsItemCarrito
 from clases.clase_venta1 import clsVenta1
 from clases.clase_producto import clsProducto
+from clases.clase_accesorio import clsAccesorio
+from clases.clase_carrito import clsCarrito
 
 ##### SEGURIDAD - INICIO ######
 class User(object):
@@ -207,26 +209,24 @@ def api_guardaradministrador():
 @app.route("/api_obtener_cliente")
 @jwt_required()
 def api_obtener_cliente():
-    response = dict()
+    rpta = dict()
     try:
-        datos = []
+        listaclientes = list()
         clientes = controlador_cliente.obtener_clientes()
+
         for cliente in clientes:
-            if len(cliente) != 6:
-                raise ValueError(f"Esperaba 6 elementos, pero recibí {len(cliente)} elementos: {cliente}")
+            objCliente = clsCliente(cliente[0], cliente[1], cliente[2], cliente[3], cliente[4], cliente[5])
+            listaclientes.append(objCliente.dicctemp)
 
-            miobjcli = clsCliente(cliente[0], cliente[1], cliente[2], cliente[3], cliente[4], cliente[5])
-            datos.append(miobjcli.obtenerObjetoSerializable())
-
-        response["data"] = datos
-        response["status"] = 1
-        response["message"] = "Correcto listado de cliente"
+        rpta["code"] = 1
+        rpta["message"] = "Listado correcto de Clientes registrados"
+        rpta["data"] = listaclientes
+        return jsonify(rpta)
     except Exception as e:
-        response["data"] = []
-        response["status"] = 0
-        response["message"] = f"Problemas en el servicio web: {str(e)}"
-    return jsonify(response)
-
+        rpta["code"] = 0
+        rpta["message"] = f"Problemas en el servicio web: {str(e)}"
+        rpta["data"] = dict()
+        return jsonify(rpta)
 
 @app.route("/api_guardar_cliente", methods=["POST"])
 @jwt_required()
@@ -371,7 +371,6 @@ def api_guardarmoto():
 
 
 @app.route("/crud_moto")
-@jwt_required()
 def crud_moto():
     moto = controlador_moto.obtener_motos()
     return render_template("crud_moto.html", moto=moto)
@@ -428,6 +427,50 @@ def eliminar_accesorio():
     controlador_accesorio.eliminar_accesorio(request.form["codaccesorio"])
     return redirect("/listar_Accesorio")
 
+@app.route("/api_obtener_accesorios")
+@jwt_required()
+def api_obtener_accesorios():
+    rpta = dict()
+    try:
+        listaaccesorios = list()
+        accesorios = controlador_accesorio.obtener_accesorios_api()
+
+        for accesorio in accesorios:
+
+            objAccesorio = clsAccesorio(accesorio[0], accesorio[1], accesorio[2],
+                              accesorio[3])
+            listaaccesorios.append(objAccesorio.diccaccesorio)
+
+        rpta["code"] = 1
+        rpta["message"] = "Listado correcto de Accesorios registradas"
+        rpta["data"] = listaaccesorios
+        return jsonify(rpta)
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Problemas en el servicio web: {str(e)}"
+        rpta["data"] = dict()
+        return jsonify(rpta)
+
+@app.route("/api_guardaraccesorio", methods=["POST"])
+@jwt_required()
+def api_guardaraccesorio():
+    rpta = dict()
+    try:
+        codaccesorio = request.json["codaccesorio"]
+        tipo = request.json["tipo"]
+        material = request.json["material"]
+
+        idgenerado = controlador_accesorio.insertar_accesorio(codaccesorio, tipo, material)
+
+        rpta["code"] = 1
+        rpta["message"] = "Accesorio registrado correctamente. "
+        rpta["data"] = {"idgenerado" : idgenerado}
+
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = "Ocurrió un problema: " + repr(e)
+        rpta["data"] = dict()
+    return rpta
 # -----------Producto-----------------
 
 @app.route("/crud_producto")
@@ -441,6 +484,50 @@ def crud_producto():
 def formulario_detalle_producto():
     productosm = controlador_producto.obtener_moto_producto()
     return render_template("detalleProductoMoto.html" , productosm=productosm)
+
+@app.route("/api_obtener_carrito")
+@jwt_required()
+def api_obtener_carrito():
+    rpta = dict()
+    try:
+        listacarrito = list()
+        carritos = controlador_carrito.obtener_carrito_api_an()
+
+        for carrito in carritos:
+
+            objCarrito = clsCarrito(carrito[0], carrito[1], carrito[2])
+            listacarrito.append(objCarrito.dicccarrito)
+
+        rpta["code"] = 1
+        rpta["message"] = "Listado correcto de detalle del carrito registradas"
+        rpta["data"] = listacarrito
+        return jsonify(rpta)
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Problemas en el servicio web: {str(e)}"
+        rpta["data"] = dict()
+        return jsonify(rpta)
+
+
+@app.route("/api_guardar_carrito", methods=["POST"])
+@jwt_required()
+def api_guardar_carrito():
+    rpta = dict()
+    try:
+        idCliente = request.json["idCliente"]
+        fechaCreacion = request.json["fechaCreacion"]
+
+        idgenerado = controlador_carrito.insertar_carrito_api(idCliente, fechaCreacion)
+
+        rpta["code"] = 1
+        rpta["message"] = "Carrito registrado correctamente. "
+        rpta["data"] = {"idgenerado" : idgenerado}
+
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = "Ocurrió un problema: " + repr(e)
+        rpta["data"] = dict()
+    return rpta
 
 @app.route("/agregar_carrito", methods=["POST"])
 def agregar_carrito():
