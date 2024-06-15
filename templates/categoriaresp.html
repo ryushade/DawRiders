@@ -114,53 +114,55 @@
             <ul class="featured-car-list">
                 {% for carta in productosm %}
                 {% if (loop.index0 % 3) == 0 %}
-                <div class="row mb-4">
-                    {% endif %}
-                    <li class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="featured-car-card" style="height: 100%;">
-                            <figure class="card-banner">
-                                <img src="{{ url_for('static', filename='img/' + carta[7])}}"
-                                    alt="Imagen de {{ carta[5] }}" loading="lazy" width="440" height="300"
-                                    class="w-100">
-                            </figure>
-                            <div class="card-content">
-                                <div class="card-title-wrapper">
-                                    <h3 class="h3 card-title">
-                                        <a href="{{url_for('detalle_producto_moto', id=carta[0])}}">{{ carta[5] }}</a>
-                                    </h3>
-                                    <data class="year" value="{{ carta[1] }}">{{ carta[1] }}</data>
-                                </div>
-                                <ul class="card-list">
-                                    <li class="card-list-item">
-                                        <ion-icon name="people-outline"></ion-icon>
-                                        <span class="card-item-text">4 People</span>
-                                    </li>
-                                    <li class="card-list-item">
-                                        <ion-icon name="flash-outline"></ion-icon>
-                                        <span class="card-item-text">Hybrid</span>
-                                    </li>
-                                    <li class="card-list-item">
-                                        <ion-icon name="speedometer-outline"></ion-icon>
-                                        <span class="card-item-text">{{ carta[6] }} km / 1-litre</span>
-                                    </li>
-                                    <li class="card-list-item">
-                                        <ion-icon name="hardware-chip-outline"></ion-icon>
-                                        <span class="card-item-text">Automatic</span>
-                                    </li>
-                                </ul>
-                                <div class="card-price-wrapper">
-                                    <p class="card-price">
-                                        <strong>S/. {{ carta[2] }}</strong>
-                                    </p>
-                                </div>
-                            </div>
+                {% if not loop.first %}
+        </div>
+        {% endif %}
+        <div class="row mb-4">
+            {% endif %}
+            <li class="col-lg-4 col-md-6 col-sm-12">
+                <div class="featured-car-card" style="height: 100%;">
+                    <figure class="card-banner">
+                        <img src="{{ url_for('static', filename='img/' + carta[7])}}" alt="Imagen de {{ carta[5] }}"
+                            loading="lazy" width="440" height="300" class="w-100">
+                    </figure>
+                    <div class="card-content">
+                        <div class="card-title-wrapper">
+                            <h3 class="h3 card-title">
+                                <a href="{{url_for('detalle_producto_moto', id=carta[0])}}">{{ carta[5] }}</a>
+                            </h3>
+                            <data class="year" value="{{ carta[1] }}">{{ carta[1] }}</data>
                         </div>
-                    </li>
-                    {% if ((loop.index0 + 1) % 3) == 0 or loop.last %}
+                        <ul class="card-list">
+                            <li class="card-list-item">
+                                <ion-icon name="people-outline"></ion-icon>
+                                <span class="card-item-text">4 People</span>
+                            </li>
+                            <li class="card-list-item">
+                                <ion-icon name="flash-outline"></ion-icon>
+                                <span class="card-item-text">Hybrid</span>
+                            </li>
+                            <li class="card-list-item">
+                                <ion-icon name="speedometer-outline"></ion-icon>
+                                <span class="card-item-text">{{ carta[6] }} km / 1-litre</span>
+                            </li>
+                            <li class="card-list-item">
+                                <ion-icon name="hardware-chip-outline"></ion-icon>
+                                <span class="card-item-text">Automatic</span>
+                            </li>
+                        </ul>
+                        <div class="card-price-wrapper">
+                            <p class="card-price">
+                                <strong>S/. {{ carta[2] }}</strong>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                {% endif %}
-                {% endfor %}
-            </ul>
+            </li>
+            {% if loop.index0 % 3 == 2 or loop.last %}
+        </div>
+        {% endif %}
+        {% endfor %}
+        </ul>
         </div>
     </section>
 
