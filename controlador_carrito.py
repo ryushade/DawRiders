@@ -100,3 +100,34 @@ def insertar_carrito_api(idCliente, fechaCreacion):
             (idCliente, fechaCreacion))
     conexion.commit()
     conexion.close()
+
+###APIS
+
+def eliminar_carrito(id_carrito):
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("DELETE FROM CARRITO WHERE idCarrito = %s", (id_carrito,))
+        conexion.commit()
+    finally:
+        conexion.close()
+
+def obtener_carrito_id(id_carrito):
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("SELECT * FROM CARRITO WHERE idCarrito = %s", (id_carrito,))
+            carrito = cursor.fetchone()
+        return carrito
+    finally:
+        conexion.close()
+
+def modificar_carrito(id_carrito, id_cliente, fecha_creacion):
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("UPDATE CARRITO SET idCliente = %s, fechaCreacion = %s WHERE idCarrito = %s", (id_cliente, fecha_creacion, id_carrito))
+        conexion.commit()
+    finally:
+        conexion.close()
+

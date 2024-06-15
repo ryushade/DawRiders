@@ -159,6 +159,9 @@ def procesar_login():
         flash('Error al logearse. Intente nuevamente', 'error')
         return render_template("login.html")
 
+
+########### APIS ADMINISTRADOR ############
+
 @app.route("/api_obteneradministrador")
 @jwt_required()
 def api_obteneradministrador():
@@ -204,7 +207,59 @@ def api_guardaradministrador():
         rpta["data"] = dict()
     return rpta
 
- ####APIS CLIENTE ####
+@app.route("/api_eliminar_administrador/<int:id_admin>", methods=["DELETE"])
+@jwt_required()
+def api_eliminar_administrador(id_admin):
+    rpta = dict()
+    try:
+        controlador_administrador.eliminar_administrador(id_admin)
+        rpta["code"] = 1
+        rpta["message"] = "Administrador eliminado correctamente."
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Ocurrió un problema: {str(e)}"
+    return jsonify(rpta)
+
+@app.route("/api_editar_administrador/<int:id_admin>", methods=["PUT"])
+@jwt_required()
+def api_actualizar_administrador(id_admin):
+    rpta = dict()
+    try:
+        datos = request.json
+        controlador_administrador.actualizar_administrador(
+            datos["cliente_id"], datos["fecha_asignacion"], id_admin
+        )
+        rpta["code"] = 1
+        rpta["message"] = "Administrador actualizado correctamente."
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Ocurrió un problema: {str(e)}"
+    return jsonify(rpta)
+
+@app.route("/api_obtener_administrador_por_id/<int:id_admin>", methods=["GET"])
+@jwt_required()
+def api_obtener_administrador(id_admin):
+    rpta = dict()
+    try:
+        admin = controlador_administrador.obtener_administrador_por_id(id_admin)
+        if admin:
+            objAdmin = clsAdministrador(admin[0], admin[1], admin[2])
+            rpta["code"] = 1
+            rpta["message"] = "Administrador obtenido correctamente."
+            rpta["data"] = objAdmin.diccadmin
+        else:
+            rpta["code"] = 0
+            rpta["message"] = "Administrador no encontrado."
+            rpta["data"] = dict()
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Ocurrió un problema: {str(e)}"
+        rpta["data"] = dict()
+    return jsonify(rpta)
+
+####
+
+##### APIS CLIENTE ####
 
 @app.route("/api_obtener_cliente")
 @jwt_required()
@@ -250,11 +305,57 @@ def api_guardar_cliente():
         rpta["data"] = dict()
     return jsonify(rpta)
 
+@app.route("/api_eliminar_cliente/<int:id_cliente>", methods=["DELETE"])
+@jwt_required()
+def api_eliminar_cliente(id_cliente):
+    rpta = dict()
+    try:
+        controlador_cliente.eliminar_cliente(id_cliente)
+        rpta["code"] = 1
+        rpta["message"] = "Cliente eliminado correctamente."
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Ocurrió un problema: {str(e)}"
+    return jsonify(rpta)
 
+@app.route("/api_editar_cliente/<int:id_cliente>", methods=["PUT"])
+@jwt_required()
+def api_editar_cliente(id_cliente):
+    rpta = dict()
+    try:
+        datos = request.json
+        controlador_cliente.actualizar_cliente(
+            datos["nombre"], datos["apellidos"], datos["email"], datos["contraseña"], datos["telefono"], id_cliente
+        )
+        rpta["code"] = 1
+        rpta["message"] = "Cliente actualizado correctamente."
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Ocurrió un problema: {str(e)}"
+    return jsonify(rpta)
 
+@app.route("/api_obtener_cliente_por_id/<int:id_cliente>", methods=["GET"])
+@jwt_required()
+def api_obtener_cliente_por_id(id_cliente):
+    rpta = dict()
+    try:
+        cliente = controlador_cliente.obtener_cliente_por_id(id_cliente)
+        if cliente:
+            objCliente = clsCliente(cliente[0], cliente[1], cliente[2], cliente[3], cliente[4], cliente[5])
+            rpta["code"] = 1
+            rpta["message"] = "Cliente obtenido correctamente."
+            rpta["data"] = objCliente.dicctemp
+        else:
+            rpta["code"] = 0
+            rpta["message"] = "Cliente no encontrado."
+            rpta["data"] = dict()
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Ocurrió un problema: {str(e)}"
+        rpta["data"] = dict()
+    return jsonify(rpta)
 
-
-
+#######
 
 
 
@@ -307,6 +408,7 @@ def guardar_moto():
         error_message = f"Error al guardar la moto: {str(e)}"
         return error_message
 
+######### APIS MOTO #################
 
 @app.route("/api_obtenermotos")
 @jwt_required()
@@ -369,6 +471,65 @@ def api_guardarmoto():
         rpta["data"] = dict()
     return rpta
 
+@app.route("/api_eliminar_moto/<int:id_moto>", methods=["DELETE"])
+@jwt_required()
+def api_eliminar_moto(id_moto):
+    rpta = dict()
+    try:
+        controlador_moto.eliminar_moto(id_moto)
+        rpta["code"] = 1
+        rpta["message"] = f"Moto eliminada correctamente. ID: {id_moto}"
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Ocurrió un problema: {str(e)}"
+    return jsonify(rpta)
+
+@app.route("/api_editar_moto/<int:id_moto>", methods=["PUT"])
+@jwt_required()
+def api_editar_moto(id_moto):
+    rpta = dict()
+    try:
+        datos = request.json
+        controlador_moto.actualizar_moto(
+            datos["codmoto"], datos["tipo"], datos["posicionManejo"], datos["numAsientos"],
+            datos["numPasajeros"], datos["largo"], datos["ancho"], datos["alto"],
+            datos["tipoMotor"], datos["combustible"], datos["numCilindros"],
+            datos["capacidadTanque"], datos["rendimiento"], id_moto
+        )
+        rpta["code"] = 1
+        rpta["message"] = "Moto actualizada correctamente."
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Ocurrió un problema: {str(e)}"
+    return jsonify(rpta)
+
+@app.route("/api_obtener_moto_por_id/<int:id_moto>", methods=["GET"])
+@jwt_required()
+def api_obtener_moto_por_id(id_moto):
+    rpta = dict()
+    try:
+        moto = controlador_moto.obtener_moto_por_id(id_moto)
+        if moto:
+            objMoto = clsMoto(
+                moto[0], moto[1], moto[2], moto[3], moto[4], moto[5],
+                moto[6], moto[7], moto[8], moto[9], moto[10], moto[11],
+                moto[12], moto[13]
+            )
+            rpta["code"] = 1
+            rpta["message"] = "Moto obtenida correctamente."
+            rpta["data"] = objMoto.diccmoto
+        else:
+            rpta["code"] = 0
+            rpta["message"] = "Moto no encontrada."
+            rpta["data"] = dict()
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Ocurrió un problema: {str(e)}"
+        rpta["data"] = dict()
+    return jsonify(rpta)
+
+
+######
 
 @app.route("/crud_moto")
 def crud_moto():
@@ -427,6 +588,8 @@ def eliminar_accesorio():
     controlador_accesorio.eliminar_accesorio(request.form["codaccesorio"])
     return redirect("/listar_Accesorio")
 
+######## APIS ACCESORIOS ##############
+
 @app.route("/api_obtener_accesorios")
 @jwt_required()
 def api_obtener_accesorios():
@@ -471,6 +634,70 @@ def api_guardaraccesorio():
         rpta["message"] = "Ocurrió un problema: " + repr(e)
         rpta["data"] = dict()
     return rpta
+
+
+@app.route("/api_eliminar_accesorio/<int:id_accesorio>", methods=["DELETE"])
+@jwt_required()
+def api_eliminar_accesorio(id_accesorio):
+    rpta = dict()
+    try:
+        controlador_accesorio.eliminar_accesorio_api(id_accesorio)
+        rpta["code"] = 1
+        rpta["message"] = "Accesorio eliminado correctamente."
+        rpta["data"] = dict()
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Ocurrió un problema: {str(e)}"
+        rpta["data"] = dict()
+    return jsonify(rpta)
+
+
+@app.route("/api_editar_accesorio/<int:id_accesorio>", methods=["PUT"])
+@jwt_required()
+def api_editar_accesorio(id_accesorio):
+    rpta = dict()
+    try:
+        codaccesorio = request.json["codaccesorio"]
+        tipo = request.json["tipo"]
+        material = request.json["material"]
+
+        controlador_accesorio.actualizar_accesorio(codaccesorio, tipo, material, id_accesorio)
+
+        rpta["code"] = 1
+        rpta["message"] = "Accesorio actualizado correctamente."
+        rpta["data"] = dict()
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Ocurrió un problema: " + repr(e)
+        rpta["data"] = dict()
+    return jsonify(rpta)
+
+@app.route("/api_obtener_accesorio_por_id/<int:id_accesorio>", methods=["GET"])
+@jwt_required()
+def api_obtener_accesorio_por_id(id_accesorio):
+    rpta = dict()
+    try:
+        accesorio = controlador_accesorio.obtener_accesorio_por_id(id_accesorio)
+        if accesorio:
+            objAccesorio = clsAccesorio(
+                accesorio[0], accesorio[1], accesorio[2], accesorio[3]
+            )
+            rpta["code"] = 1
+            rpta["message"] = "Accesorio obtenido correctamente."
+            rpta["data"] = objAccesorio.diccaccesorio
+        else:
+            rpta["code"] = 0
+            rpta["message"] = "Accesorio no encontrado."
+            rpta["data"] = dict()
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Ocurrió un problema: {str(e)}"
+        rpta["data"] = dict()
+    return jsonify(rpta)
+
+#############
+
+
 # -----------Producto-----------------
 
 @app.route("/crud_producto")
@@ -484,6 +711,8 @@ def crud_producto():
 def formulario_detalle_producto():
     productosm = controlador_producto.obtener_moto_producto()
     return render_template("detalleProductoMoto.html" , productosm=productosm)
+
+############## API CARRITO #############
 
 @app.route("/api_obtener_carrito")
 @jwt_required()
@@ -529,6 +758,61 @@ def api_guardar_carrito():
         rpta["data"] = dict()
     return rpta
 
+@app.route("/api_eliminar_carrito/<int:id_carrito>", methods=["DELETE"])
+@jwt_required()
+def api_eliminar_carrito(id_carrito):
+    rpta = dict()
+    try:
+        controlador_carrito.eliminar_carrito(id_carrito)
+        rpta["code"] = 1
+        rpta["message"] = "Carrito eliminado correctamente."
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Ocurrió un problema: {str(e)}"
+    return jsonify(rpta)
+
+@app.route("/api_obtener_carrito_id/<int:id_carrito>", methods=["GET"])
+@jwt_required()
+def api_obtener_carrito_id(id_carrito):
+    rpta = dict()
+    try:
+        carrito = controlador_carrito.obtener_carrito_id(id_carrito)
+        if carrito:
+            objCarrito = clsCarrito(
+                carrito[0], carrito[1], carrito[2]
+            )
+            rpta["code"] = 1
+            rpta["message"] = "Carrito obtenido correctamente."
+            rpta["data"] = objCarrito.dicccarrito
+        else:
+            rpta["code"] = 0
+            rpta["message"] = "Carrito no encontrado."
+            rpta["data"] = dict()
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Ocurrió un problema: {str(e)}"
+        rpta["data"] = dict()
+    return jsonify(rpta)
+
+
+@app.route("/api_editar_carrito/<int:id_carrito>", methods=["PUT"])
+@jwt_required()
+def api_editar_carrito(id_carrito):
+    rpta = dict()
+    try:
+        datos = request.json
+        controlador_carrito.modificar_carrito(id_carrito, datos["idCliente"], datos["fechaCreacion"])
+        rpta["code"] = 1
+        rpta["message"] = "Carrito modificado correctamente."
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Ocurrió un problema: {str(e)}"
+    return jsonify(rpta)
+
+
+######
+
+
 @app.route("/agregar_carrito", methods=["POST"])
 def agregar_carrito():
     product_id = request.form.get('product_id', type=int)
@@ -570,7 +854,7 @@ def formulario_detalle_categoria():
     productosm = controlador_producto.obtener_moto_producto()
     return render_template("categoriaresp.html" , productosm=productosm)
 
-
+########   APIS ITEM CARRITO   ##############
 
 @app.route("/api_obteneritemcarrito")
 @jwt_required()
@@ -624,7 +908,7 @@ def api_guardarcarrito():
     return rpta
 
 
-
+########   PRODUCTO   ##############
 
 @app.route("/api_obtenerproductos")
 @jwt_required()
@@ -678,6 +962,68 @@ def api_guardar_producto():
         rpta["data"] = dict()
     return jsonify(rpta)
 
+@app.route("/api_eliminar_producto/<int:id_producto>", methods=["DELETE"])
+@jwt_required()
+def api_eliminar_producto(id_producto):
+    rpta = dict()
+    try:
+        controlador_producto.eliminar_producto(id_producto)
+        rpta["code"] = 1
+        rpta["message"] = "Producto eliminado correctamente."
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Problemas en el servicio web: {str(e)}"
+        rpta["data"] = dict()
+    return jsonify(rpta)
+
+@app.route("/api_editar_producto/<int:id_producto>", methods=["PUT"])
+@jwt_required()
+def api_editar_producto(id_producto):
+    rpta = dict()
+    try:
+        descripcion = request.json["descripcion"]
+        precio = request.json["precio"]
+        stock = request.json["stock"]
+        marca = request.json["marca"]
+        modelo = request.json["modelo"]
+        color = request.json["color"]
+        imagen = request.json["imagen"]
+        idMoto = request.json["idMoto"]
+        idAccesorio = request.json["idAccesorio"]
+
+        controlador_producto.actualizar_producto(descripcion, precio, stock, marca, modelo, color, imagen, idMoto, idAccesorio, id_producto)
+
+        rpta["code"] = 1
+        rpta["message"] = "Producto actualizado correctamente."
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = "Ocurrió un problema: " + repr(e)
+        rpta["data"] = dict()
+    return jsonify(rpta)
+
+@app.route("/api_obtener_producto_por_id/<int:id_producto>", methods=["GET"])
+@jwt_required()
+def api_obtener_producto_por_id(id_producto):
+    rpta = dict()
+    try:
+        producto = controlador_producto.obtener_producto_por_id(id_producto)
+        if producto:
+            objProducto = clsProducto(producto[0], producto[1], producto[2], producto[3], producto[4], producto[5], producto[6], producto[7], producto[8], producto[9])
+            rpta["code"] = 1
+            rpta["message"] = "Producto encontrado correctamente."
+            rpta["data"] = objProducto.dicctemp
+        else:
+            rpta["code"] = 0
+            rpta["message"] = "Producto no encontrado."
+            rpta["data"] = dict()
+    except Exception as e:
+        rpta["code"] = 0
+        rpta["message"] = f"Problemas en el servicio web: {str(e)}"
+        rpta["data"] = dict()
+    return jsonify(rpta)
+
+
+###
 
 @app.route("/listarProductoA")
 @jwt_required()

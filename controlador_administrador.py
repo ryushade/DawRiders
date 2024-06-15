@@ -14,10 +14,11 @@ def actualizar_administrador(cliente_id, fecha_asignacion, idAdmin):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
         cursor.execute(
-            "UPDATE CLIENTE SET cliente_id = %s, fecha_asignacion = %s WHERE idAdmin = %s",
+            "UPDATE ADMINISTRADOR SET cliente_id = %s, fecha_asignacion = %s WHERE idAdmin = %s",
             (cliente_id, fecha_asignacion, idAdmin))
     conexion.commit()
     conexion.close()
+
 
 
 def eliminar_administrador(idAdmin):

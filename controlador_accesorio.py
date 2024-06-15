@@ -32,6 +32,13 @@ def eliminar_accesorio(codaccesorio):
     conexion.commit()
     conexion.close()
 
+def eliminar_accesorio_api(id_accesorio):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("DELETE FROM ACCESORIO WHERE idAccesorio = %s", (id_accesorio,))
+    conexion.commit()
+    conexion.close()
+
 def actualizar_accesorio(codaccesorio, tipo, material, id_accesorio):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:

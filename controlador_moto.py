@@ -61,10 +61,3 @@ def obtener_cod_moto(codMoto):
         motos = cursor.fetchall()
     conexion.close()
     return motos
-
-def eliminar_moto(codmoto):
-    conexion = obtener_conexion()
-    with conexion.cursor() as cursor:
-        cursor.execute("DELETE FROM MOTO WHERE codmoto = %s", (codmoto,))
-    conexion.commit()
-    conexion.close()
