@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash, jsonify, url_for, session,json
+from flask import Flask, render_template, request, redirect, flash, jsonify, url_for, session, json, make_response
 from flask_login import login_user
 from flask_jwt import JWT, jwt_required, current_identity
 import controlador_pago
@@ -21,6 +21,8 @@ from clases.clase_venta1 import clsVenta1
 from clases.clase_producto import clsProducto
 from clases.clase_accesorio import clsAccesorio
 from clases.clase_carrito import clsCarrito
+from hashlib import sha256
+import random
 
 ##### SEGURIDAD - INICIO ######
 class User(object):
@@ -97,10 +99,6 @@ def formulario_administrador():
 def formulario_contacto():
     return render_template("contacto.html")
 
-@app.route("/login", methods=["GET"])
-def formulario_login_cliente():
-    return render_template("login.html")
-
 @app.route("/dashboard")
 def dashboard():
     return render_template('index_d.html')
@@ -114,22 +112,6 @@ def formulario_carrito():
     items = controlador_carrito.obtener_items_carrito()
     return render_template("carritoCompra.html", items=items)
 
-
-
-
-
-@app.route("/guardar_cliente", methods=["POST"])
-def guardar_cliente():
-    nombre = request.form["nombre"]
-    apellidos = request.form["apellidos"]
-    telefono = request.form["telefono"]
-    email = request.form["email"]
-    contraseña = request.form["contraseña"]
-
-    controlador_cliente.insertar_cliente(nombre, apellidos, email, contraseña, telefono)
-    # De cualquier modo, y si todo fue bien, redireccionar
-    return redirect("/login")
-
 @app.route("/eliminar_cliente", methods=["POST"])
 def eliminar_cliente():
     controlador_cliente.eliminar_cliente(request.form["id"])
@@ -140,24 +122,70 @@ def crud_cliente():
     clientes = controlador_cliente.obtener_clientes()
     return render_template("crud_cliente.html", clientes=clientes)
 
+####### LOGIN ###########
+
+@app.route("/login")
+def formulario_login_cliente():
+    email = request.cookies.get('email')
+    token = request.cookies.get('token')
+
+    if email and token:
+        usuario = controlador_cliente.obtener_usuario_por_email(email)
+
+        if usuario and usuario['token'] == token:
+            session['user_id'] = usuario['id']
+            session['is_admin'] = usuario['is_admin']
+            productosm = controlador_producto.obtener_moto_producto()
+            return render_template("categoriaresp.html", productosm=productosm)
+
+    return render_template("login.html")
+
 @app.route("/procesar_login", methods=["POST"])
 def procesar_login():
     email = request.form["email"]
     contraseña = request.form["contraseña"]
+
+    epassword = sha256(contraseña.encode("utf-8")).hexdigest()
     usuario = controlador_cliente.obtener_usuario_por_email(email)
 
-    if usuario['contraseña'] == contraseña:
+    if usuario and usuario['contraseña'] == epassword:
+        aleatorio = str(random.randint(1, 1024))
+        token = sha256(aleatorio.encode("utf-8")).hexdigest()
+
         session['user_id'] = usuario['id']
-        session['is_admin'] = usuario['is_admin']  # This is now coming directly from your query
-        if usuario['is_admin']:
-            flash('Login exitoso. Bienvenido Administrador!', 'success')
-            return redirect(url_for("crud_moto"))
-        else:
-            flash('Login exitoso', 'success')
-            return redirect("/login")
+        session['is_admin'] = usuario['is_admin']
+
+        resp = redirect("/crud_moto") if usuario['is_admin'] else redirect("/login")
+        resp.set_cookie('email', email)
+        resp.set_cookie('token', token)
+        controlador_cliente.actualizar_token(email, token)
+
+        return resp
     else:
         flash('Error al logearse. Intente nuevamente', 'error')
         return render_template("login.html")
+
+@app.route("/logout")
+def logout():
+    session.pop('user_id', None)
+    session.pop('is_admin', None)
+    resp = make_response(redirect("/login"))
+    resp.set_cookie('token', '', expires=0)
+    return resp
+
+######### REGISTRO #########
+@app.route("/guardar_cliente", methods=["POST"])
+def guardar_cliente():
+    nombre = request.form["nombre"]
+    apellidos = request.form["apellidos"]
+    telefono = request.form["telefono"]
+    email = request.form["email"]
+    contraseña = request.form["contraseña"]
+
+    epassword = sha256(contraseña.encode("utf-8")).hexdigest()
+
+    controlador_cliente.insertar_cliente(nombre, apellidos, email, epassword, telefono)
+    return redirect("/login")
 
 
 ########### APIS ADMINISTRADOR ############

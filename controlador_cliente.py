@@ -53,26 +53,6 @@ def obtener_cliente_por_email(email):
     return cliente
 
 
-def obtener_usuario_por_email(email):
-    # Open database connection
-    conexion = obtener_conexion()
-    with conexion.cursor() as cursor:
-        # Assuming 'users' table has columns 'id', 'email', 'contraseña' etc.
-        cursor.execute("""
-            SELECT u.idCliente, u.email, u.contraseña,
-                   CASE WHEN a.cliente_id IS NOT NULL THEN TRUE ELSE FALSE END as is_admin
-            FROM CLIENTE u
-            LEFT JOIN ADMINISTRADOR a ON u.idCliente = a.cliente_id
-            WHERE u.email = %s
-        """, (email,))
-        result = cursor.fetchone()
-        if result:
-            return {'id': result[0], 'email': result[1], 'contraseña': result[2], 'is_admin': result[3]}
-        else:
-            return None
-
-
-
 def obtener_contrasena_por_email(email):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
@@ -84,3 +64,34 @@ def obtener_contrasena_por_email(email):
         return cliente[0]
     else:
         return None
+
+
+def obtener_usuario_por_email(email):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("""
+            SELECT u.idCliente, u.email, u.contraseña,
+                   CASE WHEN a.cliente_id IS NOT NULL THEN TRUE ELSE FALSE END as is_admin,
+                   u.token
+            FROM CLIENTE u
+            LEFT JOIN ADMINISTRADOR a ON u.idCliente = a.cliente_id
+            WHERE u.email = %s
+        """, (email,))
+        result = cursor.fetchone()
+        if result:
+            return {
+                'id': result[0],
+                'email': result[1],
+                'contraseña': result[2],
+                'is_admin': result[3],
+                'token': result[4]
+            }
+        else:
+            return None
+
+def actualizar_token(email, token):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("UPDATE CLIENTE SET token = %s WHERE email = %s", (token, email))
+    conexion.commit()
+    conexion.close()

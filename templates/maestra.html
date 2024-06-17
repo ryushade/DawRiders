@@ -1,30 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!--=============== FAVICON ===============-->
     <link rel="shortcut icon" href="/static/img/logocicloriders_2-removebg-preview 1.png" type="image/x-icon">
-
-    <!--=============== REMIX ICONS ===============-->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-
-    <!--=============== SWIPER CSS ===============-->
     <link rel="stylesheet" href="/static/assets/css/swiper-bundle.min.css">
-
-    <!--=============== CSS ===============-->
     <link rel="stylesheet" href="/static/assets/css/styles.css">
-
-    <title>CicloRiders -Motocicletas y Accesorios</title>
+    <title>CicloRiders - Motocicletas y Accesorios</title>
 </head>
-
 <body>
-    <!--==================== HEADER ====================-->
+    <style>
+        .nav__link {
+            text-decoration: none;
+        }
+
+        .nav__link:hover {
+            text-decoration: none;
+            color: #0000FF;
+        }
+
+        .nav__link.active-link {
+            font-weight: bold;
+            color: #0000FF;
+        }
+
+        a, li {
+            text-decoration: none;
+        }
+
+        .no-underline a {
+            text-decoration: none;
+        }
+    </style>
+
     <header class="header" id="header">
         <nav class="nav container">
-            <a href="#" class="nav__logo">
+            <a href="{{ url_for('formulario_principal') }}" class="nav__logo nav__link">
                 <i class="ri-steering-line"></i>
                 CicloRiders
             </a>
@@ -32,19 +44,23 @@
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="{{url_for('formulario_principal')}}" class="nav__link active-link">Inicio</a>
+                        <a href="{{ url_for('formulario_principal') }}" class="nav__link active-link">Inicio</a>
                     </li>
-
                     <li class="nav__item">
                         <a href="#about" class="nav__link">Nosotros</a>
                     </li>
                     <li class="nav__item">
-                        <a href="{{url_for('formulario_detalle_categoria')}}" class="nav__link">Catalogo</a>
+                        <a href="{{ url_for('formulario_detalle_categoria') }}" class="nav__link">Catalogo</a>
                     </li>
+                    {% if session.user_id %}
                     <li class="nav__item">
-                        <a href="{{url_for('formulario_login_cliente')}}" class="nav__link">Login</a>
+                        <a href="{{ url_for('logout') }}" class="nav__link">Cerrar Sesión</a>
                     </li>
-
+                    {% else %}
+                    <li class="nav__item">
+                        <a href="{{ url_for('formulario_login_cliente') }}" class="nav__link">Login</a>
+                    </li>
+                    {% endif %}
                 </ul>
 
                 <div class="nav__close" id="nav-close">
@@ -52,12 +68,11 @@
                 </div>
             </div>
 
-            <!-- Toggle button -->
             <div class="nav__toggle" id="nav-toggle">
                 <i class="ri-menu-line"></i>
             </div>
         </nav>
     </header>
-    {%block contenido %} {% endblock %}
+    {% block contenido %} {% endblock %}
 </body>
 </html>
