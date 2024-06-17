@@ -1,7 +1,7 @@
 {% extends "maestra.html" %}
 
 {% block titulo %}
-
+    
 {% endblock %}
 
 {% block contenido %}
@@ -14,7 +14,7 @@
         <div class="shape shape__big"></div>
         <div class="shape shape__small"></div>
     </section>
-
+    
     <!--==================== BANNER ====================-->
     <div class="banner">
         <div class="container">
@@ -47,156 +47,155 @@
             </a>
         </div>
 
-        <div class="container">
-            <ul class="featured-car-list">
-                {% for carta in productosm %}
+        <ul class="featured-car-list">
+            {% for carta in productosm %}
                 {% if loop.index0 % 3 == 0 %}
-                <div class="row mb-4">
-                    {% endif %}
-                    <li class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="featured-car-card" style="height: 100%;">
-                            <figure class="card-banner">
-                                <img src="{{ url_for('static', filename='img/' + carta[7])}}"
-                                    alt="Imagen de {{ carta[5] }}" loading="lazy" width="440" height="300"
-                                    class="w-100">
-                            </figure>
-                            <div class="card-content">
-                                <div class="card-title-wrapper">
-                                    <h3 class="h3 card-title">
-                                        <a href="{{url_for('detalle_producto_moto', id=carta[0])}}">{{ carta[5] }}</a>
-                                    </h3>
-                                    <data class="year" value="{{ carta[1] }}">{{ carta[1] }}</data>
-                                </div>
-                                <ul class="card-list">
-                                    <li class="card-list-item">
-                                        <ion-icon name="people-outline"></ion-icon>
-                                        <span class="card-item-text">4 People</span>
-                                    </li>
-                                    <li class="card-list-item">
-                                        <ion-icon name="flash-outline"></ion-icon>
-                                        <span class="card-item-text">Hybrid</span>
-                                    </li>
-                                    <li class="card-list-item">
-                                        <ion-icon name="speedometer-outline"></ion-icon>
-                                        <span class="card-item-text">{{ carta[6] }} km / 1-litre</span>
-                                    </li>
-                                    <li class="card-list-item">
-                                        <ion-icon name="hardware-chip-outline"></ion-icon>
-                                        <span class="card-item-text">Automatic</span>
-                                    </li>
-                                </ul>
-                                <div class="card-price-wrapper">
-                                    <p class="card-price">
-                                        <strong>S/. {{ carta[2] }}</strong>
-                                    </p>
-                                </div>
+                    <div class="row mb-4">
+                {% endif %}
+                <li class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="featured-car-card" style="height: 100%;">
+                        <figure class="card-banner">
+                            <img src="{{ url_for('static', filename='img/' + carta[7])}}"
+                                 alt="Imagen de {{ carta[5] }}" loading="lazy" width="440" height="300"
+                                 class="w-100">
+                        </figure>
+                        <div class="card-content">
+                            <div class="card-title-wrapper">
+                                <h3 class="h3 card-title">
+                                    <a href="{{url_for('detalle_producto_moto', id=carta[0])}}">{{ carta[5] }}</a>
+                                </h3>
+                                <data class="year" value="{{ carta[1] }}">{{ carta[1] }}</data>
+                            </div>
+                            <ul class="card-list">
+                                <li class="card-list-item">
+                                    <ion-icon name="people-outline"></ion-icon>
+                                    <span class="card-item-text">4 People</span>
+                                </li>
+                                <li class="card-list-item">
+                                    <ion-icon name="flash-outline"></ion-icon>
+                                    <span class="card-item-text">Hybrid</span>
+                                </li>
+                                <li class="card-list-item">
+                                    <ion-icon name="speedometer-outline"></ion-icon>
+                                    <span class="card-item-text">{{ carta[6] }} km / 1-litre</span>
+                                </li>
+                                <li class="card-list-item">
+                                    <ion-icon name="hardware-chip-outline"></ion-icon>
+                                    <span class="card-item-text">Automatic</span>
+                                </li>
+                            </ul>
+                            <div class="card-price-wrapper">
+                                <p class="card-price">
+                                    <strong>S/. {{ carta[2] }}</strong>
+                                </p>
                             </div>
                         </div>
-                    </li>
-                    {% if loop.index0 % 3 == 2 or loop.last %}
-                </div>
+                    </div>
+                </li>
+                {% if loop.index0 % 3 == 1 or loop.last %}
+                    </div>
                 {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
 
+</main>
+<!--==================== FOOTER ====================-->
+    <footer class="footer section">
+        <div class="shape shape__big"></div>
+        <div class="shape shape__small"></div>
 
-        </main>
-        <!--==================== FOOTER ====================-->
-        <footer class="footer section">
-            <div class="shape shape__big"></div>
-            <div class="shape shape__small"></div>
-
-            <div class="footer__container container grid">
-                <div class="footer__content">
-                    <a href="#" class="footer__logo">
-                        <i class="ri-steering-line"></i> CicloRiders
-                    </a>
-                    <p class="footer__description">
-                        Ofrecemos las mejores motocicletas y accesorios <br>
-                        de las marcas más reconocidas de todo el mundo <br>
-                    </p>
-                </div>
-
-                <div class="footer__content">
-                    <h3 class="footer__title">
-                        Empresa
-                    </h3>
-
-                    <ul class="footer__links">
-                        <li>
-                            <a href="#" class="footer__link">Nosotros</a>
-                        </li>
-                        <li>
-                            <a href="#" class="footer__link">Motos</a>
-                        </li>
-                        <li>
-                            <a href="#" class="footer__link">Producto</a>
-                        </li>
-                        <li>
-                            <a href="#" class="footer__link">Catalogo</a>
-                        </li>
-                        <li>
-                            <a href="#" class="footer__link">Login</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="footer__content">
-                    <h3 class="footer__title">
-                        Informacion
-                    </h3>
-
-                    <ul class="footer__links">
-
-                        <a href="#" class="footer__link">Contactanos</a>
-                        </li>
-                        <li>
-                            <a href="#" class="footer__link">Servicios</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="footer__content">
-                    <h3 class="footer__title">
-                        Siguenos en nuestras redes:
-                    </h3>
-
-                    <ul class="footer__social">
-                        <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
-                            <i class="ri-facebook-fill"></i>
-                        </a>
-                        <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
-                            <i class="ri-instagram-line"></i>
-                        </a>
-                        <a href="https://twitter.com/" target="_blank" class="footer__social-link">
-                            <i class="ri-twitter-line"></i>
-                        </a>
-                    </ul>
-                </div>
+        <div class="footer__container container grid">
+            <div class="footer__content">
+                <a href="#" class="footer__logo">
+                    <i class="ri-steering-line"></i> CicloRiders
+                </a>
+                <p class="footer__description">
+                    Ofrecemos las mejores motocicletas y accesorios <br>
+                    de las marcas más reconocidas de todo el mundo <br>
+                </p>
             </div>
 
-            <span class="footer__copy">
-                &#169; CicloRiders. Todos los derechos reservados 2023-2024
-            </span>
-        </footer>
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Empresa
+                </h3>
+
+                <ul class="footer__links">
+                    <li>
+                        <a href="#" class="footer__link">Nosotros</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Motos</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Producto</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Catalogo</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Login</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Informacion
+                </h3>
+
+                <ul class="footer__links">
+
+                    <a href="#" class="footer__link">Contactanos</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Servicios</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Siguenos en nuestras redes:
+                </h3>
+
+                <ul class="footer__social">
+                    <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-facebook-fill"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-instagram-line"></i>
+                    </a>
+                    <a href="https://twitter.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-twitter-line"></i>
+                    </a>
+                </ul>
+            </div>
+        </div>
+
+        <span class="footer__copy">
+            &#169; CicloRiders. Todos los derechos reservados 2023-2024
+        </span>
+    </footer>
 
 
-        <!--========== SCROLL UP ==========-->
-        <a href="#" class="scrollup" id="scroll-up">
-            <i class="ri-arrow-up-line"></i>
-        </a>
+    <!--========== SCROLL UP ==========-->
+    <a href="#" class="scrollup" id="scroll-up">
+        <i class="ri-arrow-up-line"></i>
+    </a>
 
-        <!--=============== SCROLL REVEAL ===============-->
-        <script src="/static/assets/js/scrollreveal.min.js"></script>
+    <!--=============== SCROLL REVEAL ===============-->
+    <script src="/static/assets/js/scrollreveal.min.js"></script>
 
-        <!--=============== SWIPER JS ===============-->
-        <script src="/static/assets/js/swiper-bundle.min.js"></script>
+    <!--=============== SWIPER JS ===============-->
+    <script src="/static/assets/js/swiper-bundle.min.js"></script>
 
-        <!--=============== MIXITUP JS ===============-->
-        <script src="/static/assets/js/mixitup.min.js"></script>
+    <!--=============== MIXITUP JS ===============-->
+    <script src="/static/assets/js/mixitup.min.js"></script>
 
-        <!--=============== MAIN JS ===============-->
-        <script src="/static/assets/js/main.js"></script>
+    <!--=============== MAIN JS ===============-->
+    <script src="/static/assets/js/main.js"></script>
 
-        {% endblock %}
+{% endblock %}
