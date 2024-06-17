@@ -55,9 +55,7 @@
                 <li class="col-lg-4 col-md-6 col-sm-12">
                     <div class="featured-car-card" style="height: 100%;">
                         <figure class="card-banner">
-                            <img src="{{ url_for('static', filename='img/' + carta[7])}}"
-                                 alt="Imagen de {{ carta[5] }}" loading="lazy" width="440" height="300"
-                                 class="w-100">
+                            <img src="{{ url_for('static', filename='img/' + carta[7])}}" alt="Imagen de {{ carta[5] }}" loading="lazy" width="440" height="300" class="w-100">
                         </figure>
                         <div class="card-content">
                             <div class="card-title-wrapper">
@@ -92,13 +90,14 @@
                         </div>
                     </div>
                 </li>
-                {% if loop.index0 % 3 == 1 or loop.last %}
+                {% if loop.index0 % 3 == 2 or loop.last %}
                     </div>
                 {% endif %}
             {% endfor %}
         </ul>
-    </div>
-</section>
+        </div>
+        </section>
+        
 
 </main>
 <!--==================== FOOTER ====================-->
