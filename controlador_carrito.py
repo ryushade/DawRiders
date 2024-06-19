@@ -4,16 +4,13 @@ def agregar_producto_al_carrito(id_carrito, id_producto, cantidad, precio):
     conexion = obtener_conexion()
     try:
         with conexion.cursor() as cursor:
-            # Verificar si el producto ya está en el carrito
             cursor.execute("SELECT * FROM ITEM_CARRITO WHERE idCarrito = %s AND idProducto = %s", (id_carrito, id_producto))
             item = cursor.fetchone()
             if item:
-                # Actualizar cantidad y subtotal si el producto ya está en el carrito
                 nueva_cantidad = item['cantidad'] + cantidad
                 subtotal = nueva_cantidad * precio
                 cursor.execute("UPDATE ITEM_CARRITO SET cantidad = %s, subtotal = %s WHERE idItemCarrito = %s", (nueva_cantidad, subtotal, item['idItemCarrito']))
             else:
-                # Insertar nuevo ítem en el carrito
                 cursor.execute("INSERT INTO ITEM_CARRITO (idCarrito, idProducto, cantidad, precioPorUnidad, subtotal) VALUES (%s, %s, %s, %s, %s)",
                                (id_carrito, id_producto, cantidad, precio, cantidad * precio))
         conexion.commit()
