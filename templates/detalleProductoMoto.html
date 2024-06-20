@@ -1,600 +1,567 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends "maestra.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+{% block titulo %}
+    Iniciar Sesión
+{% endblock %}
+
+{% block contenido %}
+<!--==================== MAIN ====================-->
+<main class="main">
+    <link rel="stylesheet" href="/static/assets/css/styles-card.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/static/css/anicollection.css">
-    <link rel="stylesheet" href="/static/css/index_flask.css">
-    <title>Detalle de Producto MOTO</title>
-</head>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="shortcut icon" href="/static/img/logocicloriders_2-removebg-preview 1.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/static/assets/css/styles.css">
 
-<body id="bod">
-    <div class="container-fluid mb-3" id="header">
-        <div class="row py-3 d-flex align-items-center" style="background: #4A748C;">
-            <div class="col-lg-3 col-md-6 d-flex justify-content-center">
-                <img src="/static/img/logocicloriders_2-removebg-preview 1.png"
-                    style="width: 180px; margin-top:0px; margin-bottom: 0px;" alt="logo"
-                    data-anijs="if: mouseover, do: pulse animated">
-            </div>
-            <div class="col-lg-5 col-md-6">
-                <nav class="">
-                    <div class="container-fluid">
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2 w-100" type="search" placeholder="Search"
-                                aria-label="Search">
-                            <button data-anijs="if: mouseover, do: pulse animated" class="btn" type="submit"><i
-                                    class="fa-solid fa-magnifying-glass fa-2xl"></i></button>
+    <style>
+        body {
+            background-color: #EDF1F7;
+            color: #22262A;
+        }
 
-                        </form>
-                    </div>
-                </nav>
-            </div>
-            <div class="col-lg-4 col-md-12 row container text-center my-1">
-                <div class="container col">
-                    <a href="{{url_for('formulario_login_cliente')}}"><i data-anijs="if: mouseover, do: pulse animated"
-                            class="fa-regular fa-user fa-3x" style="color: #212529;"></i></a>
-                </div>
-                <div class="container col">
-                    <a href="{{url_for('formulario_comparar')}}"><i data-anijs="if: mouseover, do: pulse animated"
-                            class="fa-solid fa-money-bill-transfer fa-3x" style="color: #212529;"></i></a>
-                </div>
-                <div class="container col">
-                    <a href="{{url_for('formulario_carrito')}}"><i data-anijs="if: mouseover, do: pulse animated"
-                            class="fa-solid fa-cart-shopping fa-3x" style="color: #212529;">
-                            <span class="quantity">0</span></i></a>
-                    </i>
-                    </a>
-                </div>
+        .header {
+            background-color: #22262A !important;
+        }
+
+        .nav__logo {
+            color: #FFF;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav__menu {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav__list {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav__link {
+            color: #FFF;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .nav__link:hover {
+            background-color: #555555;
+        }
+
+        .nav__link.active-link {
+            color: #0000FF;
+        }
+
+        .nav__toggle, .nav__close {
+            display: none;
+        }
+
+        .main-content {
+            margin-top: 60px;
+        }
+
+        .login-container {
+            background-color: #FFFFFF;
+            color: #333333;
+            padding: 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            width: 500px;
+        }
+
+        .input-group-text {
+            background-color: #22262A;
+            color: #FFF;
+            border: none;
+        }
+
+        .form-control {
+            background-color: #F0F0F0;
+            color: #333333;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: #22262A;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #22262A;
+        }
+
+        .btn-success, .btn-success:hover {
+            background-color: #22262A;
+            border: none;
+        }
+
+        .btn-success i {
+            color: #FFF;
+        }
+
+        .btn-primary i {
+            color: #FFF;
+        }
+
+        .form-check-input {
+            background-color: #F0F0F0;
+            border: none;
+        }
+
+        .form-check-label {
+            color: #333333;
+        }
+
+        a {
+            color: #22262A;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #22262A;
+        }
+
+        .row.pt-4 p {
+            width: 100%;
+            text-align: justify;
+            margin: 10px 0;
+        }
+
+        h3 {
+            color: #22262A;
+        }
+
+        .contenedor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #22262A;
+            padding: 3px 20px;
+            margin: 0;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .footer__logo {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 30px;
+        }
+
+        .product-detail-container {
+            background-color: #FFFFFF;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-image img {
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-details {
+            background-color: #F8F9FA;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-details h3 {
+            color: #22262A;
+        }
+
+        .text-orange {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .color-section {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            justify-content: flex-start;
+        }
+
+        .color-section h6 {
+            margin-right: 8px;
+        }
+
+        .color-section p {
+            margin: 0;
+        }
+
+        .btn-add-to-cart {
+            background-color: #22262A;
+            border: none;
+            color: white;
+        }
+
+        .btn-add-to-cart:hover {
+            background-color: white;
+            color: #22262A;
+        }
+
+        table.table {
+            width: 100%;
+        }
+
+        table.table td {
+            padding: 5px 10px;
+        }
+
+        .section-title {
+            color: #22262A;
+        }
+    </style>
+</main>
+
+    <div class="row mt-5">
+
+    </div>
+    <div class="row mt-5">
+
+    </div>
+<div class="product-detail-container mb-4">
+    <div class="row">
+        <h1 class="section-title">Detalle de Producto</h1>
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="product-image">
+                {% for producto in productomoto %}
+                <img data-anijs="if: mouseover, do: pulse animated" src="{{ url_for('static', filename='img/' + producto[7])}}" alt="" class="img-fluid">
+                {% endfor %}
             </div>
         </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="product-details">
+                {% for producto in productomoto %}
+                <h3>{{producto[5]}}</h3>
+                <h6 class="precioTac text-orange" style="font-size: 1.2em;">S/. {{producto[2]}}</h6>
+                <p>{{producto[1]}}</p>
+                <div class="color-section">
+                    <h6 class="mt-2">Color:</h6>
+                    <p>{{producto[6]}}</p>
+                </div>
+                <form action="{{ url_for('agregar_carrito')}}" method="post" id="addToCartForm">
+                    <input type="hidden" name="product_id" value="{{ producto[0] }}">
+                    <input type="hidden" name="precio" value="{{ producto[2] }}">
+                    <div class="cantidad-section">
+                        <label for="quantity"><strong>Cantidad:</strong></label>
+                        <input type="number" name="quantity" id="quantity" value="1" min="1" max="{{ producto[3] }}">
+                    </div>
+                    <input type="hidden" name="nombre" value="{{ producto[5] }}">
+                    <input type="hidden" name="imagen" value="{{ producto[7] }}">
+                    <button type="button" class="btn btn-primary btn-add-to-cart" style="padding: 10px 20px; margin-top: 10px; border: none;" onclick="checkLogin()">Agregar al Carrito</button>
+                </form>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-7 col-md-6 col-sm-12">
+            <h2 class="section-title">Especificaciones</h2>
+            <table class="table">
+                {% for producto in productomoto %}
+                <tbody>
+                    <tr>
+                        <td>TIPO DE CARROCERÍA</td>
+                        <td>{{producto[12]}}</td>
+                    </tr>
+                    <tr>
+                        <td>MARCA</td>
+                        <td>{{producto[4]}}</td>
+                    </tr>
+                    <tr>
+                        <td>MODELO</td>
+                        <td>{{producto[5]}}</td>
+                    </tr>
+                    <tr>
+                        <td>COLOR</td>
+                        <td>{{producto[6]}}</td>
+                    </tr>
+                    <tr>
+                        <td>POSICIÓN DE MANEJO</td>
+                        <td>{{producto[13]}}</td>
+                    </tr>
+                    <tr>
+                        <td>NRO. ASIENTOS</td>
+                        <td>{{producto[14]}}</td>
+                    </tr>
+                    <tr>
+                        <td>NRO. PASAJEROS</td>
+                        <td>{{producto[15]}}</td>
+                    </tr>
+                    <tr>
+                        <td>NRO. RUEDAS</td>
+                        <td>2 Ruedas</td>
+                    </tr>
+                    <tr>
+                        <td>NRO. EJES</td>
+                        <td>2 Ejes</td>
+                    </tr>
+                    <tr>
+                        <td>LARGO</td>
+                        <td>{{producto[16]}}</td>
+                    </tr>
+                    <tr>
+                        <td>ANCHO</td>
+                        <td>{{producto[17]}}</td>
+                    </tr>
+                    <tr>
+                        <td>ALTO</td>
+                        <td>{{producto[18]}}</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="col-lg-5 col-md-6 col-sm-12">
+            <h2 class="section-title">Motor</h2>
+            <table class="table">
+                {% for producto in productomoto %}
+                <tbody>
+                    <tr>
+                        <td>TIPO DE MOTOR</td>
+                        <td>{{producto[19]}}</td>
+                    </tr>
+                    <tr>
+                        <td>COMBUSTIBLE</td>
+                        <td>{{producto[20]}}</td>
+                    </tr>
+                    <tr>
+                        <td>NRO. CILINDROS</td>
+                        <td>{{producto[21]}}</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+            <h2 class="section-title">Consumo y Rendimiento</h2>
+            <table class="table">
+                {% for producto in productomoto %}
+                <tbody>
+                    <tr>
+                        <td>CAPACIDAD DE TANQUE</td>
+                        <td>{{producto[22]}}</td>
+                    </tr>
+                    <tr>
+                        <td>RENDIMIENTO</td>
+                        <td>{{producto[23]}}</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+            <div class="row justify-content-center">
+                <img src="img/ktm.png" alt="" style="width: 70%;">
+            </div>
+        </div>
+    </div>
+</div>
 
-        <div class="row py-2" id="navbar" style="background: #213140;">
-            <ul class="nav justify-content-center">
-                <li class="nav-item px-3">
-                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" aria-current="page"
-                        href="{{url_for('formulario_principal')}}" style="color: white; font-size: 14px;">INICIO</a>
-                </li>
-                <li class="nav-item px-3">
-                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra"
-                        href="{{url_for('formulario_nosotros')}}" style="color: white; font-size: 14px;">NOSOTROS</a>
-                </li>
-                <li class="nav-item px-3">
-                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra"
-                        href="{{url_for('formulario_detalle_categoria')}}"
-                        style="color: white; font-size: 14px;">CATEGORIAS</a>
-                </li>
-                <li data-anijs="if: mouseover, do: pulse animated" class="nav-item px-3">
-                    <a class="nav-link barra" href="{{url_for('formulario_accesorios')}}"
-                        style="color: white; font-size: 14px;">ACCESORIOS</a>
-                </li>
-                <li class="nav-item px-3">
-                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="#"
-                        style="color: white; font-size: 14px;">OFERTAS</a>
-                </li>
+<!--==================== FOOTER ====================-->
+<footer class="footer section no-underline">
+    <div class="shape shape__big"></div>
+    <div class="shape shape__small"></div>
 
-                <li class="nav-item px-3 barra">
-                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link"
-                        href="{{url_for('formulario_blog')}}" style="color: white; font-size: 14px;">BLOG</a>
+    <div class="footer__container container grid">
+        <div class="footer__content">
+            <a href="#" class="footer__logo">
+                <i class="ri-steering-line"></i> CicloRiders
+            </a>
+            <p class="footer__description">
+                Ofrecemos las mejores motocicletas y accesorios <br>
+                de las marcas más reconocidas de todo el mundo <br>
+            </p>
+        </div>
+
+        <div class="footer__content">
+            <h3 class="footer__title">
+                Empresa
+            </h3>
+
+            <ul class="footer__links">
+                <li>
+                    <a href="#" class="footer__link">Nosotros</a>
                 </li>
-                <li class="nav-item px-3">
-                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="#"
-                        style="color: white; font-size: 14px;">AYUDA</a>
+                <li>
+                    <a href="#" class="footer__link">Motos</a>
                 </li>
-                <li class="nav-item px-3">
-                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra"
-                        href="{{url_for('formulario_contacto')}}" style="color: white; font-size: 14px;">CONTACTO</a>
+                <li>
+                    <a href="#" class="footer__link">Producto</a>
                 </li>
+                <li>
+                    <a href="#" class="footer__link">Catalogo</a>
+                </li>
+                <li>
+                    <a href="#" class="footer__link">Login</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer__content">
+            <h3 class="footer__title">
+                Informacion
+            </h3>
+
+            <ul class="footer__links">
+
+                <a href="#" class="footer__link">Contactanos</a>
+                </li>
+                <li>
+                    <a href="#" class="footer__link">Servicios</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer__content">
+            <h3 class="footer__title">
+                Siguenos en nuestras redes:
+            </h3>
+
+            <ul class="footer__social">
+                <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
+                    <i class="ri-facebook-fill"></i>
+                </a>
+                <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
+                    <i class="ri-instagram-line"></i>
+                </a>
+                <a href="https://twitter.com/" target="_blank" class="footer__social-link">
+                    <i class="ri-twitter-line"></i>
+                </a>
             </ul>
         </div>
     </div>
 
-    <div class="row mt-4">
-        {% for producto in productomoto %}
-        <div class="row ms-5 mt-1">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-                    <li class="breadcrumb-item"><a href="categorías.html">Categorías</a></li>
-                    <li class="breadcrumb-item"><a href="categorías.html">{{producto[12]}}</a></li>
-                    <li class="breadcrumb-item"><a href="categorías.html">{{producto[4]}}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{producto[5]}}</li>
-                </ol>
-            </nav>
-        </div>
-        {% endfor %}
-        <div class="row ms-5 mt-4">
-            <h1>Detalle de Producto</h1>
+    <span class="footer__copy">
+        &#169; CicloRiders. Todos los derechos reservados 2023-2024
+    </span>
+</footer>
+
+<!--========== SCROLL UP ==========-->
+<a href="#" class="scrollup" id="scroll-up">
+    <i class="ri-arrow-up-line"></i>
+</a>
+
+<!--=============== SCROLL REVEAL ===============-->
+<script src="/static/assets/js/scrollreveal.min.js"></script>
+<!--=============== SWIPER JS ===============-->
+<script src="/static/assets/js/swiper-bundle.min.js"></script>
+<!--=============== MIXITUP JS ===============-->
+<script src="/static/assets/js/mixitup.min.js"></script>
+<!--=============== MAIN JS ===============-->
+<script src="/static/assets/js/main.js"></script>
+
+<!-- Modal para iniciar sesión -->
+<div class="modal" id="loginRequiredModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Iniciar Sesión Requerida</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Debes iniciar sesión para agregar productos al carrito.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="redirectToLogin()">Iniciar Sesión</button>
+            </div>
         </div>
     </div>
+</div>
 
-    <div class="row ms-5 mb-4">
-        <div class="col-lg-7 col-md-6 col-sm-12">
-            <div class="row ms-5 me-5">
-                {% for producto in productomoto %}
-                <div class="row">
-                    <img data-anijs="if: mouseover, do: pulse animated"
-                        src="{{ url_for('static', filename='img/' + producto[7])}}" alt="" style="width: 100%;">
-                </div>
-
-                <div class="row">
-                    <div class="row mt-4 ms-2">
-                        <div class="col-lg-3 col-md-4 col-sm-4">
-                            <img data-anijs="if: mouseover, do: pulse animated"
-                                src="{{ url_for('static', filename='img/' + producto[7])}}" alt=""
-                                style="width: 100%; height: 100%;">
-                        </div>
-                        <div class="col-lg-6 col-md-4 col-sm-8">
-                            <img data-anijs="if: mouseover, do: pulse animated"
-                                src="{{ url_for('static', filename='img/' + producto[7])}}" alt="" style="width: 100%;">
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-12">
-                            <img data-anijs="if: mouseover, do: pulse animated"
-                                src="{{ url_for('static', filename='img/' + producto[7])}}" alt="" style="width: 100%;">
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
+<!-- Modal para mensajes de stock o confirmación -->
+<div class="modal" id="stockMessageModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Mensaje del Sistema</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-
-        </div>
-
-        <div class="col-lg-5 col-md-6 col-sm-12">
-            {% if producto in productomoto %}
-            <input type="hidden" name="id" value="{{ producto[0] }}">
-            {% endif %}
-
-            <div class="col-lg-11">
-                {% for producto in productomoto %}
-                <div class="row">
-
-                    <h3>{{producto[5]}}</h3>
-                </div>
-                <div class="row">
-                    <div class="row">
-                        <h6 class="precioTac" style="color: orange; font-size: 1.2em;">S/. {{producto[2]}}</h6>
-                        <div class="row">
-                            <p>{{producto[1]}}</p>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-2 col-md-8 col-sm-12">
-                                <div class="row mt-3">
-                                    <div>
-                                        <h6>Color:</h6>
-                                    </div>
-
-
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-sm-12">
-                                <div class="row mt-3">
-                                    <p>{{producto[6]}}</p>
-                                </div>
-
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="col-lg-3 col-md-4 col-sm-12">
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="row mt-3">
-                            <!-- <div class="quantity">
-                        <input type="button" value="-" class="minus">
-                        <label class="screen-reader-text" for="quantity_6646765bd1998">125Z cantidad</label>
-                        <input type="number" id="quantity_6646765bd1998" class="input-text qty text" value="1"
-                            aria-label="Cantidad de productos" min="1" max="" name="quantity" step="1" placeholder=""
-                            inputmode="numeric" autocomplete="off">
-                        <input type="button" value="+" class="plus"> -->
-                            <form action="{{ url_for('agregar_carrito')}}" method="post">
-                                <input type="hidden" name="product_id" value="{{ producto[0] }}">
-                                <input type="hidden" name="precio" value="{{ producto[2] }}">
-                                <label for="quantity"><strong>Cantidad:</strong></label>
-                                <input type="number" name="quantity" id="quantity" value="1" min="1"
-                                    max="{{ producto[3] }}"
-                                    style="width: 50px; height: 30px; text-align: center; margin-left: 10px;">
-                                <input type="hidden" name="nombre" value="{{ producto[5] }}">
-                                <input type="hidden" name="imagen" value="{{ producto[7] }}">
-                                <div>
-                                    <button type="submit" class="btn btn-primary"
-                                        style="background-color: orange; padding: 10px 20px; margin-top:10px;border:none;">
-                                        Agregar al Carrito
-                                    </button>
-                                </div>
-                            </form>
-
-
-                        </div>
-
-                    </div>
-                    {% endfor %}
-
-                </div>
+            <div class="modal-body">
+                <p id="stockMessage"></p>
             </div>
-
-
-        </div>
-
-
-        <div class="row ms-5 mt-5">
-            <div class="col-lg-7 col-md-6 col-sm-12">
-                <div class="row">
-                    <div class="row mb-4 ms-2">
-                        <h2>Especificaciones</h2>
-                    </div>
-                    <div class="row ms-3">
-
-
-                        <table class="table">
-                            {% for producto in productomoto %}
-                            <tbody class="">
-                                <tr>
-                                    <td>TIPO DE CARROCERÍA</td>
-                                    {% for producto in productomoto %}
-                                    <td>{{producto[12]}}</td>
-                                    {% endfor %}
-                                </tr>
-                                <tr>
-                                    <td>MARCA</td>
-                                    <td>{{producto[4]}}</td>
-                                </tr>
-                                <tr>
-                                    <td>MODELO</td>
-                                    <td>{{producto[5]}}</td>
-                                </tr>
-                                <tr>
-                                    <td>COLOR</td>
-                                    <td>{{producto[6]}}</td>
-                                </tr>
-                                <tr>
-                                    <td>POSICIÓN DE MANEJO</td>
-                                    <td>{{producto[13]}}</td>
-                                </tr>
-                                <tr>
-                                    <td>NRO. ASIENTOS</td>
-                                    <td>{{producto[14]}}</td>
-                                </tr>
-                                <tr>
-                                    <td>NRO. PASAJEROS</td>
-                                    <td>{{producto[15]}}</td>
-                                </tr>
-                                <tr>
-                                    <td>NRO. RUEDAS</td>
-                                    <td>2 Ruedas</td>
-                                </tr>
-                                <tr>
-                                    <td>NRO. EJES</td>
-                                    <td>2 Ejes</td>
-                                </tr>
-                                <tr>
-                                    <td>LARGO</td>
-                                    <td>{{producto[16]}}</td>
-                                </tr>
-                                <tr>
-                                    <td>ANCHO</td>
-                                    <td>{{producto[17]}}</td>
-                                </tr>
-                                <tr>
-                                    <td>ALTO</td>
-                                    <td>{{producto[18]}}</td>
-                                </tr>
-                            </tbody>
-                            {% endfor %}
-                        </table>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-lg-5 col-md-6 col-sm-12">
-                <div class="row me-4 ms-5">
-                    <div class="row ms-3">
-                        <h2>Motor</h2>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="row ms-3">
-                            <table class="table">
-                                {% for producto in productomoto %}
-                                <tbody class="">
-                                    <tr>
-                                        <td>TIPO DE MOTOR</td>
-                                        <td>{{producto[19]}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>COMBUSTIBLE</td>
-                                        <td>{{producto[20]}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>NRO. CILINDROS</td>
-                                        <td>{{producto[21]}}</td>
-                                    </tr>
-                                </tbody>
-                                {% endfor %}
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="row ms-3">
-                        <h2>Consumo y Rendimiento</h2>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="row ms-3">
-                            <table class="table" style="width: 100%;">
-                                {% for producto in productomoto %}
-                                <tbody class="">
-                                    <tr>
-                                        <td>CAPACIDAD DE TANQUE</td>
-                                        <td>{{producto[22]}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>RENDIMIENTO</td>
-                                        <td>{{producto[23]}}</td>
-                                    </tr>
-                                </tbody>
-                                {% endfor %}
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <img src="img/ktm.png" alt="" style="width: 70%;">
-                    </div>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
-        <div class="row ms-5 mt-5">
-            <div class="row mt-5 ms-3">
-                <h2>Motos Similares</h2>
+    </div>
+</div>
+
+<!-- Modal para mensajes de éxito -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">¡Éxito!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <div class="modal-body" id="successMessage"></div>
         </div>
-
-        <div class="row mt-3 mb-4 ms-5 me-5">
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                <div class="cardPequeño" style="height: 100%;" data-anijs="if: mouseover, do: pulse animated">
-                    <div class="card" style="width: 100%; height: 100%;">
-                        <div class="row">
-                            <a href="detalleProducto.html"><img src="/static/   img/6 (2).png" class="card-img-top"
-                                    alt="2"></a>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <h5 class="card-title" style="text-align: center;">BAJAJ DOMINAR 250</h5>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6">
-                                    <h6 class="precioTac">S/. 15,653.00</h6>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <h6 class="precio">S/. 13,900.00</h6>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                <div class="cardPequeño" style="height: 100%;" data-anijs="if: mouseover, do: pulse animated">
-                    <div class="card" style="width: 100%; height: 100%;">
-                        <div class="row">
-                            <a href="detalleProducto.html"><img src="/static/img/7.png" class="card-img-top"
-                                    alt="2"></a>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <h5 class="card-title" style="text-align: center;">CF MOTO 450 SR</h5>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6">
-                                    <h6 class="precioTac">S/. 26,500.00</h6>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <h6 class="precio">S/. 23,850.00</h6>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                <div class="cardPequeño" style="height: 100%;" data-anijs="if: mouseover, do: pulse animated">
-                    <div class="card" style="width: 100%; height: 100%;">
-                        <div class="row">
-                            <a href="detalleProducto.html"><img src="/static/img/8.png" class="card-img-top"
-                                    alt="2"></a>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <h5 class="card-title" style="text-align: center;">BAJAJ DOMINAR 400</h5>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6">
-                                    <h6 class="precioTac">S/. 19,300.00</h6>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <h6 class="precio">S/. 18,400.00</h6>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                <div class="cardPequeño" style="height: 100%;" data-anijs="if: mouseover, do: pulse animated">
-                    <div class="card" style="width: 100%; height: 100%;">
-                        <div class="row">
-                            <a href=""><img src="/static/img/1.png" class="card-img-top" alt="2"></a>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <h5 class="card-title" style="text-align: center;">HONDA CB 190 REPSOL</h5>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6">
-                                    <h6 class="precioTac">S/. 12,900.00</h6>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <h6 class="precio">S/. 10,000.00</h6>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div id="descuentos">
-            <div class="row mt-3">
-                <div class="mt-5 mb-0 text-center">
-                    <h3>RECIBE DESCUENTOS ESPECIALES</h3>
-
-                </div>
-            </div>
-            <div class="row d-flex align-items-center mb-5">
-                <div>
-
-                </div>
-                <div class="col-lg-2 col-md-0">
-
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="input-group flex-nowrap py-2">
-                        <span class="input-group-text" id="addon-wrapping"><i
-                                class="fa-regular fa-envelope fa-xl"></i></span>
-                        <input type="text" class="form-control" placeholder="Email" aria-label="Email"
-                            aria-describedby="addon-wrapping">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-5">
-                    <div class="input-group flex-nowrap mx-2">
-                        <span class="input-group-text" id="addon-wrapping">+51</span>
-                        <input type="text" class="form-control" placeholder="Numero Telefónico" aria-label="Username"
-                            aria-describedby="addon-wrapping">
-                    </div>
-                </div>
-                <div class="col-lg-1 col-md-1">
-                    <button type="button" class="btn btn-primary">SUSCRIBIRTE</button>
-
-                </div>
-                <div class="col-lg-2 col-md-0">
-
-                </div>
-
-            </div>
-
-
-            <div class="row container-fluid mx-0" style="background: #72A2BE;">
-                <div class="col-lg-3 col-md-6 col-sm-12 mt-5 ms-4 me-3">
-                    <ul class="list-group">
-                        <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1 py-1"><iframe
-                                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1981.0094960514577!2d-79.8491092263135!3d-6.767538082152489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2spe!4v1699890278132!5m2!1ses-419!2spe"
-                                width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe></li>
-                        <li class="list-inline-item py-1" style="color: #213140;"
-                            data-anijs="if: mouseover, do: pulse animated">Direccion 1: Casa de Ñofi</li>
-                        <li class="list-inline-item py-1" style="color: #213140;"
-                            data-anijs="if: mouseover, do: pulse animated">Direccion 2: Choza de Chiscol</li>
-                        <li class="list-inline-item py-1" style="color: #213140;"
-                            data-anijs="if: mouseover, do: pulse animated">Telefono: 074 231613</li>
-                        <li class="list-inline-item py-1" style="color: #213140;"
-                            data-anijs="if: mouseover, do: pulse animated">Celular: +51 968 633 311</li>
-                    </ul>
-                </div>
-
-                <!-- Acerca de nosotros-->
-                <div class="col-lg-3 col-md-6 col-sm-12 mt-5 ms-5 me-3">
-                    <h5 class="h5  fw-bold" style="color: #213140;">Acerca de Nosotros</h5>
-                    <ul class="list-group">
-                        <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
-                                href="nosotros.html" style="text-decoration: none;color: #213140;">Nosotros</a>
-                        </li>
-                        <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
-                                style="text-decoration: none; color: #213140;">Soporte
-                                Tecnico</a></li>
-                        <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
-                                style="text-decoration: none;color: #213140;">Redes
-                                Sociales</a></li>
-                        <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><i
-                                class="fa-brands fa-square-facebook fa-2xl"></i> <i
-                                class="fa-brands fa-instagram fa-2xl"></i> <i class="fa-brands fa-whatsapp fa-2xl"></i>
-                        </li>
-                        <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1">Correo: <a
-                                href="" style="text-decoration: none; color: #213140;">marco123@gmail.com</a></li>
-                        <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
-                                href="autores.html" style="text-decoration: none;color: #213140;">Autores</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Informacion -->
-                <div class="col-lg-3 col-md-6 col-sm-12 mt-5">
-                    <h5 class="h5 fw-bold">
-                        Informacion
-                    </h5>
-                    <ul class="list-group">
-                        <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
-                                href="preguntasFrecuentes.html" style="text-decoration: none; color: #213140;">Terminos
-                                y
-                                condiciones</a></li>
-                        <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
-                                href="terminosGarantia.html" style="text-decoration: none;color: #213140;">Terminos
-                                de
-                                Garantia</a></li>
-                        <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
-                                href="libroReclamaciones.html" style="text-decoration: none;color: #213140;">Libro
-                                de
-                                Reclamos</a></li>
-                        <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
-                                style="text-decoration: none;color: #213140;">Politicas
-                                de
-                                privacidad</a></li>
-                    </ul>
-                </div>
-
-                <!-- metodos de pago -->
-                <div class="col-lg-2 col-md-6 col-sm-12 mt-5">
-                    <h5 class="h5 fw-bold">
-                        Pagos online
-                    </h5>
-                    <ul class="list-group">
-                        <li class="list-inline-item"><img src="img/american-express.png" alt=""> American Express</li>
-                        <li class="list-inline-item"><img src="img/mastercard.png" alt=""> Mastercard</li>
-                        <li class="list-inline-item"><img src="img/visa.png" alt=""> Visa</li>
-                        <li class="list-inline-item"><img src="img/paypal.png" alt=""> PayPal</li>
-                    </ul>
-
-                </div>
-                <div class="row mt-4" style="text-align: right;">
-                    <h6>Última Actualización: 06/12/2023</h6>
-                </div>
-                <div class="row mt-3">
-                    <h6
-                        style="font-weight: bold; text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
-                        Copyright 2023 © CicloRiders. Todos los derechos Reservados</h6>
-                </div>
-            </div>
-        </div>
-</body>
-<script src="js/anijs-min.js"></script>
-<script src="js/bootstrap.js"></script>
-
-<!-- <script>
-    function agregarAlCarrito(productoId, cantidad) {
-        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-        let encontrado = carrito.findIndex(item => item.productoId === productoId);
-        if (encontrado !== -1) {
-            carrito[encontrado].cantidad += cantidad;
+    </div>
+</div>
+<!--=============== SCRIPTS ===============-->
+<script>
+    function checkLogin() {
+        const isLoggedIn = {{ 'true' if 'user_id' in session else 'false' }};
+        if (!isLoggedIn) {
+            $('#loginRequiredModal').modal('show');
         } else {
-            carrito.push({ productoId, cantidad });
+            document.getElementById('addToCartForm').submit();
         }
-        localStorage.setItem('carrito', JSON.stringify(carrito));
     }
-</script> -->
 
-</html>
+    function redirectToLogin() {
+        window.location.href = "{{ url_for('formulario_login_cliente') }}";
+    }
+
+    function showStockMessage(message) {
+        document.getElementById('stockMessage').textContent = message;
+        $('#stockMessageModal').modal('show');
+    }
+
+    $(document).ready(function() {
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        if ('{{ category }}' === 'error') {
+            showStockMessage('{{ message }}');
+        } else if ('{{ category }}' === 'success') {
+            $('#successMessage').text('{{ message }}');
+            $('#successModal').modal('show');
+        }
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    });
+</script>
+
+
+{% endblock %}

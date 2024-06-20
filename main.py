@@ -843,24 +843,30 @@ def api_editar_carrito(id_carrito):
 
 @app.route("/agregar_carrito", methods=["POST"])
 def agregar_carrito():
+    if 'user_id' not in session:
+        flash("Debes iniciar sesión para agregar productos al carrito.", "error")
+        return redirect(url_for("formulario_login_cliente"))
+
     product_id = request.form.get('product_id', type=int)
-    print(f"Product ID: {product_id}")  # Debug print
     cantidad = request.form.get('quantity', type=int)
-    print(f"Quantity: {cantidad}")  # Debug print
     precio = float(request.form.get('precio'))
-    print(f"Price: {precio}")  # Debug print
     nombre = request.form.get('nombre')
-    print(f"Name: {nombre}")  # Debug print
     imagen = request.form.get('imagen')
-    print(f"Image: {imagen}")  # Debug print
 
     if cantidad < 1:
         flash("La cantidad debe ser al menos uno.", "error")
-        return redirect(url_for("detalle_producto_moto", id_producto=product_id))
+        return redirect(url_for("detalle_producto_moto", id=product_id))
 
     conexion = obtener_conexion()
     try:
         with conexion.cursor() as cursor:
+            # Comprobar si hay suficiente stock
+            cursor.execute("SELECT stock FROM PRODUCTO WHERE idProducto = %s", (product_id,))
+            stock = cursor.fetchone()[0]
+            if cantidad > stock:
+                flash("No hay suficiente stock para la cantidad solicitada.", "error")
+                return redirect(url_for("detalle_producto_moto", id=product_id))
+
             # Primero, crea un nuevo carrito y obtén su ID
             cursor.execute("INSERT INTO CARRITO (/* campos necesarios */) VALUES (/* valores */)")
             idCarrito = cursor.lastrowid
@@ -869,13 +875,15 @@ def agregar_carrito():
             cursor.execute("INSERT INTO ITEM_CARRITO (idCarrito, idProducto, cantidad, precioPorUnidad, subtotal) VALUES (%s, %s, %s, %s, %s)",
                            (idCarrito, product_id, cantidad, precio, cantidad * precio))
             conexion.commit()
-            # flash("Producto agregado al carrito exitosamente!", "success")
+            flash("Producto agregado al carrito exitosamente!", "success")
     except Exception as e:
-        print(f"Exception: {e}")  # Debug print
+        print(f"Exception: {e}")
         flash("Error al agregar al carrito: {}".format(e), "error")
     finally:
         conexion.close()
         return redirect(url_for("detalle_producto_moto", id=product_id))
+
+
 
 @app.route("/detalle_producto_categoria")
 def formulario_detalle_categoria():
@@ -1143,7 +1151,9 @@ def editar_productoA(id):
 @app.route("/formulario_detalle_producto_moto/<int:id>")
 def detalle_producto_moto(id):
     productomoto = controlador_producto.obtener_moto_producto_nuevo(id)
-    return render_template("detalleProductoMoto.html", productomoto=productomoto)
+    usuario_logueado = 'user_id' in session
+    return render_template("detalleProductoMoto.html", productomoto=productomoto, usuario_logueado=usuario_logueado)
+
 
 @app.route("/formulario_detalle_producto_accesorio/<int:id>")
 def detalle_producto_accesorio(id):
