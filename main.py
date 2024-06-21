@@ -1205,54 +1205,59 @@ def compra_exitosa():
 # ---------------Venta------------------------
 @app.route("/guardar_venta", methods=["POST"])
 def guardar_venta():
-        nombre = request.form["nombre"]
-        apellidos = request.form["apellidos"]
-        pais = request.form["pais"]
-        direccion = request.form["direccion"]
-        region = request.form["departamento"]
-        localidad = request.form["localidad"]
-        telefono = request.form["telefono"]
-        correo = request.form["correo"]
-        mes = request.form["mes"]
-        año = request.form["año"]
-        cvv = request.form["cvv"]
-        numtarjeta = request.form["num_tarjeta"]
-        idProducto = request.form["idProducto"]
-        monto_final = request.form["monto_final"]
+    if 'user_id' not in session:
+        flash("Debes iniciar sesión para realizar esta acción.", "error")
+        return redirect(url_for("formulario_login_cliente"))
 
-        if 'user_id' not in session:
-            flash("Debes iniciar sesión para realizar esta acción.", "error")
-            return redirect(url_for("formulario_login_cliente"))
+    nombre = request.form["nombre"]
+    apellidos = request.form["apellidos"]
+    pais = request.form["pais"]
+    direccion = request.form["direccion"]
+    region = request.form["departamento"]
+    localidad = request.form["localidad"]
+    telefono = request.form["telefono"]
+    correo = request.form["correo"]
+    mes = request.form["mes"]
+    año = request.form["año"]
+    cvv = request.form["cvv"]
+    numtarjeta = request.form["num_tarjeta"]
 
-        id_cliente = session['user_id']
-        conexion = obtener_conexion()
-        try:
-            with conexion.cursor() as cursor:
-                # Obtener el idCarrito asociado al cliente
-                cursor.execute("SELECT idCarrito FROM CARRITO WHERE idCliente = %s", (id_cliente,))
-                carrito = cursor.fetchone()
-                if not carrito:
-                    flash("No hay carrito asociado a esta venta.", "error")
-                    return redirect(url_for("formulario_principal"))
+    id_cliente = session['user_id']
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            # Obtener el idCarrito asociado al cliente
+            cursor.execute("SELECT idCarrito FROM CARRITO WHERE idCliente = %s", (id_cliente,))
+            carrito = cursor.fetchone()
+            if not carrito:
+                flash("No hay carrito asociado a esta venta.", "error")
+                return redirect(url_for("formulario_principal"))
 
-                idCarrito = carrito[0]
+            idCarrito = carrito[0]
 
+            # Obtener los ítems del carrito
+            cursor.execute("SELECT idProducto, subtotal FROM ITEM_CARRITO WHERE idCarrito = %s", (idCarrito,))
+            productos = cursor.fetchall()
+
+            # Insertar cada producto como una venta individual
+            for producto in productos:
+                idProducto, monto_final = producto
                 controlador_pago.insertar_venta(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final)
-                # Eliminar todos los ítems del carrito
-                cursor.execute("DELETE FROM ITEM_CARRITO WHERE idCarrito = %s", (idCarrito,))
 
-                # Eliminar el carrito
-                cursor.execute("DELETE FROM CARRITO WHERE idCarrito = %s", (idCarrito,))
+            # Eliminar todos los ítems del carrito y el carrito
+            cursor.execute("DELETE FROM ITEM_CARRITO WHERE idCarrito = %s", (idCarrito,))
+            cursor.execute("DELETE FROM CARRITO WHERE idCarrito = %s", (idCarrito,))
 
-                conexion.commit()
-                return redirect("/compra_exitosa")
+            conexion.commit()
+            return redirect("/compra_exitosa")
 
-        except Exception as e:
-            print(f"Exception: {e}")
-            flash("Error al procesar la venta: {}".format(e), "error")
-            return redirect(url_for("formulario_pago"))
-        finally:
-            conexion.close()
+    except Exception as e:
+        conexion.rollback()
+        flash("Error al procesar la venta: {}".format(e), "error")
+        return redirect(url_for("formulario_pago"))
+    finally:
+        conexion.close()
+
 
 
 @app.route("/api_obtenerventa1")
