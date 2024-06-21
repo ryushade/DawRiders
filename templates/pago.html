@@ -1,112 +1,178 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends "maestra.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+{% block titulo %}
+    Crear Cuenta Cliente
+{% endblock %}
+
+{% block contenido %}
+<main class="main">
+    <link rel="stylesheet" href="/static/assets/css/styles-card.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/static/css/anicollection.css">
-    <link rel="stylesheet" href="/static/css/index_flask.css">
-    <title>Pago</title>
-</head>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="shortcut icon" href="/static/img/logocicloriders_2-removebg-preview 1.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/static/assets/css/styles.css">
 
-<body id="bod">
-    <div class="container-fluid mb-3" id="header">
-        <div class="row py-3 d-flex align-items-center" style="background: #4A748C;">
-            <div class="col-lg-3 col-md-6 d-flex justify-content-center">
-                <img src="/static/img/logocicloriders_2-removebg-preview 1.png"
-                    style="width: 180px; margin-top:0px; margin-bottom: 0px;" alt="logo"
-                    data-anijs="if: mouseover, do: pulse animated">
-            </div>
-            <div class="col-lg-5 col-md-6">
-                <nav class="">
-                    <div class="container-fluid">
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2 w-100" type="search" placeholder="Search"
-                                aria-label="Search">
-                            <button data-anijs="if: mouseover, do: pulse animated" class="btn" type="submit"><i
-                                    class="fa-solid fa-magnifying-glass fa-2xl"></i></button>
+    <style>
+        body {
+            background-color: #EDF1F7;
+            color: #22262A;
+        }
 
-                        </form>
-                    </div>
-                </nav>
-            </div>
-            <div class="col-lg-4 col-md-12 row container text-center my-1">
-                <div class="container col">
-                    <a href="login.html"><i data-anijs="if: mouseover, do: pulse animated"
-                            class="fa-regular fa-user fa-3x" style="color: #212529;"></i></a>
-                </div>
-                <div class="container col">
-                    <a href="comparar.html"><i data-anijs="if: mouseover, do: pulse animated"
-                            class="fa-solid fa-money-bill-transfer fa-3x" style="color: #212529;"></i></a>
-                </div>
-                <div class="container col">
-                    <a href="carritoCompra.html"><i data-anijs="if: mouseover, do: pulse animated"
-                            class="fa-solid fa-cart-shopping fa-3x" style="color: #212529;"></i></a>
-                </div>
-            </div>
-        </div>
+        .header {
+            background-color: #22262A;
+        }
 
-        <div class="row py-2" id="navbar" style="background: #213140;">
-            <ul class="nav justify-content-center">
-                <li class="nav-item px-3">
-                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" aria-current="page"
-                        href="index.html" style="color: white; font-size: 14px;">INICIO</a>
-                </li>
-                <li class="nav-item px-3">
-                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="nosotros.html"
-                        style="color: white; font-size: 14px;">NOSOTROS</a>
-                </li>
-                <li class="nav-item px-3">
-                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="categorías.html"
-                        style="color: white; font-size: 14px;">CATEGORIAS</a>
-                </li>
-                <li data-anijs="if: mouseover, do: pulse animated" class="nav-item px-3">
-                    <a class="nav-link barra" href="accesorios.html"
-                        style="color: white; font-size: 14px;">ACCESORIOS</a>
-                </li>
-                <li class="nav-item px-3">
-                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="#"
-                        style="color: white; font-size: 14px;">OFERTAS</a>
-                </li>
-                <li class="nav-item px-3">
-                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="marcas.html"
-                        style="color: white; font-size: 14px;">MARCAS</a>
-                </li>
-                <li class="nav-item px-3 barra">
-                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link" href="blog.html"
-                        style="color: white; font-size: 14px;">BLOG</a>
-                </li>
-                <li class="nav-item px-3">
-                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="#"
-                        style="color: white; font-size: 14px;">AYUDA</a>
-                </li>
-                <li class="nav-item px-3">
-                    <a data-anijs="if: mouseover, do: pulse animated" class="nav-link barra" href="contacto.html"
-                        style="color: white; font-size: 14px;">CONTACTO</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+        .nav__logo {
+            color: #FFF;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
 
-    <div class="row ms-5 mt-4">
-        <nav aria-label="breadcrumb" class="ms-4">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-                <li class="breadcrumb-item"><a href="#">Carrito de Compras</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Pago</li>
-            </ol>
-        </nav>
+        .nav__menu {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav__list {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav__link {
+            color: #FFF;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .nav__link:hover {
+            background-color: #555555;
+        }
+
+        .nav__link.active-link {
+            color: #0000FF;
+        }
+
+        .nav__toggle, .nav__close {
+            display: none;
+        }
+
+        .main-content {
+            margin-top: 60px;
+        }
+
+        .login-container, .register-container {
+            background-color: #FFFFFF;
+            color: #333333;
+            padding: 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            width: 500px;
+        }
+
+        .input-group-text {
+            background-color: #22262A;
+            color: #FFF;
+            border: none;
+        }
+
+        .form-control {
+            background-color: #F0F0F0;
+            color: #333333;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: #22262A;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #22262A;
+        }
+
+        .btn-success, .btn-success:hover {
+            background-color: #22262A;
+            border: none;
+        }
+
+        .btn-success i {
+            color: #FFF;
+        }
+
+        .btn-primary i {
+            color: #FFF;
+        }
+
+        .form-check-input {
+            background-color: #F0F0F0;
+            border: none;
+        }
+
+        .form-check-label {
+            color: #333333;
+        }
+
+        a {
+            color: #22262A;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #22262A;
+        }
+
+        .row.pt-4 p {
+            width: 100%;
+            text-align: justify;
+            margin: 10px 0;
+        }
+
+        h3, h2 {
+            color: #22262A;
+        }
+
+        .contenedor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #22262A;
+            padding: 3px 20px;
+            margin: 0;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .footer__logo {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 30px;
+        }
+    </style>
+
+    <div class="row mt-5">
+
     </div>
 
     <div class="row ms-4 mt-4 mb-5">
 
         <div class="row ms-4">
             <form method="post" action="{{url_for('guardar_venta')}}">
-                <div class="col-lg-8 col-md-6 col-sm-12">
+                <div class="col-lg-7 col-md-6 col-sm-12">
 
 
                     <div class="row mt-4">
@@ -344,134 +410,90 @@
         </div>
     </div>
 
-    <div id="descuentos">
-        <div class="row mt-3">
-            <div class="mt-5 mb-0 text-center">
-                <h3>RECIBE DESCUENTOS ESPECIALES</h3>
+<footer class="footer section no-underline">
+    <div class="shape shape__big"></div>
+    <div class="shape shape__small"></div>
 
-            </div>
-        </div>
-        <div class="row d-flex align-items-center mb-5">
-            <div>
-
-            </div>
-            <div class="col-lg-2 col-md-0">
-
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="input-group flex-nowrap py-2">
-                    <span class="input-group-text" id="addon-wrapping"><i
-                            class="fa-regular fa-envelope fa-xl"></i></span>
-                    <input type="text" class="form-control" placeholder="Email" aria-label="Email"
-                        aria-describedby="addon-wrapping">
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-5">
-                <div class="input-group flex-nowrap mx-2">
-                    <span class="input-group-text" id="addon-wrapping">+51</span>
-                    <input type="text" class="form-control" placeholder="Numero Telefónico" aria-label="Username"
-                        aria-describedby="addon-wrapping">
-                </div>
-            </div>
-            <div class="col-lg-1 col-md-1">
-                <button type="button" class="btn btn-primary">SUSCRIBIRTE</button>
-
-            </div>
-            <div class="col-lg-2 col-md-0">
-
-            </div>
-
+    <div class="footer__container container grid">
+        <div class="footer__content">
+            <a href="#" class="footer__logo">
+                <i class="ri-steering-line"></i> CicloRiders
+            </a>
+            <p class="footer__description">
+                Ofrecemos las mejores motocicletas y accesorios <br>
+                de las marcas más reconocidas de todo el mundo <br>
+            </p>
         </div>
 
+        <div class="footer__content">
+            <h3 class="footer__title">
+                Empresa
+            </h3>
 
-        <div class="row container-fluid mx-0" style="background: #72A2BE;">
-            <div class="col-lg-3 col-md-6 col-sm-12 mt-5 ms-4 me-3">
-                <ul class="list-group">
-                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1 py-1"><iframe
-                            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1981.0094960514577!2d-79.8491092263135!3d-6.767538082152489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2spe!4v1699890278132!5m2!1ses-419!2spe"
-                            width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe></li>
-                    <li class="list-inline-item py-1" style="color: #213140;"
-                        data-anijs="if: mouseover, do: pulse animated">Direccion 1: Casa de Ñofi</li>
-                    <li class="list-inline-item py-1" style="color: #213140;"
-                        data-anijs="if: mouseover, do: pulse animated">Direccion 2: Choza de Chiscol</li>
-                    <li class="list-inline-item py-1" style="color: #213140;"
-                        data-anijs="if: mouseover, do: pulse animated">Telefono: 074 231613</li>
-                    <li class="list-inline-item py-1" style="color: #213140;"
-                        data-anijs="if: mouseover, do: pulse animated">Celular: +51 968 633 311</li>
-                </ul>
-            </div>
+            <ul class="footer__links">
+                <li>
+                    <a href="#" class="footer__link">Nosotros</a>
+                </li>
+                <li>
+                    <a href="#" class="footer__link">Motos</a>
+                </li>
+                <li>
+                    <a href="#" class="footer__link">Producto</a>
+                </li>
+                <li>
+                    <a href="#" class="footer__link">Catalogo</a>
+                </li>
+                <li>
+                    <a href="#" class="footer__link">Login</a>
+                </li>
+            </ul>
+        </div>
 
-            <!-- Acerca de nosotros-->
-            <div class="col-lg-3 col-md-6 col-sm-12 mt-5 ms-5 me-3">
-                <h5 class="h5  fw-bold" style="color: #213140;">Acerca de Nosotros</h5>
-                <ul class="list-group">
-                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
-                            href="nosotros.html" style="text-decoration: none;color: #213140;">Nosotros</a>
-                    </li>
-                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
-                            style="text-decoration: none; color: #213140;">Soporte
-                            Tecnico</a></li>
-                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
-                            style="text-decoration: none;color: #213140;">Redes
-                            Sociales</a></li>
-                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><i
-                            class="fa-brands fa-square-facebook fa-2xl"></i> <i
-                            class="fa-brands fa-instagram fa-2xl"></i> <i class="fa-brands fa-whatsapp fa-2xl"></i>
-                    </li>
-                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1">Correo: <a href=""
-                            style="text-decoration: none; color: #213140;">marco123@gmail.com</a></li>
-                </ul>
-            </div>
-            <!-- Informacion -->
-            <div class="col-lg-3 col-md-6 col-sm-12 mt-5">
-                <h5 class="h5 fw-bold">
-                    Informacion
-                </h5>
-                <ul class="list-group">
-                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
-                            href="preguntasFrecuentes.html" style="text-decoration: none; color: #213140;">Terminos
-                            y
-                            condiciones</a></li>
-                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
-                            href="terminosGarantia.html" style="text-decoration: none;color: #213140;">Terminos
-                            de
-                            Garantia</a></li>
-                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a
-                            href="libroReclamaciones.html" style="text-decoration: none;color: #213140;">Libro
-                            de
-                            Reclamos</a></li>
-                    <li data-anijs="if: mouseover, do: pulse animated" class="list-inline-item py-1"><a href=""
-                            style="text-decoration: none;color: #213140;">Politicas
-                            de
-                            privacidad</a></li>
-                </ul>
-            </div>
+        <div class="footer__content">
+            <h3 class="footer__title">
+                Información
+            </h3>
 
-            <!-- metodos de pago -->
-            <div class="col-lg-2 col-md-6 col-sm-12 mt-5">
-                <h5 class="h5 fw-bold">
-                    Pagos online
-                </h5>
-                <ul class="list-group">
-                    <li class="list-inline-item"><img src="img/american-express.png" alt=""> American Express</li>
-                    <li class="list-inline-item"><img src="img/mastercard.png" alt=""> Mastercard</li>
-                    <li class="list-inline-item"><img src="img/visa.png" alt=""> Visa</li>
-                    <li class="list-inline-item"><img src="img/paypal.png" alt=""> PayPal</li>
-                </ul>
-            </div>
-            <div class="row mt-4" style="text-align: right;">
-                <h6>Última Actualización: 06/12/2023</h6>
-            </div>
-            <div class="row mt-3">
-                <h6
-                    style="font-weight: bold; text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
-                    Copyright 2023 © CicloRiders. Todos los derechos Reservados</h6>
-            </div>
+            <ul class="footer__links">
+                <a href="#" class="footer__link">Contáctanos</a>
+                </li>
+                <li>
+                    <a href="#" class="footer__link">Servicios</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer__content">
+            <h3 class="footer__title">
+                Síguenos en nuestras redes:
+            </h3>
+
+            <ul class="footer__social">
+                <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
+                    <i class="ri-facebook-fill"></i>
+                </a>
+                <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
+                    <i class="ri-instagram-line"></i>
+                </a>
+                <a href="https://twitter.com/" target="_blank" class="footer__social-link">
+                    <i class="ri-twitter-line"></i>
+                </a>
+            </ul>
         </div>
     </div>
-</body>
-<script src="js/anijs-min.js"></script>
-<script src="js/bootstrap.js"></script>
 
-</html>
+    <span class="footer__copy">
+        &#169; CicloRiders. Todos los derechos reservados 2023-2024
+    </span>
+</footer>
+
+<a href="#" class="scrollup" id="scroll-up">
+    <i class="ri-arrow-up-line"></i>
+</a>
+
+<script src="/static/assets/js/scrollreveal.min.js"></script>
+<script src="/static/assets/js/swiper-bundle.min.js"></script>
+<script src="/static/assets/js/mixitup.min.js"></script>
+<script src="/static/assets/js/main.js"></script>
+
+{% endblock %}
