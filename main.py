@@ -107,10 +107,6 @@ def dashboard():
 def formulario_comparar():
     return render_template("comparar.html")
 
-@app.route("/carrito")
-def formulario_carrito():
-    items = controlador_carrito.obtener_items_carrito()
-    return render_template("carritoCompra.html", items=items)
 
 @app.route("/eliminar_cliente", methods=["POST"])
 def eliminar_cliente():
@@ -840,6 +836,22 @@ def api_editar_carrito(id_carrito):
 
 ######
 
+@app.route("/carrito")
+def formulario_carrito():
+    if 'user_id' not in session:
+        flash("Debes iniciar sesión para ver tu carrito.", "error")
+        return redirect(url_for("formulario_login_cliente"))
+
+    id_cliente = session['user_id']
+    carrito = controlador_carrito.obtener_carrito_por_cliente_id(id_cliente)
+    if not carrito:
+        id_carrito = controlador_carrito.crear_carrito_para_cliente(id_cliente)
+    else:
+        id_carrito = carrito[0]
+
+    items = controlador_carrito.obtener_items_carrito_por_id_carrito(id_carrito)
+    return render_template("carritoCompra.html", items=items)
+
 
 @app.route("/agregar_carrito", methods=["POST"])
 def agregar_carrito():
@@ -867,11 +879,19 @@ def agregar_carrito():
                 flash("No hay suficiente stock para la cantidad solicitada.", "error")
                 return redirect(url_for("detalle_producto_moto", id=product_id))
 
-            # Primero, crea un nuevo carrito y obtén su ID
-            cursor.execute("INSERT INTO CARRITO (/* campos necesarios */) VALUES (/* valores */)")
-            idCarrito = cursor.lastrowid
+            id_cliente = session['user_id']
+            # Verificar si el cliente ya tiene un carrito
+            cursor.execute("SELECT idCarrito FROM CARRITO WHERE idCliente = %s", (id_cliente,))
+            carrito = cursor.fetchone()
+            if carrito:
+                idCarrito = carrito[0]  # Accediendo al primer elemento de la tupla directamente
+            else:
+                # Si no tiene carrito, crear uno nuevo
+                cursor.execute("INSERT INTO CARRITO (idCliente, fechaCreacion) VALUES (%s, NOW())", (id_cliente,))
+                idCarrito = cursor.lastrowid
 
-            # Luego, inserta el ítem en el carrito
+
+            # Insertar el ítem en el carrito del cliente
             cursor.execute("INSERT INTO ITEM_CARRITO (idCarrito, idProducto, cantidad, precioPorUnidad, subtotal) VALUES (%s, %s, %s, %s, %s)",
                            (idCarrito, product_id, cantidad, precio, cantidad * precio))
             conexion.commit()
@@ -882,6 +902,7 @@ def agregar_carrito():
     finally:
         conexion.close()
         return redirect(url_for("detalle_producto_moto", id=product_id))
+
 
 
 
@@ -1077,13 +1098,30 @@ def eliminar_productoA():
     controlador_producto.eliminar_producto(request.form["id"])
     return redirect("/listar_ProductoA")
 
-
-
 @app.route("/pago")
 def formulario_pago():
-    items = controlador_carrito.obtener_items_carrito()
+    if 'user_id' not in session:
+        flash("Debes iniciar sesión para proceder al pago.", "error")
+        return redirect(url_for("formulario_login_cliente"))
 
-    return render_template("pago.html", items=items)
+    id_cliente = session['user_id']
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            # Obtener el idCarrito del cliente
+            cursor.execute("SELECT idCarrito FROM CARRITO WHERE idCliente = %s", (id_cliente,))
+            carrito = cursor.fetchone()
+            if carrito:
+                idCarrito = carrito[0]
+                items = controlador_carrito.obtener_items_carrito_por_id_carrito(idCarrito)
+            else:
+                flash("No hay carrito disponible para el pago.", "error")
+                return redirect(url_for("formulario_principal"))
+
+        return render_template("pago.html", items=items)
+    finally:
+        conexion.close()
+
 
 @app.route("/actualizar_productoM", methods=["POST"])
 def actualizar_productoM():
@@ -1163,27 +1201,61 @@ def detalle_producto_accesorio(id):
 @app.route("/compra_exitosa")
 def compra_exitosa():
     return render_template("compraexitosa.html")
+
 # ---------------Venta------------------------
 @app.route("/guardar_venta", methods=["POST"])
 def guardar_venta():
-        nombre = request.form["nombre"]
-        apellidos = request.form["apellidos"]
-        pais = request.form["pais"]
-        direccion = request.form["direccion"]
-        region = request.form["departamento"]
-        localidad = request.form["localidad"]
-        telefono = request.form["telefono"]
-        correo = request.form["correo"]
-        mes = request.form["mes"]
-        año = request.form["año"]
-        cvv = request.form["cvv"]
-        numtarjeta = request.form["num_tarjeta"]
-        idProducto = request.form["idProducto"]
-        monto_final = request.form["monto_final"]
+    nombre = request.form["nombre"]
+    apellidos = request.form["apellidos"]
+    pais = request.form["pais"]
+    direccion = request.form["direccion"]
+    region = request.form["departamento"]
+    localidad = request.form["localidad"]
+    telefono = request.form["telefono"]
+    correo = request.form["correo"]
+    mes = request.form["mes"]
+    año = request.form["año"]
+    cvv = request.form["cvv"]
+    numtarjeta = request.form["num_tarjeta"]
+    monto_final = request.form["monto_final"]
 
-        controlador_pago.insertar_venta(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final)
+    if 'user_id' not in session:
+        flash("Debes iniciar sesión para realizar esta acción.", "error")
+        return redirect(url_for("formulario_login_cliente"))
 
-        return redirect("/compra_exitosa")
+    id_cliente = session['user_id']
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            # Obtener el idCarrito asociado al cliente
+            cursor.execute("SELECT idCarrito FROM CARRITO WHERE idCliente = %s", (id_cliente,))
+            carrito = cursor.fetchone()
+            if not carrito:
+                flash("No hay carrito asociado a esta venta.", "error")
+                return redirect(url_for("formulario_principal"))
+
+            idCarrito = carrito[0]
+
+            # Insertar la venta
+            controlador_pago.insertar_venta(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final)
+
+            # Eliminar todos los ítems del carrito
+            cursor.execute("DELETE FROM ITEM_CARRITO WHERE idCarrito = %s", (idCarrito,))
+
+            # Eliminar el carrito
+            cursor.execute("DELETE FROM CARRITO WHERE idCarrito = %s", (idCarrito,))
+
+            conexion.commit()
+
+    except Exception as e:
+        print(f"Exception: {e}")
+        flash("Error al procesar la venta: {}".format(e), "error")
+
+    finally:
+        conexion.close()
+
+    return redirect("/compra_exitosa")
+
 
 
 @app.route("/api_obtenerventa1")

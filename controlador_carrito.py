@@ -128,3 +128,33 @@ def modificar_carrito(id_carrito, id_cliente, fecha_creacion):
     finally:
         conexion.close()
 
+
+def obtener_carrito_por_cliente_id(id_cliente):
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("SELECT * FROM CARRITO WHERE idCliente = %s", (id_cliente,))
+            carrito = cursor.fetchone()
+            return carrito
+    finally:
+        conexion.close()
+
+def crear_carrito_para_cliente(id_cliente):
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("INSERT INTO CARRITO (idCliente, fechaCreacion) VALUES (%s, NOW())", (id_cliente,))
+            conexion.commit()
+            return cursor.lastrowid
+    finally:
+        conexion.close()
+
+def obtener_items_carrito_por_id_carrito(id_carrito):
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("SELECT p.idProducto, p.imagen, CONCAT(p.marca, ' ', p.modelo) AS modelo, p.precio, ic.cantidad, ic.subtotal FROM ITEM_CARRITO ic INNER JOIN PRODUCTO p ON ic.idProducto = p.idProducto WHERE ic.idCarrito = %s", (id_carrito,))
+            items = cursor.fetchall()
+            return items
+    finally:
+        conexion.close()
