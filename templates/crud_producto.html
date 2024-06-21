@@ -235,8 +235,8 @@
 										<td>
 
 										<td>
-											<a href="#editEmployeeModal{{ producto[0] }}" class="edit"
-												data-toggle="modal">
+											<a href="{{url_for('actualizar_productoM')}}" class="edit"
+												data-toggle="modal" data-target="#editEmployeeModal{{producto.idMoto}}">
 												<i class="material-icons" data-toggle="tooltip"
 													title="Edit">&#xE254;</i>
 											</a>
@@ -246,7 +246,6 @@
 													title="Delete">&#xE872;</i>
 											</a>
 
-											{% endfor %}
 								</tbody>
 							</table>
 
@@ -276,6 +275,7 @@
 
 
 					<!-- Add Motorcycle Modal -->
+
 					<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
@@ -415,6 +415,8 @@
 								</form>
 							</div>
 						</div>
+						{% endfor %}
+
 					</div>
 
 					<!----edit-modal end--------->
@@ -425,10 +427,9 @@
 
 					<!----edit-modal start--------->
 					<!-- Edit Product Modal -->
-					{% for producto in productosm %}
 
-					<div class="modal fade" id="editEmployeeModal{{ producto[0] }}" tabindex="-1" role="dialog">
-						<div class="modal-dialog" role="document">
+					<div class="modal fade" id="editEmployeeModal{{ producto.idMoto}}" role="dialog">
+						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
 									<h5 class="modal-title">Editar Producto</h5>
@@ -588,7 +589,6 @@
 							</div>
 						</div>
 					</div>
-					{% endfor %}
 
 
 					<!----edit-modal end--------->
@@ -596,7 +596,7 @@
 
 					<!----delete-modal start--------->
 
-					
+
 
 					<!----edit-modal end--------->
 
