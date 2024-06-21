@@ -600,7 +600,14 @@
 
 					<!----delete-modal start--------->
 
+					<!-- Botón que abre el modal -->
 					{% for producto in productosm %}
+					<button type="button" class="btn btn-danger" data-toggle="modal"
+						data-target="#deleteEmployeeModal{{ producto[0] }}">
+						Eliminar Producto
+					</button>
+
+					<!-- Modal -->
 					<div id="deleteEmployeeModal{{producto[0]}}" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -616,7 +623,7 @@
 									<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 									<form action="{{url_for('eliminar_productoM')}}" method="POST">
 										<input type="hidden" name="id" value="{{producto[0]}}">
-										<button class="button is-danger">Eliminar</button>
+										<button class="btn btn-danger">Eliminar</button>
 									</form>
 								</div>
 							</div>
