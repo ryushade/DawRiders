@@ -252,7 +252,7 @@
 
 								</tbody>
 
-								<div class="modal fade" id="editEmployeeModal{{ producto.idMoto}}" role="dialog">
+								<div class="modal fade" id="editEmployeeModal{{ producto[0]}}" role="dialog">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">
@@ -262,7 +262,7 @@
 													<span aria-hidden="true">&times;</span>
 												</button>
 											</div>
-											<form method="post" action="{{url_for('actualizar_productoM')}}">
+											<form method="post" action="{{url_for('editar_productoM')}}">
 												<div class="modal-body">
 													<input type="hidden" name="idProducto" value="{{producto[0]}}">
 
