@@ -276,7 +276,7 @@
 
 
 					<!-- Add Motorcycle Modal -->
-					<div class="modal fade" tabindex="-1" id="addEmployeeModal" role="dialog">
+					<div class="modal fade" id="editEmployeeModal{{ producto[0] }}" tabindex="-1" role="dialog">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
 								<form method="post" action="{{ url_for('guardar_moto') }}"
@@ -557,28 +557,24 @@
 											<label>Combustible</label>
 											<input type="text" class="form-control" value="{{producto[20]}}"
 												name="combustible">
-											end
 
 											<!-- Numero de Cilindros -->
 											<div class="form-group">
 												<label>Numero de Cilindros</label>
 												<input type="number" class="form-control" value="{{producto[21]}}"
 													name="numCilindros">
-												end
 
 												<!-- Capacidad de Tanque -->
 												<div class="form-group">
 													<label>Capacidad de Tanque</label>
 													<input type="number" class="form-control" value="{{producto[22]}}"
 														name="capacidadTanque">
-													end
 
 													<!-- Rendimiento -->
 													<div class="form-group">
 														<label>Rendimiento</label>
 														<input type="text" class="form-control" value="{{producto[23]}}"
 															name="rendimiento">
-														end
 													</div>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-secondary"
