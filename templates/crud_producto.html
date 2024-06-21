@@ -235,8 +235,9 @@
 										<td>
 
 										<td>
-											<a href="{{url_for('actualizar_productoM', idMoto=producto.idMoto)}}" class="edit"
-												data-toggle="modal" data-target="#editEmployeeModal{{producto.idMoto}}">
+											<a href="{{url_for('actualizar_productoM', idMoto=producto.idMoto)}}"
+												class="edit" data-toggle="modal"
+												data-target="#editEmployeeModal{{producto.idMoto}}">
 												<i class="material-icons" data-toggle="tooltip"
 													title="Edit">&#xE254;</i>
 											</a>
@@ -421,220 +422,222 @@
 
 
 							</table>
-
-							<div class="clearfix">
-								<div class="hint-text">Mostrando <b>5</b> de<b>25</b></div>
-								<ul class="pagination">
-									<li class="page-item disabled"><a href="#">Anterior</a></li>
-									<li class="page-item "><a href="#" class="page-link">1</a></li>
-									<li class="page-item "><a href="#" class="page-link">2</a></li>
-									<li class="page-item"><a href="#" class="page-link">3</a></li>
-									<li class="page-item "><a href="#" class="page-link">4</a></li>
-									<li class="page-item "><a href="#" class="page-link">5</a></li>
-									<li class="page-item "><a href="#" class="page-link">Siguiente</a></li>
-								</ul>
-							</div>
-
-
-
-
-
-
-
-
-
 						</div>
 					</div>
+				</div>
 
 
-					<!-- Add Motorcycle Modal -->
+				<div class="clearfix">
+					<div class="hint-text">Mostrando <b>5</b> de<b>25</b></div>
+					<ul class="pagination">
+						<li class="page-item disabled"><a href="#">Anterior</a></li>
+						<li class="page-item "><a href="#" class="page-link">1</a></li>
+						<li class="page-item "><a href="#" class="page-link">2</a></li>
+						<li class="page-item"><a href="#" class="page-link">3</a></li>
+						<li class="page-item "><a href="#" class="page-link">4</a></li>
+						<li class="page-item "><a href="#" class="page-link">5</a></li>
+						<li class="page-item "><a href="#" class="page-link">Siguiente</a></li>
+					</ul>
+				</div>
 
-					<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<form method="post" action="{{ url_for('guardar_moto') }}"
-									enctype="multipart/form-data">
-									<div class="modal-header">
-										<h5 class="modal-title">Agregar Producto-Moto</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										<!-- Motorcycle Code -->
-										<div class="form-group">
-											<label for="codmoto">Código de Moto</label>
-											<input type="text" class="form-control" id="codmoto" name="codmoto"
-												placeholder="Codigo de Moto" required>
-										</div>
-										<!-- Motorcycle Type -->
-										<div class="form-group">
-											<label for="tipo">Tipo de Moto</label>
-											<input type="text" class="form-control" id="tipo" name="tipo"
-												placeholder="Tipo" required>
-										</div>
-										<!-- Position -->
-										<div class="form-group">
-											<label for="posicionManejo">Posición de Manejo</label>
-											<input type="text" class="form-control" id="posicionManejo"
-												name="posicionManejo" placeholder="Posición de Manejo" required>
-										</div>
-										<!-- Number of Seats -->
-										<div class="form-group">
-											<label for="numAsientos">Número de Asientos</label>
-											<input type="number" class="form-control" id="numAsientos"
-												name="numAsientos" placeholder="Número de Asientos" required>
-										</div>
-										<!-- Number of Passengers -->
-										<div class="form-group">
-											<label for="numPasajeros">Número de Pasajeros</label>
-											<input type="number" class="form-control" id="numPasajeros"
-												name="numPasajeros" placeholder="Número de Pasajeros" required>
-										</div>
-										<!-- Dimensions (Length, Width, Height) -->
-										<div class="form-group">
-											<label for="largo">Largo</label>
-											<input type="text" class="form-control" id="largo" name="largo"
-												placeholder="Largo" required>
-										</div>
-										<div class="form-group">
-											<label for="ancho">Ancho</label>
-											<input type="text" class="form-control" id="ancho" name="ancho"
-												placeholder="Ancho" required>
-										</div>
-										<div class="form-group">
-											<label for="alto">Alto</label>
-											<input type="text" class="form-control" id="alto" name="alto"
-												placeholder="Alto" required>
-										</div>
-										<!-- Engine Type -->
-										<div class="form-group">
-											<label for="tipoMotor">Tipo de Motor</label>
-											<input type="text" class="form-control" id="tipoMotor" name="tipoMotor"
-												placeholder="Tipo Motor" required>
-										</div>
-										<!-- Fuel Type -->
-										<div class="form-group">
-											<label for="combustible">Combustible</label>
-											<input type="text" class="form-control" id="combustible" name="combustible"
-												placeholder="Combustible" required>
-										</div>
-										<!-- Number of Cylinders -->
-										<div class="form-group">
-											<label for="numCilindros">Número de Cilindros</label>
-											<input type="number" class="form-control" id="numCilindros"
-												name="numCilindros" placeholder="Número de Cilindros" required>
-										</div>
-										<!-- Tank Capacity -->
-										<div class="form-group">
-											<label for="capacidadTanque">Capacidad de Tanque</label>
-											<input type="text" class="form-control" id="capacidadTanque"
-												name="capacidadTanque" placeholder="Capacidad Tanque" required>
-										</div>
-										<!-- Performance -->
-										<div class="form-group">
-											<label for="rendimiento">Rendimiento</label>
-											<input type="text" class="form-control" id="rendimiento" name="rendimiento"
-												placeholder="Rendimiento" required>
-										</div>
-										<!-- Description -->
-										<div class="form-group">
-											<label for="descripcion">Descripción</label>
-											<input type="text" class="form-control" id="descripcion" name="descripcion"
-												placeholder="Descripcion" required>
-										</div>
-										<!-- Price -->
-										<div class="form-group">
-											<label for="precio">Precio</label>
-											<input type="text" class="form-control" id="precio" name="precio"
-												placeholder="Precio" required>
-										</div>
-										<!-- Stock -->
-										<div class="form-group">
-											<label for="stock">Stock</label>
-											<input type="number" class="form-control" id="stock" name="stock"
-												placeholder="Stock" required>
-										</div>
-										<!-- Brand -->
-										<div class="form-group">
-											<label for="marca">Marca</label>
-											<input type="text" class="form-control" id="marca" name="marca"
-												placeholder="Marca" required>
-										</div>
-										<!-- Model -->
-										<div the="form-group">
-											<label for="modelo">Modelo</label>
-											<input type="text" class="form-control" id="modelo" name="modelo"
-												placeholder="Modelo" required>
-										</div>
-										<!-- Color -->
-										<div class="form-group">
-											<label for="color">Color</label>
-											<input type="text" class="form-control" id="color" name="color"
-												placeholder="Color" required>
-										</div>
-										<!-- Image Upload -->
-										<div class="form-group">
-											<label for="uploadedFile">Imagen</label>
-											<input type="file" class="form-control-file" id="uploadedFile"
-												name="uploadedFile" required>
-										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Cancelar</button>
-										<button type="submit" class="btn btn-primary">Registrar</button>
-									</div>
-								</form>
+
+
+
+
+
+
+
+
+			</div>
+		</div>
+
+
+		<!-- Add Motorcycle Modal -->
+
+		<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<form method="post" action="{{ url_for('guardar_moto') }}" enctype="multipart/form-data">
+						<div class="modal-header">
+							<h5 class="modal-title">Agregar Producto-Moto</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<!-- Motorcycle Code -->
+							<div class="form-group">
+								<label for="codmoto">Código de Moto</label>
+								<input type="text" class="form-control" id="codmoto" name="codmoto"
+									placeholder="Codigo de Moto" required>
+							</div>
+							<!-- Motorcycle Type -->
+							<div class="form-group">
+								<label for="tipo">Tipo de Moto</label>
+								<input type="text" class="form-control" id="tipo" name="tipo" placeholder="Tipo"
+									required>
+							</div>
+							<!-- Position -->
+							<div class="form-group">
+								<label for="posicionManejo">Posición de Manejo</label>
+								<input type="text" class="form-control" id="posicionManejo" name="posicionManejo"
+									placeholder="Posición de Manejo" required>
+							</div>
+							<!-- Number of Seats -->
+							<div class="form-group">
+								<label for="numAsientos">Número de Asientos</label>
+								<input type="number" class="form-control" id="numAsientos" name="numAsientos"
+									placeholder="Número de Asientos" required>
+							</div>
+							<!-- Number of Passengers -->
+							<div class="form-group">
+								<label for="numPasajeros">Número de Pasajeros</label>
+								<input type="number" class="form-control" id="numPasajeros" name="numPasajeros"
+									placeholder="Número de Pasajeros" required>
+							</div>
+							<!-- Dimensions (Length, Width, Height) -->
+							<div class="form-group">
+								<label for="largo">Largo</label>
+								<input type="text" class="form-control" id="largo" name="largo" placeholder="Largo"
+									required>
+							</div>
+							<div class="form-group">
+								<label for="ancho">Ancho</label>
+								<input type="text" class="form-control" id="ancho" name="ancho" placeholder="Ancho"
+									required>
+							</div>
+							<div class="form-group">
+								<label for="alto">Alto</label>
+								<input type="text" class="form-control" id="alto" name="alto" placeholder="Alto"
+									required>
+							</div>
+							<!-- Engine Type -->
+							<div class="form-group">
+								<label for="tipoMotor">Tipo de Motor</label>
+								<input type="text" class="form-control" id="tipoMotor" name="tipoMotor"
+									placeholder="Tipo Motor" required>
+							</div>
+							<!-- Fuel Type -->
+							<div class="form-group">
+								<label for="combustible">Combustible</label>
+								<input type="text" class="form-control" id="combustible" name="combustible"
+									placeholder="Combustible" required>
+							</div>
+							<!-- Number of Cylinders -->
+							<div class="form-group">
+								<label for="numCilindros">Número de Cilindros</label>
+								<input type="number" class="form-control" id="numCilindros" name="numCilindros"
+									placeholder="Número de Cilindros" required>
+							</div>
+							<!-- Tank Capacity -->
+							<div class="form-group">
+								<label for="capacidadTanque">Capacidad de Tanque</label>
+								<input type="text" class="form-control" id="capacidadTanque" name="capacidadTanque"
+									placeholder="Capacidad Tanque" required>
+							</div>
+							<!-- Performance -->
+							<div class="form-group">
+								<label for="rendimiento">Rendimiento</label>
+								<input type="text" class="form-control" id="rendimiento" name="rendimiento"
+									placeholder="Rendimiento" required>
+							</div>
+							<!-- Description -->
+							<div class="form-group">
+								<label for="descripcion">Descripción</label>
+								<input type="text" class="form-control" id="descripcion" name="descripcion"
+									placeholder="Descripcion" required>
+							</div>
+							<!-- Price -->
+							<div class="form-group">
+								<label for="precio">Precio</label>
+								<input type="text" class="form-control" id="precio" name="precio" placeholder="Precio"
+									required>
+							</div>
+							<!-- Stock -->
+							<div class="form-group">
+								<label for="stock">Stock</label>
+								<input type="number" class="form-control" id="stock" name="stock" placeholder="Stock"
+									required>
+							</div>
+							<!-- Brand -->
+							<div class="form-group">
+								<label for="marca">Marca</label>
+								<input type="text" class="form-control" id="marca" name="marca" placeholder="Marca"
+									required>
+							</div>
+							<!-- Model -->
+							<div the="form-group">
+								<label for="modelo">Modelo</label>
+								<input type="text" class="form-control" id="modelo" name="modelo" placeholder="Modelo"
+									required>
+							</div>
+							<!-- Color -->
+							<div class="form-group">
+								<label for="color">Color</label>
+								<input type="text" class="form-control" id="color" name="color" placeholder="Color"
+									required>
+							</div>
+							<!-- Image Upload -->
+							<div class="form-group">
+								<label for="uploadedFile">Imagen</label>
+								<input type="file" class="form-control-file" id="uploadedFile" name="uploadedFile"
+									required>
 							</div>
 						</div>
-
-					</div>
-
-					<!----edit-modal end--------->
-
-
-
-
-
-					<!----edit-modal start--------->
-					<!-- Edit Product Modal -->
-
-
-
-					<!----edit-modal end--------->
-
-
-					<!----delete-modal start--------->
-
-
-
-					<!----edit-modal end--------->
-
-
-
-
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn btn-primary">Registrar</button>
+						</div>
+					</form>
 				</div>
 			</div>
 
-			<!------main-content-end----------->
-
-
-
-			<!----footer-design------------->
-
-			<footer class="footer">
-				<div class="container-fluid">
-					<div class="footer-in">
-						<p class="mb-0">&copy 2024 CicloRiders. Todos los derechos reservados.</p>
-					</div>
-				</div>
-			</footer>
-
-
-
-
 		</div>
+
+		<!----edit-modal end--------->
+
+
+
+
+
+		<!----edit-modal start--------->
+		<!-- Edit Product Modal -->
+
+
+
+		<!----edit-modal end--------->
+
+
+		<!----delete-modal start--------->
+
+
+
+		<!----edit-modal end--------->
+
+
+
+
+	</div>
+	</div>
+
+	<!------main-content-end----------->
+
+
+
+	<!----footer-design------------->
+
+	<footer class="footer">
+		<div class="container-fluid">
+			<div class="footer-in">
+				<p class="mb-0">&copy 2024 CicloRiders. Todos los derechos reservados.</p>
+			</div>
+		</div>
+	</footer>
+
+
+
+
+	</div>
 
 	</div>
 
