@@ -2,12 +2,21 @@ from bd import obtener_conexion
 
 def insertar_venta(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final):
     conexion = obtener_conexion()
-    with conexion.cursor() as cursor:
-        cursor.execute(
-            "INSERT INTO VENTA1(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-            (nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final))
-    conexion.commit()
-    conexion.close()
+    try:
+        with conexion.cursor() as cursor:
+            sql = """
+            INSERT INTO VENTA1 (nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """
+            cursor.execute(sql, (nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final))
+            conexion.commit()
+            print("Venta insertada correctamente")
+    except Exception as e:
+        print("Error al insertar venta:", e)
+        conexion.rollback()
+    finally:
+        conexion.close()
+
 
 def obtener_ventas():
     conexion = obtener_conexion()
