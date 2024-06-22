@@ -1,14 +1,14 @@
 from bd import obtener_conexion
 
-def insertar_venta(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final):
+def insertar_venta(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad):
     conexion = obtener_conexion()
     try:
         with conexion.cursor() as cursor:
             sql = """
-            INSERT INTO VENTA1 (nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            INSERT INTO VENTA1 (nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
-            cursor.execute(sql, (nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final))
+            cursor.execute(sql, (nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad))
             conexion.commit()
             print("Venta insertada correctamente")
     except Exception as e:
@@ -63,3 +63,71 @@ def obtener_venta_por_id_api():
         venta = cursor.fetchone()
     conexion.close()
     return venta
+
+
+def obtener_ventas_por_cliente(id_cliente):
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("""
+                SELECT p.imagen, p.marca, p.modelo, v.cantidad, p.precio, SUM(v.monto_final) AS total_pagado
+                FROM VENTA1 v
+                INNER JOIN PRODUCTO p ON v.idProducto = p.idProducto
+                WHERE v.idCliente = %s
+                GROUP BY v.num_venta, p.imagen, p.marca, p.modelo, v.cantidad, p.precio
+                ORDER BY v.num_venta
+            """, (id_cliente,))
+            ventas = cursor.fetchall()
+    except Exception as e:
+        print("Error al obtener el historial de ventas:", e)
+        ventas = []
+    finally:
+        conexion.close()
+    return ventas
+
+
+
+###### APIS
+
+def api_insertar_venta(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, anio, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute(
+            "INSERT INTO VENTA1(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+            (nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, anio, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad))
+    conexion.commit()
+    conexion.close()
+
+def api_editar_venta(id, nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, anio, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute(
+            "UPDATE VENTA1 SET nombre = %s, apellidos = %s, pais = %s, direccion = %s, region = %s, localidad = %s, telefono = %s, correo = %s, mes = %s, año = %s, cvv = %s, numtarjeta = %s, idProducto = %s, monto_final = %s, num_venta = %s, idCliente = %s, cantidad = %s WHERE idVenta1 = %s",
+            (nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, anio, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad, id))
+    conexion.commit()
+    conexion.close()
+
+def api_eliminar_venta(id):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("DELETE FROM VENTA1 WHERE idVenta1 = %s", (id,))
+    conexion.commit()
+    conexion.close()
+
+def api_obtener_ventas():
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT * FROM VENTA1")
+        ventas = cursor.fetchall()
+    conexion.close()
+    return ventas
+
+def api_obtener_venta_por_id(id):
+    conexion = obtener_conexion()
+    venta = None
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT * FROM VENTA1 WHERE idVenta1 = %s", (id,))
+        venta = cursor.fetchone()
+    conexion.close()
+    return venta
+

@@ -74,16 +74,6 @@
             margin-top: 60px;
         }
 
-        .login-container, .register-container {
-            background-color: #FFFFFF;
-            color: #333333;
-            padding: 0;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin: 20px auto;
-            width: 500px;
-        }
-
         .input-group-text {
             background-color: #22262A;
             color: #FFF;
@@ -99,6 +89,7 @@
         .btn-primary {
             background-color: #22262A;
             border: none;
+            width: 100%
         }
 
         .btn-primary:hover {
@@ -142,19 +133,8 @@
             margin: 10px 0;
         }
 
-        h3, h2 {
+        h3, h6 {
             color: #22262A;
-        }
-
-        .contenedor {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #22262A;
-            padding: 3px 20px;
-            margin: 0;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
         }
 
         .footer__logo {
@@ -162,28 +142,53 @@
             text-decoration: none;
             font-size: 30px;
         }
+        
+        .card2 {
+            background-color: #FFFFFF;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+        }
+        
+        .card3{
+            padding: 30px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        
+        .card-header {
+            background-color: #22262A;
+            color: white;
+            padding: 14px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        
+        .card{
+            border: none;
+        }
+        
+        
     </style>
 
     <div class="row mt-5">
 
     </div>
 
-    <div class="row ms-4 mt-4 mb-5">
+    <div class="row ms-4 mt-4 mb-5 me-5">
 
-        <div class="row ms-4">
+        <div class="row ms-4 me-4 mt-5">
             <form method="post" action="{{url_for('guardar_venta')}}">
-                <div class="col-lg-7 col-md-6 col-sm-12">
 
+                <div class="container-fluid">
+                    <div class="row">
 
-                    <div class="row mt-4">
-                        <div style="border: solid 1px #212529; border-radius: 5px; width: 90%;">
-
-                            <div class="row m-5">
-                                <div class="row mb-4">
-                                    <h2>Detalles de Pago</h2>
-                                </div>
-                                <div class="row">
-
+                        <!-- Columna de Detalles de Pago -->
+                        <div class="col-lg-8 col-md-6 col-sm-12">
+                            <div class="card border-primary mb-3">
+                                <div class="card-header"><h2>Detalles de Pago</h2></div>
+                                <div class="row card3">
                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                         <div class="row">
                                             <h6>Nombre</h6>
@@ -191,7 +196,7 @@
                                         <div>
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" placeholder="Nombre"
-                                                    aria-label="Titular" aria-describedby="basic-addon1" name="nombre">
+                                                    aria-label="Titular" aria-describedby="basic-addon1" name="nombre" required>
                                             </div>
                                         </div>
 
@@ -205,7 +210,7 @@
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" placeholder="Apellidos"
                                                     aria-label="Titular" aria-describedby="basic-addon1"
-                                                    name="apellidos">
+                                                    name="apellidos" required>
                                             </div>
                                         </div>
                                     </div>
@@ -218,7 +223,7 @@
                                         <div>
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" placeholder="Pais"
-                                                    aria-label="Titular" aria-describedby="basic-addon1" name="pais">
+                                                    aria-label="Titular" aria-describedby="basic-addon1" name="pais" required>
                                             </div>
                                         </div>
                                     </div>
@@ -231,7 +236,7 @@
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" placeholder="Dirección"
                                                     aria-label="Titular" aria-describedby="basic-addon1"
-                                                    name="direccion">
+                                                    name="direccion" required>
                                             </div>
                                         </div>
                                     </div>
@@ -245,7 +250,7 @@
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control"
                                                     placeholder="Región / Departamento" aria-label="Titular"
-                                                    aria-describedby="basic-addon1" name="departamento">
+                                                    aria-describedby="basic-addon1" name="departamento" required>
                                             </div>
                                         </div>
 
@@ -256,7 +261,7 @@
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" placeholder="Teléfono"
                                                     aria-label="Titular" aria-describedby="basic-addon1"
-                                                    name="telefono">
+                                                    name="telefono" required>
                                             </div>
                                         </div>
 
@@ -267,7 +272,7 @@
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6 col-sm-12">
                                                 <select class="form-select"
-                                                    aria-label="Ejemplo de select predeterminado" name="mes">
+                                                    aria-label="Ejemplo de select predeterminado" name="mes" required>
                                                     <option selected="">Mes</option>
                                                     <option value="Enero">Enero</option>
                                                     <option value="Febrero">Febrero</option>
@@ -284,7 +289,7 @@
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-12">
                                                 <select class="form-select"
-                                                    aria-label="Ejemplo de select predeterminado" name="año">
+                                                    aria-label="Ejemplo de select predeterminado" name="año" required>
                                                     <option selected="">Año</option>
                                                     <option value="2023">2023</option>
                                                     <option value="2024">2024</option>
@@ -309,7 +314,7 @@
                                             <div class="input-group mb-3" style="width: 100%;">
                                                 <input type="text" class="form-control" placeholder="Localidad / Ciudad"
                                                     aria-label="Titular" aria-describedby="basic-addon1"
-                                                    name="localidad">
+                                                    name="localidad" required>
                                             </div>
                                         </div>
 
@@ -319,7 +324,7 @@
                                         <div class="row">
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" placeholder="Correo Electrónico"
-                                                    aria-label="Titular" aria-describedby="basic-addon1" name="correo">
+                                                    aria-label="Titular" aria-describedby="basic-addon1" name="correo" required>
                                             </div>
                                         </div>
 
@@ -330,7 +335,7 @@
                                         <div class="row" style="width: 40%;">
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" placeholder="CVV"
-                                                    aria-label="Titular" aria-describedby="basic-addon1" name="cvv">
+                                                    aria-label="Titular" aria-describedby="basic-addon1" name="cvv" required>
                                             </div>
                                         </div>
                                     </div>
@@ -344,32 +349,21 @@
                                             <div class="input-group mb-3" style="width: 100%;">
                                                 <input type="text" class="form-control"
                                                     placeholder="XXXX XXXX XXXX XXXX" aria-label="Titular"
-                                                    aria-describedby="basic-addon1" name="num_tarjeta">
+                                                    aria-describedby="basic-addon1" name="num_tarjeta" required>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
-
-
-
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="row me-5">
-                        <div style="border: solid 1px #212529;">
-                            <div class="m-4 ">
-                                <div class="row">
-                                    <div class="col-lg-7 col-md-10 col-sm-10">
-                                        <h3>Tu Carrito</h3>
-                                    </div>
-                                    <div class="col-lg-5 col-md-2 col-sm-2">
-                                        <i class="fa-solid fa-cart-shopping fa-xl"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <table class="table ms-2 mt-5">
+
+                        <!-- Columna del Carrito -->
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="card border-dark mb-3">
+                                <div class="card-header"><h3 style="color: white">Tu Carrito</h3></div>
+                                <div class="card-body text-dark">
+                                    <table class="table">
                                         <thead>
                                             <tr>
                                                 <th scope="col"></th>
@@ -390,19 +384,14 @@
                                                 <td></td>
                                             </tr>
                                             {% endfor %}
+                                        </tbody>
                                     </table>
-                                </div>
-                                <div class="row">
-                                    <h4>Total: S/<span></span></h3>
-                                </div>
-                                <div class="row" data-anijs="if: mouseover, do: pulse animated">
-
-                                    <button type="submit" style="width: 100%;" class="btn btn-primary"
-                                        href="{{url_for('formulario_detalle_categoria')}}">Pagar</button>
+                                    <h4 style="display: inline-block; margin-right: 20px;">Total: S/ <h5 id="total" style="display: inline;">324000.00</h5></h4>
+                                    <button type="submit" class="btn btn-primary btn-block" href="{{url_for('formulario_detalle_categoria')}}">Pagar</button>
                                 </div>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
             </form>
@@ -490,6 +479,22 @@
 <a href="#" class="scrollup" id="scroll-up">
     <i class="ri-arrow-up-line"></i>
 </a>
+
+<script>
+    window.onload = function() {
+        calculateTotal();
+    };
+
+    function calculateTotal() {
+        var subtotalElements = document.querySelectorAll('#detalle tr td:nth-child(3)');
+        var total = 0;
+        subtotalElements.forEach(function(subtotal) {
+            total += parseFloat(subtotal.textContent);
+        });
+        document.getElementById('total').textContent = total.toFixed(2);
+    }
+</script>
+
 
 <script src="/static/assets/js/scrollreveal.min.js"></script>
 <script src="/static/assets/js/swiper-bundle.min.js"></script>

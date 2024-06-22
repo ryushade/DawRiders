@@ -66,17 +66,16 @@
                                     <h3 class="h3 card-title">
                                         <a href="{{url_for('detalle_producto_moto', id=carta[0])}}">{{ carta[5] }}</a>
                                     </h3>
-                                    <data class="year" value="{{ carta[1] }}">{{ carta[1] }}</data>
                                 </div>
                                 <ul class="card-list">
                                     <li class="card-list-item">
                                         <ion-icon name="people-outline"></ion-icon>
-                                        <span class="card-item-text">2 personas</span>
+                                        <span class="card-item-text">Productos Disponibles: {{ carta[3] }}</span>
                                     </li>
 
                                     <li class="card-list-item">
                                         <ion-icon name="speedometer-outline"></ion-icon>
-                                        <span class="card-item-text">{{ carta[6] }}</span>
+                                        <span class="card-item-text">Marca: {{ carta[4] }}</span>
                                     </li>
 
                                 </ul>

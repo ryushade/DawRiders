@@ -70,7 +70,7 @@ def obtener_usuario_por_email(email):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
         cursor.execute("""
-            SELECT u.idCliente, u.email, u.contraseña,
+            SELECT u.idCliente, u.nombre, u.email, u.contraseña,
                    CASE WHEN a.cliente_id IS NOT NULL THEN TRUE ELSE FALSE END as is_admin,
                    u.token
             FROM CLIENTE u
@@ -81,13 +81,15 @@ def obtener_usuario_por_email(email):
         if result:
             return {
                 'id': result[0],
-                'email': result[1],
-                'contraseña': result[2],
-                'is_admin': result[3],
-                'token': result[4]
+                'nombre': result[1],  # Agregar el nombre del usuario
+                'email': result[2],
+                'contraseña': result[3],
+                'is_admin': result[4],
+                'token': result[5]
             }
         else:
             return None
+
 
 def actualizar_token(email, token):
     conexion = obtener_conexion()

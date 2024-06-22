@@ -3,6 +3,7 @@ from flask_login import login_user
 from flask_jwt import JWT, jwt_required, current_identity
 import controlador_pago
 from bd import obtener_conexion
+import time
 
 import urllib
 import os
@@ -13,14 +14,15 @@ import controlador_accesorio
 import controlador_carrito
 import controlador_administrador
 import controlador_users
+import controlador_item_carrito
 from clases.clase_moto import clsMoto
 from clases.clase_cliente import clsCliente
 from clases.clase_administrador import clsAdministrador
 from clases.clase_itemcarrito import clsItemCarrito
-from clases.clase_venta1 import clsVenta1
 from clases.clase_producto import clsProducto
 from clases.clase_accesorio import clsAccesorio
 from clases.clase_carrito import clsCarrito
+from clases.clase_venta1 import clsVenta
 from hashlib import sha256
 import random
 
@@ -91,6 +93,19 @@ def formulario_marcas():
 def formulario_blog():
     return render_template("blog.html")
 
+@app.route("/historial_venta")
+def formulario_historial_venta():
+    if 'user_id' not in session:
+        flash('Por favor, inicie sesión para ver esta página.', 'error')
+        return redirect("/login")
+
+    id_cliente = session['user_id']
+    ventas = controlador_pago.obtener_ventas_por_cliente(id_cliente)
+
+    return render_template("historial_venta.html", ventas=ventas)
+
+
+
 @app.route("/administrador")
 def formulario_administrador():
     return render_template("administrador.html")
@@ -140,7 +155,6 @@ def formulario_login_cliente():
 def procesar_login():
     email = request.form["email"]
     contraseña = request.form["contraseña"]
-
     epassword = sha256(contraseña.encode("utf-8")).hexdigest()
     usuario = controlador_cliente.obtener_usuario_por_email(email)
 
@@ -149,7 +163,9 @@ def procesar_login():
         token = sha256(aleatorio.encode("utf-8")).hexdigest()
 
         session['user_id'] = usuario['id']
+        session['user_name'] = usuario['nombre']  # Guardar el nombre en la sesión
         session['is_admin'] = usuario['is_admin']
+        print("Usuario logueado:", session['user_name'])  # Imprimir el nombre para depuración
 
         resp = redirect("/crud_moto") if usuario['is_admin'] else redirect("/login")
         resp.set_cookie('email', email)
@@ -160,6 +176,7 @@ def procesar_login():
     else:
         flash('Error al logearse. Intente nuevamente', 'error')
         return render_template("login.html")
+
 
 @app.route("/logout")
 def logout():
@@ -905,7 +922,6 @@ def agregar_carrito():
 
 
 
-
 @app.route("/detalle_producto_categoria")
 def formulario_detalle_categoria():
     productosm = controlador_producto.obtener_moto_producto()
@@ -913,56 +929,102 @@ def formulario_detalle_categoria():
 
 ########   APIS ITEM CARRITO   ##############
 
-@app.route("/api_obteneritemcarrito")
+# API para obtener todos los ítems del carrito
+@app.route("/api_obtener_items_carrito")
 @jwt_required()
-def api_obteneritemcarrito():
-    rpta = dict()
+def api_obtener_items_carrito():
+    respuesta = dict()
     try:
-        listaitemcarrito = list()
-        itemcarrito = controlador_carrito.obtener_carrito_api()
+        lista_items = []
+        items_carrito = controlador_item_carrito.obtener_items_carrito()
 
-        if len(itemcarrito) == 0:
-            rpta["code"] = 1
-            rpta["message"] = "El carrito está vacío"
-            rpta["data"] = listaitemcarrito
-            return jsonify(rpta)
+        for item in items_carrito:
+            objItem = clsItemCarrito(item[0], item[1], item[2], item[3], item[4], item[5])
+            lista_items.append(objItem.dicItemCarrito)
 
-        for carrito in itemcarrito:
-            objCarrito = clsItemCarrito(carrito[0], carrito[1], carrito[2],
-                              carrito[3], carrito[4], carrito[5])
-            listaitemcarrito.append(objCarrito.diccItemCarrito)
-
-        rpta["code"] = 1
-        rpta["message"] = "Listado correcto de items carrito"
-        rpta["data"] = listaitemcarrito
-        return jsonify(rpta)
+        respuesta["code"] = 1
+        respuesta["message"] = "Listado correcto de ítems en el carrito"
+        respuesta["data"] = lista_items
+        return jsonify(respuesta)
     except Exception as e:
-        rpta["code"] = 0
-        rpta["message"] = f"Problemas en el servicio web: {str(e)}"
-        rpta["data"] = dict()
-        return jsonify(rpta)
+        respuesta["code"] = 0
+        respuesta["message"] = f"Problemas en el servicio web: {str(e)}"
+        respuesta["data"] = dict()
+        return jsonify(respuesta)
 
-@app.route("/api_guardarcarrito", methods=["POST"])
+# API para guardar un ítem en el carrito
+@app.route("/api_guardar_item_carrito", methods=["POST"])
 @jwt_required()
-def api_guardarcarrito():
-    rpta = dict()
+def api_guardar_item_carrito():
+    respuesta = dict()
     try:
-        idCarrito = request.json["idCarrito"]
-        idProducto = request.json["idProducto"]
-        cantidad = request.json["cantidad"]
-        precioPorUnidad = request.json["precioPorUnidad"]
-        subtotal = request.json["subtotal"]
-        idgenerado = controlador_carrito.insertar_carrito(idCarrito, idProducto, cantidad, precioPorUnidad, subtotal)
+        # Asumiendo que el request JSON tiene todos los campos necesarios para crear un ítem de carrito
+        nuevo_item = clsItemCarrito(**request.json)
+        id_generado = controlador_item_carrito.insertar_item_carrito(nuevo_item)
 
-        rpta["code"] = 1
-        rpta["message"] = "Item carrito registrado correctamente. "
-        rpta["data"] = {"idgenerado" : idgenerado}
-
+        respuesta["code"] = 1
+        respuesta["message"] = "Ítem registrado correctamente."
+        respuesta["data"] = {"idGenerado": id_generado}
+        return jsonify(respuesta)
     except Exception as e:
-        rpta["code"] = 0
-        rpta["message"] = "Ocurrió un problema: " + repr(e)
-        rpta["data"] = dict()
-    return rpta
+        respuesta["code"] = 0
+        respuesta["message"] = f"Ocurrió un problema: {repr(e)}"
+        respuesta["data"] = dict()
+        return jsonify(respuesta)
+
+# API para eliminar un ítem del carrito
+@app.route("/api_eliminar_item_carrito/<int:id_item>", methods=["DELETE"])
+@jwt_required()
+def api_eliminar_item_carrito(id_item):
+    respuesta = dict()
+    try:
+        controlador_item_carrito.eliminar_item_carrito(id_item)
+        respuesta["code"] = 1
+        respuesta["message"] = "Ítem eliminado correctamente."
+        return jsonify(respuesta)
+    except Exception as e:
+        respuesta["code"] = 0
+        respuesta["message"] = f"Ocurrió un problema: {str(e)}"
+        return jsonify(respuesta)
+
+# API para actualizar un ítem en el carrito
+@app.route("/api_actualizar_item_carrito/<int:id_item>", methods=["PUT"])
+@jwt_required()
+def api_actualizar_item_carrito(id_item):
+    respuesta = dict()
+    try:
+        datos = request.json
+        controlador_item_carrito.editar_item_carrito(id_item, **datos)
+        respuesta["code"] = 1
+        respuesta["message"] = "Ítem actualizado correctamente."
+        return jsonify(respuesta)
+    except Exception as e:
+        respuesta["code"] = 0
+        respuesta["message"] = f"Ocurrió un problema: {str(e)}"
+        return jsonify(respuesta)
+
+# API para obtener un ítem del carrito por ID
+@app.route("/api_obtener_item_carrito_por_id/<int:id_item>", methods=["GET"])
+@jwt_required()
+def api_obtener_item_carrito_por_id(id_item):
+    respuesta = dict()
+    try:
+        item = controlador_item_carrito.obtener_item_carrito_por_id(id_item)
+        if item:
+            objItem = clsItemCarrito(item[0], item[1], item[2], item[3], item[4], item[5])
+            respuesta["code"] = 1
+            respuesta["message"] = "Ítem obtenido correctamente."
+            respuesta["data"] = objItem.dicItemCarrito
+        else:
+            respuesta["code"] = 0
+            respuesta["message"] = "Ítem no encontrado."
+            respuesta["data"] = dict()
+        return jsonify(respuesta)
+    except Exception as e:
+        respuesta["code"] = 0
+        respuesta["message"] = f"Ocurrió un problema: {str(e)}"
+        respuesta["data"] = dict()
+        return jsonify(respuesta)
 
 
 ########   PRODUCTO   ##############
@@ -1209,6 +1271,8 @@ def guardar_venta():
         flash("Debes iniciar sesión para realizar esta acción.", "error")
         return redirect(url_for("formulario_login_cliente"))
 
+    num_venta = int(time.time())
+
     nombre = request.form["nombre"]
     apellidos = request.form["apellidos"]
     pais = request.form["pais"]
@@ -1221,12 +1285,11 @@ def guardar_venta():
     año = request.form["año"]
     cvv = request.form["cvv"]
     numtarjeta = request.form["num_tarjeta"]
-
     id_cliente = session['user_id']
     conexion = obtener_conexion()
+
     try:
         with conexion.cursor() as cursor:
-            # Obtener el idCarrito asociado al cliente
             cursor.execute("SELECT idCarrito FROM CARRITO WHERE idCliente = %s", (id_cliente,))
             carrito = cursor.fetchone()
             if not carrito:
@@ -1234,19 +1297,16 @@ def guardar_venta():
                 return redirect(url_for("formulario_principal"))
 
             idCarrito = carrito[0]
-
-            # Obtener los ítems del carrito
-            cursor.execute("SELECT idProducto, subtotal FROM ITEM_CARRITO WHERE idCarrito = %s", (idCarrito,))
+            cursor.execute("SELECT idProducto, subtotal, cantidad FROM ITEM_CARRITO WHERE idCarrito = %s", (idCarrito,))
             productos = cursor.fetchall()
 
-            # Insertar cada producto como una venta individual
             for producto in productos:
-                idProducto, monto_final = producto
-                controlador_pago.insertar_venta(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final)
+                idProducto, monto_final, cantidad = producto
+                controlador_pago.insertar_venta(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final, num_venta, id_cliente, cantidad)
 
-            # Eliminar todos los ítems del carrito y el carrito
+                cursor.execute("UPDATE PRODUCTO SET stock = stock - %s WHERE idProducto = %s", (cantidad, idProducto))
+
             cursor.execute("DELETE FROM ITEM_CARRITO WHERE idCarrito = %s", (idCarrito,))
-            cursor.execute("DELETE FROM CARRITO WHERE idCarrito = %s", (idCarrito,))
 
             conexion.commit()
             return redirect("/compra_exitosa")
@@ -1258,51 +1318,37 @@ def guardar_venta():
     finally:
         conexion.close()
 
+##### APIS
 
-
-@app.route("/api_obtenerventa1")
+# API para obtener todas las ventas
+@app.route("/api_obtener_ventas", methods=["GET"])
 @jwt_required()
-def api_obtenerventa1():
-    rpta = dict()
+def api_obtener_ventas():
+    respuesta = dict()
     try:
-        listaventa1 = list()
-        venta1 = controlador_pago.obtener_venta_por_id_api()
+        lista_ventas = []
+        ventas = controlador_pago.api_obtener_ventas()
 
-        if venta1 is None:
-            venta1 = []
+        for venta in ventas:
+            objVenta = clsVenta(*venta)
+            lista_ventas.append(objVenta.diccVenta)
 
-        if len(venta1) == 0:
-            rpta["code"] = 1
-            rpta["message"] = "No hay datos de venta disponibles"
-            rpta["data"] = listaventa1
-            return jsonify(rpta)
-
-        for index, venta in enumerate(venta1):
-            try:
-                print(f"Procesando venta #{index}: {venta}")
-                objVenta1 = clsItemCarrito(venta[0], venta[1], venta[2],
-                              venta[3], venta[4], venta[5], venta[6], venta[7], venta[8],
-                              venta[9], venta[10], venta[11], venta[12], venta[13], venta[14])
-                listaventa1.append(objVenta1.diccVenta1)
-            except Exception as e:
-                print(f"Error procesando venta #{index}: {e}")
-                raise e
-
-        rpta["code"] = 1
-        rpta["message"] = "Listado correcto de la venta"
-        rpta["data"] = listaventa1
-        return jsonify(rpta)
+        respuesta["code"] = 1
+        respuesta["message"] = "Listado correcto de ventas registradas"
+        respuesta["data"] = lista_ventas
+        return jsonify(respuesta)
     except Exception as e:
-        rpta["code"] = 0
-        rpta["message"] = f"Problemas en el servicio web: {str(e)}"
-        rpta["data"] = dict()
-        return jsonify(rpta)
+        respuesta["code"] = 0
+        respuesta["message"] = f"Problemas en el servicio web: {str(e)}"
+        respuesta["data"] = dict()
+        return jsonify(respuesta)
 
-@app.route("/api_guardarventa", methods=["POST"])
+@app.route("/api_guardar_venta", methods=["POST"])
 @jwt_required()
-def api_guardarventa():
-    rpta = dict()
+def api_guardar_venta():
+    respuesta = dict()
     try:
+        # Extracción de datos de la solicitud JSON
         nombre = request.json["nombre"]
         apellidos = request.json["apellidos"]
         pais = request.json["pais"]
@@ -1312,22 +1358,85 @@ def api_guardarventa():
         telefono = request.json["telefono"]
         correo = request.json["correo"]
         mes = request.json["mes"]
-        año = request.json["año"]
+        anio = request.json["anio"]  # Cambiado de 'año' a 'anio'
         cvv = request.json["cvv"]
         numtarjeta = request.json["numtarjeta"]
         idProducto = request.json["idProducto"]
         monto_final = request.json["monto_final"]
-        idgenerado = controlador_pago.insertar_venta(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final)
+        num_venta = request.json["num_venta"]
+        idCliente = request.json["idCliente"]
+        cantidad = request.json["cantidad"]
 
-        rpta["code"] = 1
-        rpta["message"] = "Venta1 registrada correctamente. "
-        rpta["data"] = {"idgenerado" : idgenerado}
+        # Llamada al controlador para insertar la venta
+        id_generado = controlador_pago.api_insertar_venta(
+            nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, anio, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad
+        )
 
+        respuesta["code"] = 1
+        respuesta["message"] = "Venta registrada correctamente."
+        respuesta["data"] = {"idGenerado": id_generado}
+        return jsonify(respuesta)
     except Exception as e:
-        rpta["code"] = 0
-        rpta["message"] = "Ocurrió un problema: " + repr(e)
-        rpta["data"] = dict()
-    return rpta
+        respuesta["code"] = 0
+        respuesta["message"] = f"Ocurrió un problema: {repr(e)}"
+        respuesta["data"] = dict()
+        return jsonify(respuesta)
+
+
+
+# API para eliminar una venta
+@app.route("/api_eliminar_venta/<int:id_venta>", methods=["DELETE"])
+@jwt_required()
+def api_eliminar_venta(id_venta):
+    respuesta = dict()
+    try:
+        controlador_pago.api_eliminar_venta(id_venta)
+        respuesta["code"] = 1
+        respuesta["message"] = "Venta eliminada correctamente."
+        return jsonify(respuesta)
+    except Exception as e:
+        respuesta["code"] = 0
+        respuesta["message"] = f"Ocurrió un problema: {str(e)}"
+        return jsonify(respuesta)
+
+# API para actualizar una venta
+@app.route("/api_editar_venta/<int:id_venta>", methods=["PUT"])
+@jwt_required()
+def api_actualizar_venta(id_venta):
+    respuesta = dict()
+    try:
+        datos = request.json
+        controlador_pago.api_editar_venta(id_venta, **datos)
+        respuesta["code"] = 1
+        respuesta["message"] = "Venta actualizada correctamente."
+        return jsonify(respuesta)
+    except Exception as e:
+        respuesta["code"] = 0
+        respuesta["message"] = f"Ocurrió un problema: {str(e)}"
+        return jsonify(respuesta)
+
+# API para obtener una venta por ID
+@app.route("/api_obtener_venta_por_id/<int:id_venta>", methods=["GET"])
+@jwt_required()
+def api_obtener_venta_por_id(id_venta):
+    respuesta = dict()
+    try:
+        venta = controlador_pago.api_obtener_venta_por_id(id_venta)
+        if venta:
+            objVenta = clsVenta(*venta)
+            respuesta["code"] = 1
+            respuesta["message"] = "Venta obtenida correctamente."
+            respuesta["data"] = objVenta.diccVenta
+        else:
+            respuesta["code"] = 0
+            respuesta["message"] = "Venta no encontrada."
+            respuesta["data"] = dict()
+        return jsonify(respuesta)
+    except Exception as e:
+        respuesta["code"] = 0
+        respuesta["message"] = f"Ocurrió un problema: {str(e)}"
+        respuesta["data"] = dict()
+        return jsonify(respuesta)
 
 
 

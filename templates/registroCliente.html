@@ -204,7 +204,11 @@
                         <div class="input-group flex-nowrap py-2">
                             <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-lock fa-xl"></i></span>
                             <input type="password" class="form-control" placeholder="Confirma tu Password" aria-label="Confirma tu Password"
-                                aria-describedby="addon-wrapping" required>
+                                aria-describedby="addon-wrapping" id="confirm-password" required>
+                        </div>
+                        <div>
+                            <progress id="strength-meter" max="4" value="0" style="width: 100%"></progress>
+                            <label id="strength-text">Muy débil</label>
                         </div>
                         <div class="text-center py-4" data-anijs="if: mouseover, do: pulse animated">
                             <button type="submit" class="btn btn-primary btn w-50">Registrar</button>
@@ -306,5 +310,44 @@
 <script src="/static/assets/js/swiper-bundle.min.js"></script>
 <script src="/static/assets/js/mixitup.min.js"></script>
 <script src="/static/assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/zxcvbn/dist/zxcvbn.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const password = document.getElementById('contraseña');
+    const confirmPassword = document.getElementById('confirm-password');
+    const form = document.querySelector('form');
+    const strengthMeter = document.getElementById('strength-meter');
+    const strengthText = document.getElementById('strength-text');
+
+    password.addEventListener('input', function () {
+        const passwordValue = password.value;
+        let score;
+
+        if (passwordValue.length === 0) {
+            score = 0;
+        } else if (passwordValue.length < 2) {
+            score = 0;
+        } else if (passwordValue.length < 4) {
+            score = 1;
+        } else {
+            const result = zxcvbn(passwordValue);
+            score = result.score;
+        }
+
+        strengthMeter.value = score;
+        let strengthInfo = ["Muy débil", "Débil", "Moderada", "Fuerte", "Muy fuerte"];
+        strengthText.textContent = strengthInfo[score];
+    });
+
+    form.addEventListener('submit', function (event) {
+        if (password.value !== confirmPassword.value) {
+            alert('Las contraseñas no coinciden.');
+            event.preventDefault();
+        }
+    });
+});
+</script>
+
 
 {% endblock %}
