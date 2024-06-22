@@ -110,26 +110,26 @@
 											</a>
 										</li>
 
-                                        <li class="dropdown nav-item">
-                                            <a class="nav-link" href="#" data-toggle="dropdown">
-                                                <img src="/static/img/2.webp" style="width:40px; border-radius:50%;" />
-                                                <span class="xp-user-live"></span>
-                                            </a>
-                                            <ul class="dropdown-menu small-menu">
-                                                <li><a href="{{ url_for('formulario_principal') }}">
-                                                        <span class="material-icons">person_outline</span>
-                                                        Inicio
-                                                    </a></li>
-                                                <li><a href="#">
-                                                        <span class="material-icons">settings</span>
-                                                        Configuración
-                                                    </a></li>
-                                                <li><a href="{{ url_for('logout') }}">
-                                                        <span class="material-icons">logout</span>
-                                                        Cerrar Sesión
-                                                    </a></li>
-                                            </ul>
-                                        </li>
+										<li class="dropdown nav-item">
+											<a class="nav-link" href="#" data-toggle="dropdown">
+												<img src="/static/img/2.webp" style="width:40px; border-radius:50%;" />
+												<span class="xp-user-live"></span>
+											</a>
+											<ul class="dropdown-menu small-menu">
+												<li><a href="{{ url_for('formulario_principal') }}">
+														<span class="material-icons">person_outline</span>
+														Inicio
+													</a></li>
+												<li><a href="#">
+														<span class="material-icons">settings</span>
+														Configuración
+													</a></li>
+												<li><a href="{{ url_for('logout') }}">
+														<span class="material-icons">logout</span>
+														Cerrar Sesión
+													</a></li>
+											</ul>
+										</li>
 
 
 
@@ -253,170 +253,186 @@
 								</tbody>
 
 								<div class="modal fade" id="editEmployeeModal{{ producto[0]}}" role="dialog">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title">Editar Producto</h5>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<form method="post" action="{{url_for('actualizar_productoM')}}">
-												<div class="modal-body">
-													<input type="hidden" name="idProducto" value="{{producto[0]}}">
+									<div class="modal-dialog modal-lg"> <!-- Aumentar el tamaño del modal -->
 
-													<!-- Descripción del producto -->
-													<div class="form-group">
-														<label>Descripción</label>
-														<input type="text" class="form-control" value="{{producto[1]}}"
-															name="descripcion" required>
-													</div>
-
-													<!-- Precio -->
-													<div class="form-group">
-														<label>Precio</label>
-														<input type="number" step="0.01" class="form-control"
-															value="{{producto[2]}}" name="precio" required>
-													</div>
-
-													<!-- Stock -->
-													<div class="form-group">
-														<label>Stock</label>
-														<input type="number" class="form-control"
-															value="{{producto[3]}}" name="stock" required>
-													</div>
-
-													<!-- Marca -->
-													<div class="form-group">
-														<label>Marca</label>
-														<input type="text" class="form-control" value="{{producto[4]}}"
-															name="marca" required>
-													</div>
-
-													<!-- Modelo -->
-													<div class="form-group">
-														<label>Modelo</label>
-														<input type="text" class="form-control" value="{{producto[5]}}"
-															name="modelo" required>
-													</div>
-
-													<!-- Color -->
-													<div class="form-group">
-														<label>Color</label>
-														<input type="text" class="form-control" value="{{producto[6]}}"
-															name="color" required>
-													</div>
-
-													<!-- Imagen -->
-													<div class="form-group">
-														<label>Imagen</label>
-														<input type="text" class="form-control" value="{{producto[7]}}"
-															name="imagen" required>
-													</div>
-
-													<!-- Codigo de Moto -->
-													<div class="form-group">
-														<label>Codigo de Moto</label>
-														<input type="text" class="form-control" value="{{producto[11]}}"
-															name="codmoto">
-													</div>
-
-													<!-- Tipo de Moto -->
-													<div class="form-group">
-														<label>Tipo de Moto</label>
-														<input type="text" class="form-control" value="{{producto[12]}}"
-															name="tipo">
-													</div>
-
-													<!-- Posición de Manejo -->
-													<div class="form-group">
-														<label>Posición de Manejo</label>
-														<input type="text" class="form-control" value="{{producto[13]}}"
-															name="posicionManejo">
-													</div>
-
-													<!-- Numero de Asientos -->
-													<div class="form-group">
-														<label>Numero de Asientos</label>
-														<input type="number" class="form-control"
-															value="{{producto[14]}}" name="numAsientos">
-													</div>
-
-													<!-- Numero de Pasajeros -->
-													<div class="form-group">
-														<label>Numero de Pasajeros</label>
-														<input type="number" class="form-control"
-															value="{{producto[15]}}" name="numPasajeros">
-													</div>
-
-													<!-- Largo -->
-													<div class="form-group">
-														<label>Largo</label>
-														<input type="number" class="form-control"
-															value="{{producto[16]}}" name="largo">
-													</div>
-
-													<!-- Ancho -->
-													<div class="form-group">
-														<label>Ancho</label>
-														<input type="number" class="form-control"
-															value="{{producto[17]}}" name="ancho">
-													</div>
-
-													<!-- Alto -->
-													<div class="form-group">
-														<label>Alto</label>
-														<input type="number" class="form-control"
-															value="{{producto[18]}}" name="alto">
-													</div>
-
-													<!-- Tipo de Motor -->
-													<div class="form-group">
-														<label>Tipo de Motor</label>
-														<input type="text" class="form-control" value="{{producto[19]}}"
-															name="tipoMotor">
-													</div>
-
-													<!-- Combustible -->
-													<div class="form-group">
-														<label>Combustible</label>
-														<input type="text" class="form-control" value="{{producto[20]}}"
-															name="combustible">
-
-														<!-- Numero de Cilindros -->
-														<div class="form-group">
-															<label>Numero de Cilindros</label>
-															<input type="number" class="form-control"
-																value="{{producto[21]}}" name="numCilindros">
-
-															<!-- Capacidad de Tanque -->
-															<div class="form-group">
-																<label>Capacidad de Tanque</label>
-																<input type="number" class="form-control"
-																	value="{{producto[22]}}" name="capacidadTanque">
-
-																<!-- Rendimiento -->
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">Editar Producto</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<form method="post" action="{{url_for('actualizar_productoM')}}">
+													<div class="modal-body">
+														<input type="hidden" name="idProducto" value="{{producto[0]}}">
+														<div class="row">
+															<div class="col-md-4">
+																<!-- Descripción del producto -->
 																<div class="form-group">
-																	<label>Rendimiento</label>
+																	<label>Descripción</label>
 																	<input type="text" class="form-control"
-																		value="{{producto[23]}}" name="rendimiento">
+																		value="{{producto[1]}}" name="descripcion"
+																		required>
 																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal">Cancelar</button>
-																	<button type="submit"
-																		href="{{url_for('crud_producto')}}"
-																		class="btn btn-primary">Guardar
-																		Cambios</button>
+
+																<!-- Precio -->
+																<div class="form-group">
+																	<label>Precio</label>
+																	<input type="number" step="0.01"
+																		class="form-control" value="{{producto[2]}}"
+																		name="precio" required>
 																</div>
-											</form>
+
+																<!-- Stock -->
+																<div class="form-group">
+																	<label>Stock</label>
+																	<input type="number" class="form-control"
+																		value="{{producto[3]}}" name="stock" required>
+																</div>
+
+																<!-- Marca -->
+																<div class="form-group">
+																	<label>Marca</label>
+																	<input type="text" class="form-control"
+																		value="{{producto[4]}}" name="marca" required>
+																</div>
+
+																<!-- Modelo -->
+																<div class="form-group">
+																	<label>Modelo</label>
+																	<input type="text" class="form-control"
+																		value="{{producto[5]}}" name="modelo" required>
+																</div>
+
+																<!-- Color -->
+																<div class="form-group">
+																	<label>Color</label>
+																	<input type="text" class="form-control"
+																		value="{{producto[6]}}" name="color" required>
+																</div>
+
+																<!-- Imagen -->
+																<div class="form-group">
+																	<label>Imagen</label>
+																	<input type="text" class="form-control"
+																		value="{{producto[7]}}" name="imagen" required>
+																</div>
+
+																<!-- Codigo de Moto -->
+																<div class="form-group">
+																	<label>Codigo de Moto</label>
+																	<input type="text" class="form-control"
+																		value="{{producto[11]}}" name="codmoto">
+																</div>
+
+																<!-- Tipo de Moto -->
+																<div class="form-group">
+																	<label>Tipo de Moto</label>
+																	<input type="text" class="form-control"
+																		value="{{producto[12]}}" name="tipo">
+																</div>
+
+																<!-- Posición de Manejo -->
+																<div class="form-group">
+																	<label>Posición de Manejo</label>
+																	<input type="text" class="form-control"
+																		value="{{producto[13]}}" name="posicionManejo">
+																</div>
+
+																<!-- Numero de Asientos -->
+																<div class="form-group">
+																	<label>Numero de Asientos</label>
+																	<input type="number" class="form-control"
+																		value="{{producto[14]}}" name="numAsientos">
+																</div>
+
+																<!-- Numero de Pasajeros -->
+																<div class="form-group">
+																	<label>Numero de Pasajeros</label>
+																	<input type="number" class="form-control"
+																		value="{{producto[15]}}" name="numPasajeros">
+																</div>
+
+																<!-- Largo -->
+																<div class="form-group">
+																	<label>Largo</label>
+																	<input type="number" class="form-control"
+																		value="{{producto[16]}}" name="largo">
+																</div>
+
+																<!-- Ancho -->
+																<div class="form-group">
+																	<label>Ancho</label>
+																	<input type="number" class="form-control"
+																		value="{{producto[17]}}" name="ancho">
+																</div>
+
+																<!-- Alto -->
+																<div class="form-group">
+																	<label>Alto</label>
+																	<input type="number" class="form-control"
+																		value="{{producto[18]}}" name="alto">
+																</div>
+
+																<!-- Tipo de Motor -->
+																<div class="form-group">
+																	<label>Tipo de Motor</label>
+																	<input type="text" class="form-control"
+																		value="{{producto[19]}}" name="tipoMotor">
+																</div>
+
+																<!-- Combustible -->
+																<div class="form-group">
+																	<label>Combustible</label>
+																	<input type="text" class="form-control"
+																		value="{{producto[20]}}" name="combustible">
+
+																	<!-- Numero de Cilindros -->
+																	<div class="form-group">
+																		<label>Numero de Cilindros</label>
+																		<input type="number" class="form-control"
+																			value="{{producto[21]}}"
+																			name="numCilindros">
+
+																		<!-- Capacidad de Tanque -->
+																		<div class="form-group">
+																			<label>Capacidad de Tanque</label>
+																			<input type="number" class="form-control"
+																				value="{{producto[22]}}"
+																				name="capacidadTanque">
+
+																			<!-- Rendimiento -->
+																			<div class="form-group">
+																				<label>Rendimiento</label>
+																				<input type="text" class="form-control"
+																					value="{{producto[23]}}"
+																					name="rendimiento">
+																			</div>
+																			<div class="modal-footer">
+																				<button type="button"
+																					class="btn btn-secondary"
+																					data-dismiss="modal">Cancelar</button>
+																				<button type="submit"
+																					href="{{url_for('crud_producto')}}"
+																					class="btn btn-primary">Guardar
+																					Cambios</button>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													
+												</form>
+
+											</div>
 
 										</div>
-
 									</div>
-								</div>
-								{% endfor %}
+									{% endfor %}
 
 
 
