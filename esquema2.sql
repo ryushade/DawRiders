@@ -84,26 +84,10 @@ CREATE TABLE VENTA1 (
     monto_final DECIMAL(9,2),
     num_venta int not null,
 	idCliente int not null,
-	cantidad int not null
+	cantidad int not null,
+
 );
 
-----NO SE USAN AUN
-
-CREATE TABLE COMPROBANTE_PAGO (
-    idComprobante INT AUTO_INCREMENT PRIMARY KEY,
-    montoTotal DECIMAL(9,2) NOT NULL,
-    tipoPago VARCHAR(255) NOT NULL,
-    fechaPago DATE NOT NULL,
-    horaPago TIME NOT NULL,
-    idVenta INT NOT NULL,
-    idTipoComprobante INT
-);
-
-CREATE TABLE TIPO_COMPROBANTE (
-    idTipoComprobante INT AUTO_INCREMENT PRIMARY KEY,
-    tipoComprobante VARCHAR(50) NOT NULL,
-    descripcion VARCHAR(255) NOT NULL
-);
 
 ------POSTGRES
 

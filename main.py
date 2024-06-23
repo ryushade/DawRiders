@@ -95,14 +95,28 @@ def formulario_blog():
 
 @app.route("/historial_venta")
 def formulario_historial_venta():
-    if 'user_id' not in session:
+    email = request.cookies.get('email')
+    token = request.cookies.get('token')
+    if not email or not token or 'user_id' not in session:
         flash('Por favor, inicie sesión para ver esta página.', 'error')
-        return redirect("/login")
+        return redirect(url_for("formulario_login_cliente"))
 
     id_cliente = session['user_id']
+    cliente = controlador_cliente.obtener_cliente_por_id(id_cliente)
     ventas = controlador_pago.obtener_ventas_por_cliente(id_cliente)
 
-    return render_template("historial_venta.html", ventas=ventas)
+    # Organizar los productos por código de venta
+    ventas_agrupadas = {}
+    for venta in ventas:
+        codigo_venta = venta[7]  # Asumiendo que el código de venta está en la posición 7
+        if codigo_venta not in ventas_agrupadas:
+            ventas_agrupadas[codigo_venta] = {
+                'fecha_venta': venta[6],  # Asumiendo que la fecha de venta está en la posición 6
+                'productos': []
+            }
+        ventas_agrupadas[codigo_venta]['productos'].append(venta)
+
+    return render_template("historial_venta.html", ventas_agrupadas=ventas_agrupadas, cliente=cliente)
 
 
 
@@ -224,7 +238,6 @@ def api_obteneradministrador():
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = f"Problemas en el servicio web: {str(e)}"
-        rpta["data"] = dict()
         return jsonify(rpta)
 
 
@@ -245,7 +258,6 @@ def api_guardaradministrador():
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = "Ocurrió un problema: " + repr(e)
-        rpta["data"] = dict()
     return rpta
 
 @app.route("/api_eliminar_administrador/<int:id_admin>", methods=["DELETE"])
@@ -291,11 +303,9 @@ def api_obtener_administrador(id_admin):
         else:
             rpta["code"] = 0
             rpta["message"] = "Administrador no encontrado."
-            rpta["data"] = dict()
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = f"Ocurrió un problema: {str(e)}"
-        rpta["data"] = dict()
     return jsonify(rpta)
 
 ####
@@ -321,7 +331,6 @@ def api_obtener_cliente():
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = f"Problemas en el servicio web: {str(e)}"
-        rpta["data"] = dict()
         return jsonify(rpta)
 
 @app.route("/api_guardar_cliente", methods=["POST"])
@@ -343,7 +352,6 @@ def api_guardar_cliente():
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = "Ocurrió un problema: " + repr(e)
-        rpta["data"] = dict()
     return jsonify(rpta)
 
 @app.route("/api_eliminar_cliente/<int:id_cliente>", methods=["DELETE"])
@@ -389,11 +397,9 @@ def api_obtener_cliente_por_id(id_cliente):
         else:
             rpta["code"] = 0
             rpta["message"] = "Cliente no encontrado."
-            rpta["data"] = dict()
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = f"Ocurrió un problema: {str(e)}"
-        rpta["data"] = dict()
     return jsonify(rpta)
 
 #######
@@ -479,7 +485,6 @@ def api_obtenermotos():
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = f"Problemas en el servicio web: {str(e)}"
-        rpta["data"] = dict()
         return jsonify(rpta)
 
 @app.route("/api_guardarmoto", methods=["POST"])
@@ -509,7 +514,6 @@ def api_guardarmoto():
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = "Ocurrió un problema: " + repr(e)
-        rpta["data"] = dict()
     return rpta
 
 @app.route("/api_eliminar_moto/<int:id_moto>", methods=["DELETE"])
@@ -562,11 +566,9 @@ def api_obtener_moto_por_id(id_moto):
         else:
             rpta["code"] = 0
             rpta["message"] = "Moto no encontrada."
-            rpta["data"] = dict()
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = f"Ocurrió un problema: {str(e)}"
-        rpta["data"] = dict()
     return jsonify(rpta)
 
 
@@ -652,7 +654,6 @@ def api_obtener_accesorios():
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = f"Problemas en el servicio web: {str(e)}"
-        rpta["data"] = dict()
         return jsonify(rpta)
 
 @app.route("/api_guardaraccesorio", methods=["POST"])
@@ -673,7 +674,6 @@ def api_guardaraccesorio():
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = "Ocurrió un problema: " + repr(e)
-        rpta["data"] = dict()
     return rpta
 
 
@@ -685,11 +685,9 @@ def api_eliminar_accesorio(id_accesorio):
         controlador_accesorio.eliminar_accesorio_api(id_accesorio)
         rpta["code"] = 1
         rpta["message"] = "Accesorio eliminado correctamente."
-        rpta["data"] = dict()
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = f"Ocurrió un problema: {str(e)}"
-        rpta["data"] = dict()
     return jsonify(rpta)
 
 
@@ -710,7 +708,6 @@ def api_editar_accesorio(id_accesorio):
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = f"Ocurrió un problema: " + repr(e)
-        rpta["data"] = dict()
     return jsonify(rpta)
 
 @app.route("/api_obtener_accesorio_por_id/<int:id_accesorio>", methods=["GET"])
@@ -729,11 +726,9 @@ def api_obtener_accesorio_por_id(id_accesorio):
         else:
             rpta["code"] = 0
             rpta["message"] = "Accesorio no encontrado."
-            rpta["data"] = dict()
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = f"Ocurrió un problema: {str(e)}"
-        rpta["data"] = dict()
     return jsonify(rpta)
 
 #############
@@ -775,7 +770,6 @@ def api_obtener_carrito():
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = f"Problemas en el servicio web: {str(e)}"
-        rpta["data"] = dict()
         return jsonify(rpta)
 
 
@@ -796,7 +790,6 @@ def api_guardar_carrito():
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = "Ocurrió un problema: " + repr(e)
-        rpta["data"] = dict()
     return rpta
 
 @app.route("/api_eliminar_carrito/<int:id_carrito>", methods=["DELETE"])
@@ -828,11 +821,9 @@ def api_obtener_carrito_id(id_carrito):
         else:
             rpta["code"] = 0
             rpta["message"] = "Carrito no encontrado."
-            rpta["data"] = dict()
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = f"Ocurrió un problema: {str(e)}"
-        rpta["data"] = dict()
     return jsonify(rpta)
 
 
@@ -920,6 +911,24 @@ def agregar_carrito():
         conexion.close()
         return redirect(url_for("detalle_producto_moto", id=product_id))
 
+@app.route("/eliminar_item_carrito/<int:id_item>", methods=["POST"])
+def eliminar_item_carrito(id_item):
+    if 'user_id' not in session:
+        return jsonify({"error": "No has iniciado sesión"}), 401
+
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("DELETE FROM ITEM_CARRITO WHERE idItemCarrito = %s", (id_item,))
+            if cursor.rowcount == 0:
+                return jsonify({"error": "No se encontró el ítem a eliminar"}), 404
+            conexion.commit()
+            return jsonify({"success": "Producto eliminado correctamente del carrito."}), 200
+    except Exception as e:
+        conexion.rollback()
+        return jsonify({"error": str(e)}), 500
+    finally:
+        conexion.close()
 
 
 @app.route("/detalle_producto_categoria")
@@ -1052,8 +1061,6 @@ def api_obtenerproductos():
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = f"Problemas en el servicio web: {str(e)}"
-        rpta["data"] = dict()
-        return jsonify(rpta)
 
 @app.route("/api_guardar_producto", methods=["POST"])
 @jwt_required()
@@ -1078,7 +1085,6 @@ def api_guardar_producto():
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = "Ocurrió un problema: " + repr(e)
-        rpta["data"] = dict()
     return jsonify(rpta)
 
 @app.route("/api_eliminar_producto/<int:id_producto>", methods=["DELETE"])
@@ -1092,7 +1098,6 @@ def api_eliminar_producto(id_producto):
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = f"Problemas en el servicio web: {str(e)}"
-        rpta["data"] = dict()
     return jsonify(rpta)
 
 @app.route("/api_editar_producto/<int:id_producto>", methods=["PUT"])
@@ -1117,7 +1122,6 @@ def api_editar_producto(id_producto):
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = "Ocurrió un problema: " + repr(e)
-        rpta["data"] = dict()
     return jsonify(rpta)
 
 @app.route("/api_obtener_producto_por_id/<int:id_producto>", methods=["GET"])
@@ -1134,11 +1138,9 @@ def api_obtener_producto_por_id(id_producto):
         else:
             rpta["code"] = 0
             rpta["message"] = "Producto no encontrado."
-            rpta["data"] = dict()
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = f"Problemas en el servicio web: {str(e)}"
-        rpta["data"] = dict()
     return jsonify(rpta)
 
 
@@ -1262,6 +1264,12 @@ def detalle_producto_accesorio(id):
 
 @app.route("/compra_exitosa")
 def compra_exitosa():
+    email = request.cookies.get('email')
+    token = request.cookies.get('token')
+    if not email or not token or not session.get('user_id'):
+        flash("Debes iniciar sesión para proceder al pago.", "error")
+        return redirect(url_for("formulario_login_cliente"))
+
     return render_template("compraexitosa.html")
 
 # ---------------Venta------------------------
@@ -1348,7 +1356,6 @@ def api_obtener_ventas():
 def api_guardar_venta():
     respuesta = dict()
     try:
-        # Extracción de datos de la solicitud JSON
         nombre = request.json["nombre"]
         apellidos = request.json["apellidos"]
         pais = request.json["pais"]
@@ -1358,7 +1365,7 @@ def api_guardar_venta():
         telefono = request.json["telefono"]
         correo = request.json["correo"]
         mes = request.json["mes"]
-        anio = request.json["anio"]  # Cambiado de 'año' a 'anio'
+        anio = request.json["anio"]
         cvv = request.json["cvv"]
         numtarjeta = request.json["numtarjeta"]
         idProducto = request.json["idProducto"]
@@ -1367,7 +1374,6 @@ def api_guardar_venta():
         idCliente = request.json["idCliente"]
         cantidad = request.json["cantidad"]
 
-        # Llamada al controlador para insertar la venta
         id_generado = controlador_pago.api_insertar_venta(
             nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, anio, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad
         )
@@ -1379,7 +1385,6 @@ def api_guardar_venta():
     except Exception as e:
         respuesta["code"] = 0
         respuesta["message"] = f"Ocurrió un problema: {repr(e)}"
-        respuesta["data"] = dict()
         return jsonify(respuesta)
 
 
@@ -1435,7 +1440,6 @@ def api_obtener_venta_por_id(id_venta):
     except Exception as e:
         respuesta["code"] = 0
         respuesta["message"] = f"Ocurrió un problema: {str(e)}"
-        respuesta["data"] = dict()
         return jsonify(respuesta)
 
 

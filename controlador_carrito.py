@@ -153,7 +153,7 @@ def obtener_items_carrito_por_id_carrito(id_carrito):
     conexion = obtener_conexion()
     try:
         with conexion.cursor() as cursor:
-            cursor.execute("SELECT p.idProducto, p.imagen, CONCAT(p.marca, ' ', p.modelo) AS modelo, p.precio, ic.cantidad, ic.subtotal FROM ITEM_CARRITO ic INNER JOIN PRODUCTO p ON ic.idProducto = p.idProducto WHERE ic.idCarrito = %s", (id_carrito,))
+            cursor.execute("SELECT p.idProducto, p.imagen, CONCAT(p.marca, ' ', p.modelo) AS modelo, p.precio, ic.cantidad, ic.subtotal, ic.idItemCarrito FROM ITEM_CARRITO ic INNER JOIN PRODUCTO p ON ic.idProducto = p.idProducto WHERE ic.idCarrito = %s", (id_carrito,))
             items = cursor.fetchall()
             return items
     finally:

@@ -58,10 +58,12 @@
                     </li>
                     {% if session.user_id %}
                     <li class="nav__item">
-                        <a href="{{ url_for('formulario_historial_venta') }}" class="nav__link">{{ session.user_name }}</a>
+                        <a href="{{ url_for('logout') }}" class="nav__link">Cerrar Sesión</a>
                     </li>
                     <li class="nav__item">
-                        <a href="{{ url_for('logout') }}" class="nav__link">Cerrar Sesión</a>
+                        <a href="{{ url_for('formulario_historial_venta') }}" class="nav__link">
+                            <i class="fa-regular fa-user fa-2x" style="color: white;"></i>
+                        </a>
                     </li>
                     {% else %}
                     <li class="nav__item">

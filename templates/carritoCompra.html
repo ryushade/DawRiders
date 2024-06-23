@@ -232,6 +232,7 @@
                             <th scope="col">Precio</th>
                             <th scope="col">Cantidad</th>
                             <th scope="col">SubTotal</th>
+                            <th scope="col">Eliminar</th>
                         </tr>
                     </thead>
                     <tbody id="detalle">
@@ -242,6 +243,7 @@
                             <td>{{ item[3] }}</td>
                             <td>{{ item[4] }}</td>
                             <td class="subtotal">{{ item[5] }}</td>
+                            <td><button class="btn btn-danger eliminar-item" data-id="{{ item[6] }}">X</button></td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -368,15 +370,50 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    var subtotals = document.querySelectorAll('.subtotal');
-    var total = 0;
-    subtotals.forEach(function(subtotal) {
-        total += parseFloat(subtotal.textContent);
+    actualizarTotal();
+
+    var eliminarBotones = document.querySelectorAll('.eliminar-item');
+    eliminarBotones.forEach(function(botón) {
+        botón.addEventListener('click', function() {
+            var idItem = this.getAttribute('data-id');
+            fetch(`/eliminar_item_carrito/${idItem}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    var tr = this.closest('tr');
+                    tr.remove();
+                    actualizarTotal();
+                } else {
+                    alert(data.error);
+                }
+            })
+            .catch(error => alert('Error al eliminar el producto: ' + error));
+        });
     });
 
-    var totalDisplay = document.querySelector('.total');
-    totalDisplay.textContent = total.toFixed(2);
+    function actualizarTotal() {
+        var subtotals = document.querySelectorAll('.subtotal');
+        var total = 0;
+        subtotals.forEach(function(subtotal) {
+            total += parseFloat(subtotal.textContent);
+        });
+
+        var totalDisplay = document.querySelector('.total');
+        totalDisplay.textContent = total.toFixed(2);
+    }
 });
+
+
 </script>
 
 
