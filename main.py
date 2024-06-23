@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, flash, jsonify, url_for, session, json, make_response
 from flask_login import login_user
 from flask_jwt import JWT, jwt_required, current_identity
+from functools import wraps
+
 import controlador_pago
 from bd import obtener_conexion
 import time
@@ -35,6 +37,15 @@ class User(object):
 
     def __str__(self):
         return "User(id='%s')" % self.id
+    
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            # Redirigir al login si no hay sesión de usuario
+            return redirect(url_for('formulario_login_cliente'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 def authenticate(username, password):
     userfrombd = controlador_users.obtener_user_por_username(username)
