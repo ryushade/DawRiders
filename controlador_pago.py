@@ -19,20 +19,7 @@ def insertar_venta(nombre, apellidos, pais, direccion, region, localidad, telefo
     finally:
         conexion.close()
 
-def venta_reciente(id_cliente):
-    conexion = obtener_conexion()
-    try:
-        with conexion.cursor() as cursor:
-            # Asumiendo que la columna de fecha en tu tabla VENTA1 se llama 'fechaVenta'
-            cursor.execute("""
-                SELECT fechaVenta FROM VENTA1
-                WHERE idCliente = %s AND fechaVenta >= %s
-                ORDER BY fechaVenta DESC LIMIT 1
-            """, (id_cliente, datetime.now() - timedelta(minutes=10)))
-            venta = cursor.fetchone()
-            return venta is not None
-    finally:
-        conexion.close()
+
 
 
 def obtener_ventas():

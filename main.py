@@ -1279,13 +1279,26 @@ def compra_exitosa():
         return redirect(url_for("formulario_login_cliente"))
 
     id_cliente = session['user_id']
-    if not controlador_pago.venta_reciente(id_cliente):
+    if not venta_reciente(id_cliente):
         flash("No se ha detectado una compra reciente.", "error")
         return redirect(url_for("formulario_principal"))
 
     return render_template("compraexitosa.html")
 
-
+def venta_reciente(id_cliente):
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            # Asumiendo que la columna de fecha en tu tabla VENTA1 se llama 'fechaVenta'
+            cursor.execute("""
+                SELECT fechaVenta FROM VENTA1
+                WHERE idCliente = %s AND fechaVenta >= %s
+                ORDER BY fechaVenta DESC LIMIT 1
+            """, (id_cliente, datetime.now() - timedelta(minutes=10)))
+            venta = cursor.fetchone()
+            return venta is not None
+    finally:
+        conexion.close()
 # ---------------Venta------------------------
 @app.route("/guardar_venta", methods=["POST"])
 def guardar_venta():
