@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request, redirect, flash, jsonify, url_for, session, json, make_response
 from flask_login import login_user
 from flask_jwt import JWT, jwt_required, current_identity
+
+from datetime import datetime, timedelta
+from functools import wraps
+
 import controlador_pago
 from bd import obtener_conexion
 import time
@@ -1273,8 +1277,13 @@ def compra_exitosa():
     if not email or not token or not session.get('user_id'):
         flash("Debes iniciar sesión para proceder al pago.", "error")
         return redirect(url_for("formulario_login_cliente"))
-
+    id_cliente = session['user_id']
+    # Verificar si hay una venta reciente
+    if not controlador_pago.venta_reciente(id_cliente):
+        flash("No se ha detectado una compra reciente.", "error")
+        return redirect(url_for("formulario_principal"))
     return render_template("compraexitosa.html")
+
 
 # ---------------Venta------------------------
 @app.route("/guardar_venta", methods=["POST"])
@@ -1319,7 +1328,6 @@ def guardar_venta():
                 cursor.execute("UPDATE PRODUCTO SET stock = stock - %s WHERE idProducto = %s", (cantidad, idProducto))
 
             cursor.execute("DELETE FROM ITEM_CARRITO WHERE idCarrito = %s", (idCarrito,))
-
             conexion.commit()
             return redirect("/compra_exitosa")
 

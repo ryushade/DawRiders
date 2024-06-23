@@ -1,4 +1,6 @@
 from bd import obtener_conexion
+from datetime import datetime, timedelta
+
 
 def insertar_venta(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad):
     conexion = obtener_conexion()
@@ -17,6 +19,18 @@ def insertar_venta(nombre, apellidos, pais, direccion, region, localidad, telefo
     finally:
         conexion.close()
 
+def venta_reciente(id_cliente):
+    # Consulta a la base de datos para verificar la última venta
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("SELECT * FROM ventas WHERE cliente_id = %s ORDER BY fecha DESC LIMIT 1", (id_cliente,))
+            venta = cursor.fetchone()
+            if venta and venta['fecha'] > (datetime.now() - timedelta(minutes=10)):
+                return True
+            return False
+    finally:
+        conexion.close()
 
 def obtener_ventas():
     conexion = obtener_conexion()
