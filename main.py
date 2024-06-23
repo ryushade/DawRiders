@@ -154,6 +154,7 @@ def eliminar_cliente():
     return redirect("/")
 
 @app.route("/crud_cliente")
+@login_required
 def crud_cliente():
     clientes = controlador_cliente.obtener_clientes()
     return render_template("crud_cliente.html", clientes=clientes)
@@ -586,6 +587,7 @@ def api_obtener_moto_por_id(id_moto):
 ######
 
 @app.route("/crud_moto")
+@login_required
 def crud_moto():
     moto = controlador_moto.obtener_motos()
     return render_template("crud_moto.html", moto=moto)
@@ -633,6 +635,7 @@ def guardar_accesorio():
         return error_message
 
 @app.route("/crud_accesorio")
+@login_required
 def crud_accesorio():
     accesorios = controlador_accesorio.obtener_accesorios()
     return render_template("crud_accesorio.html", accesorios=accesorios)
@@ -748,6 +751,7 @@ def api_obtener_accesorio_por_id(id_accesorio):
 # -----------Producto-----------------
 
 @app.route("/crud_producto")
+@login_required
 def crud_producto():
     productosm = controlador_producto.obtener_moto_producto()
     return render_template("crud_producto.html", productosm=productosm)
@@ -1274,6 +1278,7 @@ def detalle_producto_accesorio(id):
     return render_template("detalleProductoAccesorio.html", productoaccesorio=productoaccesorio)
 
 @app.route("/compra_exitosa")
+@login_required
 def compra_exitosa():
     email = request.cookies.get('email')
     token = request.cookies.get('token')
