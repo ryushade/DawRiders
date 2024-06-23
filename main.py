@@ -1277,11 +1277,12 @@ def compra_exitosa():
     if not email or not token or not session.get('user_id'):
         flash("Debes iniciar sesión para proceder al pago.", "error")
         return redirect(url_for("formulario_login_cliente"))
+
     id_cliente = session['user_id']
-    # Verificar si hay una venta reciente
     if not controlador_pago.venta_reciente(id_cliente):
         flash("No se ha detectado una compra reciente.", "error")
         return redirect(url_for("formulario_principal"))
+
     return render_template("compraexitosa.html")
 
 
