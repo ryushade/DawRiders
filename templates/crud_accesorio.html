@@ -223,8 +223,47 @@
                                                 <i class="material-icons" data-toggle="tooltip"
                                                     title="Delete">&#xE872;</i>
 
-                                                {% endfor %}
                                 </tbody>
+
+
+                                <div class="modal fade" tabindex="-1" id="editEmployeeModal" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Editar moto</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label>Name</label>
+                                                    <input type="text" class="form-control" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Email</label>
+                                                    <input type="emil" class="form-control" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Address</label>
+                                                    <textarea class="form-control" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Phone</label>
+                                                    <input type="text" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancel</button>
+                                                <button type="button" class="btn btn-success">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
                             </table>
 
                             <div class="clearfix">
@@ -253,40 +292,90 @@
 
 
                     <!----add-modal start--------->
-                    <div class="modal fade" tabindex="-1" id="addEmployeeModal" role="dialog">
+                    <!-- Add Accessory Modal -->
+                    <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Add Employees</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label>Name</label>
-                                        <input type="text" class="form-control" required>
+                                <form method="post" action="{{ url_for('guardar_accesorio') }}"
+                                    enctype="multipart/form-data">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Agregar Accesorio</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                        <input type="emil" class="form-control" required>
+                                    <div class="modal-body">
+                                        <!-- Accessory Code -->
+                                        <div class="form-group">
+                                            <label for="codAccesorio">Código de Accesorio</label>
+                                            <input type="text" class="form-control" id="codAccesorio"
+                                                name="codAccesorio" placeholder="Código de Accesorio" required>
+                                        </div>
+                                        <!-- Description -->
+                                        <div class="form-group">
+                                            <label for="descripcion">Descripción</label>
+                                            <input type="text" class="form-control" id="descripcion" name="descripcion"
+                                                placeholder="Descripción" required>
+                                        </div>
+                                        <!-- Price -->
+                                        <div class="form-group">
+                                            <label for="precio">Precio</label>
+                                            <input type="text" class="form-control" id="precio" name="precio"
+                                                placeholder="Precio" required>
+                                        </div>
+                                        <!-- Stock -->
+                                        <div class="form-group">
+                                            <label for="stock">Stock</label>
+                                            <input type="number" class="form-control" id="stock" name="stock"
+                                                placeholder="Stock" required>
+                                        </div>
+                                        <!-- Brand -->
+                                        <div class="form-group">
+                                            <label for="marca">Marca</label>
+                                            <input type="text" class="form-control" id="marca" name="marca"
+                                                placeholder="Marca" required>
+                                        </div>
+                                        <!-- Model -->
+                                        <div class="form-group">
+                                            <label for="modelo">Modelo</label>
+                                            <input type="text" class="form-control" id="modelo" name="modelo"
+                                                placeholder="Modelo" required>
+                                        </div>
+                                        <!-- Color -->
+                                        <div class="form-group">
+                                            <label for="color">Color</label>
+                                            <input type="text" class="form-control" id="color" name="color"
+                                                placeholder="Color" required>
+                                        </div>
+                                        <!-- Type -->
+                                        <div class="form-group">
+                                            <label for="tipo">Tipo</label>
+                                            <input type="text" class="form-control" id="tipo" name="tipo"
+                                                placeholder="Tipo" required>
+                                        </div>
+                                        <!-- Material -->
+                                        <div class="form-group">
+                                            <label for="material">Material</label>
+                                            <input type="text" class="form-control" id="material" name="material"
+                                                placeholder="Material" required>
+                                        </div>
+                                        <!-- Image Upload -->
+                                        <div class="form-group">
+                                            <label for="uploadedFile">Imagen</label>
+                                            <input type="file" class="form-control-file" id="uploadedFile"
+                                                name="uploadedFile" required>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Address</label>
-                                        <textarea class="form-control" required></textarea>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary">Registrar</button>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Phone</label>
-                                        <input type="text" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-success">Add</button>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
+
 
                     <!----edit-modal end--------->
 
@@ -295,40 +384,7 @@
 
 
                     <!----edit-modal start--------->
-                    <div class="modal fade" tabindex="-1" id="editEmployeeModal" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Editar moto</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label>Name</label>
-                                        <input type="text" class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                        <input type="emil" class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Address</label>
-                                        <textarea class="form-control" required></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Phone</label>
-                                        <input type="text" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-success">Save</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <!----edit-modal end--------->
 
