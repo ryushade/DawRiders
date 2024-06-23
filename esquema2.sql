@@ -178,5 +178,6 @@ CREATE TABLE VENTA1 (
     monto_final DECIMAL(9,2),
     num_venta INT NOT NULL,
 	idCliente int not null,
-	cantidad int not null
+	cantidad int not null,
+	fechaVenta DATETIME DEFAULT CURRENT_TIMESTAMP
 );

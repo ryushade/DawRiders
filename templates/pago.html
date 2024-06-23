@@ -142,7 +142,7 @@
             text-decoration: none;
             font-size: 30px;
         }
-        
+
         .card2 {
             background-color: #FFFFFF;
             color: white;
@@ -150,13 +150,13 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             margin: 20px auto;
         }
-        
+
         .card3{
             padding: 30px;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
-        
+
         .card-header {
             background-color: #22262A;
             color: white;
@@ -164,12 +164,12 @@
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
-        
+
         .card{
             border: none;
         }
-        
-        
+
+
     </style>
 
     <div class="row mt-5">
@@ -179,6 +179,7 @@
     <div class="row ms-4 mt-4 mb-5 me-5">
 
         <div class="row ms-4 me-4 mt-5">
+            {% if items %}
             <form method="post" action="{{url_for('guardar_venta')}}">
 
                 <div class="container-fluid">
@@ -395,7 +396,11 @@
                     </div>
                 </div>
             </form>
-
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                Tu carrito está vacío. Por favor, agrega algunos productos antes de proceder al pago.
+            </div>
+        {% endif %}
         </div>
     </div>
 

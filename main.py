@@ -1178,6 +1178,7 @@ def formulario_pago():
 
     id_cliente = session['user_id']
     conexion = obtener_conexion()
+    items = []
     try:
         with conexion.cursor() as cursor:
             # Obtener el idCarrito del cliente
