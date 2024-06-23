@@ -1285,20 +1285,24 @@ def compra_exitosa():
 
     return render_template("compraexitosa.html")
 
+
 def venta_reciente(id_cliente):
     conexion = obtener_conexion()
     try:
         with conexion.cursor() as cursor:
-            # Asumiendo que la columna de fecha en tu tabla VENTA1 se llama 'fechaVenta'
+            print(f"Checando ventas recientes para el cliente ID: {id_cliente}")
             cursor.execute("""
                 SELECT fechaVenta FROM VENTA1
                 WHERE idCliente = %s AND fechaVenta >= %s
                 ORDER BY fechaVenta DESC LIMIT 1
             """, (id_cliente, datetime.now() - timedelta(minutes=10)))
             venta = cursor.fetchone()
-            return venta is not None
+            tiene_venta_reciente = venta is not None
+            print(f"Resultado de venta reciente: {tiene_venta_reciente}")
+            return tiene_venta_reciente
     finally:
         conexion.close()
+
 # ---------------Venta------------------------
 @app.route("/guardar_venta", methods=["POST"])
 def guardar_venta():
