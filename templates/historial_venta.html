@@ -1,7 +1,7 @@
 {% extends "maestra.html" %}
 
 {% block titulo %}
-    Crear Cuenta Cliente
+
 {% endblock %}
 
 {% block contenido %}
@@ -236,7 +236,15 @@
                     <h3>Nombre:</h3> <h5> - {{ cliente[1] }} </h5>
                     <h3>Apellido:</h3> <h5> - {{ cliente[2] }} </h5>
                     <h3>Email:</h3> <h5> - {{ cliente[3] }} </h5>
-                    <h3>Telefono:</h3> <h5> - {{ cliente[5] }} </h5>
+                    <h3>Telefono:</h3> <h5> - {{ cliente[5] }} </h5><br><br>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <a href="#" class="btn btn-primary" style="width: 100%" data-toggle="modal" data-target="#configModal">Configurar Cuenta</a>
+                        </div>
+                        <div class="col-lg-6">
+                            <a href="#" class="btn btn-primary" style="width: 100%" data-toggle="modal" data-target="#configContraModal">Cambiar Contraseña</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -279,6 +287,101 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="configModal" tabindex="-1" role="dialog" aria-labelledby="configModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="configModalLabel">Configuración de Cuenta</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form method="post" action="{{ url_for('actualizar_cliente') }}">
+			<div class="modal-body">
+				<input type="hidden" name="idCliente" value="{{cliente[0]}}">
+					<div class="container">
+
+					    <div class="row">
+					        <div class="col-lg-6">
+								<div class="row me-1">
+									<label>Nombre</label>
+									<input type="text" class="form-control" value="{{cliente[1]}}" name="nombre" required>
+								</div>
+                            </div>
+					        <div class="col-lg-6">
+								<div class="row">
+								    <label>Apellido</label>
+									<input type="text" class="form-control"value="{{cliente[2]}}" name="apellido" required>
+								</div>
+                            </div>
+                        </div>
+					    <div class="row  mt-3">
+							<label>Teléfono</label>
+							<input type="number" class="form-control" value="{{cliente[5]}}" name="telefono" required>
+						</div>
+					    <div class="row  mt-3">
+							<label>Email</label>
+							<input type="email" class="form-control" value="{{cliente[3]}}" name="email" readonly>
+						</div>
+
+					    <div class="row mt-3 mb-3">
+							<div class="row me-1">
+								<label>Contraseña Actual</label>
+								<input type="password" class="form-control" name="contra" required>
+							</div>
+                        </div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"data-dismiss="modal">Cancelar</button>
+							<button type="submit"href=""class="btn btn-primary">Guardar Cambios</button>
+						</div>
+		</form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="configContraModal" tabindex="-1" role="dialog" aria-labelledby="configContraModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="configContraModalLabel">Cambiar Contraseña</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-cambio-contrasena" method="post" action="{{ url_for('actualizar_contra') }}">
+                    <input type="hidden" name="email" value="{{ cliente[3] }}">
+                    <div class="form-group">
+                        <label for="current-password">Contraseña Actual</label>
+                        <input type="password" class="form-control" id="current-password" name="current-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">Nueva Contraseña</label>
+                        <input type="password" class="form-control" id="new-password" name="new-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirmar Nueva Contraseña</label>
+                        <input type="password" class="form-control" id="confirm-password" name="confirm-password" required>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" form="form-cambio-contrasena">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <footer class="footer section no-underline">
     <div class="shape shape__big"></div>

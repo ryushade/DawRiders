@@ -36,12 +36,34 @@ def eliminar_moto(id_moto):
     finally:
         conexion.close()
 
-def actualizar_moto(codmoto, tipo, posicionManejo, numAsientos, numPasajeros, largo, ancho, alto, tipoMotor, combustible, numCilindros, capacidadTanque, rendimiento, id_moto):
+def eliminar_moto_por_cod(codMoto):
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("DELETE FROM MOTO WHERE codMoto = %s", (codMoto,))
+        conexion.commit()
+    except Exception as e:
+        print(f"No se pudo eliminar la moto con cod {codMoto} debido a: {e}")
+    finally:
+        conexion.close()
+
+def eliminar_moto(id_moto):
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("DELETE FROM MOTO WHERE idMoto = %s", (id_moto,))
+        conexion.commit()
+    except Exception as e:
+        print(f"No se pudo eliminar la moto con id {id_moto} debido a: {e}")
+    finally:
+        conexion.close()
+
+def actualizar_moto(tipo, posicionManejo, numAsientos, numPasajeros, largo, ancho, alto, tipoMotor, combustible, numCilindros, capacidadTanque, rendimiento, id_moto):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
         cursor.execute(
-            "UPDATE MOTO SET codmoto = %s, tipo = %s, posicionManejo = %s, numAsientos = %s, numPasajeros = %s, largo = %s, ancho = %s, alto = %s, tipoMotor = %s, combustible = %s, numCilindros = %s, capacidadTanque = %s, rendimiento = %s WHERE idMoto = %s",
-            (codmoto, tipo, posicionManejo, numAsientos, numPasajeros, largo, ancho, alto, tipoMotor, combustible, numCilindros, capacidadTanque, rendimiento, id_moto))
+            "UPDATE MOTO SET tipo = %s, posicionManejo = %s, numAsientos = %s, numPasajeros = %s, largo = %s, ancho = %s, alto = %s, tipoMotor = %s, combustible = %s, numCilindros = %s, capacidadTanque = %s, rendimiento = %s WHERE idMoto = %s",
+            (tipo, posicionManejo, numAsientos, numPasajeros, largo, ancho, alto, tipoMotor, combustible, numCilindros, capacidadTanque, rendimiento, id_moto))
     conexion.commit()
     conexion.close()
 

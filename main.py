@@ -109,13 +109,12 @@ def formulario_historial_venta():
     cliente = controlador_cliente.obtener_cliente_por_id(id_cliente)
     ventas = controlador_pago.obtener_ventas_por_cliente(id_cliente)
 
-    # Organizar los productos por código de venta
     ventas_agrupadas = {}
     for venta in ventas:
-        codigo_venta = venta[7]  # Asumiendo que el código de venta está en la posición 7
+        codigo_venta = venta[7]
         if codigo_venta not in ventas_agrupadas:
             ventas_agrupadas[codigo_venta] = {
-                'fecha_venta': venta[6],  # Asumiendo que la fecha de venta está en la posición 6
+                'fecha_venta': venta[6],
                 'productos': []
             }
         ventas_agrupadas[codigo_venta]['productos'].append(venta)
@@ -151,6 +150,46 @@ def crud_cliente():
     clientes = controlador_cliente.obtener_clientes()
     return render_template("crud_cliente.html", clientes=clientes)
 
+@app.route("/actualizar_cliente", methods=['POST'])
+def actualizar_cliente():
+    id_cliente = request.form['idCliente']
+    nombre = request.form['nombre']
+    apellidos = request.form['apellido']
+    email = request.form['email']
+    telefono = request.form['telefono']
+    contraseña_actual = request.form['contra']
+
+    contraseña_actual_encrypted = sha256(contraseña_actual.encode("utf-8")).hexdigest()
+
+    contraseña_guardada = controlador_cliente.obtener_contrasena_por_email(email)
+
+    if contraseña_actual_encrypted == contraseña_guardada:
+        controlador_cliente.actualizar_cliente(nombre, apellidos, email, contraseña_actual_encrypted, telefono, id_cliente)
+
+        flash('La información del cliente ha sido actualizada correctamente.')
+    else:
+        flash('La contraseña actual no es correcta.')
+
+    return redirect("/historial_venta")
+
+@app.route("/actualizar_contra", methods=['POST'])
+def actualizar_contra():
+    email = request.form['email']
+    contraseña_actual = request.form['current-password']
+    nueva_contrasena = request.form['new-password']
+
+    contraseña_actual_encrypted = sha256(contraseña_actual.encode("utf-8")).hexdigest()
+    contraseña_guardada = controlador_cliente.obtener_contrasena_por_email(email)
+
+    if contraseña_actual_encrypted == contraseña_guardada:
+        nueva_contrasena_encrypted = sha256(nueva_contrasena.encode("utf-8")).hexdigest()
+        controlador_cliente.actualizar_cliente_contra(email, nueva_contrasena_encrypted)
+
+        flash('La contraseña ha sido actualizada correctamente.')
+    else:
+        flash('La contraseña actual no es correcta.')
+    return redirect("/historial_venta")
+
 ####### LOGIN ###########
 
 @app.route("/login")
@@ -181,9 +220,9 @@ def procesar_login():
         token = sha256(aleatorio.encode("utf-8")).hexdigest()
 
         session['user_id'] = usuario['id']
-        session['user_name'] = usuario['nombre']  # Guardar el nombre en la sesión
+        session['user_name'] = usuario['nombre']
         session['is_admin'] = usuario['is_admin']
-        print("Usuario logueado:", session['user_name'])  # Imprimir el nombre para depuración
+        print("Usuario logueado:", session['user_name'])
 
         resp = redirect("/crud_moto") if usuario['is_admin'] else redirect("/login")
         resp.set_cookie('email', email)
@@ -606,7 +645,7 @@ def formulario_registrar_accesorio():
 @app.route("/guardar_accesorio", methods=["POST"])
 def guardar_accesorio():
     try:
-        codaccesorio = request.form["codaccesorio"]
+        codaccesorio = request.form["codAccesorio"]
         tipo = request.form["tipo"]
         material = request.form["material"]
         descripcion = request.form["descripcion"]
@@ -615,15 +654,19 @@ def guardar_accesorio():
         marca = request.form["marca"]
         modelo = request.form["modelo"]
         color = request.form["color"]
-        imagen = request.form["imagen"]
+        imagen = request.files["uploadedFile"]
+        imagen_codificada = urllib.parse.quote(imagen.filename)
+
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], imagen_codificada)
+        imagen.save(filepath)
 
         controlador_accesorio.insertar_accesorio(codaccesorio, tipo, material)
 
         idAccesorio = controlador_accesorio.obtener_cod_accesorio(codaccesorio)
 
-        controlador_producto.insertar_producto(descripcion, precio, stock, marca, modelo, color, imagen, None, idAccesorio)
+        controlador_producto.insertar_producto(descripcion, precio, stock, marca, modelo, color, imagen_codificada, None, idAccesorio)
 
-        return redirect("/")
+        return redirect("/crud_moto")
 
     except Exception as e:
         error_message = f"Error al guardar el accesorio: {str(e)}"
@@ -631,7 +674,7 @@ def guardar_accesorio():
 
 @app.route("/crud_accesorio")
 def crud_accesorio():
-    accesorios = controlador_accesorio.obtener_accesorios()
+    accesorios = controlador_producto.obtener_accesorio_producto()
     return render_template("crud_accesorio.html", accesorios=accesorios)
 
 @app.route("/eliminar_accesorio", methods=["POST"])
@@ -888,7 +931,6 @@ def agregar_carrito():
     conexion = obtener_conexion()
     try:
         with conexion.cursor() as cursor:
-            # Comprobar si hay suficiente stock
             cursor.execute("SELECT stock FROM PRODUCTO WHERE idProducto = %s", (product_id,))
             stock = cursor.fetchone()[0]
             if cantidad > stock:
@@ -900,14 +942,12 @@ def agregar_carrito():
             cursor.execute("SELECT idCarrito FROM CARRITO WHERE idCliente = %s", (id_cliente,))
             carrito = cursor.fetchone()
             if carrito:
-                idCarrito = carrito[0]  # Accediendo al primer elemento de la tupla directamente
+                idCarrito = carrito[0]
             else:
-                # Si no tiene carrito, crear uno nuevo
                 cursor.execute("INSERT INTO CARRITO (idCliente, fechaCreacion) VALUES (%s, NOW())", (id_cliente,))
                 idCarrito = cursor.lastrowid
 
 
-            # Insertar el ítem en el carrito del cliente
             cursor.execute("INSERT INTO ITEM_CARRITO (idCarrito, idProducto, cantidad, precioPorUnidad, subtotal) VALUES (%s, %s, %s, %s, %s)",
                            (idCarrito, product_id, cantidad, precio, cantidad * precio))
             conexion.commit()
@@ -918,6 +958,55 @@ def agregar_carrito():
     finally:
         conexion.close()
         return redirect(url_for("detalle_producto_moto", id=product_id))
+
+
+@app.route("/agregar_carrito_accesorio", methods=["POST"])
+def agregar_carrito_accesorio():
+    if 'user_id' not in session:
+        flash("Debes iniciar sesión para agregar productos al carrito.", "error")
+        return redirect(url_for("formulario_login_cliente"))
+
+    product_id = request.form.get('product_id', type=int)
+    cantidad = request.form.get('quantity', type=int)
+    precio = float(request.form.get('precio'))
+    nombre = request.form.get('nombre')
+    imagen = request.form.get('imagen')
+
+    if cantidad < 1:
+        flash("La cantidad debe ser al menos uno.", "error")
+        return redirect(url_for("detalle_producto_moto", id=product_id))
+
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("SELECT stock FROM PRODUCTO WHERE idProducto = %s", (product_id,))
+            stock = cursor.fetchone()[0]
+            if cantidad > stock:
+                flash("No hay suficiente stock para la cantidad solicitada.", "error")
+                return redirect(url_for("detalle_producto_accesorio", id=product_id))
+
+            id_cliente = session['user_id']
+            cursor.execute("SELECT idCarrito FROM CARRITO WHERE idCliente = %s", (id_cliente,))
+            carrito = cursor.fetchone()
+            if carrito:
+                idCarrito = carrito[0]
+            else:
+                cursor.execute("INSERT INTO CARRITO (idCliente, fechaCreacion) VALUES (%s, NOW())", (id_cliente,))
+                idCarrito = cursor.lastrowid
+
+
+            cursor.execute("INSERT INTO ITEM_CARRITO (idCarrito, idProducto, cantidad, precioPorUnidad, subtotal) VALUES (%s, %s, %s, %s, %s)",
+                           (idCarrito, product_id, cantidad, precio, cantidad * precio))
+            conexion.commit()
+            flash("Producto agregado al carrito exitosamente!", "success")
+    except Exception as e:
+        print(f"Exception: {e}")
+        flash("Error al agregar al carrito: {}".format(e), "error")
+    finally:
+        conexion.close()
+        return redirect(url_for("detalle_producto_accesorio", id=product_id))
+
+
 
 @app.route("/eliminar_item_carrito/<int:id_item>", methods=["POST"])
 def eliminar_item_carrito(id_item):
@@ -944,9 +1033,13 @@ def formulario_detalle_categoria():
     productosm = controlador_producto.obtener_moto_producto()
     return render_template("categoriaresp.html" , productosm=productosm)
 
+@app.route("/detalle_producto_accesorio")
+def formulario_detalle_accesorio():
+    productosacc = controlador_producto.obtener_accesorio_producto()
+    return render_template("categoriaAccesorio.html" , productosacc=productosacc)
+
 ########   APIS ITEM CARRITO   ##############
 
-# API para obtener todos los ítems del carrito
 @app.route("/api_obtener_items_carrito")
 @jwt_required()
 def api_obtener_items_carrito():
@@ -969,13 +1062,11 @@ def api_obtener_items_carrito():
         respuesta["data"] = dict()
         return jsonify(respuesta)
 
-# API para guardar un ítem en el carrito
 @app.route("/api_guardar_item_carrito", methods=["POST"])
 @jwt_required()
 def api_guardar_item_carrito():
     respuesta = dict()
     try:
-        # Asumiendo que el request JSON tiene todos los campos necesarios para crear un ítem de carrito
         nuevo_item = clsItemCarrito(**request.json)
         id_generado = controlador_item_carrito.insertar_item_carrito(nuevo_item)
 
@@ -989,7 +1080,6 @@ def api_guardar_item_carrito():
         respuesta["data"] = dict()
         return jsonify(respuesta)
 
-# API para eliminar un ítem del carrito
 @app.route("/api_eliminar_item_carrito/<int:id_item>", methods=["DELETE"])
 @jwt_required()
 def api_eliminar_item_carrito(id_item):
@@ -1004,7 +1094,6 @@ def api_eliminar_item_carrito(id_item):
         respuesta["message"] = f"Ocurrió un problema: {str(e)}"
         return jsonify(respuesta)
 
-# API para actualizar un ítem en el carrito
 @app.route("/api_actualizar_item_carrito/<int:id_item>", methods=["PUT"])
 @jwt_required()
 def api_actualizar_item_carrito(id_item):
@@ -1020,7 +1109,6 @@ def api_actualizar_item_carrito(id_item):
         respuesta["message"] = f"Ocurrió un problema: {str(e)}"
         return jsonify(respuesta)
 
-# API para obtener un ítem del carrito por ID
 @app.route("/api_obtener_item_carrito_por_id/<int:id_item>", methods=["GET"])
 @jwt_required()
 def api_obtener_item_carrito_por_id(id_item):
@@ -1162,8 +1250,26 @@ def listar_productosA():
 
 @app.route("/eliminar_productoM", methods=["POST"])
 def eliminar_productoM():
-    controlador_producto.eliminar_producto(request.form["id"])
-    return redirect("/crud_producto")
+    try:
+        producto_id = request.form.get('id')
+        if not producto_id:
+            raise ValueError("ID de producto no proporcionado")
+
+        codMoto = controlador_producto.obtener_codmoto_porid_producto(producto_id)
+        if not codMoto:
+            raise ValueError("Código de moto no encontrado para el ID de producto dado")
+
+        controlador_pago.eliminar_venta_pr(producto_id)
+        controlador_producto.eliminar_producto(producto_id)
+        controlador_moto.eliminar_moto_por_cod(codMoto)
+
+        return redirect(url_for('crud_producto'))
+    except Exception as e:
+        print(f"Error al eliminar el producto: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+
+
 
 @app.route("/eliminar_productoA", methods=["POST"])
 def eliminar_productoA():
@@ -1206,7 +1312,7 @@ def actualizar_productoM():
     modelo = request.form["modelo"]
     color = request.form["color"]
     imagen = request.form["imagen"]
-    codmoto = request.form["codmoto"]#10
+    codmoto = request.form["codmoto"]
     tipo = request.form["tipo"]
     posicionManejo = request.form["posicionManejo"]
     numAsientos = request.form["numAsientos"]
@@ -1221,9 +1327,8 @@ def actualizar_productoM():
     rendimiento = request.form["rendimiento"]
 
     idMoto = controlador_moto.obtener_cod_moto(codmoto)
-    idProducto = controlador_moto.obtener_cod_moto(codmoto)
 
-    controlador_moto.actualizar_moto(codmoto, tipo, posicionManejo, numAsientos, numPasajeros, largo, ancho, alto, tipoMotor, combustible, numCilindros, capacidadTanque, rendimiento, idMoto)
+    controlador_moto.actualizar_moto(tipo, posicionManejo, numAsientos, numPasajeros, largo, ancho, alto, tipoMotor, combustible, numCilindros, capacidadTanque, rendimiento, idMoto)
     controlador_producto.actualizar_producto(descripcion, precio, stock, marca, modelo, color, imagen, idMoto, None, idProducto)
     return redirect("/crud_producto")
 
@@ -1359,7 +1464,6 @@ def guardar_venta():
 
 ##### APIS
 
-# API para obtener todas las ventas
 @app.route("/api_obtener_ventas", methods=["GET"])
 @jwt_required()
 def api_obtener_ventas():
@@ -1419,8 +1523,6 @@ def api_guardar_venta():
         return jsonify(respuesta)
 
 
-
-# API para eliminar una venta
 @app.route("/api_eliminar_venta/<int:id_venta>", methods=["DELETE"])
 @jwt_required()
 def api_eliminar_venta(id_venta):
@@ -1435,7 +1537,6 @@ def api_eliminar_venta(id_venta):
         respuesta["message"] = f"Ocurrió un problema: {str(e)}"
         return jsonify(respuesta)
 
-# API para actualizar una venta
 @app.route("/api_editar_venta/<int:id_venta>", methods=["PUT"])
 @jwt_required()
 def api_actualizar_venta(id_venta):
@@ -1451,7 +1552,6 @@ def api_actualizar_venta(id_venta):
         respuesta["message"] = f"Ocurrió un problema: {str(e)}"
         return jsonify(respuesta)
 
-# API para obtener una venta por ID
 @app.route("/api_obtener_venta_por_id/<int:id_venta>", methods=["GET"])
 @jwt_required()
 def api_obtener_venta_por_id(id_venta):

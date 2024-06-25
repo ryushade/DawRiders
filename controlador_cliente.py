@@ -97,3 +97,13 @@ def actualizar_token(email, token):
         cursor.execute("UPDATE CLIENTE SET token = %s WHERE email = %s", (token, email))
     conexion.commit()
     conexion.close()
+
+
+def actualizar_cliente_contra(email, nueva_contrasena):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute(
+            "UPDATE CLIENTE SET contraseña = %s WHERE email = %s",
+            (nueva_contrasena, email))
+    conexion.commit()
+    conexion.close()

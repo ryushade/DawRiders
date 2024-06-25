@@ -198,7 +198,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for producto in productosa %}
+                                    {% for producto in accesorios %}
                                     <tr>
                                         <td><input type="checkbox" id="checkbox{{producto[9]}}" name="option[]"
                                                 value="{{producto[9]}}">
@@ -350,8 +350,13 @@
                                         <!-- Type -->
                                         <div class="form-group">
                                             <label for="tipo">Tipo</label>
-                                            <input type="text" class="form-control" id="tipo" name="tipo"
-                                                placeholder="Tipo" required>
+                                            <select class="form-control" id="tipo" name="tipo" required>
+                                                <option value="">Selecciona una opción</option>
+                                                <option value="cascos">Cascos</option>
+                                                <option value="guantes">Guantes</option>
+                                                <option value="llantas">Llantas</option>
+                                                <option value="cajuelas">Cajuelas</option>
+                                            </select>
                                         </div>
                                         <!-- Material -->
                                         <div class="form-group">

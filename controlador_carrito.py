@@ -26,6 +26,7 @@ def eliminar_producto_del_carrito(id_item_carrito):
     finally:
         conexion.close()
 
+
 def actualizar_cantidad_producto_carrito(id_item_carrito, nueva_cantidad):
     conexion = obtener_conexion()
     try:

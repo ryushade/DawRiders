@@ -75,6 +75,14 @@ def obtener_moto_producto_nuevo(id):
     conexion.close()
     return productos
 
+
+def obtener_codmoto_porid_producto(id):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("select codMoto from PRODUCTO as pr inner join MOTO as mo on pr.idMoto = mo.idMoto WHERE pr.idProducto = %s", (id,))
+        productos = cursor.fetchone()
+    conexion.close()
+    return productos
 #########################################################
 
 def obtener_accesorio_producto():

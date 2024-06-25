@@ -54,7 +54,10 @@
                         <a href="{{ url_for('formulario_principal') }}" class="nav__link">Nosotros</a>
                     </li>
                     <li class="nav__item">
-                        <a href="{{ url_for('formulario_detalle_categoria') }}" class="nav__link">Catalogo</a>
+                        <a href="{{ url_for('formulario_detalle_categoria') }}" class="nav__link">Motos</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="{{ url_for('formulario_detalle_accesorio') }}" class="nav__link">Accesorios</a>
                     </li>
                     {% if session.user_id %}
                     <li class="nav__item">

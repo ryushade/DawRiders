@@ -41,6 +41,17 @@ def eliminar_venta(idVenta1):
     finally:
         conexion.close()
 
+def eliminar_venta_pr(idProducto):
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("DELETE FROM VENTA1 WHERE idProducto = %s", (idProducto,))
+        conexion.commit()
+    except Exception as e:
+        print(f"No se pudo eliminar la venta con id de producto {idVenta1} debido a: {e}")
+    finally:
+        conexion.close()
+
 def actualizar_venta(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final, idVenta1):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
@@ -80,7 +91,7 @@ def obtener_ventas_por_cliente(id_cliente):
                 INNER JOIN CLIENTE cl on v.idCliente = cl.idCliente
                 WHERE v.idCliente = %s
                 GROUP BY v.num_venta, p.imagen, p.marca, p.modelo, v.cantidad, p.precio
-                ORDER BY v.fechaVenta
+                ORDER BY v.fechaVenta DESC
             """, (id_cliente,))
             ventas = cursor.fetchall()
     except Exception as e:
