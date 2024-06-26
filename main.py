@@ -5,20 +5,20 @@ from flask_jwt import JWT, jwt_required, current_identity
 from datetime import datetime, timedelta
 from functools import wraps
 
-import controladores.controlador_pago
+from controladores.controlador_pago import controlador_pago
 from bd import obtener_conexion
 import time
 
 import urllib
 import os
-import controladores.controlador_cliente
-import controladores.controlador_moto
-import controladores.controlador_producto
-import controladores.controlador_accesorio
-import controladores.controlador_carrito
-import controladores.controlador_administrador
-import controladores.controlador_users
-import controladores.controlador_item_carrito
+from controladores.controlador_cliente import controlador_cliente
+from controladores.controlador_moto import controlador_moto
+from controladores.controlador_producto import controlador_producto
+from controladores.controlador_accesorio import controlador_accesorio
+from controladores.controlador_carrito import controlador_carrito
+from controladores.controlador_administrador import controlador_administrador
+from controladores.controlador_users import controlador_users
+from controladores.controlador_item_carrito import controlador_item_carrito
 from clases.clase_moto import clsMoto
 from clases.clase_cliente import clsCliente
 from clases.clase_administrador import clsAdministrador
