@@ -11,14 +11,14 @@ import time
 
 import urllib
 import os
-import controlador_cliente
-import controlador_moto
-import controlador_producto
-import controlador_accesorio
-import controlador_carrito
-import controlador_administrador
-import controlador_users
-import controlador_item_carrito
+import controladores.controlador_cliente
+import controladores.controlador_moto
+import controladores.controlador_producto
+import controladores.controlador_accesorio
+import controladores.controlador_carrito
+import controladores.controlador_administrador
+import controladores.controlador_users
+import controladores.controlador_item_carrito
 from clases.clase_moto import clsMoto
 from clases.clase_cliente import clsCliente
 from clases.clase_administrador import clsAdministrador
