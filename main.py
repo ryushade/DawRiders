@@ -5,7 +5,7 @@ from flask_jwt import JWT, jwt_required, current_identity
 from datetime import datetime, timedelta
 from functools import wraps
 
-import controlador_pago
+from controladores.controlador_pago import controlador_pago
 from bd import obtener_conexion
 import time
 
