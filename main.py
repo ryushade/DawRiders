@@ -10,6 +10,7 @@ import time
 
 import urllib
 import os
+from controladores.controlador_pago import insertar_venta
 from controladores.controlador_pago import controlador_pago
 from controladores.controlador_cliente import controlador_cliente
 from controladores.controlador_moto import controlador_moto
