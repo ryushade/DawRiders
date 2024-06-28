@@ -85,7 +85,7 @@ CREATE TABLE VENTA1 (
     num_venta int not null,
 	idCliente int not null,
 	cantidad int not null,
-
+    fechaVenta datetime DEFAULT CURRENT_TIMESTAMP
 );
 
 

@@ -792,8 +792,6 @@ def crud_producto():
     productosm = controlador_producto.obtener_moto_producto()
     return render_template("crud_producto.html", productosm=productosm)
 
-
-
 @app.route("/detalle_producto_moto")
 def formulario_detalle_producto():
     productosm = controlador_producto.obtener_moto_producto()
@@ -1332,13 +1330,8 @@ def actualizar_productoM():
     controlador_producto.actualizar_producto(descripcion, precio, stock, marca, modelo, color, imagen, idMoto, None, idProducto)
     return redirect("/crud_producto")
 
-@app.route("/formulario_editar_productoM/<int:id>")
-def editar_productoM(id):
-    producto = controlador_producto.obtener_moto_producto_nuevo_one(id)
-    return render_template("crud_producto.html", producto=producto)
-
-@app.route("/actualizar_productoA", methods=["POST"])
-def actualizar_productoA():
+@app.route("/actualizar_productoAcc", methods=["POST"])
+def actualizar_productoAcc():
     idProducto = request.form["idProducto"]
     descripcion = request.form["descripcion"]
     precio = request.form["precio"]
@@ -1347,21 +1340,26 @@ def actualizar_productoA():
     modelo = request.form["modelo"]
     color = request.form["color"]
     imagen = request.form["imagen"]
-    codaccesorio = request.form["codaccesorio"]#8
+    codaccesorio = request.form["codaccesorio"]
     tipo = request.form["tipo"]
     material = request.form["material"]
 
     idAccesorio = controlador_accesorio.obtener_cod_accesorio(codaccesorio)
-    idProducto = controlador_accesorio.obtener_cod_accesorio(codaccesorio)
 
-    controlador_accesorio.actualizar_accesorio(tipo, material, codaccesorio,idAccesorio)
+    controlador_moto.actualizar_accesorio(codaccesorio, tipo, material, idAccesorio)
     controlador_producto.actualizar_producto(descripcion, precio, stock, marca, modelo, color, imagen, None, idAccesorio, idProducto)
-    return redirect("/listar_ProductoA")
+    return redirect("/crud_producto")
 
-@app.route("/formulario_editar_productoA/<int:id>")
+
+@app.route("/formulario_editar_productoM/<int:id>")
+def editar_productoM(id):
+    producto = controlador_producto.obtener_moto_producto_nuevo_one(id)
+    return render_template("crud_producto.html", producto=producto)
+
+@app.route("/formulario_editar_accesorio/<int:id>")
 def editar_productoA(id):
     producto = controlador_producto.obtener_accesorio_producto_nuevo_one(id)
-    return render_template("editarAccesorio.html", producto=producto)
+    return render_template("crud_accesorio.html", producto=producto)
 
 
 @app.route("/formulario_detalle_producto_moto/<int:id>")
