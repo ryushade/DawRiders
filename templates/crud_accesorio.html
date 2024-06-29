@@ -214,9 +214,11 @@
                                                 <i class="material-icons" data-toggle="tooltip"
                                                     title="Edit">&#xE254;</i>
                                             </a>
-                                            <a href="#" class="btn btn-danger btn-sm" data-toggle="modal"
-                                                data-target="#deleteConfirmationModal" data-id="{{ producto[0] }}">
-                                                <i class="material-icons" title="Delete">&#xE872;</i> Eliminar
+                                            <a href="{{url_for('eliminar_productoA, id=producto[0]')}}" class="delete"
+                                                data-toggle="modal" data-target="#deleteConfirmationModal"
+                                                data-id="{{ producto[0] }}">
+                                                <i class="material-icons" data-toggle="tooltip"
+                                                    title="Delete">&#xE872;</i>
                                             </a>
 
 
