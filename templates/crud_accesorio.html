@@ -514,19 +514,18 @@
             var modal = $(this);
             modal.find('#delete-product-btn').data('id', productId);  // Pasar el `id` al botón de eliminar
         });
-    </script>
 
-    <script>
         $('#delete-product-btn').click(function () {
             var productId = $(this).data('id');  // Obtener el `id` desde el botón
             $.ajax({
                 type: "POST",
-                url: "{{ url_for('eliminar_productoA') }}",
-                data: { id: productId },
+                url: "{{ url_for('eliminar_productoA') }}",  // Asegúrate de que esta URL es correcta
+                data: JSON.stringify({ id: productId }),
+                contentType: "application/json",
                 success: function (response) {
                     $('#deleteConfirmationModal').modal('hide');  // Ocultar el modal
                     alert('Producto eliminado con éxito');  // Mostrar un mensaje de éxito
-                    location.reload();  // Opcional: recargar la página o actualizar la vista
+                    location.reload();  // O recargar la lista de productos
                 },
                 error: function () {
                     alert('Error al eliminar el producto');  // Mostrar un mensaje de error
