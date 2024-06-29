@@ -1,7 +1,7 @@
 {% extends "maestra.html" %}
 
 {% block titulo %}
-    Iniciar Sesión
+Iniciar Sesión
 {% endblock %}
 
 {% block contenido %}
@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="/static/assets/css/styles-card.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/static/css/anicollection.css">
@@ -69,7 +68,8 @@
             color: #0000FF;
         }
 
-        .nav__toggle, .nav__close {
+        .nav__toggle,
+        .nav__close {
             display: none;
         }
 
@@ -91,7 +91,7 @@
             border-radius: 10px;
             padding: 20px;
             margin-top: 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .input-group-text {
@@ -128,7 +128,8 @@
             background-color: #22262A;
         }
 
-        .btn-success, .btn-success:hover {
+        .btn-success,
+        .btn-success:hover {
             background-color: #22262A;
             border: none;
         }
@@ -168,6 +169,7 @@
         h3 {
             color: #22262A;
         }
+
         .contenedor {
             display: flex;
             justify-content: center;
@@ -178,22 +180,27 @@
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
+
         .footer__logo {
             color: #FFFFFF;
             text-decoration: none;
             font-size: 30px;
         }
+
         .containerpy {
             width: 100%;
             max-width: 100%;
             padding-right: 15px;
             padding-left: 15px;
         }
+
         .table {
             margin-top: 0;
             margin-bottom: 10px;
         }
-        .table th, .table td {
+
+        .table th,
+        .table td {
             text-align: center;
             vertical-align: middle;
         }
@@ -211,211 +218,236 @@
         }
     </style>
 
-<!--==================== CARRITO SECTION ====================-->
-<div class="containerpy mt-5 py-5">
-    <div class="row justify-content-center">
-        <!-- Carrito Header -->
-        <div class="col-lg-8 login-container">
-            <div class="contenedor">
-                <div class="mt-3">
-                    <a href="#" class="footer__logo"> Carrito de Compras</a>
+    <!--==================== CARRITO SECTION ====================-->
+    <div class="containerpy mt-5 py-5">
+        <div class="row justify-content-center">
+            <!-- Carrito Header -->
+            <div class="col-lg-8 login-container">
+                <div class="contenedor">
+                    <div class="mt-3">
+                        <a href="#" class="footer__logo"> Carrito de Compras</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Carrito Table -->
-            <div class="table-responsive py-1">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col">Producto</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">SubTotal</th>
-                            <th scope="col">Eliminar</th>
-                        </tr>
-                    </thead>
-                    <tbody id="detalle">
-                        {% for item in items %}
-                        <tr>
-                            <td><img src="../static/img/{{ item[1] }}" alt="{{ item[2] }}" width="90" height="60"></td>
-                            <td>{{ item[2] }}</td>
-                            <td>{{ item[3] }}</td>
-                            <td>{{ item[4] }}</td>
-                            <td class="subtotal">{{ item[5] }}</td>
-                            <td><button class="btn btn-danger eliminar-item" data-id="{{ item[6] }}">X</button></td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                <!-- Carrito Table -->
+                <div class="table-responsive py-1">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">SubTotal</th>
+                                <th scope="col">Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detalle">
+                            {% for item in items %}
+                            <tr>
+                                <td><img src="../static/img/{{ item[1] }}" alt="{{ item[2] }}" width="90" height="60">
+                                </td>
+                                <td>{{ item[2] }}</td>
+                                <td>{{ item[3] }}</td>
+                                <td>{{ item[4] }}</td>
+                                <td class="subtotal">{{ item[5] }}</td>
+                                <button class="btn btn-danger eliminar-item" data-id="{{ item[6] }}" data-toggle="modal"
+                                    data-target="#confirmModal">X</button>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
 
-            <!-- Totals -->
-            <div class="row totals-row">
-                <div class="col-10 text-end">
-                    <p>Total:</p>
+                        <div id="confirmModal" class="modal fade" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Confirmación de Eliminación</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>¿Estás seguro de que deseas eliminar este producto?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-danger"
+                                            id="delete-confirm">Eliminar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </table>
                 </div>
-                <div class="col-2">
-                    <h6 class="total"></h6>
-                </div>
-            </div>
 
-            <!-- Continue Button -->
-            <div class="btn-container">
-                {% if items|length > 0 %}
+                <!-- Totals -->
+                <div class="row totals-row">
+                    <div class="col-10 text-end">
+                        <p>Total:</p>
+                    </div>
+                    <div class="col-2">
+                        <h6 class="total"></h6>
+                    </div>
+                </div>
+
+                <!-- Continue Button -->
+                <div class="btn-container">
+                    {% if items|length > 0 %}
                     <a href="{{ url_for('formulario_pago') }}" class="btn btn-primary">Continuar con el Pago</a>
-                {% else %}
-                    <button class="btn btn-primary" style="background-color: #22262A" disabled>No hay productos en el carrito</button>
-                {% endif %}
+                    {% else %}
+                    <button class="btn btn-primary" style="background-color: #22262A" disabled>No hay productos en el
+                        carrito</button>
+                    {% endif %}
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!--==================== FOOTER ====================-->
+    <footer class="footer section no-underline">
+        <div class="shape shape__big"></div>
+        <div class="shape shape__small"></div>
+
+        <div class="footer__container container grid">
+            <div class="footer__content">
+                <a href="#" class="footer__logo">
+                    <i class="ri-steering-line"></i> CicloRiders
+                </a>
+                <p class="footer__description">
+                    Ofrecemos las mejores motocicletas y accesorios <br>
+                    de las marcas más reconocidas de todo el mundo <br>
+                </p>
             </div>
 
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Empresa
+                </h3>
 
-        </div>
-    </div>
-</div>
+                <ul class="footer__links">
+                    <li>
+                        <a href="#" class="footer__link">Nosotros</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Motos</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Producto</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Catalogo</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Login</a>
+                    </li>
+                </ul>
+            </div>
 
-<!--==================== FOOTER ====================-->
-<footer class="footer section no-underline">
-    <div class="shape shape__big"></div>
-    <div class="shape shape__small"></div>
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Informacion
+                </h3>
 
-    <div class="footer__container container grid">
-        <div class="footer__content">
-            <a href="#" class="footer__logo">
-                <i class="ri-steering-line"></i> CicloRiders
-            </a>
-            <p class="footer__description">
-                Ofrecemos las mejores motocicletas y accesorios <br>
-                de las marcas más reconocidas de todo el mundo <br>
-            </p>
-        </div>
+                <ul class="footer__links">
 
-        <div class="footer__content">
-            <h3 class="footer__title">
-                Empresa
-            </h3>
+                    <a href="#" class="footer__link">Contactanos</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Servicios</a>
+                    </li>
+                </ul>
+            </div>
 
-            <ul class="footer__links">
-                <li>
-                    <a href="#" class="footer__link">Nosotros</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Motos</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Producto</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Catalogo</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Login</a>
-                </li>
-            </ul>
-        </div>
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Siguenos en nuestras redes:
+                </h3>
 
-        <div class="footer__content">
-            <h3 class="footer__title">
-                Informacion
-            </h3>
-
-            <ul class="footer__links">
-
-                <a href="#" class="footer__link">Contactanos</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Servicios</a>
-                </li>
-            </ul>
+                <ul class="footer__social">
+                    <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-facebook-fill"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-instagram-line"></i>
+                    </a>
+                    <a href="https://twitter.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-twitter-line"></i>
+                    </a>
+                </ul>
+            </div>
         </div>
 
-        <div class="footer__content">
-            <h3 class="footer__title">
-                Siguenos en nuestras redes:
-            </h3>
+        <span class="footer__copy">
+            &#169; CicloRiders. Todos los derechos reservados 2023-2024
+        </span>
+    </footer>
 
-            <ul class="footer__social">
-                <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
-                    <i class="ri-facebook-fill"></i>
-                </a>
-                <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
-                    <i class="ri-instagram-line"></i>
-                </a>
-                <a href="https://twitter.com/" target="_blank" class="footer__social-link">
-                    <i class="ri-twitter-line"></i>
-                </a>
-            </ul>
-        </div>
-    </div>
+    <!--========== SCROLL UP ==========-->
+    <a href="#" class="scrollup" id="scroll-up">
+        <i class="ri-arrow-up-line"></i>
+    </a>
 
-    <span class="footer__copy">
-        &#169; CicloRiders. Todos los derechos reservados 2023-2024
-    </span>
-</footer>
+    <!--=============== SCROLL REVEAL ===============-->
+    <script src="/static/assets/js/scrollreveal.min.js"></script>
+    <!--=============== SWIPER JS ===============-->
+    <script src="/static/assets/js/swiper-bundle.min.js"></script>
+    <!--=============== MIXITUP JS ===============-->
+    <script src="/static/assets/js/mixitup.min.js"></script>
+    <!--=============== MAIN JS ===============-->
+    <script src="/static/assets/js/main.js"></script>
+    <script src="/static/js/"></script>
 
-<!--========== SCROLL UP ==========-->
-<a href="#" class="scrollup" id="scroll-up">
-    <i class="ri-arrow-up-line"></i>
-</a>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            actualizarTotal();
 
-<!--=============== SCROLL REVEAL ===============-->
-<script src="/static/assets/js/scrollreveal.min.js"></script>
-<!--=============== SWIPER JS ===============-->
-<script src="/static/assets/js/swiper-bundle.min.js"></script>
-<!--=============== MIXITUP JS ===============-->
-<script src="/static/assets/js/mixitup.min.js"></script>
-<!--=============== MAIN JS ===============-->
-<script src="/static/assets/js/main.js"></script>
-<script src="/static/js/"></script>
+            var eliminarBotones = document.querySelectorAll('.eliminar-item');
+            eliminarBotones.forEach(function (botón) {
+                botón.addEventListener('click', function () {
+                    var idItem = this.getAttribute('data-id');
+                    fetch(`/eliminar_item_carrito/${idItem}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.success) {
+                                var tr = this.closest('tr');
+                                tr.remove();
+                                actualizarTotal();
+                            } else {
+                                alert(data.error);
+                            }
+                        })
+                        .catch(error => alert('Error al eliminar el producto: ' + error));
+                });
+            });
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    actualizarTotal();
+            function actualizarTotal() {
+                var subtotals = document.querySelectorAll('.subtotal');
+                var total = 0;
+                subtotals.forEach(function (subtotal) {
+                    total += parseFloat(subtotal.textContent);
+                });
 
-    var eliminarBotones = document.querySelectorAll('.eliminar-item');
-    eliminarBotones.forEach(function(botón) {
-        botón.addEventListener('click', function() {
-            var idItem = this.getAttribute('data-id');
-            fetch(`/eliminar_item_carrito/${idItem}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    var tr = this.closest('tr');
-                    tr.remove();
-                    actualizarTotal();
-                } else {
-                    alert(data.error);
-                }
-            })
-            .catch(error => alert('Error al eliminar el producto: ' + error));
-        });
-    });
-
-    function actualizarTotal() {
-        var subtotals = document.querySelectorAll('.subtotal');
-        var total = 0;
-        subtotals.forEach(function(subtotal) {
-            total += parseFloat(subtotal.textContent);
+                var totalDisplay = document.querySelector('.total');
+                totalDisplay.textContent = total.toFixed(2);
+            }
         });
 
-        var totalDisplay = document.querySelector('.total');
-        totalDisplay.textContent = total.toFixed(2);
-    }
-});
+
+    </script>
 
 
-</script>
-
-
-{% endblock %}
-
+    {% endblock %}
