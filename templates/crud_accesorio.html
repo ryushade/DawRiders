@@ -519,20 +519,30 @@
             modal.find('#delete-product-btn').data('id', accessoryId);
         });
 
-        // Delete action
+        // Delete action using AJAX for better error handling
         $('#delete-product-btn').click(function () {
             var accessoryId = $(this).data('id');
-            console.log("Deleting Accessory ID:", accessoryId); // Debugging
-            $.post('/eliminar_productoA', { id: accessoryId }, function (data) {
-                $('#deleteConfirmationModal').modal('hide'); // Ocultar modal
-                window.location.reload(); // Recarga la página para ver los cambios
-            }).fail(function (response) {
-                console.log("Failed to delete accessory:", response); // Error si falla
-                alert("Error al eliminar el accesorio.");
+            console.log("Attempting to Delete Accessory ID:", accessoryId); // Debugging
+
+            $.ajax({
+                url: '/eliminar_productoA',  // Confirm that this URL is correct
+                type: 'POST',
+                data: {id: accessoryId},
+                success: function (data) {
+                    console.log("Success:", data);
+                    $('#deleteConfirmationModal').modal('hide'); // Hide modal
+                    window.location.reload(); // Reload the page to show changes
+                },
+                error: function (xhr) {
+                    // Detailed error handling
+                    console.error("Failed to delete accessory:", xhr.responseText);
+                    alert("Error al eliminar el accesorio. Detalles: " + xhr.responseText);
+                }
             });
         });
     });
 </script>
+
 
 
 

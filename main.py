@@ -1266,12 +1266,12 @@ def eliminar_productoM():
         return jsonify({"error": str(e)}), 500
 
 
-
-
 @app.route("/eliminar_productoA", methods=["POST"])
 def eliminar_productoA():
     try:
         producto_id = request.form.get('id')
+        print(f"Producto ID recibido: {producto_id}")
+
         if not producto_id:
             raise ValueError("ID de Producto-Accesorio no proporcionado")
 
@@ -1283,6 +1283,7 @@ def eliminar_productoA():
         controlador_producto.eliminar_producto(producto_id)
         controlador_accesorio.eliminar_accesorio_por_cod(codAccesorio)
 
+        print("Producto eliminado correctamente.")
         return redirect(url_for('crud_accesorio'))
     except Exception as e:
         print(f"Error al eliminar el accesorio: {str(e)}")
