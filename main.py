@@ -10,15 +10,15 @@ import time
 
 import urllib
 import os
-import controlador_pago
-import controlador_cliente
-import controlador_moto
-import controlador_producto
-import controlador_accesorio
-import controlador_carrito
-import controlador_administrador
-import controlador_users
-import controlador_item_carrito
+from controladores import controlador_pago
+from controladores import controlador_cliente
+from controladores import controlador_moto
+from controladores import controlador_producto
+from controladores import controlador_accesorio
+from controladores import controlador_carrito
+from controladores import controlador_administrador
+from controladores import controlador_users
+from controladores import controlador_item_carrito
 from clases.clase_moto import clsMoto
 from clases.clase_cliente import clsCliente
 from clases.clase_administrador import clsAdministrador
