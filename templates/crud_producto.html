@@ -378,11 +378,14 @@
 												data-toggle="modal" data-target="#editEmployeeModal{{producto[0]}}">
 												<i class="material-icons" data-toggle="tooltip"
 													title="Edit">&#xE254;</i></a>
-											<a href="javascript:void(0);" class="delete" data-toggle="modal"
-												data-target="#deleteConfirmationModal" data-id="{{ producto[0] }}">
-												<i class="material-icons" data-toggle="tooltip"
-													title="Delete">&#xE872;</i>
-											</a>
+											<form action="{{ url_for('eliminar_productoM') }}" method="POST"
+												onsubmit="return confirm('¿Seguro que desea eliminar esta moto?')"
+												style="display: inline;">
+												<input type="hidden" name="id" value="{{ producto[0] }}">
+												<button type="submit" class="icon-button">
+													<i class="material-icons" title="Delete">&#xE872;</i>
+												</button>
+											</form>
 
 
 
