@@ -224,7 +224,7 @@ def procesar_login():
         session['is_admin'] = usuario['is_admin']
         print("Usuario logueado:", session['user_name'])
 
-        resp = redirect("/crud_moto") if usuario['is_admin'] else redirect("/login")
+        resp = redirect("/crud_producto") if usuario['is_admin'] else redirect("/login")
         resp.set_cookie('email', email)
         resp.set_cookie('token', token)
         controlador_cliente.actualizar_token(email, token)
@@ -626,15 +626,7 @@ def crud_producto():
         flash("Acceso denegado. Debe ser administrador para acceder a esta página.", "error")
         return redirect(url_for("formulario_login_cliente"))
 
-@app.route("/formulario_editar_Moto/<int:id>")
-def editar_moto(id):
-    moto = controlador_moto.obtener_moto_por_id(id)
-    return render_template("editar_moto.html", moto=moto)
 
-@app.route("/eliminar_moto", methods=["POST"])
-def eliminar_moto():
-    controlador_moto.eliminar_moto(request.form["codmoto"])
-    return redirect("/crud_moto.html")
 
 # -----------Accesorio-----------------
 
@@ -666,7 +658,7 @@ def guardar_accesorio():
 
         controlador_producto.insertar_producto(descripcion, precio, stock, marca, modelo, color, imagen_codificada, None, idAccesorio)
 
-        return redirect("/crud_moto")
+        return redirect("/crud_accesorio")
 
     except Exception as e:
         error_message = f"Error al guardar el accesorio: {str(e)}"
