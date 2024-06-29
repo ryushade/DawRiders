@@ -131,6 +131,14 @@ def formulario_administrador():
 def formulario_contacto():
     return render_template("contacto.html")
 
+@app.route("/libroreclamaciones")
+def formulario_libro():
+    return render_template("libroreclamaciones.html")
+
+@app.route("/terminos")
+def formulario_terminos():
+    return render_template("terminosGarantia.html")
+
 @app.route("/dashboard")
 def dashboard():
     return render_template('index_d.html')
