@@ -47,17 +47,6 @@ def eliminar_moto_por_cod(codMoto):
     finally:
         conexion.close()
 
-def eliminar_moto(id_moto):
-    conexion = obtener_conexion()
-    try:
-        with conexion.cursor() as cursor:
-            cursor.execute("DELETE FROM MOTO WHERE idMoto = %s", (id_moto,))
-        conexion.commit()
-    except Exception as e:
-        print(f"No se pudo eliminar la moto con id {id_moto} debido a: {e}")
-    finally:
-        conexion.close()
-
 def actualizar_moto(tipo, posicionManejo, numAsientos, numPasajeros, largo, ancho, alto, tipoMotor, combustible, numCilindros, capacidadTanque, rendimiento, id_moto):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
@@ -83,3 +72,20 @@ def obtener_cod_moto(codMoto):
         motos = cursor.fetchall()
     conexion.close()
     return motos
+
+###### APIS #########
+
+def insertar_moto_api(codmoto, tipo, posicionManejo, numAsientos, numPasajeros, largo, ancho, alto, tipoMotor, combustible, numCilindros, capacidadTanque, rendimiento):
+    conexion = obtener_conexion()
+    id_generado = None  # Inicializa la variable para el ID generado
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute(
+                "INSERT INTO MOTO(codmoto, tipo, posicionManejo, numAsientos, numPasajeros, largo, ancho, alto, tipoMotor, combustible, numCilindros, capacidadTanque, rendimiento) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                (codmoto, tipo, posicionManejo, numAsientos, numPasajeros, largo, ancho, alto, tipoMotor, combustible, numCilindros, capacidadTanque, rendimiento))
+            cursor.execute("SELECT LAST_INSERT_ID()")
+            id_generado = cursor.fetchone()[0]  # Obtiene el ID generado de la fila resultante
+        conexion.commit()
+    finally:
+        conexion.close()
+    return id_generado

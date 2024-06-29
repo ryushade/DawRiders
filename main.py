@@ -261,7 +261,7 @@ def guardar_cliente():
     contraseña = request.form["contraseña"]
 
     epassword = sha256(contraseña.encode("utf-8")).hexdigest()
-    
+
 
     if not controlador_cliente.insertar_cliente(nombre, apellidos, email, epassword, telefono):
         flash('El email o teléfono ya está registrado. Por favor, intente con otros.', 'error')
@@ -560,7 +560,7 @@ def api_guardarmoto():
         numCilindros = request.json["numCilindros"]
         capacidadTanque = request.json["capacidadTanque"]
         rendimiento = request.json["rendimiento"]
-        idgenerado = controlador_moto.insertar_moto(codmoto, tipo, posicionManejo, numAsientos, numPasajeros, largo, ancho, alto, tipoMotor, combustible, numCilindros, capacidadTanque, rendimiento)
+        idgenerado = controlador_moto.insertar_moto_api(codmoto, tipo, posicionManejo, numAsientos, numPasajeros, largo, ancho, alto, tipoMotor, combustible, numCilindros, capacidadTanque, rendimiento)
 
         rpta["code"] = 1
         rpta["message"] = "Moto registrado correctamente. "
@@ -591,7 +591,7 @@ def api_editar_moto(id_moto):
     try:
         datos = request.json
         controlador_moto.actualizar_moto(
-            datos["codmoto"], datos["tipo"], datos["posicionManejo"], datos["numAsientos"],
+            datos["tipo"], datos["posicionManejo"], datos["numAsientos"],
             datos["numPasajeros"], datos["largo"], datos["ancho"], datos["alto"],
             datos["tipoMotor"], datos["combustible"], datos["numCilindros"],
             datos["capacidadTanque"], datos["rendimiento"], id_moto
