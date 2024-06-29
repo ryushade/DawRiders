@@ -694,7 +694,7 @@ background-color:rgba(0,0,0,0.09);
 	   
 	   /*-------modal-style start------*/
 	   .modal .modal-dialog{
-		   max-width:400px;
+		   max-width:600px;
 	   }
 	   .modal .modal-header, .modal .modal-body,.modal .modal-footer{
 		   padding:20px 30px;
@@ -714,6 +714,7 @@ background-color:rgba(0,0,0,0.09);
 	   
 	   .modal .form-control{
 		   border-radius:2px;
+		   padding: 10px;
 		   box-shadow:none;
 		   border-color:#dddddd;
 	   }
