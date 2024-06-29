@@ -219,28 +219,29 @@ def formulario_login_cliente():
 @app.route("/procesar_login", methods=["POST"])
 def procesar_login():
     email = request.form["email"]
-    password = request.form["contraseña"]
-    encrypted_password = sha256(password.encode("utf-8")).hexdigest()
+    contraseña = request.form["contraseña"]
+    epassword = sha256(contraseña.encode("utf-8")).hexdigest()
     usuario = controlador_cliente.obtener_usuario_por_email(email)
 
-    if usuario and usuario['contraseña'] == encrypted_password:
-        random_number = str(random.randint(1, 1024))
-        token = sha256(random_number.encode("utf-8")).hexdigest()
+    if usuario and usuario['contraseña'] == epassword:
+        aleatorio = str(random.randint(1, 1024))
+        token = sha256(aleatorio.encode("utf-8")).hexdigest()
 
         session['user_id'] = usuario['id']
         session['user_name'] = usuario['nombre']
-        session['user_role'] = 'admin' if usuario['is_admin'] else 'user'
+        session['is_admin'] = usuario['is_admin']
         print("Usuario logueado:", session['user_name'])
 
-        response = redirect("/crud_producto") if usuario['is_admin'] else redirect("/main_dashboard")
-        response.set_cookie('email', email, httponly=True, secure=True)
-        response.set_cookie('token', token, httponly=True, secure=True)
+        resp = redirect("/crud_producto") if usuario['is_admin'] else redirect("/login")
+        resp.set_cookie('email', email)
+        resp.set_cookie('token', token)
         controlador_cliente.actualizar_token(email, token)
 
-        return response
+        return resp
     else:
         flash('Error al logearse. Intente nuevamente', 'error')
         return render_template("login.html")
+
 
 @app.route("/logout")
 def logout():
@@ -303,7 +304,7 @@ def api_guardaradministrador():
         cliente_id = request.json["cliente_id"]
         fecha_asignacion = request.json["fecha_asignacion"]
 
-        idgenerado = controlador_administrador.insertar_administrador(cliente_id, fecha_asignacion)
+        idgenerado = controlador_administrador.insertar_administrador_api(cliente_id, fecha_asignacion)
 
         rpta["code"] = 1
         rpta["message"] = "Administrador registrado correctamente. "
@@ -397,7 +398,7 @@ def api_guardar_cliente():
         email = request.json["email"]
         contraseña = request.json["contraseña"]
         telefono = request.json["telefono"]
-        idgenerado = controlador_cliente.insertar_cliente(nombre, apellidos, email, contraseña, telefono)
+        idgenerado = controlador_cliente.insertar_cliente_api(nombre, apellidos, email, contraseña, telefono)
 
         rpta["code"] = 1
         rpta["message"] = "Cliente registrado correctamente."

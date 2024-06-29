@@ -9,6 +9,21 @@ def insertar_administrador(cliente_id, fecha_asignacion):
     conexion.commit()
     conexion.close()
 
+def insertar_administrador_api(cliente_id, fecha_asignacion):
+    conexion = obtener_conexion()
+    id_generado = None  # Inicializa la variable para el ID generado
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute(
+                "INSERT INTO ADMINISTRADOR(cliente_id, fecha_asignacion) VALUES (%s, %s)",
+                (cliente_id, fecha_asignacion))
+            cursor.execute("SELECT LAST_INSERT_ID()")  # Consulta para obtener el último ID insertado
+            id_generado = cursor.fetchone()[0]  # Obtiene el ID generado de la fila resultante
+        conexion.commit()
+    finally:
+        conexion.close()
+    return id_generado
+
 
 def actualizar_administrador(cliente_id, fecha_asignacion, idAdmin):
     conexion = obtener_conexion()

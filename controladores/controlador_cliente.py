@@ -3,25 +3,38 @@ from bd import obtener_conexion
 def insertar_cliente(nombre, apellidos, email, contraseña, telefono):
     conexion = obtener_conexion()
 
-    # Verificar si el cliente ya existe
     with conexion.cursor() as cursor:
         cursor.execute(
             "SELECT idCliente FROM CLIENTE WHERE email = %s OR telefono = %s",
             (email, telefono))
         if cursor.fetchone():
-            # Si ya existe un cliente con ese email o teléfono, manejar el caso (p.ej., mostrar un error)
             conexion.close()
-            return False  # Puedes devolver False o lanzar una excepción, según prefieras
+            return False
 
-    # Si no existe, procedemos a insertar
     with conexion.cursor() as cursor:
         cursor.execute(
             "INSERT INTO CLIENTE(nombre, apellidos, email, contraseña, telefono) VALUES (%s, %s, %s, %s, %s)",
             (nombre, apellidos, email, contraseña, telefono))
     conexion.commit()
     conexion.close()
-    return True  # Devolvemos True para indicar que la inserción fue exitosa
+    return True
 
+def insertar_cliente_api(nombre, apellidos, email, contraseña, telefono):
+    conexion = obtener_conexion()
+    id_generado = None
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute(
+                "INSERT INTO CLIENTE(nombre, apellidos, email, contraseña, telefono) VALUES (%s, %s, %s, %s, %s)",
+                (nombre, apellidos, email, contraseña, telefono))
+            cursor.execute("SELECT LAST_INSERT_ID()")
+            id_generado = cursor.fetchone()[0]
+
+        conexion.commit()
+        return id_generado
+
+    finally:
+        conexion.close()
 
 def obtener_clientes():
     conexion = obtener_conexion()

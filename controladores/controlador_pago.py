@@ -122,14 +122,15 @@ def api_insertar_venta(nombre, apellidos, pais, direccion, region, localidad, te
 
 
 
-def api_editar_venta(id, nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, anio, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad):
+def api_editar_venta(id, nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, anio, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad, fechaVenta):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
         cursor.execute(
-            "UPDATE VENTA1 SET nombre = %s, apellidos = %s, pais = %s, direccion = %s, region = %s, localidad = %s, telefono = %s, correo = %s, mes = %s, año = %s, cvv = %s, numtarjeta = %s, idProducto = %s, monto_final = %s, num_venta = %s, idCliente = %s, cantidad = %s WHERE idVenta1 = %s",
-            (nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, anio, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad, id))
+            "UPDATE VENTA1 SET nombre = %s, apellidos = %s, pais = %s, direccion = %s, region = %s, localidad = %s, telefono = %s, correo = %s, mes = %s, año = %s, cvv = %s, numtarjeta = %s, idProducto = %s, monto_final = %s, num_venta = %s, idCliente = %s, cantidad = %s, fechaVenta = %s WHERE idVenta1 = %s",
+            (nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, anio, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad, fechaVenta, id))
     conexion.commit()
     conexion.close()
+
 
 def api_eliminar_venta(id):
     conexion = obtener_conexion()
