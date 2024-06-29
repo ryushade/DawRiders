@@ -415,19 +415,17 @@
 
             <ul class="footer__links">
                 <li>
-                    <a href="#" class="footer__link">Nosotros</a>
+                    <a href="{{url_for('nosotros')}}" class="footer__link">Nosotros</a>
                 </li>
                 <li>
-                    <a href="#" class="footer__link">Motos</a>
+                    <a href="{{url_for('detalle_producto_categoria')}}" class="footer__link">Motos</a>
+                </li>
+                
+                <li>
+                    <a href="{{url_for('detalle_producto_accesorio')}}" class="footer__link">Accesorios</a>
                 </li>
                 <li>
-                    <a href="#" class="footer__link">Producto</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Catalogo</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Login</a>
+                    <a href="{{url_for('login')}}" class="footer__link">Login</a>
                 </li>
             </ul>
         </div>
@@ -439,11 +437,13 @@
 
             <ul class="footer__links">
 
-                <a href="#" class="footer__link">Contactanos</a>
+                <a href="{{url_for('contacto')}}" class="footer__link">Contactanos</a>
                 </li>
                 <li>
-                    <a href="#" class="footer__link">Servicios</a>
+                    <a href="{{url_for('terminos')}}" class="footer__link">Terminos y condiciones</a>
                 </li>
+                <li>
+                    <a href="{{url_for('libroreclamaciones')}}" class="footer__link">Libro de reclamaciones</a>
             </ul>
         </div>
 
