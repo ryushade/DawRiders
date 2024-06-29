@@ -617,11 +617,11 @@ def api_obtener_moto_por_id(id_moto):
 
 ######
 
-@app.route("/crud_moto")
-def crud_moto():
+@app.route("/crud_producto")
+def crud_producto():
     if 'user_id' in session and session['is_admin']:
-        motos = controlador_moto.obtener_motos()
-        return render_template("crud_moto.html", motos=motos)
+        productosm = controlador_producto.obtener_moto_producto()
+        return render_template("crud_producto.html", productosm=productosm)
     else:
         flash("Acceso denegado. Debe ser administrador para acceder a esta página.", "error")
         return redirect(url_for("formulario_login_cliente"))
@@ -787,10 +787,6 @@ def api_obtener_accesorio_por_id(id_accesorio):
 
 # -----------Producto-----------------
 
-@app.route("/crud_producto")
-def crud_producto():
-    productosm = controlador_producto.obtener_moto_producto()
-    return render_template("crud_producto.html", productosm=productosm)
 
 @app.route("/detalle_producto_moto")
 def formulario_detalle_producto():
