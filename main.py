@@ -94,7 +94,7 @@ def formulario_marcas():
     return render_template("marcas.html")
 
 @app.route("/nosotros")
-def formulario_blog():
+def nosotros():
     return render_template("nosotros.html")
 
 @app.route("/historial_venta")
