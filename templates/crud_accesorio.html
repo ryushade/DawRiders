@@ -217,9 +217,10 @@
                                                data-toggle="modal" data-target="#editEmployeeModal{{producto[0]}}">
                                                <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                             </a>
-                                            <a href="#" class="delete" data-toggle="modal" data-target="#deleteConfirmationModal" data-id="{{producto[0]}}">
+                                            <a href="#" class="delete" data-toggle="modal" data-target="#deleteConfirmationModal" data-id="{{ producto[0] }}">
                                                 <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                                             </a>
+
 
                                 </tbody>
 
@@ -519,27 +520,28 @@
             modal.find('#delete-product-btn').data('id', accessoryId);
         });
 
+
         // Delete action using AJAX for better error handling
         $('#delete-product-btn').click(function () {
             var accessoryId = $(this).data('id');
             console.log("Attempting to Delete Accessory ID:", accessoryId); // Debugging
 
             $.ajax({
-                url: '/eliminar_productoA',  // Confirm that this URL is correct
+                url: '/eliminar_productoA',
                 type: 'POST',
                 data: {id: accessoryId},
-                success: function (data) {
-                    console.log("Success:", data);
+                success: function (response) {
+                    console.log("Success:", response);
                     $('#deleteConfirmationModal').modal('hide'); // Hide modal
                     window.location.reload(); // Reload the page to show changes
                 },
                 error: function (xhr) {
-                    // Detailed error handling
                     console.error("Failed to delete accessory:", xhr.responseText);
                     alert("Error al eliminar el accesorio. Detalles: " + xhr.responseText);
                 }
             });
         });
+
     });
 </script>
 
