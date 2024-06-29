@@ -217,11 +217,13 @@
                                                data-toggle="modal" data-target="#editEmployeeModal{{producto[0]}}">
                                                <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                             </a>
-                                            <a href="#" class="delete" data-toggle="modal" data-target="#deleteConfirmationModal" data-id="{{ producto[0] }}">
-                                                <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                                            </a>
+											<a href="javascript:void(0);" class="delete" data-toggle="modal"
+												data-target="#deleteConfirmationModal" data-id="{{ producto[0] }}">
+												<i class="material-icons" data-toggle="tooltip"
+													title="Delete">&#xE872;</i>
+											</a>
 
-
+                                        </td>
                                 </tbody>
 
 
@@ -501,18 +503,11 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        // Toggle sidebar and content active classes
         $(".xp-menubar").on('click', function () {
             $("#sidebar").toggleClass('active');
             $("#content").toggleClass('active');
         });
 
-        // Toggle sidebar and overlay visibility
-        $('.xp-menubar,.body-overlay').on('click', function () {
-            $("#sidebar,.body-overlay").toggleClass('show-nav');
-        });
-
-        // Setup the delete confirmation modal
         $('#deleteConfirmationModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); // Botón que activó el modal
             var accessoryId = button.data('id'); // Extraer información de atributos data-*
@@ -520,30 +515,20 @@
             modal.find('#delete-product-btn').data('id', accessoryId);
         });
 
-
-        // Delete action using AJAX for better error handling
         $('#delete-product-btn').click(function () {
             var accessoryId = $(this).data('id');
-            console.log("Attempting to Delete Accessory ID:", accessoryId); // Debugging
-
-            $.ajax({
-                url: '/eliminar_productoA',
-                type: 'POST',
-                data: {id: accessoryId},
-                success: function (response) {
-                    console.log("Success:", response);
-                    $('#deleteConfirmationModal').modal('hide'); // Hide modal
-                    window.location.reload(); // Reload the page to show changes
-                },
-                error: function (xhr) {
-                    console.error("Failed to delete accessory:", xhr.responseText);
-                    alert("Error al eliminar el accesorio. Detalles: " + xhr.responseText);
-                }
+            console.log("Deleting Accessory ID:", accessoryId); // Debugging
+            $.post('/eliminar_productoA', { id: accessoryId }, function (data) {
+                $('#deleteConfirmationModal').modal('hide'); // Ocultar modal
+                window.location.reload(); // Recarga la página para ver los cambios
+            }).fail(function (response) {
+                console.log("Failed to delete accessory:", response); // Error si falla
+                alert("Error al eliminar el accesorio.");
             });
         });
-
     });
 </script>
+
 
 
 
