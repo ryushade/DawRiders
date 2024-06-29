@@ -303,11 +303,16 @@
                                                 <i class="material-icons" data-toggle="tooltip"
                                                     title="Edit">&#xE254;</i>
                                             </a>
-                                            <a href="#" class="delete" data-toggle="modal"
-                                                data-target="#deleteConfirmationModal" data-id="{{ producto[11] }}">
-                                                <i class="material-icons" data-toggle="tooltip"
-                                                    title="Delete">&#xE872;</i>
-                                            </a>
+                                            <form action="{{ url_for('eliminar_productoA') }}" method="POST"
+                                                onsubmit="return confirm('¿Seguro que desea eliminar el registro?')"
+                                                style="display: inline;">
+                                                <input type="hidden" name="id" value="{{ producto[0] }}">
+                                                <button type="submit" class="icon-button">
+                                                    <i class="material-icons" title="Delete">&#xE872;</i>
+                                                </button>
+                                            </form>
+
+
 
 
 

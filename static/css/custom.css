@@ -6,6 +6,22 @@ body,html{
 	margin:0px;
 	padding:0px;
 }
+.icon-button {
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    cursor: pointer;
+}
+
+.icon-button i.material-icons {
+    font-size: 24px;  /* Tamaño del ícono */
+    color: red;  /* Color del ícono */
+}
+
+.icon-button:hover i.material-icons {
+    color: darkred;  /* Color al pasar el mouse sobre el ícono */
+}
 
 
 /*==========================================================
