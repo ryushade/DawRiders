@@ -81,3 +81,14 @@ def obtener_cod_accesorio(codAccesorio):
         accesorios = cursor.fetchall()
     conexion.close()
     return accesorios
+
+def eliminar_accesorio_por_cod(codAccesorio):
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("DELETE FROM ACCESORIO WHERE codaccesorio = %s", (codAccesorio,))
+        conexion.commit()
+    except Exception as e:
+        print(f"No se pudo eliminar el accesorio con cod {codAccesorio} debido a: {e}")
+    finally:
+        conexion.close()

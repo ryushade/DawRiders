@@ -214,20 +214,17 @@
                                         <td>{{producto[13]}}</td>
                                         <td>
                                             <a href="{{ url_for('editar_productoA', id=producto[0] )}}" class="edit"
-                                                data-toggle="modal" data-target="#editEmployeeModal{{producto[0]}}">
-                                                <i class="material-icons" data-toggle="tooltip"
-                                                    title="Edit">&#xE254;</i>
+                                               data-toggle="modal" data-target="#editEmployeeModal{{producto[0]}}">
+                                               <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                             </a>
-                                            <a href="#" class="delete"
-                                                data-toggle="modal" data-target="#deleteEmployeeModal{{producto[0]}}">
-                                                <i class="material-icons" data-toggle="tooltip"
-                                                    title="Delete">&#xE872;</i>
+                                            <a href="#" class="delete" data-toggle="modal" data-target="#deleteConfirmationModal" data-id="{{producto[0]}}">
+                                                <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                                             </a>
+
                                 </tbody>
 
 
-                                <div class="modal fade" tabindex="-1" id="#"
-                                    role="dialog">
+                                <div class="modal fade" id="editEmployeeModal{{ producto[0] }}" tabindex="-1" role="dialog">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -245,7 +242,7 @@
                                                         <div class="form-group">
                                                             <label>Cod. Accesorio</label>
                                                             <input type="text" class="form-control"
-                                                                value="{{producto[1]}}" name="descripcion" required>
+                                                                value="{{producto[11]}}" name="codaccesorio" readonly>
                                                         </div>
                                                     </div>
 
@@ -435,25 +432,26 @@
                         </div>
                     </div>
 
-            		<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog">
-            			<div class="modal-dialog" role="document">
-            				<div class="modal-content">
-            					<div class="modal-header">
-            						<h5 class="modal-title">Confirmar Eliminación</h5>
-            						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            							<span aria-hidden="true">&times;</span>
-            						</button>
-            					</div>
-            					<div class="modal-body">
-            						<p>¿Estás seguro que deseas eliminar este accesorio?</p>
-            					</div>
-            					<div class="modal-footer">
-            						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            						<button type="button" class="btn btn-danger" id="delete-product-btn">Eliminar</button>
-            					</div>
-            				</div>
-            			</div>
-            		</div>
+                <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Confirmar Eliminación</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>¿Estás seguro que deseas eliminar este accesorio?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-danger" id="delete-product-btn">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
 
 
@@ -500,19 +498,41 @@
     <script src="/static/js/jquery-3.3.1.min.js"></script>
 
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(".xp-menubar").on('click', function () {
-                $("#sidebar").toggleClass('active');
-                $("#content").toggleClass('active');
-            });
-
-            $('.xp-menubar,.body-overlay').on('click', function () {
-                $("#sidebar,.body-overlay").toggleClass('show-nav');
-            });
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Toggle sidebar and content active classes
+        $(".xp-menubar").on('click', function () {
+            $("#sidebar").toggleClass('active');
+            $("#content").toggleClass('active');
         });
-    </script>
+
+        // Toggle sidebar and overlay visibility
+        $('.xp-menubar,.body-overlay').on('click', function () {
+            $("#sidebar,.body-overlay").toggleClass('show-nav');
+        });
+
+        // Setup the delete confirmation modal
+        $('#deleteConfirmationModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Botón que activó el modal
+            var accessoryId = button.data('id'); // Extraer información de atributos data-*
+            var modal = $(this);
+            modal.find('#delete-product-btn').data('id', accessoryId);
+        });
+
+        // Delete action
+        $('#delete-product-btn').click(function () {
+            var accessoryId = $(this).data('id');
+            console.log("Deleting Accessory ID:", accessoryId); // Debugging
+            $.post('/eliminar_productoA', { id: accessoryId }, function (data) {
+                $('#deleteConfirmationModal').modal('hide'); // Ocultar modal
+                window.location.reload(); // Recarga la página para ver los cambios
+            }).fail(function (response) {
+                console.log("Failed to delete accessory:", response); // Error si falla
+                alert("Error al eliminar el accesorio.");
+            });
+        });
+    });
+</script>
 
 
 

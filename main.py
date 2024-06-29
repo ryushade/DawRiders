@@ -260,20 +260,14 @@ def guardar_cliente():
     email = request.form["email"]
     contraseña = request.form["contraseña"]
 
-    # Cifrado de contraseña
     epassword = sha256(contraseña.encode("utf-8")).hexdigest()
 
-    # Verificar si el correo ya está registrado
-    if controlador_cliente.correo_registrado(email):
-        error_msg = 'El correo electrónico ya está registrado. Por favor, intente con otro.'
-        return render_template('formulario_registrar_cliente.html', error_msg=error_msg, form_data=request.form)
 
-    # Intentar insertar el cliente nuevo
     if not controlador_cliente.insertar_cliente(nombre, apellidos, email, epassword, telefono):
-        error_msg = 'El teléfono ya está registrado. Por favor, intente con otro.'
-        return render_template('formulario_registrar_cliente.html', error_msg=error_msg, form_data=request.form)
-
-    return redirect("/login")
+        flash('El email o teléfono ya está registrado. Por favor, intente con otros.', 'error')
+        return redirect(url_for('formulario_registro'))  # Asegúrate de redirigir al formulario de registro
+    else:
+        return redirect("/login")
 
 
 ########### APIS ADMINISTRADOR ############
@@ -310,7 +304,7 @@ def api_guardaradministrador():
         cliente_id = request.json["cliente_id"]
         fecha_asignacion = request.json["fecha_asignacion"]
 
-        idgenerado = controlador_administrador.insertar_administrador(cliente_id, fecha_asignacion)
+        idgenerado = controlador_administrador.insertar_administrador_api(cliente_id, fecha_asignacion)
 
         rpta["code"] = 1
         rpta["message"] = "Administrador registrado correctamente. "
@@ -404,7 +398,7 @@ def api_guardar_cliente():
         email = request.json["email"]
         contraseña = request.json["contraseña"]
         telefono = request.json["telefono"]
-        idgenerado = controlador_cliente.insertar_cliente(nombre, apellidos, email, contraseña, telefono)
+        idgenerado = controlador_cliente.insertar_cliente_api(nombre, apellidos, email, contraseña, telefono)
 
         rpta["code"] = 1
         rpta["message"] = "Cliente registrado correctamente."
@@ -1276,8 +1270,23 @@ def eliminar_productoM():
 
 @app.route("/eliminar_productoA", methods=["POST"])
 def eliminar_productoA():
-    controlador_producto.eliminar_producto(request.form["id"])
-    return redirect("/listar_ProductoA")
+    try:
+        producto_id = request.form.get('id')
+        if not producto_id:
+            raise ValueError("ID de Producto-Accesorio no proporcionado")
+
+        codAccesorio = controlador_producto.obtener_codacce_porid_producto(producto_id)
+        if not codAccesorio:
+            raise ValueError("Código de Accesorio no encontrado para el ID de producto dado")
+
+        controlador_pago.eliminar_venta_pr(producto_id)
+        controlador_producto.eliminar_producto(producto_id)
+        controlador_accesorio.eliminar_accesorio_por_cod(codAccesorio)
+
+        return redirect(url_for('crud_accesorio'))
+    except Exception as e:
+        print(f"Error al eliminar el accesorio: {str(e)}")
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/pago")
 def formulario_pago():
@@ -1351,9 +1360,9 @@ def actualizar_productoAcc():
 
     idAccesorio = controlador_accesorio.obtener_cod_accesorio(codaccesorio)
 
-    controlador_moto.actualizar_accesorio(codaccesorio, tipo, material, idAccesorio)
+    controlador_accesorio.actualizar_accesorio(codaccesorio, tipo, material, idAccesorio)
     controlador_producto.actualizar_producto(descripcion, precio, stock, marca, modelo, color, imagen, None, idAccesorio, idProducto)
-    return redirect("/crud_producto")
+    return redirect("/crud_accesorio")
 
 
 @app.route("/formulario_editar_productoM/<int:id>")
