@@ -262,9 +262,12 @@ def guardar_cliente():
 
     epassword = sha256(contraseña.encode("utf-8")).hexdigest()
 
-    controlador_cliente.insertar_cliente(nombre, apellidos, email, epassword, telefono)
-    return redirect("/login")
 
+    if not controlador_cliente.insertar_cliente(nombre, apellidos, email, epassword, telefono):
+        flash('El email o teléfono ya está registrado. Por favor, intente con otros.', 'error')
+        return redirect(url_for('formulario_registro'))  # Asegúrate de redirigir al formulario de registro
+    else:
+        return redirect("/login")
 
 
 ########### APIS ADMINISTRADOR ############
@@ -717,7 +720,7 @@ def api_guardaraccesorio():
         tipo = request.json["tipo"]
         material = request.json["material"]
 
-        idgenerado = controlador_accesorio.insertar_accesorio(codaccesorio, tipo, material)
+        idgenerado = controlador_accesorio.insertar_accesorio_api(codaccesorio, tipo, material)
 
         rpta["code"] = 1
         rpta["message"] = "Accesorio registrado correctamente. "
@@ -756,7 +759,6 @@ def api_editar_accesorio(id_accesorio):
 
         rpta["code"] = 1
         rpta["message"] = "Accesorio actualizado correctamente."
-        rpta["data"] = dict()
     except Exception as e:
         rpta["code"] = 0
         rpta["message"] = f"Ocurrió un problema: " + repr(e)

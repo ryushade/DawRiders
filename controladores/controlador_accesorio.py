@@ -9,6 +9,23 @@ def insertar_accesorio(codaccesorio, tipo, material):
     conexion.commit()
     conexion.close()
 
+def insertar_accesorio_api(codaccesorio, tipo, material):
+    conexion = obtener_conexion()
+    id_generado = None
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute(
+                "INSERT INTO ACCESORIO(codaccesorio, tipo, material) VALUES (%s, %s, %s)",
+                (codaccesorio, tipo, material))
+            cursor.execute("SELECT LAST_INSERT_ID()")
+            id_generado = cursor.fetchone()[0]
+
+        conexion.commit()
+    finally:
+        conexion.close()
+    return id_generado
+
+
 def obtener_accesorios():
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:

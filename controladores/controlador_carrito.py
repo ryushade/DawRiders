@@ -90,16 +90,25 @@ def insertar_item_carrito(idCarrito, idProducto, cantidad, precioPorUnidad, subt
     conexion.commit()
     conexion.close()
 
-def insertar_carrito_api(idCliente, fechaCreacion):
-    conexion = obtener_conexion()
-    with conexion.cursor() as cursor:
-        cursor.execute(
-            "INSERT INTO CARRITO(idCliente, fechaCreacion) VALUES (%s, %s)",
-            (idCliente, fechaCreacion))
-    conexion.commit()
-    conexion.close()
 
 ###APIS
+
+def insertar_carrito_api(idCliente, fechaCreacion):
+    conexion = obtener_conexion()
+    id_generado = None
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute(
+                "INSERT INTO CARRITO(idCliente, fechaCreacion) VALUES (%s, %s)",
+                (idCliente, fechaCreacion))
+            cursor.execute("SELECT LAST_INSERT_ID()")
+            id_generado = cursor.fetchone()[0]
+
+        conexion.commit()
+    finally:
+        conexion.close()
+    return id_generado  # Devuelve el ID generado
+
 
 def eliminar_carrito(id_carrito):
     conexion = obtener_conexion()
