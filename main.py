@@ -260,14 +260,21 @@ def guardar_cliente():
     email = request.form["email"]
     contraseña = request.form["contraseña"]
 
+    # Cifrado de contraseña
     epassword = sha256(contraseña.encode("utf-8")).hexdigest()
 
+    # Verificar si el correo ya está registrado
+    if controlador_cliente.correo_registrado(email):
+        error_msg = 'El correo electrónico ya está registrado. Por favor, intente con otro.'
+        return render_template('formulario_registro.html', error_msg=error_msg, form_data=request.form)
 
+    # Intentar insertar el cliente nuevo
     if not controlador_cliente.insertar_cliente(nombre, apellidos, email, epassword, telefono):
-        flash('El email o teléfono ya está registrado. Por favor, intente con otros.', 'error')
-        return redirect(url_for('formulario_registrar_cliente'))  # Asegúrate de redirigir al formulario de registro
-    else:
-        return redirect("/login")
+        error_msg = 'El teléfono ya está registrado. Por favor, intente con otro.'
+        return render_template('formulario_registro.html', error_msg=error_msg, form_data=request.form)
+
+    return redirect("/login")
+
 
 
 ########### APIS ADMINISTRADOR ############
