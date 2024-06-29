@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/assets/css/swiper-bundle.min.css">
     <link rel="stylesheet" href="/static/assets/css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bootstrap CSS -->
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -15,6 +18,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <title>CicloRiders - Motocicletas y Accesorios</title>
 </head>
+
 <body>
     <style>
         .nav__link {
@@ -29,7 +33,8 @@
             font-weight: bold;
         }
 
-        a, li {
+        a,
+        li {
             text-decoration: none;
         }
 
@@ -68,6 +73,11 @@
                             <i class="fa-regular fa-user fa-2x" style="color: white;"></i>
                         </a>
                     </li>
+                    {% if session.user_role == 'admin' %}
+                    <li class="nav__item">
+                        <a href="{{ url_for('crud_producto') }}" class="nav__link">Administrador</a>
+                    </li>
+                    {% endif %}
                     {% else %}
                     <li class="nav__item">
                         <a href="{{ url_for('formulario_login_cliente') }}" class="nav__link">Login</a>
@@ -79,7 +89,6 @@
                         </a>
                     </li>
                 </ul>
-
 
                 <div class="nav__close" id="nav-close">
                     <i class="ri-close-line"></i>
@@ -93,4 +102,5 @@
     </header>
     {% block contenido %} {% endblock %}
 </body>
+
 </html>
