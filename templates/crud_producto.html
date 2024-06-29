@@ -205,7 +205,7 @@
 								</thead>
 								<tbody>
 									{% for producto in productosm %}
-									<tr>
+									<tr class="{{ 'bg-danger' if producto[3] == 0 else '' }}">
 										<td><input type="checkbox" id="checkbox{{producto[0]}}" name="option[]"
 												value="{{producto[0]}}">
 											<label for="checkbox{{producto[0]}}"></label>
