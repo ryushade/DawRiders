@@ -219,29 +219,28 @@ def formulario_login_cliente():
 @app.route("/procesar_login", methods=["POST"])
 def procesar_login():
     email = request.form["email"]
-    contraseña = request.form["contraseña"]
-    epassword = sha256(contraseña.encode("utf-8")).hexdigest()
+    password = request.form["contraseña"]
+    encrypted_password = sha256(password.encode("utf-8")).hexdigest()
     usuario = controlador_cliente.obtener_usuario_por_email(email)
 
-    if usuario and usuario['contraseña'] == epassword:
-        aleatorio = str(random.randint(1, 1024))
-        token = sha256(aleatorio.encode("utf-8")).hexdigest()
+    if usuario and usuario['contraseña'] == encrypted_password:
+        random_number = str(random.randint(1, 1024))
+        token = sha256(random_number.encode("utf-8")).hexdigest()
 
         session['user_id'] = usuario['id']
         session['user_name'] = usuario['nombre']
-        session['is_admin'] = usuario['is_admin']
+        session['user_role'] = 'admin' if usuario['is_admin'] else 'user'
         print("Usuario logueado:", session['user_name'])
 
-        resp = redirect("/crud_producto") if usuario['is_admin'] else redirect("/login")
-        resp.set_cookie('email', email)
-        resp.set_cookie('token', token)
+        response = redirect("/crud_producto") if usuario['is_admin'] else redirect("/main_dashboard")
+        response.set_cookie('email', email, httponly=True, secure=True)
+        response.set_cookie('token', token, httponly=True, secure=True)
         controlador_cliente.actualizar_token(email, token)
 
-        return resp
+        return response
     else:
         flash('Error al logearse. Intente nuevamente', 'error')
         return render_template("login.html")
-
 
 @app.route("/logout")
 def logout():
