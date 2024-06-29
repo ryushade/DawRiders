@@ -270,6 +270,31 @@ def guardar_cliente():
         return redirect("/login")
 
 
+@app.route("/guardar_clienteC", methods=["POST"])
+def guardar_clienteC():
+    nombre = request.form["nombre"]
+    apellidos = request.form["apellidos"]
+    telefono = request.form["telefono"]
+    email = request.form["email"]
+    contraseña = request.form["contraseña"]
+
+    # Cifrado de contraseña
+    epassword = sha256(contraseña.encode("utf-8")).hexdigest()
+
+    # Verificar si el correo ya está registrado
+    if controlador_cliente.correo_registrado(email):
+        flash('El correo electrónico ya está registrado. Por favor, intente con otro.', 'error')
+        return redirect("/crud_cliente")
+
+    # Intentar insertar el cliente nuevo
+    if not controlador_cliente.insertar_cliente(nombre, apellidos, email, epassword, telefono):
+        flash('El teléfono ya está registrado. Por favor, intente con otro.', 'error')
+        return redirect("/crud_cliente")
+
+    flash('Cliente agregado exitosamente!', 'success')
+    return redirect("/crud_cliente")
+
+
 ########### APIS ADMINISTRADOR ############
 
 @app.route("/api_obteneradministrador")
