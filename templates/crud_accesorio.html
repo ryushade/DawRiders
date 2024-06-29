@@ -174,6 +174,94 @@
                                 </div>
                             </div>
 
+                            <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form method="post" action="{{ url_for('guardar_accesorio') }}"
+                                            enctype="multipart/form-data">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Agregar Accesorio</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Accessory Code -->
+                                                <div class="form-group">
+                                                    <label for="codAccesorio">Código de Accesorio</label>
+                                                    <input type="text" class="form-control" id="codAccesorio"
+                                                        name="codAccesorio" placeholder="Código de Accesorio" required>
+                                                </div>
+                                                <!-- Description -->
+                                                <div class="form-group">
+                                                    <label for="descripcion">Descripción</label>
+                                                    <input type="text" class="form-control" id="descripcion" name="descripcion"
+                                                        placeholder="Descripción" required>
+                                                </div>
+                                                <!-- Price -->
+                                                <div class="form-group">
+                                                    <label for="precio">Precio</label>
+                                                    <input type="text" class="form-control" id="precio" name="precio"
+                                                        placeholder="Precio" required>
+                                                </div>
+                                                <!-- Stock -->
+                                                <div class="form-group">
+                                                    <label for="stock">Stock</label>
+                                                    <input type="number" class="form-control" id="stock" name="stock"
+                                                        placeholder="Stock" required>
+                                                </div>
+                                                <!-- Brand -->
+                                                <div class="form-group">
+                                                    <label for="marca">Marca</label>
+                                                    <input type="text" class="form-control" id="marca" name="marca"
+                                                        placeholder="Marca" required>
+                                                </div>
+                                                <!-- Model -->
+                                                <div class="form-group">
+                                                    <label for="modelo">Modelo</label>
+                                                    <input type="text" class="form-control" id="modelo" name="modelo"
+                                                        placeholder="Modelo" required>
+                                                </div>
+                                                <!-- Color -->
+                                                <div class="form-group">
+                                                    <label for="color">Color</label>
+                                                    <input type="text" class="form-control" id="color" name="color"
+                                                        placeholder="Color" required>
+                                                </div>
+                                                <!-- Type -->
+                                                <div class="form-group">
+                                                    <label for="tipo">Tipo</label>
+                                                    <select class="form-control" id="tipo" name="tipo" required>
+                                                        <option value="">Selecciona una opción</option>
+                                                        <option value="cascos">Cascos</option>
+                                                        <option value="guantes">Guantes</option>
+                                                        <option value="llantas">Llantas</option>
+                                                        <option value="cajuelas">Cajuelas</option>
+                                                    </select>
+                                                </div>
+                                                <!-- Material -->
+                                                <div class="form-group">
+                                                    <label for="material">Material</label>
+                                                    <input type="text" class="form-control" id="material" name="material"
+                                                        placeholder="Material" required>
+                                                </div>
+                                                <!-- Image Upload -->
+                                                <div class="form-group">
+                                                    <label for="uploadedFile">Imagen</label>
+                                                    <input type="file" class="form-control-file" id="uploadedFile"
+                                                        name="uploadedFile" required>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary">Registrar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
@@ -225,6 +313,29 @@
                                         </td>
                                 </tbody>
 
+                                
+            
+                                <div class="modal fade" id="deleteConfirmationModal{{producto[0]}}" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Confirmar Eliminación</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>¿Estás seguro que deseas eliminar este accesorio?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-danger"
+                                                    id="delete-product-btn">Eliminar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="modal fade" id="editEmployeeModal{{ producto[0] }}" tabindex="-1"
                                     role="dialog">
@@ -345,117 +456,7 @@
                     </div>
 
 
-                    <!----add-modal start--------->
-                    <!-- Add Accessory Modal -->
-                    <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <form method="post" action="{{ url_for('guardar_accesorio') }}"
-                                    enctype="multipart/form-data">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Agregar Accesorio</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <!-- Accessory Code -->
-                                        <div class="form-group">
-                                            <label for="codAccesorio">Código de Accesorio</label>
-                                            <input type="text" class="form-control" id="codAccesorio"
-                                                name="codAccesorio" placeholder="Código de Accesorio" required>
-                                        </div>
-                                        <!-- Description -->
-                                        <div class="form-group">
-                                            <label for="descripcion">Descripción</label>
-                                            <input type="text" class="form-control" id="descripcion" name="descripcion"
-                                                placeholder="Descripción" required>
-                                        </div>
-                                        <!-- Price -->
-                                        <div class="form-group">
-                                            <label for="precio">Precio</label>
-                                            <input type="text" class="form-control" id="precio" name="precio"
-                                                placeholder="Precio" required>
-                                        </div>
-                                        <!-- Stock -->
-                                        <div class="form-group">
-                                            <label for="stock">Stock</label>
-                                            <input type="number" class="form-control" id="stock" name="stock"
-                                                placeholder="Stock" required>
-                                        </div>
-                                        <!-- Brand -->
-                                        <div class="form-group">
-                                            <label for="marca">Marca</label>
-                                            <input type="text" class="form-control" id="marca" name="marca"
-                                                placeholder="Marca" required>
-                                        </div>
-                                        <!-- Model -->
-                                        <div class="form-group">
-                                            <label for="modelo">Modelo</label>
-                                            <input type="text" class="form-control" id="modelo" name="modelo"
-                                                placeholder="Modelo" required>
-                                        </div>
-                                        <!-- Color -->
-                                        <div class="form-group">
-                                            <label for="color">Color</label>
-                                            <input type="text" class="form-control" id="color" name="color"
-                                                placeholder="Color" required>
-                                        </div>
-                                        <!-- Type -->
-                                        <div class="form-group">
-                                            <label for="tipo">Tipo</label>
-                                            <select class="form-control" id="tipo" name="tipo" required>
-                                                <option value="">Selecciona una opción</option>
-                                                <option value="cascos">Cascos</option>
-                                                <option value="guantes">Guantes</option>
-                                                <option value="llantas">Llantas</option>
-                                                <option value="cajuelas">Cajuelas</option>
-                                            </select>
-                                        </div>
-                                        <!-- Material -->
-                                        <div class="form-group">
-                                            <label for="material">Material</label>
-                                            <input type="text" class="form-control" id="material" name="material"
-                                                placeholder="Material" required>
-                                        </div>
-                                        <!-- Image Upload -->
-                                        <div class="form-group">
-                                            <label for="uploadedFile">Imagen</label>
-                                            <input type="file" class="form-control-file" id="uploadedFile"
-                                                name="uploadedFile" required>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary">Registrar</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal fade" id="deleteConfirmationModal{{producto[0]}}" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Confirmar Eliminación</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>¿Estás seguro que deseas eliminar este accesorio?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-danger"
-                                        id="delete-product-btn">Eliminar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                 
 
 
 
