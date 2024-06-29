@@ -154,7 +154,6 @@
 
 
             <!------main-content-start----------->
-{% for producto in accesorios %}
 
             <div class="main-content">
                 <div class="row">
@@ -197,6 +196,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for producto in accesorios %}
                                     <tr>
                                         <td><input type="checkbox" id="checkbox{{producto[0]}}" name="option[]"
                                                 value="{{producto[0]}}">
@@ -226,7 +226,7 @@
                                 </tbody>
 
 
-                                <div class="modal fade" tabindex="-1" id="editEmployeeModal{{producto[0]}}"
+                                <div class="modal fade" tabindex="-1" id="#"
                                     role="dialog">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -324,6 +324,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                {% endfor %}
 
                             </table>
 
@@ -434,37 +435,31 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="deleteEmployeeModal{{producto[0]}}" tabindex="-1" role="dialog">
-                        <!-- Corregido -->
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Eliminar accesorio</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>¿Estás seguro que quieres eliminarlo?</p>
-                                    <p class="text-warning"><small>Esta acción no se puede deshacer.</small></p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-success">Eliminar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            		<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog">
+            			<div class="modal-dialog" role="document">
+            				<div class="modal-content">
+            					<div class="modal-header">
+            						<h5 class="modal-title">Confirmar Eliminación</h5>
+            						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            							<span aria-hidden="true">&times;</span>
+            						</button>
+            					</div>
+            					<div class="modal-body">
+            						<p>¿Estás seguro que deseas eliminar este accesorio?</p>
+            					</div>
+            					<div class="modal-footer">
+            						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            						<button type="button" class="btn btn-danger" id="delete-product-btn">Eliminar</button>
+            					</div>
+            				</div>
+            			</div>
+            		</div>
 
 
 
-
-                {% endfor %}
 
 
                 </div>
-
             </div>
 
             <!------main-content-end----------->
