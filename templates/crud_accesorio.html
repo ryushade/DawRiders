@@ -154,6 +154,7 @@
 
 
             <!------main-content-start----------->
+{% for producto in accesorios %}
 
             <div class="main-content">
                 <div class="row">
@@ -196,7 +197,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for producto in accesorios %}
                                     <tr>
                                         <td><input type="checkbox" id="checkbox{{producto[0]}}" name="option[]"
                                                 value="{{producto[0]}}">
@@ -226,7 +226,7 @@
                                 </tbody>
 
 
-                                <div class="modal fade" tabindex="-1"
+                                <div class="modal fade" tabindex="-1" id="editEmployeeModal{{producto[0]}}"
                                     role="dialog">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -324,7 +324,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                {% endfor %}
 
                             </table>
 
@@ -461,9 +460,11 @@
 
 
 
+                {% endfor %}
 
 
                 </div>
+
             </div>
 
             <!------main-content-end----------->
