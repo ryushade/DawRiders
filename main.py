@@ -304,7 +304,7 @@ def api_guardaradministrador():
         cliente_id = request.json["cliente_id"]
         fecha_asignacion = request.json["fecha_asignacion"]
 
-        idgenerado = controlador_administrador.insertar_administrador_api(cliente_id, fecha_asignacion)
+        idgenerado = controlador_administrador.insertar_administrador(cliente_id, fecha_asignacion)
 
         rpta["code"] = 1
         rpta["message"] = "Administrador registrado correctamente. "
@@ -398,7 +398,7 @@ def api_guardar_cliente():
         email = request.json["email"]
         contraseña = request.json["contraseña"]
         telefono = request.json["telefono"]
-        idgenerado = controlador_cliente.insertar_cliente_api(nombre, apellidos, email, contraseña, telefono)
+        idgenerado = controlador_cliente.insertar_cliente(nombre, apellidos, email, contraseña, telefono)
 
         rpta["code"] = 1
         rpta["message"] = "Cliente registrado correctamente."
