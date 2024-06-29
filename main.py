@@ -262,12 +262,9 @@ def guardar_cliente():
 
     epassword = sha256(contraseña.encode("utf-8")).hexdigest()
 
+    controlador_cliente.insertar_cliente(nombre, apellidos, email, epassword, telefono)
+    return redirect("/login")
 
-    if not controlador_cliente.insertar_cliente(nombre, apellidos, email, epassword, telefono):
-        flash('El email o teléfono ya está registrado. Por favor, intente con otros.', 'error')
-        return redirect(url_for('formulario_registro'))  # Asegúrate de redirigir al formulario de registro
-    else:
-        return redirect("/login")
 
 
 ########### APIS ADMINISTRADOR ############
