@@ -210,20 +210,25 @@
                                         <td>{{producto[13]}}</td>
                                         <td>
                                             <a href="{{ url_for('editar_productoA', id=producto[0] )}}" class="edit"
-                                               data-toggle="modal" data-target="#editEmployeeModal{{producto[0]}}">
-                                               <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                                data-toggle="modal" data-target="#editEmployeeModal{{producto[0]}}">
+                                                <i class="material-icons" data-toggle="tooltip"
+                                                    title="Edit">&#xE254;</i>
                                             </a>
-											<a href="javascript:void(0);" class="delete" data-toggle="modal"
-												data-target="#deleteConfirmationModal" data-id="{{ producto[0] }}">
-												<i class="material-icons" data-toggle="tooltip"
-													title="Delete">&#xE872;</i>
-											</a>
+                                            <a href="{{ url_for('eliminar_productoA') }}"
+                                                class="delete btn btn-danger btn-sm" data-toggle="modal"
+                                                data-target="#deleteConfirmationModal" data-id="{{ producto[0] }}"
+                                                onclick="return confirm('¿Seguro que desea eliminar el registro?')">
+                                                <i class="material-icons" data-toggle="tooltip"
+                                                    title="Delete">&#xE872;</i> Eliminar
+                                            </a>
+
 
                                         </td>
                                 </tbody>
 
 
-                                <div class="modal fade" id="editEmployeeModal{{ producto[0] }}" tabindex="-1" role="dialog">
+                                <div class="modal fade" id="editEmployeeModal{{ producto[0] }}" tabindex="-1"
+                                    role="dialog">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -431,25 +436,27 @@
                         </div>
                     </div>
 
-                <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Confirmar Eliminación</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>¿Estás seguro que deseas eliminar este accesorio?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-danger" id="delete-product-btn">Eliminar</button>
+                    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Estás seguro que deseas eliminar este accesorio?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-danger"
+                                        id="delete-product-btn">Eliminar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
 
 
@@ -497,33 +504,33 @@
     <script src="/static/js/jquery-3.3.1.min.js"></script>
 
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $(".xp-menubar").on('click', function () {
-            $("#sidebar").toggleClass('active');
-            $("#content").toggleClass('active');
-        });
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".xp-menubar").on('click', function () {
+                $("#sidebar").toggleClass('active');
+                $("#content").toggleClass('active');
+            });
 
-        $('#deleteConfirmationModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget); // Botón que activó el modal
-            var accessoryId = button.data('id'); // Extraer información de atributos data-*
-            var modal = $(this);
-            modal.find('#delete-product-btn').data('id', accessoryId);
-        });
+            $('#deleteConfirmationModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget); // Botón que activó el modal
+                var accessoryId = button.data('id'); // Extraer información de atributos data-*
+                var modal = $(this);
+                modal.find('#delete-product-btn').data('id', accessoryId);
+            });
 
-        $('#delete-product-btn').click(function () {
-            var accessoryId = $(this).data('id');
-            console.log("Deleting Accessory ID:", accessoryId); // Debugging
-            $.post('/eliminar_productoA', { id: accessoryId }, function (data) {
-                $('#deleteConfirmationModal').modal('hide'); // Ocultar modal
-                window.location.reload(); // Recarga la página para ver los cambios
-            }).fail(function (response) {
-                console.log("Failed to delete accessory:", response); // Error si falla
-                alert("Error al eliminar el accesorio.");
+            $('#delete-product-btn').click(function () {
+                var accessoryId = $(this).data('id');
+                console.log("Deleting Accessory ID:", accessoryId); // Debugging
+                $.post('/eliminar_productoA', { id: accessoryId }, function (data) {
+                    $('#deleteConfirmationModal').modal('hide'); // Ocultar modal
+                    window.location.reload(); // Recarga la página para ver los cambios
+                }).fail(function (response) {
+                    console.log("Failed to delete accessory:", response); // Error si falla
+                    alert("Error al eliminar el accesorio.");
+                });
             });
         });
-    });
-</script>
+    </script>
 
 
 
