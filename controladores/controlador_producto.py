@@ -9,6 +9,22 @@ def insertar_producto(descripcion, precio, stock, marca, modelo, color, imagen, 
     conexion.commit()
     conexion.close()
 
+def insertar_producto_api(descripcion, precio, stock, marca, modelo, color, imagen, idmoto, idaccesorio):
+    conexion = obtener_conexion()
+    id_generado = None  # Inicializa la variable para el ID generado
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute(
+                "INSERT INTO PRODUCTO(descripcion, precio, stock, marca, modelo, color, imagen, idmoto, idaccesorio) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                (descripcion, precio, stock, marca, modelo, color, imagen, idmoto, idaccesorio))
+            cursor.execute("SELECT LAST_INSERT_ID()")  # Consulta para obtener el último ID insertado
+            id_generado = cursor.fetchone()[0]  # Obtiene el ID generado de la fila resultante
+
+        conexion.commit()
+    finally:
+        conexion.close()
+    return id_generado  # Devuelve el ID generado
+
 def obtener_producto():
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:

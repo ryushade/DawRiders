@@ -1170,7 +1170,7 @@ def api_guardar_producto():
         imagen = request.json["imagen"]
         idMoto = request.json["idMoto"]
         idAccesorio = request.json["idAccesorio"]
-        idgenerado = controlador_producto.insertar_producto(descripcion, precio, stock, marca, modelo, color, imagen, idMoto, idAccesorio)
+        idgenerado = controlador_producto.insertar_producto_api(descripcion, precio, stock, marca, modelo, color, imagen, idMoto, idAccesorio)
 
         rpta["code"] = 1
         rpta["message"] = "Producto registrado correctamente."
@@ -1348,7 +1348,7 @@ def actualizar_productoAcc():
 
     controlador_moto.actualizar_accesorio(codaccesorio, tipo, material, idAccesorio)
     controlador_producto.actualizar_producto(descripcion, precio, stock, marca, modelo, color, imagen, None, idAccesorio, idProducto)
-    return redirect("/crud_accesorio")
+    return redirect("/crud_producto")
 
 
 @app.route("/formulario_editar_productoM/<int:id>")
