@@ -214,15 +214,10 @@
                                                 <i class="material-icons" data-toggle="tooltip"
                                                     title="Edit">&#xE254;</i>
                                             </a>
-                                            <form action="{{ url_for('eliminar_productoA') }}" method="POST"
-                                                onsubmit="return confirm('¿Seguro que desea eliminar el registro?')">
-                                                <input type="hidden" name="id" value="{{ producto[0] }}">
-                                                <button type="submit" class="btn btn-danger btn-sm">
-                                                    <i class="material-icons" title="Delete">&#xE872;</i> Eliminar
-                                                </button>
-                                            </form>
-
-
+                                            <a href="#" class="btn btn-danger btn-sm" data-toggle="modal"
+                                                data-target="#deleteConfirmationModal" data-id="{{ producto[0] }}">
+                                                <i class="material-icons" title="Delete">&#xE872;</i> Eliminar
+                                            </a>
 
 
                                         </td>
@@ -438,7 +433,27 @@
                         </div>
                     </div>
 
-
+                    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Confirmar Eliminación</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Estás seguro que deseas eliminar este accesorio?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-danger"
+                                        id="delete-product-btn">Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
 
@@ -514,9 +529,31 @@
         });
     </script>
 
+    <script>
+        $(document).ready(function () {
+            $('#delete-product-btn').click(function () {
+                var productId = $('#deleteConfirmationModal').data('id');
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url_for('eliminar_productoA') }}",
+                    data: { id: productId },
+                    success: function (response) {
+                        window.location.reload(); // Recarga la página para reflejar los cambios
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error al eliminar: " + error);
+                    }
+                });
+            });
 
-
-
+            // Para pasar el ID del producto al modal
+            $('#deleteConfirmationModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget); // Botón que activó el modal
+                var id = button.data('id'); // Extraer información de atributos de datos
+                $(this).data('id', id); // Actualizar el data-id del modal
+            });
+        });
+    </script>
 
 
 
