@@ -280,12 +280,6 @@ def guardar_clienteC():
 
     # Cifrado de contraseña
     epassword = sha256(contraseña.encode("utf-8")).hexdigest()
-
-    # Verificar si el correo ya está registrado
-    if controlador_cliente.correo_registrado(email):
-        flash('El correo electrónico ya está registrado. Por favor, intente con otro.', 'error')
-        return redirect("/crud_cliente")
-
     # Intentar insertar el cliente nuevo
     if not controlador_cliente.insertar_cliente(nombre, apellidos, email, epassword, telefono):
         flash('El teléfono ya está registrado. Por favor, intente con otro.', 'error')
