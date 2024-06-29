@@ -1308,6 +1308,7 @@ def eliminar_productoA():
         print(f"Error al eliminar el accesorio: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
+
 @app.route("/pago")
 def formulario_pago():
     if 'user_id' not in session:

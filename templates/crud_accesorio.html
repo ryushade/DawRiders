@@ -214,11 +214,14 @@
                                                 <i class="material-icons" data-toggle="tooltip"
                                                     title="Edit">&#xE254;</i>
                                             </a>
-                                            <a href="{{ url_for('eliminar_productoA') }}" class="btn btn-danger btn-sm"
-                                                data-id="{{ producto[0] }}"
-                                                onclick="return confirm('¿Seguro que desea eliminar el registro?')">
-                                                <i class="material-icons" title="Delete">&#xE872;</i> Eliminar
-                                            </a>
+                                            <form action="{{ url_for('eliminar_productoA') }}" method="POST"
+                                                onsubmit="return confirm('¿Seguro que desea eliminar el registro?')">
+                                                <input type="hidden" name="id" value="{{ producto[0] }}">
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    <i class="material-icons" title="Delete">&#xE872;</i> Eliminar
+                                                </button>
+                                            </form>
+
 
 
 
