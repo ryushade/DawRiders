@@ -215,7 +215,7 @@
                                         <a href="{{ url_for('editar_productoA', id=producto[0] )}}" class="edit" data-toggle="modal" data-target="#editEmployeeModal{{producto[0]}}">
                                             <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                         </a>
-                                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+                                        <a href="{{url_for('eliminar_productoA', id=producto[0])}}" class="delete" data-toggle="modal" data-target="#deleteEmployeeModal{{producto[0]}}">
                                             <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
                                         </a>
                                 </tbody>
@@ -440,11 +440,11 @@
 
 
                     <!----delete-modal start--------->
-                    <div class="modal fade" tabindex="-1" id="deleteEmployeeModal" role="dialog">
+                    <div class="modal fade" tabindex="-1" id="deleteEmployeeModal{{producto[0]}}" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Eliminar moto</h5>
+                                    <h5 class="modal-title">Eliminar accesorio</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
