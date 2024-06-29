@@ -503,33 +503,6 @@
     <script src="/static/js/jquery-3.3.1.min.js"></script>
 
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(".xp-menubar").on('click', function () {
-                $("#sidebar").toggleClass('active');
-                $("#content").toggleClass('active');
-            });
-
-            $('#deleteConfirmationModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget); // Botón que activó el modal
-                var accessoryId = button.data('id'); // Extraer información de atributos data-*
-                var modal = $(this);
-                modal.find('#delete-product-btn').data('id', accessoryId);
-            });
-
-            $('#delete-product-btn').click(function () {
-                var accessoryId = $(this).data('id');
-                console.log("Deleting Accessory ID:", accessoryId); // Debugging
-                $.post('/eliminar_productoA', { id: accessoryId }, function (data) {
-                    $('#deleteConfirmationModal').modal('hide'); // Ocultar modal
-                    window.location.reload(); // Recarga la página para ver los cambios
-                }).fail(function (response) {
-                    console.log("Failed to delete accessory:", response); // Error si falla
-                    alert("Error al eliminar el accesorio.");
-                });
-            });
-        });
-    </script>
 
     <script>
         $(document).ready(function () {
