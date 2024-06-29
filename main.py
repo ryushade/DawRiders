@@ -1348,7 +1348,7 @@ def actualizar_productoAcc():
 
     controlador_moto.actualizar_accesorio(codaccesorio, tipo, material, idAccesorio)
     controlador_producto.actualizar_producto(descripcion, precio, stock, marca, modelo, color, imagen, None, idAccesorio, idProducto)
-    return redirect("/crud_producto")
+    return redirect("/crud_accesorio")
 
 
 @app.route("/formulario_editar_productoM/<int:id>")
