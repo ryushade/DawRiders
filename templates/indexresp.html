@@ -81,7 +81,7 @@
                     perduran en el tiempo.
                 </p>
 
-                <a href="#" class="button">Conocer más</a>
+                <a href="{{url_for('nosotros')}}" class="button">Conocer más</a>
             </div>
         </div>
     </section>
@@ -117,7 +117,9 @@
                     <h3 class="popular__price">S/.17,900</h3>
 
                     <button class="button popular__button">
-                        <i class="ri-shopping-bag-2-line"></i>
+                        <a href="{{url_for('formulario_detalle_categoria')}}">
+                            <i class="ri-shopping-bag-2-line"></i>
+                        </a>
                     </button>
                 </article>
 
@@ -144,7 +146,10 @@
                     <h3 class="popular__price">S/.14,900</h3>
 
                     <button class="button popular__button">
-                        <i class="ri-shopping-bag-2-line"></i>
+                        <a href="{{url_for('formulario_detalle_categoria')}}">
+                            <i class="ri-shopping-bag-2-line"></i>
+                        </a>
+                        
                     </button>
                 </article>
 
@@ -171,7 +176,9 @@
                     <h3 class="popular__price">S/.19,900</h3>
 
                     <button class="button popular__button">
-                        <i class="ri-shopping-bag-2-line"></i>
+                        <a href="{{url_for('formulario_detalle_categoria')}}">
+                            <i class="ri-shopping-bag-2-line"></i>
+                        </a>
                     </button>
                 </article>
 
@@ -198,7 +205,10 @@
                     <h3 class="popular__price">S/. 20,900</h3>
 
                     <button class="button popular__button">
-                        <i class="ri-shopping-bag-2-line"></i>
+                        <a href="{{url_for('formulario_detalle_categoria')}}">
+
+                            <i class="ri-shopping-bag-2-line"></i>
+                        </a>
                     </button>
                 </article>
 
@@ -225,7 +235,9 @@
                     <h3 class="popular__price">S/. 18,900</h3>
 
                     <button class="button popular__button">
+                        <a href="{{url_for('formulario_detalle_categoria')}}">
                         <i class="ri-shopping-bag-2-line"></i>
+                        </a>
                     </button>
                 </article>
             </div>
@@ -345,114 +357,114 @@
         </div>
     </section>
 
-        <!--==================== FEATURED ====================-->
-        <section class="featured section" id="featured">
-            <h2 class="section__title">
-                Motos más destacadas
-            </h2>
-    
-            <div class="featured__container container">
-                <ul class="featured__filters">
-                    <li>
-                        <button class="featured__item active-featured" data-filter="all">
-                            <span>All</span>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="featured__item" data-filter=".tesla">
-                            <img src="/static/img/ktm.png" alt="" width="128" height="128">
-                        </button>
-                    </li>
-                    <li>
-                        <button class="featured__item" data-filter=".audi">
-                            <img src="/static/img/kawasakilogo.png" alt="" width="128" height="128">
-                        </button>
-                    </li>
-                    <li>
-                        <button class="featured__item" data-filter=".porsche">
-                            <img src="/static/img/ducati.png" alt="" width="128" height="128">
-                        </button>
-                    </li>
-                </ul>
-    
-                <div class="featured__content grid">
-                    <article class="featured__card mix tesla">
-                        <div class="shape shape__smaller"></div>
-    
-                        <h1 class="featured__title">KTM</h1>
-                        <h3 class="featured__subtitle">Duke 390</h3>
-    
-                        <img src="/static/img/duke390.webp" alt="" class="featured__img">
-    
-                        <h3 class="featured__price">S/. 19,900</h3>
-    
-                        <button class="button featured__button">
-                            <i class="ri-shopping-bag-2-line"></i>
-                        </button>
-                    </article>
-    
-                    <article class="featured__card mix tesla">
-                        <div class="shape shape__smaller"></div>
-    
-                        <h1 class="featured__title">KTM</h1>
-                        <h3 class="featured__subtitle">DUKE 200</h3>
-    
-                        <img src="/static/img/duke200.png" alt="" class="featured__img">
-    
-                        <h3 class="featured__price">S/. 17,900 </h3>
-    
-                        <button class="button featured__button">
-                            <i class="ri-shopping-bag-2-line"></i>
-                        </button>
-                    </article>
-    
-                    <article class="featured__card mix audi">
-                        <div class="shape shape__smaller"></div>
-    
-                        <h1 class="featured__title">Kawasaki</h1>
-                        <h3 class="featured__subtitle">Ninja 400</h3>
-    
-                        <img src="/static/img/ninja400.png" alt="" class="featured__img">
-    
-                        <h3 class="featured__price">S/. 20,900</h3>
-    
-                        <button class="button featured__button">
-                            <i class="ri-shopping-bag-2-line"></i>
-                        </button>
-                    </article>
-    
-                    <article class="featured__card mix porsche">
-                        <div class="shape shape__smaller"></div>
-    
-                        <h1 class="featured__title">Ducati</h1>
-                        <h3 class="featured__subtitle">Panigale V4</h3>
-    
-                        <img src="/static/img/panigalev4.png" alt="" class="featured__img">
-    
-                        <h3 class="featured__price">S/. 20,000</h3>
-    
-                        <button class="button featured__button">
-                            <i class="ri-shopping-bag-2-line"></i>
-                        </button>
-                    </article>
-    
-                    <article class="featured__card mix porsche">
-                        <div class="shape shape__smaller"></div>
-    
-                        <h1 class="featured__title">Ducati</h1>
-                        <h3 class="featured__subtitle">Monster</h3>
-    
-                        <img src="/static/img/ducatimonster.png" alt="" class="featured__img">
-    
-                        <h3 class="featured__price">S/. 18,000</h3>
-    
-                        <button class="button featured__button">
-                            <i class="ri-shopping-bag-2-line"></i>
-                        </button>
-                    </article>
-                </div>
+    <!--==================== FEATURED ====================-->
+    <section class="featured section" id="featured">
+        <h2 class="section__title">
+            Motos más destacadas
+        </h2>
+
+        <div class="featured__container container">
+            <ul class="featured__filters">
+                <li>
+                    <button class="featured__item active-featured" data-filter="all">
+                        <span>All</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="featured__item" data-filter=".tesla">
+                        <img src="/static/img/ktm.png" alt="" width="128" height="128">
+                    </button>
+                </li>
+                <li>
+                    <button class="featured__item" data-filter=".audi">
+                        <img src="/static/img/kawasakilogo.png" alt="" width="128" height="128">
+                    </button>
+                </li>
+                <li>
+                    <button class="featured__item" data-filter=".porsche">
+                        <img src="/static/img/ducati.png" alt="" width="128" height="128">
+                    </button>
+                </li>
+            </ul>
+
+            <div class="featured__content grid">
+                <article class="featured__card mix tesla">
+                    <div class="shape shape__smaller"></div>
+
+                    <h1 class="featured__title">KTM</h1>
+                    <h3 class="featured__subtitle">Duke 390</h3>
+
+                    <img src="/static/img/duke390.webp" alt="" class="featured__img">
+
+                    <h3 class="featured__price">S/. 19,900</h3>
+
+                    <button class="button featured__button">
+                        <i class="ri-shopping-bag-2-line"></i>
+                    </button>
+                </article>
+
+                <article class="featured__card mix tesla">
+                    <div class="shape shape__smaller"></div>
+
+                    <h1 class="featured__title">KTM</h1>
+                    <h3 class="featured__subtitle">DUKE 200</h3>
+
+                    <img src="/static/img/duke200.png" alt="" class="featured__img">
+
+                    <h3 class="featured__price">S/. 17,900 </h3>
+
+                    <button class="button featured__button">
+                        <i class="ri-shopping-bag-2-line"></i>
+                    </button>
+                </article>
+
+                <article class="featured__card mix audi">
+                    <div class="shape shape__smaller"></div>
+
+                    <h1 class="featured__title">Kawasaki</h1>
+                    <h3 class="featured__subtitle">Ninja 400</h3>
+
+                    <img src="/static/img/ninja400.png" alt="" class="featured__img">
+
+                    <h3 class="featured__price">S/. 20,900</h3>
+
+                    <button class="button featured__button">
+                        <i class="ri-shopping-bag-2-line"></i>
+                    </button>
+                </article>
+
+                <article class="featured__card mix porsche">
+                    <div class="shape shape__smaller"></div>
+
+                    <h1 class="featured__title">Ducati</h1>
+                    <h3 class="featured__subtitle">Panigale V4</h3>
+
+                    <img src="/static/img/panigalev4.png" alt="" class="featured__img">
+
+                    <h3 class="featured__price">S/. 20,000</h3>
+
+                    <button class="button featured__button">
+                        <i class="ri-shopping-bag-2-line"></i>
+                    </button>
+                </article>
+
+                <article class="featured__card mix porsche">
+                    <div class="shape shape__smaller"></div>
+
+                    <h1 class="featured__title">Ducati</h1>
+                    <h3 class="featured__subtitle">Monster</h3>
+
+                    <img src="/static/img/ducatimonster.png" alt="" class="featured__img">
+
+                    <h3 class="featured__price">S/. 18,000</h3>
+
+                    <button class="button featured__button">
+                        <i class="ri-shopping-bag-2-line"></i>
+                    </button>
+                </article>
             </div>
-        </section>
+        </div>
+    </section>
     <!--==================== OFFER ====================-->
     <section class="offer section">
         <div class="offer__container container grid">
