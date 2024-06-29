@@ -4,8 +4,8 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1, shrink-to-fit=no, minimum-scale=1, maximum-scale=1">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no, minimum-scale=1, maximum-scale=1">
     <title>CicloRiders CRUD</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
@@ -198,7 +198,8 @@
                                 <tbody>
                                     {% for producto in accesorios %}
                                     <tr>
-                                        <td><input type="checkbox" id="checkbox{{producto[0]}}" name="option[]" value="{{producto[0]}}">
+                                        <td><input type="checkbox" id="checkbox{{producto[0]}}" name="option[]"
+                                                value="{{producto[0]}}">
                                             <label for="checkbox{{producto[0]}}"></label>
                                         </td>
                                         <td>{{producto[11]}}</td>
@@ -212,16 +213,21 @@
                                         <td>{{producto[12]}}</td>
                                         <td>{{producto[13]}}</td>
                                         <td>
-                                        <a href="{{ url_for('editar_productoA', id=producto[0] )}}" class="edit" data-toggle="modal" data-target="#editEmployeeModal{{producto[0]}}">
-                                            <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                                        </a>
-                                        <a href="{{url_for('eliminar_productoA', id=producto[0])}}" class="delete" data-toggle="modal" data-target="#deleteEmployeeModal{{producto[0]}}">
-                                            <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                                        </a>
+                                            <a href="{{ url_for('editar_productoA', id=producto[0] )}}" class="edit"
+                                                data-toggle="modal" data-target="#editEmployeeModal{{producto[0]}}">
+                                                <i class="material-icons" data-toggle="tooltip"
+                                                    title="Edit">&#xE254;</i>
+                                            </a>
+                                            <a href="{{url_for('eliminar_productoA', id=producto[0])}}" class="delete"
+                                                data-toggle="modal" data-target="#deleteEmployeeModal{{producto[0]}}">
+                                                <i class="material-icons" data-toggle="tooltip"
+                                                    title="Delete">&#xE872;</i>
+                                            </a>
                                 </tbody>
 
 
-                                <div class="modal fade" tabindex="-1" id="editEmployeeModal{{producto[0]}}" role="dialog">
+                                <div class="modal fade" tabindex="-1" id="editEmployeeModal{{producto[0]}}"
+                                    role="dialog">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -232,86 +238,89 @@
                                                 </button>
                                             </div>
                                             <form method="post" action="{{url_for('actualizar_productoAcc')}}">
-												<div class="modal-body">
-													<input type="hidden" name="idProducto" value="{{producto[0]}}">
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="idProducto" value="{{producto[0]}}">
 
                                                     <div class="row">
-														<div class="form-group">
-															<label>Cod. Accesorio</label>
-															<input type="text" class="form-control" value="{{producto[1]}}" name="descripcion" required>
-														</div>
+                                                        <div class="form-group">
+                                                            <label>Cod. Accesorio</label>
+                                                            <input type="text" class="form-control"
+                                                                value="{{producto[1]}}" name="descripcion" required>
+                                                        </div>
                                                     </div>
 
-													<div class="row">
-														<!-- Descripción, Marca, Modelo -->
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Descripción</label>
-																<input type="text" class="form-control"
-																	value="{{producto[1]}}" name="descripcion" required>
-															</div>
-															<div class="form-group">
-																<label>Marca</label>
-																<input type="text" class="form-control"
-																	value="{{producto[4]}}" name="marca" required>
-															</div>
-															<div class="form-group">
-																<label>Modelo</label>
-																<input type="text" class="form-control"
-																	value="{{producto[5]}}" name="modelo" required>
-															</div>
-														</div>
+                                                    <div class="row">
+                                                        <!-- Descripción, Marca, Modelo -->
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label>Descripción</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{producto[1]}}" name="descripcion" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Marca</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{producto[4]}}" name="marca" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Modelo</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{producto[5]}}" name="modelo" required>
+                                                            </div>
+                                                        </div>
 
-														<!-- Precio, Stock, Color -->
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Precio</label>
-																<input type="number" step="0.01" class="form-control"
-																	value="{{producto[2]}}" name="precio" required>
-															</div>
-															<div class="form-group">
-																<label>Stock</label>
-																<input type="number" class="form-control"
-																	value="{{producto[3]}}" name="stock" required>
-															</div>
-															<div class="form-group">
-																<label>Color</label>
-																<input type="text" class="form-control"
-																	value="{{producto[6]}}" name="color" required>
-															</div>
-														</div>
+                                                        <!-- Precio, Stock, Color -->
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label>Precio</label>
+                                                                <input type="number" step="0.01" class="form-control"
+                                                                    value="{{producto[2]}}" name="precio" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Stock</label>
+                                                                <input type="number" class="form-control"
+                                                                    value="{{producto[3]}}" name="stock" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Color</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{producto[6]}}" name="color" required>
+                                                            </div>
+                                                        </div>
 
-														<!-- Imagen y Codigo de Moto -->
-														<div class="col-md-4">
-															<div class="form-group">
-																<label>Imagen</label>
-																<input type="text" class="form-control"
-																	value="{{producto[7]}}" name="imagen" required>
-															</div>
-														</div>
-													</div>
+                                                        <!-- Imagen y Codigo de Moto -->
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label>Imagen</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{producto[7]}}" name="imagen" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-													<!-- Tipo de Moto -->
-													<div class="form-group">
-														<label>Tipo de Accesorio</label>
-														<input type="text" class="form-control" value="{{producto[12]}}"
-															name="tipo">
-													</div>
+                                                    <!-- Tipo de Moto -->
+                                                    <div class="form-group">
+                                                        <label>Tipo de Accesorio</label>
+                                                        <input type="text" class="form-control" value="{{producto[12]}}"
+                                                            name="tipo">
+                                                    </div>
 
-													<!-- Posición de Manejo -->
-													<div class="form-group">
-														<label>Material</label>
-														<input type="text" class="form-control" value="{{producto[13]}}"
-															name="material">
-													</div>
+                                                    <!-- Posición de Manejo -->
+                                                    <div class="form-group">
+                                                        <label>Material</label>
+                                                        <input type="text" class="form-control" value="{{producto[13]}}"
+                                                            name="material">
+                                                    </div>
 
-													<div class="form-group">
-														<div class="modal-footer">
-															<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-															<button type="submit" href="{{url_for('crud_accesorio')}}" class="btn btn-primary">Guardar Cambios</button>
-														</div>
-													</div>
-											</form>
+                                                    <div class="form-group">
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Cancelar</button>
+                                                            <button type="submit" href="{{url_for('crud_accesorio')}}"
+                                                                class="btn btn-primary">Guardar Cambios</button>
+                                                        </div>
+                                                    </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -426,8 +435,8 @@
                         </div>
                     </div>
 
-                    <!----delete-modal start--------->
-                    <div class="modal fade" tabindex="-1" id="editEmployeeModal{{producto[0]}}" role="dialog">
+                    <div class="modal fade" id="deleteEmployeeModal{{producto[0]}}" tabindex="-1" role="dialog">
+                        <!-- Corregido -->
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -437,8 +446,8 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>¿Estas seguro que quieres eliminarlo?</p>
-                                    <p class="text-warning"><small>Esta acción no se puede deshacer,</small></p>
+                                    <p>¿Estás seguro que quieres eliminarlo?</p>
+                                    <p class="text-warning"><small>Esta acción no se puede deshacer.</small></p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -448,6 +457,7 @@
                             </div>
                         </div>
                     </div>
+
 
 
 
