@@ -215,7 +215,7 @@
                                                     title="Edit">&#xE254;</i>
                                             </a>
                                             <a href="{{url_for('eliminar_productoA, id=producto[0]')}}" class="delete"
-                                                data-toggle="modal" data-target="#deleteConfirmationModal"
+                                                data-toggle="modal" data-target="#deleteConfirmationModal{{producto[0]}}"
                                                 data-id="{{ producto[0] }}">
                                                 <i class="material-icons" data-toggle="tooltip"
                                                     title="Delete">&#xE872;</i>
@@ -435,7 +435,7 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog">
+                    <div class="modal fade" id="deleteConfirmationModal{{producto[0]}}" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
