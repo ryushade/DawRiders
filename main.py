@@ -266,7 +266,8 @@ def guardar_cliente():
     if not controlador_cliente.insertar_cliente(nombre, apellidos, email, epassword, telefono):
         flash('El email o teléfono ya está registrado. Por favor, intente con otros.', 'error')
         return redirect(url_for('formulario_registro'))  # Asegúrate de redirigir al formulario de registro
-    return redirect("/login")
+    else:
+        return redirect("/login")
 
 
 ########### APIS ADMINISTRADOR ############
