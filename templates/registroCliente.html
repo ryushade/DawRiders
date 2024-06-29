@@ -194,8 +194,12 @@
                         <div class="input-group flex-nowrap py-2">
                             <span class="input-group-text" id="addon-wrapping"><i class="fa-regular fa-envelope fa-xl"></i></span>
                             <input type="email" class="form-control" placeholder="Email" aria-label="Email"
-                                aria-describedby="addon-wrapping" id="email" name="email" required>
+                                aria-describedby="addon-wrapping" id="email" name="email" value="{{ form_data['email'] if form_data else '' }}" required>
                         </div>
+                        {% if error_msg %}
+                        <div style="color: red;">{{ error_msg }}</div>
+                        {% endif %}
+                
                         <div class="input-group flex-nowrap py-2">
                             <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-lock fa-xl"></i></span>
                             <input type="password" class="form-control" placeholder="Password" aria-label="Password"
