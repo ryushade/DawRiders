@@ -1,6 +1,6 @@
 class clsVenta:
-    def __init__(self, p_id, p_nombre, p_apellidos, p_pais, p_direccion, p_region, p_localidad, p_telefono, p_correo, p_mes, p_anio, p_cvv, p_numtarjeta, p_idProducto, p_monto_final, p_num_venta, p_idCliente, p_cantidad):
-        self.id = p_id
+    def __init__(self, p_idVenta1, p_nombre, p_apellidos, p_pais, p_direccion, p_region, p_localidad, p_telefono, p_correo, p_mes, p_anio, p_cvv, p_numtarjeta, p_idProducto, p_monto_final, p_num_venta, p_idCliente, p_cantidad, p_fechaVenta):
+        self.idVenta1 = p_idVenta1
         self.nombre = p_nombre
         self.apellidos = p_apellidos
         self.pais = p_pais
@@ -10,7 +10,7 @@ class clsVenta:
         self.telefono = p_telefono
         self.correo = p_correo
         self.mes = p_mes
-        self.anio = p_anio  # Cambiado de 'año' a 'anio'
+        self.anio = p_anio
         self.cvv = p_cvv
         self.numtarjeta = p_numtarjeta
         self.idProducto = p_idProducto
@@ -18,9 +18,10 @@ class clsVenta:
         self.num_venta = p_num_venta
         self.idCliente = p_idCliente
         self.cantidad = p_cantidad
+        self.fechaVenta = p_fechaVenta
 
         self.diccVenta = {
-            "id": p_id,
+            "idVenta1": p_idVenta1,
             "nombre": p_nombre,
             "apellidos": p_apellidos,
             "pais": p_pais,
@@ -30,12 +31,13 @@ class clsVenta:
             "telefono": p_telefono,
             "correo": p_correo,
             "mes": p_mes,
-            "anio": p_anio,  # Cambiado de 'año' a 'anio'
+            "anio": p_anio,
             "cvv": p_cvv,
             "numtarjeta": p_numtarjeta,
             "idProducto": p_idProducto,
             "monto_final": p_monto_final,
             "num_venta": p_num_venta,
             "idCliente": p_idCliente,
-            "cantidad": p_cantidad
+            "cantidad": p_cantidad,
+            "fechaVenta": p_fechaVenta
         }

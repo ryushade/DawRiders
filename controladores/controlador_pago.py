@@ -105,14 +105,22 @@ def obtener_ventas_por_cliente(id_cliente):
 
 ###### APIS
 
-def api_insertar_venta(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, anio, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad):
+def api_insertar_venta(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, anio, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad, fechaVenta=None):
     conexion = obtener_conexion()
-    with conexion.cursor() as cursor:
-        cursor.execute(
-            "INSERT INTO VENTA1(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-            (nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, anio, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad))
-    conexion.commit()
-    conexion.close()
+    id_generado = None
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute(
+                "INSERT INTO VENTA1(nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad, fechaVenta) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                (nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, anio, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad, fechaVenta if fechaVenta else datetime.now()))
+            cursor.execute("SELECT LAST_INSERT_ID()")
+            id_generado = cursor.fetchone()[0]
+        conexion.commit()
+    finally:
+        conexion.close()
+    return id_generado
+
+
 
 def api_editar_venta(id, nombre, apellidos, pais, direccion, region, localidad, telefono, correo, mes, anio, cvv, numtarjeta, idProducto, monto_final, num_venta, idCliente, cantidad):
     conexion = obtener_conexion()
