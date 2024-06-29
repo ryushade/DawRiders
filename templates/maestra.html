@@ -73,7 +73,7 @@
                             <i class="fa-regular fa-user fa-2x" style="color: white;"></i>
                         </a>
                     </li>
-                    {% if session.user_role == 'admin' %}
+                    {% if session.get('is_admin') %}
                     <li class="nav__item">
                         <a href="{{ url_for('crud_producto') }}" class="nav__link">Administrador</a>
                     </li>
