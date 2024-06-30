@@ -155,8 +155,12 @@ def eliminar_cliente():
 
 @app.route("/crud_cliente")
 def crud_cliente():
-    clientes = controlador_cliente.obtener_clientes()
-    return render_template("crud_cliente.html", clientes=clientes)
+    if 'user_id' in session and session.get('is_admin', False):
+        clientes = controlador_cliente.obtener_clientes()
+        return render_template("crud_cliente.html", clientes=clientes)
+    else:
+        flash("Acceso denegado. Debe ser administrador para acceder a esta página.", "admin_error")
+        return redirect(url_for("formulario_login_cliente"))
 
 @app.route("/actualizar_cliente", methods=['POST'])
 def actualizar_cliente():
@@ -239,7 +243,7 @@ def procesar_login():
 
         return resp
     else:
-        flash('Error al logearse. Intente nuevamente', 'error')
+        flash('Credenciales incorrectas. Verifique su usuario o contraseña', 'error')
         return render_template("login.html")
 
 
@@ -262,12 +266,13 @@ def guardar_cliente():
 
     epassword = sha256(contraseña.encode("utf-8")).hexdigest()
 
-
     if not controlador_cliente.insertar_cliente(nombre, apellidos, email, epassword, telefono):
-        flash('El email o teléfono ya está registrado. Por favor, intente con otros.', 'error')
-        return redirect(url_for('formulario_registro'))  # Asegúrate de redirigir al formulario de registro
+        flash('El email o teléfono ya está registrado. Por favor, intente con otro.', 'error')
+        return redirect(url_for('formulario_registrar_cliente'))
     else:
+        flash('Usuario registrado correctamente.', 'success')
         return redirect("/login")
+
 
 
 @app.route("/guardar_clienteC", methods=["POST"])
@@ -654,7 +659,7 @@ def crud_producto():
         productosm = controlador_producto.obtener_moto_producto()
         return render_template("crud_producto.html", productosm=productosm)
     else:
-        flash("Acceso denegado. Debe ser administrador para acceder a esta página.", "error")
+        flash("Acceso denegado. Debe ser administrador para acceder a esta página.", "admin_error")
         return redirect(url_for("formulario_login_cliente"))
 
 
@@ -697,8 +702,12 @@ def guardar_accesorio():
 
 @app.route("/crud_accesorio")
 def crud_accesorio():
-    accesorios = controlador_producto.obtener_accesorio_producto()
-    return render_template("crud_accesorio.html", accesorios=accesorios)
+    if 'user_id' in session and session.get('is_admin', False):
+        accesorios = controlador_producto.obtener_accesorio_producto()
+        return render_template("crud_accesorio.html", accesorios=accesorios)
+    else:
+        flash("Acceso denegado. Debe ser administrador para acceder a esta página.", "admin_error")
+        return redirect(url_for("formulario_login_cliente"))
 
 @app.route("/eliminar_accesorio", methods=["POST"])
 def eliminar_accesorio():
@@ -717,8 +726,7 @@ def api_obtener_accesorios():
 
         for accesorio in accesorios:
 
-            objAccesorio = clsAccesorio(accesorio[0], accesorio[1], accesorio[2],
-                              accesorio[3])
+            objAccesorio = clsAccesorio(accesorio[0], accesorio[1], accesorio[2], accesorio[3])
             listaaccesorios.append(objAccesorio.diccaccesorio)
 
         rpta["code"] = 1
