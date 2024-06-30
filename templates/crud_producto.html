@@ -690,6 +690,21 @@
 		});
 	</script>
 
+	<script>
+		$(document).ready(function () {
+			// Cuando se abre el modal de confirmación, cierra el modal de agregar productos
+			$('#confirmModal').on('show.bs.modal', function () {
+				$('#addProductModal').modal('hide');
+			});
+
+			// Opcional: cuando se cierra el modal de confirmación, abre el modal de agregar productos
+			$('#confirmModal').on('hidden.bs.modal', function () {
+				$('#addProductModal').modal('show');
+			});
+		});
+
+	</script>
+
 
 
 

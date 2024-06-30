@@ -22,6 +22,9 @@ body,html{
 .icon-button:hover i.material-icons {
     color: darkred;  /* Color al pasar el mouse sobre el ícono */
 }
+#confirmModal .modal-dialog {
+    z-index: 1060; /* Mayor que el z-index del otro modal */
+}
 
 
 /*==========================================================
