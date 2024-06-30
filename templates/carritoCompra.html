@@ -242,22 +242,6 @@ Iniciar Sesión
                                 <th scope="col">Eliminar</th>
                             </tr>
                         </thead>
-                        <tbody id="detalle">
-                            {% for item in items %}
-                            <tr>
-                                <td><img src="../static/img/{{ item[1] }}" alt="{{ item[2] }}" width="90" height="60">
-                                </td>
-                                <td>{{ item[2] }}</td>
-                                <td>{{ item[3] }}</td>
-                                <td>{{ item[4] }}</td>
-                                <td class="subtotal">{{ item[5] }}</td>
-                                <td><button class="btn btn-danger eliminar-item" data-id="{{ item[6] }}"
-                                        data-toggle="modal" data-target="#confirmModal">X</button>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-
                         <div id="confirmModal" class="modal fade" tabindex="-1" role="dialog">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -279,6 +263,23 @@ Iniciar Sesión
                                 </div>
                             </div>
                         </div>
+                        <tbody id="detalle">
+                            {% for item in items %}
+                            <tr>
+                                <td><img src="../static/img/{{ item[1] }}" alt="{{ item[2] }}" width="90" height="60">
+                                </td>
+                                <td>{{ item[2] }}</td>
+                                <td>{{ item[3] }}</td>
+                                <td>{{ item[4] }}</td>
+                                <td class="subtotal">{{ item[5] }}</td>
+                                <td><button class="btn btn-danger eliminar-item" data-id="{{ item[6] }}"
+                                        data-toggle="modal" data-target="#confirmModal">X</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                        
 
                     </table>
                 </div>
