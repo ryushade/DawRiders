@@ -293,11 +293,7 @@ Iniciar Sesión
                     <input type="hidden" name="precio" value="{{ producto[2] }}">
                     <div class="cantidad-section">
                         <label for="quantity"><strong>Cantidad:</strong></label>
-                        <button class="counter-btn decrement" onclick="changeQuantity(-1)"><ion-icon
-                                name="remove"></ion-icon></button>
-                        <span id="quantity">1</span>
-                        <button class="counter-btn increment" onclick="changeQuantity(1)"><ion-icon
-                                name="add"></ion-icon></button>
+                        <input type="number" name="quantity" id="quantity" value="1" min="1" max="{{ producto[3] }}">
                     </div>
 
                     <input type="hidden" name="nombre" value="{{ producto[5] }}">
@@ -569,25 +565,6 @@ Iniciar Sesión
     } else {
         document.getElementById('addToCartForm').submit();
     }
-    }
-</script>
-
-
-<script>
-    function changeQuantity(change) {
-        var quantityElement = document.getElementById('quantity');
-        var currentQuantity = parseInt(quantityElement.textContent);
-        var newQuantity = currentQuantity + change;
-
-        // Asegúrate de que el nuevo valor esté dentro de los límites permitidos
-        newQuantity = Math.max(1, newQuantity); // Aquí asumimos que el mínimo es 1
-        newQuantity = Math.min(newQuantity, producto[3]); // Asume que tienes una variable global `producto` con el stock disponible
-
-        quantityElement.textContent = newQuantity;
-    }
-
-    function redirectToLogin() {
-        window.location.href = "{{ url_for('formulario_login_cliente') }}";
     }
 
     function showStockMessage(message) {
