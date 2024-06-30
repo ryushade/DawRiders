@@ -149,6 +149,23 @@ function togglePasswordVisibility() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    const quantityInput = document.getElementById('quantity');
+    const minusButton = document.querySelector('[data-qty-minus]');
+    const plusButton = document.querySelector('[data-qty-plus]');
+
+    minusButton.addEventListener('click', function () {
+        if (parseInt(quantityInput.value) > parseInt(quantityInput.min)) {
+            quantityInput.value = parseInt(quantityInput.value) - 1;
+        }
+    });
+
+    plusButton.addEventListener('click', function () {
+        if (parseInt(quantityInput.value) < parseInt(quantityInput.max)) {
+            quantityInput.value = parseInt(quantityInput.value) + 1;
+        }
+    });
+});
 
 
 sr.reveal(`.home__title, .popular__container, .features__img, .featured__filters`)
