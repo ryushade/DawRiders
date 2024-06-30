@@ -151,7 +151,7 @@ def formulario_comparar():
 @app.route("/eliminar_cliente", methods=["POST"])
 def eliminar_cliente():
     controlador_cliente.eliminar_cliente(request.form["id"])
-    return redirect("/crud_cliente")
+    return render_template("crud_cliente.html")
 
 @app.route("/crud_cliente")
 def crud_cliente():
