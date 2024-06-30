@@ -376,12 +376,22 @@ Crear Cuenta Cliente
                                         </div>
                                     </div>
 
-                                    <!-- Checkbox input -->
-                                    <input type="checkbox" id="checkbox1" name="checkbox1">
-                                    <!-- Label for the checkbox -->
-                                    <label for="checkbox1" class="checkbox-label">He leido y estoy de acuerdo con
-                                        los <a href="{{ url_for('formulario_terminos') }}"
-                                            style="font-weight: bold;">terminos y condiciones</a> de la web</label>
+                                    <div class="row mt-4">
+                                        <div class="col-12">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="checkbox1"
+                                                    name="checkbox1" required>
+                                                <label class="form-check-label" for="checkbox1">
+                                                    He leído y estoy de acuerdo con los
+                                                    <a href="{{ url_for('formulario_terminos') }}"
+                                                        style="font-weight: bold;">
+                                                        términos y condiciones
+                                                    </a> de la web
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
 
 
 

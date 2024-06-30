@@ -473,6 +473,14 @@ img {
   margin: .75rem 0 1.25rem 1.5rem;
   transition: .3s;
 }
+.form-check-input {
+  margin-top: 0.3rem;
+  margin-left: 0;
+}
+
+.form-check-label {
+  margin-left: 0.5rem;
+}
 
 
 .popular__data {
