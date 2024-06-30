@@ -562,6 +562,17 @@ Iniciar Sesión
 </div>
 <!--=============== SCRIPTS ===============-->
 <script>
+    function checkLogin() {
+        // Asumiendo que 'isLoggedIn' es un booleano establecido por el servidor
+        const isLoggedIn = {{ 'true' if 'user_id' in session else 'false' }};
+        if (!isLoggedIn) {
+            $('#loginRequiredModal').modal('show');
+        } else {
+            document.getElementById('addToCartForm').submit();
+        }
+    }
+</script>
+ <script>
     function changeQuantity(change) {
         var quantityElement = document.getElementById('quantity');
         var currentQuantity = parseInt(quantityElement.textContent);
