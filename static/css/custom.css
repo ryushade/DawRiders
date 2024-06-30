@@ -19,6 +19,10 @@ body,html{
     color: red;  /* Color del ícono */
 }
 
+.modal {
+    z-index: 1050; /* Valor por defecto para Bootstrap */
+}
+
 .icon-button:hover i.material-icons {
     color: darkred;  /* Color al pasar el mouse sobre el ícono */
 }
