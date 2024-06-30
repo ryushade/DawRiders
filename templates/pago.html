@@ -167,6 +167,21 @@ Crear Cuenta Cliente
             border-top-right-radius: 10px;
         }
 
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            /* Centers items vertically within the container */
+            flex-wrap: nowrap;
+            /* Prevents flex items from wrapping */
+        }
+
+        .checkbox-label {
+            margin-left: 8px;
+            /* Space between checkbox and label text */
+            white-space: nowrap;
+            /* Prevents label text from wrapping */
+        }
+
         .card {
             border: none;
         }
@@ -361,18 +376,13 @@ Crear Cuenta Cliente
                                         </div>
                                     </div>
 
-                                    <div style="display: flex; align-items: center;">
-                                        <div>
-                                            <span class="checkbox" style="display: flex; align-items: center;">
-                                                <input type="checkbox" id="checkbox1" name="checkbox1" value="check1"
-                                                    required>
-                                                <label for="checkbox1" style="margin-left: 8px;">He leido y estoy de
-                                                    acuerdo con los <a href="{{ url_for('formulario_terminos') }}"
-                                                        style="font-weight: bold;">terminos y condiciones</a> de la
-                                                    web</label>
-                                            </span>
-                                        </div>
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="checkbox1" name="checkbox1" value="check1" required>
+                                        <label for="checkbox1" class="checkbox-label">He leido y estoy de acuerdo con
+                                            los <a href="{{ url_for('formulario_terminos') }}"
+                                                style="font-weight: bold;">terminos y condiciones</a> de la web</label>
                                     </div>
+
 
 
                                 </div>
