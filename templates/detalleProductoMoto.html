@@ -565,12 +565,15 @@ Iniciar Sesión
     function checkLogin() {
         const isLoggedIn = {{ 'true' if 'user_id' in session else 'false' }
     };
+}
+
+
     if (!isLoggedIn) {
         $('#loginRequiredModal').modal('show');
     } else {
         document.getElementById('addToCartForm').submit();
     }
-    }
+
 
     function redirectToLogin() {
         window.location.href = "{{ url_for('formulario_login_cliente') }}";
