@@ -1,7 +1,7 @@
 {% extends "maestra.html" %}
 
 {% block titulo %}
-    Iniciar Sesión
+Iniciar Sesión
 {% endblock %}
 
 {% block contenido %}
@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="/static/assets/css/styles-card.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/static/css/anicollection.css">
@@ -67,7 +66,8 @@
             color: #0000FF;
         }
 
-        .nav__toggle, .nav__close {
+        .nav__toggle,
+        .nav__close {
             display: none;
         }
 
@@ -83,6 +83,18 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             margin: 20px auto;
             width: 500px;
+        }
+
+        .input-group button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .input-group input {
+            text-align: center;
+            border: 1px solid #ccc;
+            width: 50px;
         }
 
         .input-group-text {
@@ -106,7 +118,8 @@
             background-color: #22262A;
         }
 
-        .btn-success, .btn-success:hover {
+        .btn-success,
+        .btn-success:hover {
             background-color: #22262A;
             border: none;
         }
@@ -236,12 +249,12 @@
     </style>
 </main>
 
-    <div class="row mt-5">
+<div class="row mt-5">
 
-    </div>
-    <div class="row mt-5">
+</div>
+<div class="row mt-5">
 
-    </div>
+</div>
 <div class="product-detail-container mb-4">
     <div class="row">
         <h1 class="section-title">Detalle de Producto</h1>
@@ -250,7 +263,8 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="product-image">
                 {% for producto in productomoto %}
-                <img data-anijs="if: mouseover, do: pulse animated" src="{{ url_for('static', filename='img/' + producto[7])}}" alt="" class="img-fluid">
+                <img data-anijs="if: mouseover, do: pulse animated"
+                    src="{{ url_for('static', filename='img/' + producto[7])}}" alt="" class="img-fluid">
                 {% endfor %}
             </div>
         </div>
@@ -269,11 +283,19 @@
                     <input type="hidden" name="precio" value="{{ producto[2] }}">
                     <div class="cantidad-section">
                         <label for="quantity"><strong>Cantidad:</strong></label>
-                        <input type="number" name="quantity" id="quantity" value="1" min="1" max="{{ producto[3] }}">
+                        <div class="input-group">
+                            <button type="button" class="btn btn-default btn-decrement" onclick="decrement()">-</button>
+                            <input type="text" name="quantity" id="quantity" value="1" min="1" max="{{ producto[3] }}"
+                                readonly>
+                            <button type="button" class="btn btn-default btn-increment" onclick="increment()">+</button>
+                        </div>
                     </div>
+
                     <input type="hidden" name="nombre" value="{{ producto[5] }}">
                     <input type="hidden" name="imagen" value="{{ producto[7] }}">
-                    <button type="button" class="btn btn-primary btn-add-to-cart" style="padding: 10px 20px; margin-top: 10px; border: none;" onclick="checkLogin()">Agregar al Carrito</button>
+                    <button type="button" class="btn btn-primary btn-add-to-cart"
+                        style="padding: 10px 20px; margin-top: 10px; border: none;" onclick="checkLogin()">Agregar al
+                        Carrito</button>
                 </form>
                 {% endfor %}
             </div>
@@ -530,12 +552,13 @@
 <!--=============== SCRIPTS ===============-->
 <script>
     function checkLogin() {
-        const isLoggedIn = {{ 'true' if 'user_id' in session else 'false' }};
-        if (!isLoggedIn) {
-            $('#loginRequiredModal').modal('show');
-        } else {
-            document.getElementById('addToCartForm').submit();
-        }
+        const isLoggedIn = {{ 'true' if 'user_id' in session else 'false' }
+    };
+    if (!isLoggedIn) {
+        $('#loginRequiredModal').modal('show');
+    } else {
+        document.getElementById('addToCartForm').submit();
+    }
     }
 
     function redirectToLogin() {
@@ -547,8 +570,8 @@
         $('#stockMessageModal').modal('show');
     }
 
-    $(document).ready(function() {
-        {% with messages = get_flashed_messages(with_categories=true) %}
+    $(document).ready(function () {
+        {% with messages = get_flashed_messages(with_categories = true) %}
         {% if messages %}
         {% for category, message in messages %}
         if ('{{ category }}' === 'error') {

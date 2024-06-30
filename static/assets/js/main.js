@@ -149,6 +149,23 @@ function togglePasswordVisibility() {
     }
 }
 
+function increment() {
+    var input = document.getElementById('quantity');
+    var currentValue = parseInt(input.value);
+    var maxValue = parseInt(input.max);
+    if (currentValue < maxValue) {
+        input.value = currentValue + 1;
+    }
+}
+
+function decrement() {
+    var input = document.getElementById('quantity');
+    var currentValue = parseInt(input.value);
+    var minValue = parseInt(input.min);
+    if (currentValue > minValue) {
+        input.value = currentValue - 1;
+    }
+}
 
 
 sr.reveal(`.home__title, .popular__container, .features__img, .featured__filters`)
