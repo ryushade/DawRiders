@@ -19,17 +19,24 @@ body,html{
     color: red;  /* Color del ícono */
 }
 
-.modal {
-    z-index: 1050; /* Valor por defecto para Bootstrap */
-}
+
 
 .icon-button:hover i.material-icons {
     color: darkred;  /* Color al pasar el mouse sobre el ícono */
 }
-#confirmModal .modal-dialog {
-    z-index: 1060; /* Mayor que el z-index del otro modal */
+
+/* Estilos para los modales */
+.modal-backdrop.show {
+    z-index: 1040; /* Menor z-index para el fondo */
 }
 
+#addProductModal .modal-dialog {
+    z-index: 1050; /* z-index estándar para el primer modal */
+}
+
+#confirmModal .modal-dialog {
+    z-index: 1060; /* Mayor z-index para asegurar que aparezca encima */
+}
 
 /*==========================================================
   material-icon font-style
