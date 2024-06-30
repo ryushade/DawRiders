@@ -279,7 +279,7 @@ Iniciar Sesión
                             {% endfor %}
                         </tbody>
 
-                        
+
 
                     </table>
                 </div>
@@ -405,35 +405,39 @@ Iniciar Sesión
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            actualizarTotal();
+            var itemIdToDelete = null; // Variable para almacenar el ID del item a eliminar
 
-            var eliminarBotones = document.querySelectorAll('.eliminar-item');
-            eliminarBotones.forEach(function (botón) {
-                botón.addEventListener('click', function () {
-                    var idItem = this.getAttribute('data-id');
-                    fetch(`/eliminar_item_carrito/${idItem}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
+            // Al abrir el modal, capturar el ID del item a eliminar
+            $('#confirmModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                itemIdToDelete = button.data('id'); // Captura el ID desde el botón que abrió el modal
+            });
+
+            // Manejador para el botón de confirmación de eliminación
+            document.getElementById('delete-confirm').addEventListener('click', function () {
+                fetch(`/eliminar_item_carrito/${itemIdToDelete}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            var tr = document.querySelector(`button[data-id="${itemIdToDelete}"]`).closest('tr');
+                            tr.remove();
+                            actualizarTotal();
+                            $('#confirmModal').modal('hide'); // Cierra el modal
+                        } else {
+                            alert(data.error);
                         }
                     })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            if (data.success) {
-                                var tr = this.closest('tr');
-                                tr.remove();
-                                actualizarTotal();
-                            } else {
-                                alert(data.error);
-                            }
-                        })
-                        .catch(error => alert('Error al eliminar el producto: ' + error));
-                });
+                    .catch(error => alert('Error al eliminar el producto: ' + error));
             });
 
             function actualizarTotal() {
@@ -447,8 +451,6 @@ Iniciar Sesión
                 totalDisplay.textContent = total.toFixed(2);
             }
         });
-
-
     </script>
 
 
