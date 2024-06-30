@@ -562,15 +562,6 @@ Iniciar Sesión
 </div>
 <!--=============== SCRIPTS ===============-->
 <script>
-    function checkLogin() {
-        const isLoggedIn = {{ 'true' if 'user_id' in session else 'false' }
-    };
-    if (!isLoggedIn) {
-        $('#loginRequiredModal').modal('show');
-    } else {
-        document.getElementById('addToCartForm').submit();
-    }
-    }
     function changeQuantity(change) {
         var quantityElement = document.getElementById('quantity');
         var currentQuantity = parseInt(quantityElement.textContent);
