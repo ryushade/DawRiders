@@ -318,9 +318,6 @@
 							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
-										<th></th>
-										<!-- Asegúrate de ajustar los encabezados según los datos que mostrarás -->
-
 										<th>Cod Moto</th>
 										<th>Descripcion</th>
 										<th>Precio</th>
@@ -347,8 +344,7 @@
 								<tbody>
 									{% for producto in productosm %}
 									<tr class="{{ 'bg-danger' if producto[3] == 0 else '' }}">
-
-										</td>
+										<td></td>
 										<td>{{producto[11]}}</td>
 										<td>{{producto[1]}}</td>
 										<td>{{producto[2]}}</td>
