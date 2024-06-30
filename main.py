@@ -1415,12 +1415,10 @@ def detalle_producto_moto(id):
         conexion = obtener_conexion()
         try:
             with conexion.cursor() as cursor:
-                # Obtener el ID del carrito del usuario logueado
                 cursor.execute("SELECT idCarrito FROM CARRITO WHERE idCliente = %s", (session['user_id'],))
                 carrito = cursor.fetchone()
                 if carrito:
                     idCarrito = carrito[0]
-                    # Verificar si el producto ya está en el carrito
                     cursor.execute("SELECT * FROM ITEM_CARRITO WHERE idCarrito = %s AND idProducto = %s", (idCarrito, id))
                     if cursor.fetchone():
                         producto_en_carrito = True
