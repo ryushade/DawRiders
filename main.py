@@ -954,7 +954,6 @@ def agregar_carrito():
                 return redirect(url_for("detalle_producto_moto", id=product_id))
 
             id_cliente = session['user_id']
-            # Verificar si el cliente ya tiene un carrito
             cursor.execute("SELECT idCarrito FROM CARRITO WHERE idCliente = %s", (id_cliente,))
             carrito = cursor.fetchone()
             if carrito:
@@ -963,9 +962,18 @@ def agregar_carrito():
                 cursor.execute("INSERT INTO CARRITO (idCliente, fechaCreacion) VALUES (%s, NOW())", (id_cliente,))
                 idCarrito = cursor.lastrowid
 
+            # Verificar si el producto ya está en el carrito
+            cursor.execute("SELECT cantidad FROM ITEM_CARRITO WHERE idCarrito = %s AND idProducto = %s", (idCarrito, product_id))
+            item = cursor.fetchone()
+            if item:
+                nueva_cantidad = item[0] + cantidad
+                nuevo_subtotal = nueva_cantidad * precio
+                cursor.execute("UPDATE ITEM_CARRITO SET cantidad = %s, subtotal = %s WHERE idCarrito = %s AND idProducto = %s",
+                               (nueva_cantidad, nuevo_subtotal, idCarrito, product_id))
+            else:
+                cursor.execute("INSERT INTO ITEM_CARRITO (idCarrito, idProducto, cantidad, precioPorUnidad, subtotal) VALUES (%s, %s, %s, %s, %s)",
+                               (idCarrito, product_id, cantidad, precio, cantidad * precio))
 
-            cursor.execute("INSERT INTO ITEM_CARRITO (idCarrito, idProducto, cantidad, precioPorUnidad, subtotal) VALUES (%s, %s, %s, %s, %s)",
-                           (idCarrito, product_id, cantidad, precio, cantidad * precio))
             conexion.commit()
             flash("Producto agregado al carrito exitosamente!", "success")
     except Exception as e:
