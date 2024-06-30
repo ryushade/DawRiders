@@ -571,6 +571,17 @@ Iniciar Sesión
         document.getElementById('addToCartForm').submit();
     }
     }
+    function changeQuantity(change) {
+        var quantityElement = document.getElementById('quantity');
+        var currentQuantity = parseInt(quantityElement.textContent);
+        var newQuantity = currentQuantity + change;
+
+        // Asegúrate de que el nuevo valor esté dentro de los límites permitidos
+        newQuantity = Math.max(1, newQuantity); // Aquí asumimos que el mínimo es 1
+        newQuantity = Math.min(newQuantity, producto[3]); // Asume que tienes una variable global `producto` con el stock disponible
+
+        quantityElement.textContent = newQuantity;
+    }
 
     function redirectToLogin() {
         window.location.href = "{{ url_for('formulario_login_cliente') }}";
