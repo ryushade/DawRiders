@@ -1,7 +1,7 @@
 {% extends "maestra.html" %}
 
 {% block titulo %}
-    Crear Cuenta Cliente
+Crear Cuenta Cliente
 {% endblock %}
 
 {% block contenido %}
@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="/static/assets/css/styles-card.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/static/css/anicollection.css">
@@ -66,7 +65,8 @@
             color: #0000FF;
         }
 
-        .nav__toggle, .nav__close {
+        .nav__toggle,
+        .nav__close {
             display: none;
         }
 
@@ -96,7 +96,8 @@
             background-color: #22262A;
         }
 
-        .btn-success, .btn-success:hover {
+        .btn-success,
+        .btn-success:hover {
             background-color: #22262A;
             border: none;
         }
@@ -133,7 +134,8 @@
             margin: 10px 0;
         }
 
-        h3, h6 {
+        h3,
+        h6 {
             color: #22262A;
         }
 
@@ -151,7 +153,7 @@
             margin: 20px auto;
         }
 
-        .card3{
+        .card3 {
             padding: 30px;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
@@ -165,11 +167,9 @@
             border-top-right-radius: 10px;
         }
 
-        .card{
+        .card {
             border: none;
         }
-
-
     </style>
 
     <div class="row mt-5">
@@ -188,7 +188,9 @@
                         <!-- Columna de Detalles de Pago -->
                         <div class="col-lg-8 col-md-6 col-sm-12">
                             <div class="card border-primary mb-3">
-                                <div class="card-header"><h2>Detalles de Pago</h2></div>
+                                <div class="card-header">
+                                    <h2>Detalles de Pago</h2>
+                                </div>
                                 <div class="row card3">
                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                         <div class="row">
@@ -197,7 +199,8 @@
                                         <div>
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" placeholder="Nombre"
-                                                    aria-label="Titular" aria-describedby="basic-addon1" name="nombre" required>
+                                                    aria-label="Titular" aria-describedby="basic-addon1" name="nombre"
+                                                    required>
                                             </div>
                                         </div>
 
@@ -224,7 +227,8 @@
                                         <div>
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" placeholder="Pais"
-                                                    aria-label="Titular" aria-describedby="basic-addon1" name="pais" required>
+                                                    aria-label="Titular" aria-describedby="basic-addon1" name="pais"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
@@ -261,8 +265,8 @@
                                         <div class="row">
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" placeholder="Teléfono"
-                                                    aria-label="Titular" aria-describedby="basic-addon1"
-                                                    name="telefono" required>
+                                                    aria-label="Titular" aria-describedby="basic-addon1" name="telefono"
+                                                    required>
                                             </div>
                                         </div>
 
@@ -325,7 +329,8 @@
                                         <div class="row">
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" placeholder="Correo Electrónico"
-                                                    aria-label="Titular" aria-describedby="basic-addon1" name="correo" required>
+                                                    aria-label="Titular" aria-describedby="basic-addon1" name="correo"
+                                                    required>
                                             </div>
                                         </div>
 
@@ -336,7 +341,8 @@
                                         <div class="row" style="width: 40%;">
                                             <div class="input-group mb-3">
                                                 <input type="text" class="form-control" placeholder="CVV"
-                                                    aria-label="Titular" aria-describedby="basic-addon1" name="cvv" required>
+                                                    aria-label="Titular" aria-describedby="basic-addon1" name="cvv"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
@@ -354,14 +360,20 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    <div class ="">
-                                        <div class="">
-                                            <span class="checkbox">
-                                                <input type="checkbox" id="checkbox1" name="checkbox1" value="check1" required>
-                                                <label for="checkbox1">He leido y estoy de acuerdo con los <a href="{{ url_for('formulario_terminos') }}" style="font-weight: bold;">terminos y condiciones</a> de la web</label>
+
+                                    <div style="display: flex; align-items: center;">
+                                        <div>
+                                            <span class="checkbox" style="display: flex; align-items: center;">
+                                                <input type="checkbox" id="checkbox1" name="checkbox1" value="check1"
+                                                    required>
+                                                <label for="checkbox1" style="margin-left: 8px;">He leido y estoy de
+                                                    acuerdo con los <a href="{{ url_for('formulario_terminos') }}"
+                                                        style="font-weight: bold;">terminos y condiciones</a> de la
+                                                    web</label>
+                                            </span>
                                         </div>
                                     </div>
+
 
                                 </div>
                             </div>
@@ -370,7 +382,9 @@
                         <!-- Columna del Carrito -->
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="card border-dark mb-3">
-                                <div class="card-header"><h3 style="color: white">Tu Carrito</h3></div>
+                                <div class="card-header">
+                                    <h3 style="color: white">Tu Carrito</h3>
+                                </div>
                                 <div class="card-body text-dark">
                                     <table class="table">
                                         <thead>
@@ -395,8 +409,11 @@
                                             {% endfor %}
                                         </tbody>
                                     </table>
-                                    <h4 style="display: inline-block; margin-right: 20px;">Total: S/ <h5 id="total" style="display: inline;">324000.00</h5></h4>
-                                    <button type="submit" class="btn btn-primary btn-block" href="{{url_for('formulario_detalle_categoria')}}">Pagar</button>
+                                    <h4 style="display: inline-block; margin-right: 20px;">Total: S/ <h5 id="total"
+                                            style="display: inline;">324000.00</h5>
+                                    </h4>
+                                    <button type="submit" class="btn btn-primary btn-block"
+                                        href="{{url_for('formulario_detalle_categoria')}}">Pagar</button>
                                 </div>
                             </div>
                         </div>
@@ -404,114 +421,114 @@
                     </div>
                 </div>
             </form>
-        {% else %}
+            {% else %}
             <div class="alert alert-info" role="alert">
                 Tu carrito está vacío. Por favor, agrega algunos productos antes de proceder al pago.
             </div>
-        {% endif %}
+            {% endif %}
         </div>
     </div>
 
-<footer class="footer section no-underline">
-    <div class="shape shape__big"></div>
-    <div class="shape shape__small"></div>
+    <footer class="footer section no-underline">
+        <div class="shape shape__big"></div>
+        <div class="shape shape__small"></div>
 
-    <div class="footer__container container grid">
-        <div class="footer__content">
-            <a href="#" class="footer__logo">
-                <i class="ri-steering-line"></i> CicloRiders
-            </a>
-            <p class="footer__description">
-                Ofrecemos las mejores motocicletas y accesorios <br>
-                de las marcas más reconocidas de todo el mundo <br>
-            </p>
-        </div>
-
-        <div class="footer__content">
-            <h3 class="footer__title">
-                Empresa
-            </h3>
-
-            <ul class="footer__links">
-                <li>
-                    <a href="#" class="footer__link">Nosotros</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Motos</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Producto</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Catalogo</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Login</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="footer__content">
-            <h3 class="footer__title">
-                Información
-            </h3>
-
-            <ul class="footer__links">
-                <a href="#" class="footer__link">Contáctanos</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Servicios</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="footer__content">
-            <h3 class="footer__title">
-                Síguenos en nuestras redes:
-            </h3>
-
-            <ul class="footer__social">
-                <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
-                    <i class="ri-facebook-fill"></i>
+        <div class="footer__container container grid">
+            <div class="footer__content">
+                <a href="#" class="footer__logo">
+                    <i class="ri-steering-line"></i> CicloRiders
                 </a>
-                <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
-                    <i class="ri-instagram-line"></i>
-                </a>
-                <a href="https://twitter.com/" target="_blank" class="footer__social-link">
-                    <i class="ri-twitter-line"></i>
-                </a>
-            </ul>
+                <p class="footer__description">
+                    Ofrecemos las mejores motocicletas y accesorios <br>
+                    de las marcas más reconocidas de todo el mundo <br>
+                </p>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Empresa
+                </h3>
+
+                <ul class="footer__links">
+                    <li>
+                        <a href="#" class="footer__link">Nosotros</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Motos</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Producto</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Catalogo</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Login</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Información
+                </h3>
+
+                <ul class="footer__links">
+                    <a href="#" class="footer__link">Contáctanos</a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer__link">Servicios</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Síguenos en nuestras redes:
+                </h3>
+
+                <ul class="footer__social">
+                    <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-facebook-fill"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-instagram-line"></i>
+                    </a>
+                    <a href="https://twitter.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-twitter-line"></i>
+                    </a>
+                </ul>
+            </div>
         </div>
-    </div>
 
-    <span class="footer__copy">
-        &#169; CicloRiders. Todos los derechos reservados 2023-2024
-    </span>
-</footer>
+        <span class="footer__copy">
+            &#169; CicloRiders. Todos los derechos reservados 2023-2024
+        </span>
+    </footer>
 
-<a href="#" class="scrollup" id="scroll-up">
-    <i class="ri-arrow-up-line"></i>
-</a>
+    <a href="#" class="scrollup" id="scroll-up">
+        <i class="ri-arrow-up-line"></i>
+    </a>
 
-<script>
-    window.onload = function() {
-        calculateTotal();
-    };
+    <script>
+        window.onload = function () {
+            calculateTotal();
+        };
 
-    function calculateTotal() {
-        var subtotalElements = document.querySelectorAll('#detalle tr td:nth-child(3)');
-        var total = 0;
-        subtotalElements.forEach(function(subtotal) {
-            total += parseFloat(subtotal.textContent);
-        });
-        document.getElementById('total').textContent = total.toFixed(2);
-    }
-</script>
+        function calculateTotal() {
+            var subtotalElements = document.querySelectorAll('#detalle tr td:nth-child(3)');
+            var total = 0;
+            subtotalElements.forEach(function (subtotal) {
+                total += parseFloat(subtotal.textContent);
+            });
+            document.getElementById('total').textContent = total.toFixed(2);
+        }
+    </script>
 
 
-<script src="/static/assets/js/scrollreveal.min.js"></script>
-<script src="/static/assets/js/swiper-bundle.min.js"></script>
-<script src="/static/assets/js/mixitup.min.js"></script>
-<script src="/static/assets/js/main.js"></script>
+    <script src="/static/assets/js/scrollreveal.min.js"></script>
+    <script src="/static/assets/js/swiper-bundle.min.js"></script>
+    <script src="/static/assets/js/mixitup.min.js"></script>
+    <script src="/static/assets/js/main.js"></script>
 
-{% endblock %}
+    {% endblock %}
