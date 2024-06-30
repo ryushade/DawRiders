@@ -293,13 +293,11 @@ Iniciar Sesión
                     <input type="hidden" name="precio" value="{{ producto[2] }}">
                     <div class="cantidad-section">
                         <label for="quantity"><strong>Cantidad:</strong></label>
-                        <div class="counter-wrapper">
-                            <button class="counter-btn decrement" onclick="changeQuantity(-1)"><ion-icon
-                                    name="remove"></ion-icon></button>
-                            <span id="quantity">1</span>
-                            <button class="counter-btn increment" onclick="changeQuantity(1)"><ion-icon
-                                    name="add"></ion-icon></button>
-                        </div>
+                        <button class="counter-btn decrement" onclick="changeQuantity(-1)"><ion-icon
+                                name="remove"></ion-icon></button>
+                        <span id="quantity">1</span>
+                        <button class="counter-btn increment" onclick="changeQuantity(1)"><ion-icon
+                                name="add"></ion-icon></button>
                     </div>
 
                     <input type="hidden" name="nombre" value="{{ producto[5] }}">
@@ -564,15 +562,16 @@ Iniciar Sesión
 <script>
     function checkLogin() {
         // Asumiendo que 'isLoggedIn' es un booleano establecido por el servidor
-        const isLoggedIn = {{ 'true' if 'user_id' in session else 'false' }};
-        if (!isLoggedIn) {
-            $('#loginRequiredModal').modal('show');
-        } else {
-            document.getElementById('addToCartForm').submit();
-        }
+        const isLoggedIn = {{ 'true' if 'user_id' in session else 'false' }
+    };
+    if (!isLoggedIn) {
+        $('#loginRequiredModal').modal('show');
+    } else {
+        document.getElementById('addToCartForm').submit();
+    }
     }
 </script>
- <script>
+<script>
     function changeQuantity(change) {
         var quantityElement = document.getElementById('quantity');
         var currentQuantity = parseInt(quantityElement.textContent);
