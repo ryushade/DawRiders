@@ -173,10 +173,34 @@
 									</div>
 								</div>
 							</div>
+
+							<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title">Confirmar Registro</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											¿Estás seguro que deseas registrar este producto?
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Cancelar</button>
+											<!-- Botón que realmente envía el formulario -->
+											<button type="button" class="btn btn-primary"
+												onclick="document.getElementById('addProductForm').submit();">Confirmar</button>
+										</div>
+									</div>
+								</div>
+							</div>
 							<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
-										<form method="post" action="{{ url_for('guardar_moto') }}"
+										<form id="addProductForm" method="post" action="{{ url_for('guardar_moto') }}"
+											enctype="multipart/form-data">
 											enctype="multipart/form-data">
 											<div class="modal-header">
 												<h5 class="modal-title">Agregar Producto-Moto</h5>
@@ -308,7 +332,8 @@
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
 													data-dismiss="modal">Cancelar</button>
-												<button type="submit" class="btn btn-primary">Registrar</button>
+												<button type="button" class="btn btn-primary" data-toggle="modal"
+													data-target="#confirmModal">Registrar</button>
 											</div>
 										</form>
 									</div>
