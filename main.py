@@ -1409,7 +1409,26 @@ def editar_productoA(id):
 def detalle_producto_moto(id):
     productomoto = controlador_producto.obtener_moto_producto_nuevo(id)
     usuario_logueado = 'user_id' in session
-    return render_template("detalleProductoMoto.html", productomoto=productomoto, usuario_logueado=usuario_logueado)
+    producto_en_carrito = False
+
+    if usuario_logueado:
+        conexion = obtener_conexion()
+        try:
+            with conexion.cursor() as cursor:
+                # Obtener el ID del carrito del usuario logueado
+                cursor.execute("SELECT idCarrito FROM CARRITO WHERE idCliente = %s", (session['user_id'],))
+                carrito = cursor.fetchone()
+                if carrito:
+                    idCarrito = carrito[0]
+                    # Verificar si el producto ya está en el carrito
+                    cursor.execute("SELECT * FROM ITEM_CARRITO WHERE idCarrito = %s AND idProducto = %s", (idCarrito, id))
+                    if cursor.fetchone():
+                        producto_en_carrito = True
+        finally:
+            conexion.close()
+
+    return render_template("detalleProductoMoto.html", productomoto=productomoto, usuario_logueado=usuario_logueado, en_carrito=producto_en_carrito)
+
 
 
 @app.route("/formulario_detalle_producto_accesorio/<int:id>")
