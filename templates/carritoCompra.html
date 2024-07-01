@@ -283,15 +283,13 @@ Iniciar Sesión
                                 <td>{{ item[2] }}</td>
                                 <td>{{ item[3] }}</td>
                                 <td>
-                                    <div class="cantidad-section">
-                                        <div class="input-group">
-                                            <button type="button" class="btn btn-default btn-decrement"
-                                                onclick="decrement()">-</button>
-                                            <input type="text" name="quantity" id="quantity" value="1" min="1"
-                                                max="{{ item[4] }}" readonly>
-                                            <button type="button" class="btn btn-default btn-increment"
-                                                onclick="increment()">+</button>
-                                        </div>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-default btn-decrement"
+                                            onclick="decrement()">-</button>
+                                        <input type="text" name="quantity" id="quantity" value="1" min="1"
+                                            max="{{ item[4] }}" readonly>
+                                        <button type="button" class="btn btn-default btn-increment"
+                                            onclick="increment()">+</button>
                                     </div>
                                 </td>
                                 <td class="subtotal">{{ item[5] }}</td>
