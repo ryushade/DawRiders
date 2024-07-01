@@ -282,19 +282,22 @@ Iniciar Sesión
                                 </td>
                                 <td>{{ item[2] }}</td>
                                 <td>{{ item[3] }}</td>
-                                <div class="cantidad-section">
-                                    <label for="quantity"><strong>Cantidad:</strong></label>
-                                    <div class="input-group">
-                                        <button type="button" class="btn btn-default btn-decrement"
-                                            onclick="decrement()">-</button>
-                                        <input type="text" name="quantity" id="quantity" value="{{ item[4] }}" min="1"
-                                            max="{{ item[4] }}" readonly>
-                                        <button type="button" class="btn btn-default btn-increment"
-                                            onclick="increment()">+</button>
+                                <td>
+                                    <div class="cantidad-section">
+                                        <label for="quantity{{ item[6] }}"><strong>Cantidad:</strong></label>
+                                        <div class="input-group">
+                                            <button type="button" class="btn btn-default btn-decrement"
+                                                onclick="decrement({{ item[6] }})">-</button>
+                                            <input type="text" name="quantity{{ item[6] }}" id="quantity{{ item[6] }}"
+                                                value="{{ item[4] }}" min="1" max="99" readonly>
+                                            <button type="button" class="btn btn-default btn-increment"
+                                                onclick="increment({{ item[6] }})">+</button>
+                                        </div>
                                     </div>
-                                </div>
+                                </td>
                                 <td class="subtotal">{{ item[5] }}</td>
-                                <td><button class="btn btn-danger eliminar-item" data-id="{{ item[6] }}"
+                                <td>
+                                    <button class="btn btn-danger eliminar-item" data-id="{{ item[6] }}"
                                         data-toggle="modal" data-target="#confirmModal">X</button>
                                 </td>
                             </tr>
