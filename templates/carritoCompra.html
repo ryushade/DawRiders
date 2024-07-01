@@ -284,14 +284,14 @@ Iniciar Sesión
                                 <td>{{ item[3] }}</td>
                                 <td>
                                     <div class="cantidad-section">
-                                        <label for="quantity{{ item[6] }}"><strong>Cantidad:</strong></label>
+                                        <label for="quantity{{ item[4] }}"></label>
                                         <div class="input-group">
                                             <button type="button" class="btn btn-default btn-decrement"
-                                                onclick="decrement({{ item[6] }})">-</button>
-                                            <input type="text" name="quantity{{ item[6] }}" id="quantity{{ item[6] }}"
+                                                onclick="decrement({{ item[4] }})">-</button>
+                                            <input type="text" name="quantity{{ item[4] }}" id="quantity{{ item[4] }}"
                                                 value="{{ item[4] }}" min="1" max="99" readonly>
                                             <button type="button" class="btn btn-default btn-increment"
-                                                onclick="increment({{ item[6] }})">+</button>
+                                                onclick="increment({{ item[4] }})">+</button>
                                         </div>
                                     </div>
                                 </td>
