@@ -458,15 +458,15 @@ Iniciar Sesión
 </div>
 <!--=============== SCRIPTS ===============-->
 <script>
-    function checkLogin() {
-        const isLoggedIn = {{ 'true' if 'user_id' in session else 'false' }
-    };
-    if (!isLoggedIn) {
+  function checkLogin() {
+    const isLoggedIn = '{{ 'true' if 'user_id' in session else 'false' }}';  // Make sure to pass as string
+    if (isLoggedIn === 'false') {  // Compare as string
         $('#loginRequiredModal').modal('show');
     } else {
         document.getElementById('addToCartForm').submit();
     }
-    }
+}
+
 
     function redirectToLogin() {
         window.location.href = "{{ url_for('formulario_login_cliente') }}";
