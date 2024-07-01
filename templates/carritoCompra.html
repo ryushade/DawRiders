@@ -82,6 +82,18 @@ Iniciar Sesión
             max-width: none;
         }
 
+        .input-group button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .input-group input {
+            text-align: center;
+            border: 1px solid #ccc;
+            width: 50px;
+        }
+
         .table-responsive {
             margin-bottom: 10px;
         }
@@ -270,7 +282,17 @@ Iniciar Sesión
                                 </td>
                                 <td>{{ item[2] }}</td>
                                 <td>{{ item[3] }}</td>
-                                <td>{{ item[4] }}</td>
+                                <div class="cantidad-section">
+                                    <label for="quantity"><strong>Cantidad:</strong></label>
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-default btn-decrement"
+                                            onclick="decrement()">-</button>
+                                        <input type="text" name="quantity" id="quantity" value="{{ item[4] }}" min="1"
+                                            max="{{ item[4] }}" readonly>
+                                        <button type="button" class="btn btn-default btn-increment"
+                                            onclick="increment()">+</button>
+                                    </div>
+                                </div>
                                 <td class="subtotal">{{ item[5] }}</td>
                                 <td><button class="btn btn-danger eliminar-item" data-id="{{ item[6] }}"
                                         data-toggle="modal" data-target="#confirmModal">X</button>
