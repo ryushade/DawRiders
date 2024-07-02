@@ -162,6 +162,9 @@
             text-decoration: none;
             font-size: 30px;
         }
+        .form-control.is-invalid {
+            border-color: red;
+        }
     </style>
 
     <div class="container mt-5 py-5">
@@ -175,31 +178,43 @@
                     </div>
                 </div>
                 <div class="row py-3 px-5 mx-3">
-                    <form action="{{url_for('guardar_cliente')}}" method="POST">
+                    <form action="{{url_for('guardar_cliente')}}" method="POST" onsubmit="return validateForm()">
                         <div class="input-group flex-nowrap py-2">
                             <span class="input-group-text" id="addon-wrapping"><i class="fa-regular fa-user fa-xl"></i></span>
                             <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
-                                aria-describedby="addon-wrapping" id="nombre" name="nombre" required minlength="3" pattern="[A-Za-z ]+">
+                                aria-describedby="addon-wrapping" id="nombre" name="nombre" required minlength="3" pattern="[A-Za-z ]+"
+                                oninput="validateText(this, 'nombreError')">
                         </div>
+                        <small id="nombreError" class="text-danger" style="display: none;">El nombre no puede contener números.</small>
+                    
                         <div class="input-group flex-nowrap py-2">
                             <span class="input-group-text" id="addon-wrapping"><i class="fa-regular fa-user fa-xl"></i></span>
                             <input type="text" class="form-control" placeholder="Apellidos" aria-label="Apellidos"
-                                aria-describedby="addon-wrapping" id="apellidos" name="apellidos" required minlength="3" pattern="[A-Za-z ]+">
+                                aria-describedby="addon-wrapping" id="apellidos" name="apellidos" required minlength="3" pattern="[A-Za-z ]+"
+                                oninput="validateText(this, 'apellidosError')">
                         </div>
+                        <small id="apellidosError" class="text-danger" style="display: none;">Los apellidos no pueden contener números.</small>
+                    
                         <div class="input-group flex-nowrap py-2">
                             <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-phone fa-xl"></i></span>
                             <input type="text" class="form-control" placeholder="Número de Celular" aria-label="Número de Celular"
-                                aria-describedby="addon-wrapping" id="telefono" name="telefono" required pattern="\d{9}">
+                                aria-describedby="addon-wrapping" id="telefono" name="telefono" required pattern="\d{9}"
+                                oninput="validatePhone(this)">
                         </div>
+                        <small id="telefonoError" class="text-danger" style="display: none;">El teléfono debe contener 9 dígitos.</small>
+                    
                         <div class="input-group flex-nowrap py-2">
                             <span class="input-group-text" id="addon-wrapping"><i class="fa-regular fa-envelope fa-xl"></i></span>
                             <input type="email" class="form-control" placeholder="Email" aria-label="Email"
-                                aria-describedby="addon-wrapping" id="email" name="email" value="{{ form_data['email'] if form_data else '' }}" required>
+                                aria-describedby="addon-wrapping" id="email" name="email" value="{{ form_data['email'] if form_data else '' }}" required
+                                oninput="validateEmail(this)">
                         </div>
+                        <small id="emailError" class="text-danger" style="display: none;">El correo electrónico debe ser válido.</small>
+                    
                         {% if error_msg %}
                         <div style="color: red;">{{ error_msg }}</div>
                         {% endif %}
-                
+                    
                         <div class="input-group flex-nowrap py-2">
                             <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-lock fa-xl"></i></span>
                             <input type="password" class="form-control" placeholder="Password" aria-label="Password"
@@ -208,8 +223,11 @@
                         <div class="input-group flex-nowrap py-2">
                             <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-lock fa-xl"></i></span>
                             <input type="password" class="form-control" placeholder="Confirma tu Password" aria-label="Confirma tu Password"
-                                aria-describedby="addon-wrapping" id="confirm-password" required required minlength="4">
+                                aria-describedby="addon-wrapping" id="confirm-password" required required minlength="4"
+                                oninput="validatePassword()">
                         </div>
+                        <small id="passwordError" class="text-danger" style="display: none;">Las contraseñas no coinciden.</small>
+                    
                         <div>
                             <progress id="strength-meter" max="4" value="0" style="width: 100%"></progress>
                             <label id="strength-text">Muy débil</label>
@@ -381,6 +399,77 @@
             new bootstrap.Modal(modal).show(); // Asegurándose de usar Bootstrap 5 para manejar modales
         });
     });
+
+    function validateText(input, errorId) {
+        const regex = /^[a-zA-Z\s]*$/;
+        const errorElement = document.getElementById(errorId);
+        
+        if (!regex.test(input.value)) {
+            input.setCustomValidity('Este campo no puede contener números.');
+            errorElement.style.display = 'block';
+            input.classList.add('is-invalid');
+        } else {
+            input.setCustomValidity('');
+            errorElement.style.display = 'none';
+            input.classList.remove('is-invalid');
+        }
+    }
+
+    function validatePhone(input) {
+        const regex = /^\d{9}$/;
+        const errorElement = document.getElementById('telefonoError');
+        
+        if (!regex.test(input.value)) {
+            input.setCustomValidity('El teléfono debe contener 9 dígitos.');
+            errorElement.style.display = 'block';
+            input.classList.add('is-invalid');
+        } else {
+            input.setCustomValidity('');
+            errorElement.style.display = 'none';
+            input.classList.remove('is-invalid');
+        }
+    }
+
+    function validateEmail(input) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const errorElement = document.getElementById('emailError');
+        
+        if (!regex.test(input.value)) {
+            input.setCustomValidity('El correo electrónico debe ser válido.');
+            errorElement.style.display = 'block';
+            input.classList.add('is-invalid');
+        } else {
+            input.setCustomValidity('');
+            errorElement.style.display = 'none';
+            input.classList.remove('is-invalid');
+        }
+    }
+
+    function validatePassword() {
+        const password = document.getElementById('contraseña');
+        const confirmPassword = document.getElementById('confirm-password');
+        const errorElement = document.getElementById('passwordError');
+        
+        if (password.value !== confirmPassword.value) {
+            confirmPassword.setCustomValidity('Las contraseñas no coinciden.');
+            errorElement.style.display = 'block';
+            confirmPassword.classList.add('is-invalid');
+        } else {
+            confirmPassword.setCustomValidity('');
+            errorElement.style.display = 'none';
+            confirmPassword.classList.remove('is-invalid');
+        }
+    }
+
+    function validateForm() {
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            if (!input.checkValidity()) {
+                input.classList.add('is-invalid');
+            }
+        });
+        return document.querySelectorAll('.is-invalid').length === 0;
+    }
     </script>
     
 
