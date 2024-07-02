@@ -1,6 +1,24 @@
 {% extends "maestra.html" %}
 {% block titulo %} Home {% endblock %}
 {% block contenido %}
+
+<style>
+    .home__title-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100px;
+    }
+    .home__title {
+        font-size: 2rem;
+    }
+    .home__title {
+        margin: 0;
+        padding: 0;
+    }
+
+
+</style>
 <!--==================== MAIN ====================-->
 <main class="main">
     <!--==================== HOME ====================-->
@@ -10,9 +28,12 @@
 
         <div class="home__container container grid">
             <div class="home__data">
-                <h1 class="home__title">
-                    Elige la mejor moto
-                </h1>
+                <div class="home__title-container">
+                    <h1 class="home__title">
+                        Elige <span id="text-animation">la mejor mo to</span>
+                    </h1>
+                </div>
+                
 
                 <h2 class="home__subtitle">
                     KTM DUKE 390
@@ -601,4 +622,40 @@
 
 <!--=============== MAIN JS ===============-->
 <script src="/static/assets/js/main.js"></script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var textSpan = document.getElementById('text-animation');
+    var phrases = ['la mejor moto', 'los mejores accesorios'];
+    var currentPhrase = 0;
+    var currentChar = 0;
+    var isDeleting = false;
+    var delay = 200; // Tiempo entre cada letra
+
+    function type() {
+        if (isDeleting) {
+        currentChar--;
+        textSpan.textContent = phrases[currentPhrase].substring(0, currentChar);
+        } else {
+        currentChar++;
+        textSpan.textContent = phrases[currentPhrase].substring(0, currentChar);
+        }
+
+        if (!isDeleting && currentChar === phrases[currentPhrase].length) {
+        isDeleting = true;
+        setTimeout(type, 1500);
+        } else if (isDeleting && currentChar === 0) {
+        currentPhrase = (currentPhrase + 1) % phrases.length;
+        isDeleting = false;
+        setTimeout(type, 500);
+        } else {
+        setTimeout(type, delay);
+        }
+    }
+
+    setTimeout(type, delay);
+    });
+
+</script>
 {% endblock %}
