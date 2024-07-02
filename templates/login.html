@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends "maestra.html" %}
 
 {% block titulo %}
@@ -355,4 +356,363 @@ Iniciar Sesión
 <script src="/static/assets/js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+=======
+{% extends "maestra.html" %}
+
+{% block titulo %}
+Iniciar Sesión
+{% endblock %}
+
+{% block contenido %}
+<!--==================== MAIN ====================-->
+<main class="main">
+    <link rel="stylesheet" href="/static/assets/css/styles-card.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/static/css/anicollection.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="shortcut icon" href="/static/img/logocicloriders_2-removebg-preview 1.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/static/assets/css/styles.css">
+
+    <style>
+        body {
+            background-color: #EDF1F7;
+            color: #22262A;
+        }
+
+        .header {
+            background-color: #22262A;
+            /* Fondo oscuro */
+        }
+
+        .nav__logo {
+            color: #FFF;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav__menu {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav__list {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav__link {
+            color: #FFF;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .nav__link:hover {
+            background-color: #555555;
+        }
+
+        .nav__link.active-link {
+            color: #0000FF;
+        }
+
+        .nav__toggle,
+        .nav__close {
+            display: none;
+        }
+
+        .main-content {
+            margin-top: 60px;
+        }
+
+        .login-container {
+            background-color: #FFFFFF;
+            color: #333333;
+            /* Texto oscuro */
+            padding: 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            width: 500px;
+        }
+
+        .input-group-text {
+            background-color: #22262A;
+            color: #FFF;
+            border: none;
+        }
+
+        .form-control {
+            background-color: #F0F0F0;
+            color: #333333;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: #22262A;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #22262A;
+        }
+
+        .btn-success,
+        .btn-success:hover {
+            background-color: #22262A;
+            border: none;
+        }
+
+        .btn-success i {
+            color: #FFF;
+        }
+
+        .btn-primary i {
+            color: #FFF;
+        }
+
+        .form-check-input {
+            background-color: #F0F0F0;
+            border: none;
+        }
+
+        .form-check-label {
+            color: #333333;
+        }
+
+        a {
+            color: #22262A;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #22262A;
+        }
+
+        .row.pt-4 p {
+            width: 100%;
+            text-align: justify;
+            margin: 10px 0;
+        }
+
+        h3 {
+            color: #22262A;
+        }
+
+        .contenedor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #22262A;
+            padding: 3px 20px;
+            margin: 0;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .footer__logo {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 30px;
+        }
+    </style>
+
+    <!--==================== LOGIN SECTION ====================-->
+    <div class="container mt-5 py-5">
+        <div class="row">
+            <!-- INFORMACION INICIAR SESION -->
+            <div class="col-lg-3 col-md-0 px-5">
+
+            </div>
+            <!-- FIN INFORMACION -->
+
+
+            <!-- FORMULARIO LOGIN -->
+            <div class="col-lg-6 col-md-12 login-container">
+                <div class="contenedor">
+                    <div class="mt-3">
+                        <a href="#" class="footer__logo"><i class="ri-steering-line"></i> Iniciar Sesión</a>
+                    </div>
+                </div>
+                <div class="row justify-content-center text-center py-4 border-bottom">
+                    <h3>Ingresa tus datos</h3>
+                </div>
+                <div class="row py-3 px-5 mx-3">
+                    <form action="/procesar_login" method="POST">
+                        <div class="input-group flex-nowrap py-2">
+                            <span class="input-group-text" id="addon-wrapping"><i class="fa-regular fa-envelope fa-xl"></i></span>
+                            <input type="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="addon-wrapping" id="email" name="email" required minlength="6">
+                        </div>
+
+                        <div class="input-group flex-nowrap py-3">
+                            <span class="input-group-text" id="addon-wrapping"><i
+                                    class="fa-solid fa-lock fa-xl"></i></span>
+                            <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping" id="contraseña" name="contraseña" required minlength="4">
+                            <span class="input-group-text" onclick="togglePasswordVisibility()">
+                                <i class="fa-solid fa-eye" id="toggle-password-icon"></i>
+                            </span>
+                        </div>
+
+                        <div class="form-check py-2">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">Recordar</label>
+                        </div>
+                        <div class="text-center py-4" data-anijs="if: mouseover, do: pulse animated">
+                            <button type="submit" class="btn btn-primary btn w-50">Iniciar Sesion</button>
+                        </div>
+                    </form>
+                    <div class="row pt-2">
+                        <p>Si aun no tienes cuenta. <a href="{{url_for('formulario_registrar_cliente')}}">Registrate
+                                aqui</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-0 px-5">
+
+            </div>
+            <!-- FIN FORMULARIO LOGIN -->
+        </div>
+    </div>
+
+
+</main>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    <!-- Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Inicio de Sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% for category, message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+        errorModal.show();
+    });
+    </script>
+{% endif %}
+{% endwith %}
+
+
+
+<!--==================== FOOTER ====================-->
+<footer class="footer section no-underline">
+    <div class="shape shape__big"></div>
+    <div class="shape shape__small"></div>
+
+    <div class="footer__container container grid">
+        <div class="footer__content">
+            <a href="#" class="footer__logo">
+                <i class="ri-steering-line"></i> CicloRiders
+            </a>
+            <p class="footer__description">
+                Ofrecemos las mejores motocicletas y accesorios <br>
+                de las marcas más reconocidas de todo el mundo <br>
+            </p>
+        </div>
+
+        <div class="footer__content">
+            <h3 class="footer__title">
+                Empresa
+            </h3>
+
+            <ul class="footer__links">
+                <li>
+                    <a href="#" class="footer__link">Nosotros</a>
+                </li>
+                <li>
+                    <a href="#" class="footer__link">Motos</a>
+                </li>
+                <li>
+                    <a href="#" class="footer__link">Producto</a>
+                </li>
+                <li>
+                    <a href="#" class="footer__link">Catalogo</a>
+                </li>
+                <li>
+                    <a href="#" class="footer__link">Login</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer__content">
+            <h3 class="footer__title">
+                Informacion
+            </h3>
+
+            <ul class="footer__links">
+
+                <a href="#" class="footer__link">Contactanos</a>
+                </li>
+                <li>
+                    <a href="#" class="footer__link">Servicios</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer__content">
+            <h3 class="footer__title">
+                Siguenos en nuestras redes:
+            </h3>
+
+            <ul class="footer__social">
+                <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
+                    <i class="ri-facebook-fill"></i>
+                </a>
+                <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
+                    <i class="ri-instagram-line"></i>
+                </a>
+                <a href="https://twitter.com/" target="_blank" class="footer__social-link">
+                    <i class="ri-twitter-line"></i>
+                </a>
+            </ul>
+        </div>
+    </div>
+
+    <span class="footer__copy">
+        &#169; CicloRiders. Todos los derechos reservados 2023-2024
+    </span>
+</footer>
+
+<!--========== SCROLL UP ==========-->
+<a href="#" class="scrollup" id="scroll-up">
+    <i class="ri-arrow-up-line"></i>
+</a>
+
+
+<!--=============== SCROLL REVEAL ===============-->
+<script src="/static/assets/js/scrollreveal.min.js"></script>
+<!--=============== SWIPER JS ===============-->
+<script src="/static/assets/js/swiper-bundle.min.js"></script>
+<!--=============== MIXITUP JS ===============-->
+<script src="/static/assets/js/mixitup.min.js"></script>
+<!--=============== MAIN JS ===============-->
+<script src="/static/assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+>>>>>>> 0ffee8674647c6b16c97188f12be095d9e8efcd5
 {% endblock %}
