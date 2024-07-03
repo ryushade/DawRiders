@@ -165,7 +165,7 @@ def crud_cliente():
 @app.route("/ventas")
 def formulario_ventas():
     if 'user_id' in session and session.get('is_admin', False):
-        ventas = controlador_pago.obtener_ventas()
+        ventas = controlador_pago.obtener_ventas_dashboard()
         return render_template("ventas.html", ventas=ventas)
     else:
         flash("Acceso denegado. Debe ser administrador para acceder a esta página.", "admin_error")

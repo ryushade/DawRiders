@@ -30,6 +30,14 @@ def obtener_ventas():
     conexion.close()
     return ventas
 
+def obtener_ventas_dashboard():
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT idVenta1, nombre, apellidos, pais,direccion, region, localidad,telefono, correo, mes, año, cvv, numtarjeta, idProducto, monto_final, num_venta, cantidad, fechaVenta FROM VENTA1")
+        ventas = cursor.fetchall()
+    conexion.close()
+    return ventas
+
 def eliminar_venta(idVenta1):
     conexion = obtener_conexion()
     try:
