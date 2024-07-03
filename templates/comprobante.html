@@ -78,67 +78,67 @@
 </style>
 </head>
 <body>
-{% for codigo_venta, data in ventas_agrupadas.items() %}
-  <div class="invoice-box">
+{% set ultima_venta_key = ventas_agrupadas.keys() | max %}
+{% set ultima_venta = ventas_agrupadas[ultima_venta_key] %}
+<div class="invoice-box">
     <table cellpadding="0" cellspacing="0">
-      <tr class="top">
-        <td colspan="2">
-          <table>
-            <tr>
-              <td class="title">
-                <img src="/static/img/logocicloriders_2-removebg-preview 1.png" style="height: 100px;">
-              </td>
-              <td>
-                Número de Comprobante: {{ codigo_venta }}<br>
-                Fecha de Creación: {{ data['fecha_venta'] }}<br>
-                Cliente: {{ data['productos'][0][8] }} {{ data['productos'][0][9] }}<br>
-                Email: {{ data['productos'][0][10] }}
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr class="information">
-        <td colspan="2">
-          <table>
-            <tr>
-              <td>
-                {{ data['productos'][0][8] }} {{ data['productos'][0][9] }}<br>
-                {{ data['productos'][0][11] }}<br>
-                {{ data['productos'][0][10] }}
-              </td>
-              <td>
-                CicloRiders Motors<br>
-                Ciro Alegria Cuadra 1<br>
-                LAMBAYEQUE, 14013
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr class="heading">
-        <td>Producto</td>
-        <td>Precio</td>
-      </tr>
-      {% for producto in data['productos'] %}
-      <tr class="item">
-        <td>
-          {{ producto[1] }} {{ producto[2] }} (x{{ producto[3] }})
-        </td>
-        <td>
-          ${{ producto[4] }}
-        </td>
-      </tr>
-      {% endfor %}
-      <tr class="total">
-        <td></td>
-        <td>
-          Total: ${{ data['total_venta'] }}
-        </td>
-      </tr>
+        <tr class="top">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td class="title">
+                            <img src="/static/img/logocicloriders_2-removebg-preview 1.png" style="height: 100px;">
+                        </td>
+                        <td>
+                            Número de Comprobante: {{ ultima_venta_key }}<br>
+                            Fecha de Creación: {{ ultima_venta['fecha_venta'] }}<br>
+                            Cliente: {{ ultima_venta['productos'][0][8] }} {{ ultima_venta['productos'][0][9] }}<br>
+                            Email: {{ ultima_venta['productos'][0][10] }}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="information">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td>
+                            {{ ultima_venta['productos'][0][8] }} {{ ultima_venta['productos'][0][9] }}<br>
+                            {{ ultima_venta['productos'][0][11] }}<br>
+                            {{ ultima_venta['productos'][0][10] }}
+                        </td>
+                        <td>
+                            CicloRiders Motors<br>
+                            Ciro Alegria Cuadra 1<br>
+                            LAMBAYEQUE, 14013
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="heading">
+            <td>Producto</td>
+            <td>Precio</td>
+        </tr>
+        {% for producto in ultima_venta['productos'] %}
+        <tr class="item">
+            <td>
+                {{ producto[1] }} {{ producto[2] }} (x{{ producto[3] }})
+            </td>
+            <td>
+                ${{ producto[4] }}
+            </td>
+        </tr>
+        {% endfor %}
+        <tr class="total">
+            <td></td>
+            <td>
+                Total: ${{ ultima_venta['total_venta'] }}
+            </td>
+        </tr>
     </table>
-  </div>
-  <div class="divFooter"></div>
-{% endfor %}
+</div>
+<div class="divFooter"></div>
 </body>
 </html>

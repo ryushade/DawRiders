@@ -140,25 +140,30 @@ def formulario_comprobante(output_format):
 
     ventas_agrupadas = {}
     for venta in ventas:
-        codigo_venta = venta[7]  # Asumiendo que venta[7] es num_venta
+        codigo_venta = venta[7]
         if codigo_venta not in ventas_agrupadas:
             ventas_agrupadas[codigo_venta] = {
-                'fecha_venta': venta[6],  # Asumiendo que venta[6] es fechaVenta
+                'fecha_venta': venta[6],
                 'productos': [],
-                'total_venta': 0  # Inicializa el total de la venta
+                'total_venta': 0
             }
         ventas_agrupadas[codigo_venta]['productos'].append(venta)
-        ventas_agrupadas[codigo_venta]['total_venta'] += venta[4] * venta[3]  # Suma el total (precio * cantidad)
+        ventas_agrupadas[codigo_venta]['total_venta'] += venta[4] * venta[3]
+
+    # Selecciona la última venta basándose en la fecha
+    ultima_venta_key = max(ventas_agrupadas.keys(), key=lambda x: ventas_agrupadas[x]['fecha_venta'])
+    ultima_venta = {ultima_venta_key: ventas_agrupadas[ultima_venta_key]}
 
     if output_format == 'pdf':
-        rendered = render_template("comprobante.html", ventas_agrupadas=ventas_agrupadas)
+        rendered = render_template("comprobante.html", ventas_agrupadas=ultima_venta)
         pdf = pdfkit.from_string(rendered, False)
         response = make_response(pdf)
         response.headers['Content-Type'] = 'application/pdf'
         response.headers['Content-Disposition'] = 'attachment; filename=comprobante_venta.pdf'
         return response
     else:
-        return render_template("comprobante.html", ventas_agrupadas=ventas_agrupadas)
+        return render_template("comprobante.html", ventas_agrupadas=ultima_venta)
+
 
 
 @app.route("/administrador")
