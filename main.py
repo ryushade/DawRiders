@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash, jsonify, url_for, session, json, make_response
+from flask import Flask, render_template, request, redirect, flash, jsonify, url_for, session, json, make_response, send_file
 from flask_login import login_user
 from flask_jwt import JWT, jwt_required, current_identity
 
@@ -7,6 +7,7 @@ from functools import wraps
 
 from bd import obtener_conexion
 import time
+import pandas as pd
 
 import urllib
 import os
@@ -170,6 +171,24 @@ def formulario_ventas():
     else:
         flash("Acceso denegado. Debe ser administrador para acceder a esta página.", "admin_error")
         return redirect(url_for("formulario_login_cliente"))
+    
+def exportar_excel():
+    # Obtener los datos de las ventas
+    datos_ventas = controlador_pago.obtener_ventas_dashboard()
+
+    # Convertir los datos a DataFrame de pandas
+    df_ventas = pd.DataFrame(datos_ventas, columns=["ID Venta", "Nombre", "Apellidos", "País", "Dirección", "Región", "Localidad", "Teléfono", "Correo", "Mes", "Año", "CVV", "Número de Tarjeta", "ID Producto", "Monto Final", "Número de Venta", "ID Cliente", "Cantidad", "Fecha de Venta"])
+
+    # Especificar un nombre de archivo
+    filename = "ventas.xlsx"
+    # Crear un writer de pandas usando openpyxl como motor
+    writer = pd.ExcelWriter(filename, engine='openpyxl')
+    # Escribir el DataFrame a Excel
+    df_ventas.to_excel(writer, index=False, sheet_name='Ventas')
+    # Guardar el archivo Excel
+    writer.save()
+    # Enviar el archivo para descarga
+    return send_file(filename, as_attachment=True, attachment_filename='Ventas.xlsx')
 
 @app.route("/actualizar_cliente", methods=['POST'])
 def actualizar_cliente():
