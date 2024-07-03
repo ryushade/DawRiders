@@ -52,7 +52,6 @@
 						<li><a href="{{ url_for('crud_producto') }}">Producto</a></li>
 						<li><a href="{{url_for('crud_cliente')}}">Cliente</a></li>
 						<li><a href="{{url_for('crud_accesorio')}}">Accesorios</a></li>
-
 					</ul>
 				</li>
 
@@ -66,7 +65,7 @@
 						<i class="material-icons">dashboard</i>Ventas
 					</a>
 					<ul class="collapse list-unstyled menu" id="dashboardSubmenu" style="margin-left: 20px;">
-						<li><a href="{{url_for('formulario_ventas')}}">Ventas realizadas</a></li>
+						<li><a href="{{url_for('ventas')}}">Ventas realizadas</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -364,7 +363,8 @@
 										<td>{{producto[4]}}</td>
 										<td>{{producto[5]}}</td>
 										<td>{{producto[6]}}</td>
-										<td>{{producto[7]}}</td>
+										<td><img data-anijs="if: mouseover, do: pulse animated"
+                                            src="{{ url_for('static', filename='img/' + producto[7])}}" alt="" class="img-fluid"></td>
 										<td>{{producto[12]}}</td>
 										<td>{{producto[13]}}</td>
 										<td>{{producto[14]}}</td>
