@@ -64,7 +64,7 @@
 					<a href="#ventasSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
 						<i class="material-icons">dashboard</i>Ventas
 					</a>
-					<ul class="collapse list-unstyled menu" id=	"ventasSubmenu" style="margin-left: 20px;">
+					<ul class="collapse list-unstyled menu" id="ventasSubmenu" style="margin-left: 20px;">
 						<li><a href="{{url_for('formulario_ventas')}}">Ventas realizadas</a></li>
 					</ul>
 				</li>
@@ -190,46 +190,58 @@
 							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
-										<th>Id</th>
+										<th>ID Venta</th>
 										<th>Nombre</th>
 										<th>Apellidos</th>
-										<th>Email</th>
-										<th>Contraseña</th>
+										<th>País</th>
+										<th>Dirección</th>
+										<th>Región</th>
+										<th>Localidad</th>
 										<th>Teléfono</th>
+										<th>Correo</th>
+										<th>Mes</th>
+										<th>Año</th>
+										<th>CVV</th>
+										<th>Número de Tarjeta</th>
+										<th>ID Producto</th>
+										<th>Monto Final</th>
+										<th>Número de Venta</th>
+										<th>ID Cliente</th>
+										<th>Cantidad</th>
+										<th>Fecha de Venta</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
-								
 								<tbody>
-									{% for cliente in clientes %}
+									{% for venta in ventas %}
 									<tr>
-
-
-										<td>{{cliente[0]}}</td>
-										<td>{{cliente[1]}}</td>
-										<td>{{cliente[2]}}</td>
-										<td>{{cliente[3]}}</td>
-										<td>{{cliente[4]}}</td>
-										<td>{{cliente[5]}}</td>
-										<td>
-											<a href="#editEmployeeModal" class="edit" data-toggle="modal">
-												<i class="material-icons" data-toggle="tooltip"
-													title="Edit">&#xE254;</i>
-											</a>
-											<form action="{{ url_for('eliminar_cliente') }}" method="POST"
-												onsubmit="return confirm('¿Seguro que desea eliminar este cliente?')"
-												style="display: inline;">
-												<input type="hidden" name="id" value="{{ cliente[0] }}">
-												<button type="submit" class="icon-button">
-													<i class="material-icons" title="Delete">&#xE872;</i>
-												</button>
-											</form>
-
-								</tbody>								
-								{% endfor %}
-
+										<td>{{ venta.idVenta }}</td>
+										<td>{{ venta.nombre }}</td>
+										<td>{{ venta.apellidos }}</td>
+										<td>{{ venta.pais }}</td>
+										<td>{{ venta.direccion }}</td>
+										<td>{{ venta.region }}</td>
+										<td>{{ venta.localidad }}</td>
+										<td>{{ venta.telefono }}</td>
+										<td>{{ venta.correo }}</td>
+										<td>{{ venta.mes }}</td>
+										<td>{{ venta.año }}</td>
+										<td>{{ venta.cvv }}</td>
+										<td>{{ venta.numTarjeta }}</td>
+										<td>{{ venta.idProducto }}</td>
+										<td>{{ venta.monto_final }}</td>
+										<td>{{ venta.num_venta }}</td>
+										<td>{{ venta.idCliente }}</td>
+										<td>{{ venta.cantidad }}</td>
+										<td>{{ venta.fechaVenta }}</td>
+										<td> <!-- Aquí puedes incluir botones o enlaces para acciones como editar o eliminar -->
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
 							</table>
 
+						
 							<div class="clearfix">
 								<div class="hint-text">Mostrando <b>5</b> de <b>25</b></div>
 								<ul class="pagination">
