@@ -156,7 +156,7 @@ def obtener_ventas_comprobante(id_cliente):
                 INNER JOIN PRODUCTO p ON v.idProducto = p.idProducto
                 INNER JOIN CLIENTE cl on v.idCliente = cl.idCliente
                 WHERE v.idCliente = %s
-                ORDER BY v.fechaVenta DESC
+                ORDER BY v.fechaVenta DESC, v.num_venta DESC
                 """, (id_cliente,))
             ventas = cursor.fetchall()
     except Exception as e:
