@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<title>CicloRiders CRUD</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+	<!----css3---->
+	<link rel="stylesheet" href="/static/css/custom.css">
+
+
+	<!--google fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+
+	<!--google material icon-->
+	<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+
+	<div class="wrapper">
+
+		<div class="body-overlay"></div>
+
+		<!-------sidebar--design------------>
+
+		<div id="sidebar">
+			<div class="sidebar-header">
+				<h3>
+					<a href="{{ url_for('formulario_principal') }}">
+						<img src="/static/img/logocicloriders_2-removebg-preview 1.png" class="img-fluid" />
+						<span>CicloRiders</span>
+					</a>
+				</h3>
+			</div>
+			<ul class="list-unstyled component m-0">
+				<li class="dropdown">
+					<a href="#dashboardSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+						<i class="material-icons">dashboard</i>CRUD-Tablas
+					</a>
+					<ul class="collapse list-unstyled menu" id="dashboardSubmenu" style="margin-left: 20px;">
+						<li><a href="{{ url_for('crud_producto') }}">Producto</a></li>
+						<li><a href="{{url_for('crud_cliente')}}">Cliente</a></li>
+						<li><a href="{{url_for('crud_accesorio')}}">Accesorios</a></li>
+
+					</ul>
+				</li>
+
+
+			</ul>
+
+			<ul class="list-unstyle component m-0">
+				<li class="dropdown">
+					<a href="#dashboardSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+						<i class="material-icons">dashboard</i>Ventas
+					</a>
+					<ul class="collapse list-unstyled menu" id="dashboardSubmenu" style="margin-left: 20px;">
+						<li><a href="{{url_for('ventas')}}">Ventas realizadas</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+		<!-------sidebar--design- close----------->
+
+
+
+		<!-------page-content start----------->
+
+		<div id="content">
+
+			<!------top-navbar-start----------->
+
+			<div class="top-navbar">
+				<div class="xd-topbar">
+					<div class="row">
+						<div class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
+							<div class="xp-menubar">
+								<span class="material-icons text-white">signal_cellular_alt</span>
+							</div>
+						</div>
+
+						<div class="col-md-5 col-lg-3 order-3 order-md-2">
+							<div class="xp-searchbar">
+								<form>
+									<div class="input-group">
+										<input type="search" class="form-control" placeholder="Buscar">
+										<div class="input-group-append">
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+
+
+						<div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
+							<div class="xp-profilebar text-right">
+								<nav class="navbar p-0">
+									<ul class="nav navbar-nav flex-row ml-auto">
+										<li class="dropdown nav-item active">
+											<a class="nav-link" href="#" data-toggle="dropdown">
+												<span class="material-icons">notifications</span>
+												<span class="notification">4</span>
+											</a>
+
+										</li>
+
+										<li class="nav-item">
+											<a class="nav-link" href="#">
+												<span class="material-icons">question_answer</span>
+											</a>
+										</li>
+
+										<li class="dropdown nav-item">
+											<a class="nav-link" href="#" data-toggle="dropdown">
+												<img src="/static/img/2.webp" style="width:40px; border-radius:50%;" />
+												<span class="xp-user-live"></span>
+											</a>
+											<ul class="dropdown-menu small-menu">
+												<li><a href="{{ url_for('formulario_principal') }}">
+														<span class="material-icons">person_outline</span>
+														Inicio
+													</a></li>
+												<li><a href="#">
+														<span class="material-icons">settings</span>
+														Configuración
+													</a></li>
+												<li><a href="{{ url_for('logout') }}">
+														<span class="material-icons">logout</span>
+														Cerrar Sesión
+													</a></li>
+											</ul>
+										</li>
+
+
+
+									</ul>
+								</nav>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="xp-breadcrumbbar text-center">
+						<h4 class="page-title">Dashboard</h4>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#">CicloRiders</a></li>
+							<li class="breadcrumb-item active" aria-curent="page">Dashboard</li>
+						</ol>
+					</div>
+
+
+				</div>
+			</div>
+			<!------top-navbar-end----------->
+
+
+			<!------main-content-start----------->
+
+			<div class="main-content">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="table-wrapper">
+
+							<div class="table-title">
+								<div class="row">
+									<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+										<h2 class="ml-lg-2">Ventas realizadas</h2>
+									</div>
+									<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+										<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
+											<i class="material-icons">&#xE147;</i>
+											<span>Exportar excel</span>
+										</a>
+
+									</div>
+								</div>
+							</div>
+
+							<table class="table table-striped table-hover">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Nombre</th>
+										<th>Apellidos</th>
+										<th>Email</th>
+										<th>Contraseña</th>
+										<th>Teléfono</th>
+										<th>Acciones</th>
+									</tr>
+								</thead>
+								<div class="modal fade" tabindex="-1" id="addEmployeeModal" role="dialog">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content"
+											style="background-color: #91c4d9; border-radius: 10px;">
+											<form method="post" action="{{ url_for('guardar_clienteC') }}">
+												<div class="modal-header">
+													<h5 class="modal-title">Registrar Cliente</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div class="row">
+														<div class="col-lg-6">
+															<div class="input-group mb-3">
+																<input type="text" class="form-control"
+																	placeholder="Nombre" name="nombre" id="nombre">
+															</div>
+														</div>
+														<div class="col-lg-6">
+															<div class="input-group mb-3">
+																<input type="text" class="form-control"
+																	placeholder="Apellidos" name="apellidos"
+																	id="apellidos">
+															</div>
+														</div>
+													</div>
+													<div class="input-group mb-3">
+														<input type="number" class="form-control"
+															placeholder="Número de Celular" name="telefono"
+															id="telefono">
+													</div>
+													<div class="input-group mb-3">
+														<input type="text" class="form-control" placeholder="Email"
+															name="email" id="email">
+													</div>
+													<div class="form-group">
+														<input type="password" class="form-control"
+															placeholder="Contraseña" name="contraseña" id="contraseña">
+														<small class="form-text text-muted">
+															La contraseña debe tener entre 8 y 20 caracteres, contener
+															letras y
+															números, y no debe contener espacios, caracteres especiales
+															ni emoji.
+														</small>
+													</div>
+													<div class="form-group">
+														<input type="password" class="form-control"
+															placeholder="Confirme la contraseña">
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">Cancelar</button>
+													<button type="submit" class="btn btn-primary">Registrar</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+								<tbody>
+									{% for cliente in clientes %}
+									<tr>
+
+
+										<td>{{cliente[0]}}</td>
+										<td>{{cliente[1]}}</td>
+										<td>{{cliente[2]}}</td>
+										<td>{{cliente[3]}}</td>
+										<td>{{cliente[4]}}</td>
+										<td>{{cliente[5]}}</td>
+										<td>
+											<a href="#editEmployeeModal" class="edit" data-toggle="modal">
+												<i class="material-icons" data-toggle="tooltip"
+													title="Edit">&#xE254;</i>
+											</a>
+											<form action="{{ url_for('eliminar_cliente') }}" method="POST"
+												onsubmit="return confirm('¿Seguro que desea eliminar este cliente?')"
+												style="display: inline;">
+												<input type="hidden" name="id" value="{{ cliente[0] }}">
+												<button type="submit" class="icon-button">
+													<i class="material-icons" title="Delete">&#xE872;</i>
+												</button>
+											</form>
+
+								</tbody>
+								<!----edit-modal start--------->
+								<div class="modal fade" tabindex="-1" id="editEmployeeModal" role="dialog">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">Editar cliente</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<div class="form-group">
+													<label>Name</label>
+													<input type="text" class="form-control" required>
+												</div>
+												<div class="form-group">
+													<label>Email</label>
+													<input type="emil" class="form-control" required>
+												</div>
+												<div class="form-group">
+													<label>Address</label>
+													<textarea class="form-control" required></textarea>
+												</div>
+												<div class="form-group">
+													<label>Phone</label>
+													<input type="text" class="form-control" required>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Cancel</button>
+												<button type="button" class="btn btn-success">Save</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!----edit-modal end--------->
+
+
+								{% endfor %}
+
+							</table>
+
+							<div class="clearfix">
+								<div class="hint-text">Mostrando <b>5</b> de <b>25</b></div>
+								<ul class="pagination">
+									<li class="page-item disabled"><a href="#">Anterior</a></li>
+									<li class="page-item "><a href="#" class="page-link">1</a></li>
+									<li class="page-item "><a href="#" class="page-link">2</a></li>
+									<li class="page-item"><a href="#" class="page-link">3</a></li>
+									<li class="page-item "><a href="#" class="page-link">4</a></li>
+									<li class="page-item "><a href="#" class="page-link">5</a></li>
+									<li class="page-item "><a href="#" class="page-link">Siguiente</a></li>
+								</ul>
+							</div>
+
+
+
+
+
+
+
+
+
+						</div>
+					</div>
+
+
+					<!----add-modal start--------->
+
+
+
+					<!----edit-modal end--------->
+
+
+
+
+
+
+
+
+
+				</div>
+			</div>
+
+			<!------main-content-end----------->
+
+
+
+			<!----footer-design------------->
+
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="footer-in">
+						<p class="mb-0">&copy 2024 CicloRiders. Todos los derechos reservados.</p>
+					</div>
+				</div>
+			</footer>
+
+
+
+
+		</div>
+
+	</div>
+
+
+
+	<!-------complete html----------->
+
+
+
+
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="/static/js/jquery-3.3.1.slim.min.js"></script>
+	<script src="/static/js/popper.min.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/jquery-3.3.1.min.js"></script>
+
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$(".xp-menubar").on('click', function () {
+				$("#sidebar").toggleClass('active');
+				$("#content").toggleClass('active');
+			});
+
+			$('.xp-menubar,.body-overlay').on('click', function () {
+				$("#sidebar,.body-overlay").toggleClass('show-nav');
+			});
+
+		});
+	</script>
+
+
+
+
+
+</body>
+
+</html>

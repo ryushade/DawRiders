@@ -58,6 +58,17 @@
 
 
 			</ul>
+
+			<ul class="list-unstyle component m-0">
+				<li class="dropdown">
+					<a href="#dashboardSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+						<i class="material-icons">dashboard</i>Ventas
+					</a>
+					<ul class="collapse list-unstyled menu" id="dashboardSubmenu" style="margin-left: 20px;">
+						<li><a href="{{url_for('ventas')}}">Ventas realizadas</a></li>
+					</ul>
+				</li>
+			</ul>
 		</div>
 
 		<!-------sidebar--design- close----------->
@@ -253,7 +264,7 @@
 									{% for cliente in clientes %}
 									<tr>
 
-										
+
 										<td>{{cliente[0]}}</td>
 										<td>{{cliente[1]}}</td>
 										<td>{{cliente[2]}}</td>

@@ -161,6 +161,15 @@ def crud_cliente():
     else:
         flash("Acceso denegado. Debe ser administrador para acceder a esta página.", "admin_error")
         return redirect(url_for("formulario_login_cliente"))
+    
+@app.route("/ventas")
+def formulario_ventas():
+    if 'user_id' in session and session.get('is_admin', False):
+        ventas = controlador_pago.obtener_ventas()
+        return render_template("ventas.html", ventas=ventas)
+    else:
+        flash("Acceso denegado. Debe ser administrador para acceder a esta página.", "admin_error")
+        return redirect(url_for("formulario_login_cliente"))
 
 @app.route("/actualizar_cliente", methods=['POST'])
 def actualizar_cliente():
