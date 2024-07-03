@@ -11,6 +11,7 @@ import pandas as pd
 
 import urllib
 import os
+import io 
 from controladores import controlador_pago
 from controladores import controlador_cliente
 from controladores import controlador_moto
@@ -184,6 +185,7 @@ def exportar_excel():
     ])
 
     # Guardar el DataFrame a un archivo Excel
+    buffer = io.BytesIO()
     excel_path = "ventas.xlsx"  # Define aquí el nombre y la ruta del archivo Excel deseado
     df.to_excel(excel_path, index=False)  # Guarda sin incluir el índice del DataFrame
 
