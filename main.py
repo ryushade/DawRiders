@@ -177,17 +177,16 @@ def ventas():
 @app.route("/exportar_excel")
 def exportar_excel():
     datosVentas = controlador_pago.obtener_ventas_excel()
-    df = pd.DataFrame(datosVentas, columns=[
-        "Num. Venta", "Fecha Venta", "Nombre", "Apellido", 
-        "Marca", "Modelo", "Cantidad", "Total", "Imagen"
-    ])
-    
-    # Aquí deberías especificar la ruta donde quieres guardar el archivo Excel
-    excel_path = "ventas.xlsx"
-    df.to_excel(excel_path, index=False)
+    df = pd.DataFrame(datosVentas)
 
-    return f"Datos exportados exitosamente a {excel_path}"
-
+    df = df.rename(columns={ 0: 'num_venta', 1:'fechaVenta', 2: 'nombre', 3: 'apellidos', 4:'marca', 5: 'modelo', 6: 'cantidad', 7: 'total_pagado', 8: 'imagen')}
+                
+    buffer = io.BytesIO()
+    df.to_excel(buffer, index=False)
+    response = make_response(buffer.getvalue())
+    response.headers['Content-Type'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    response.headers['Content-Disposition'] = 'attachment; filename=ventas.xlsx'
+    return response
 
 
 
