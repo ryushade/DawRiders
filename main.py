@@ -126,8 +126,9 @@ def formulario_historial_venta():
     return render_template("historial_venta.html", ventas_agrupadas=ventas_agrupadas, cliente=cliente)
 
 
-@app.route("/comprobante")
-def formulario_comprobante():
+@app.route("/comprobante", defaults={'output_format': 'html'})
+@app.route("/comprobante/<output_format>")
+def formulario_comprobante(output_format):
     email = request.cookies.get('email')
     token = request.cookies.get('token')
     if not email or not token or 'user_id' not in session:
@@ -146,18 +147,16 @@ def formulario_comprobante():
                 'productos': []
             }
         ventas_agrupadas[codigo_venta]['productos'].append(venta)
-    return render_template("comprobante.html", ventas_agrupadas=ventas_agrupadas)
 
-@app.route('/download-invoice/<int:venta_id>')
-def download_invoice(venta_id):
-    # Suponiendo que `obtener_datos_venta` es una función que devuelve los datos de la venta
-    data = controlador_pago.obtener_datos_venta(venta_id)
-    rendered = render_template('comprobante_venta.html', ventas_agrupadas=data)
-    pdf = pdfkit.from_string(rendered, False)
-    response = make_response(pdf)
-    response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = 'attachment; filename=comprobante_venta.pdf'
-    return response
+    if output_format == 'pdf':
+        rendered = render_template("comprobante.html", ventas_agrupadas=ventas_agrupadas)
+        pdf = pdfkit.from_string(rendered, False)
+        response = make_response(pdf)
+        response.headers['Content-Type'] = 'application/pdf'
+        response.headers['Content-Disposition'] = 'attachment; filename=comprobante_venta.pdf'
+        return response
+    else:
+        return render_template("comprobante.html", ventas_agrupadas=ventas_agrupadas)
 
 @app.route("/administrador")
 def formulario_administrador():
