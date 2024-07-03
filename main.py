@@ -179,8 +179,7 @@ def exportar_excel():
     datosVentas = controlador_pago.obtener_ventas_excel()
     df = pd.DataFrame(datosVentas)
 
-    df = df.rename(columns={ 0: 'num_venta', 1:'fechaVenta', 2: 'nombre', 3: 'apellidos', 4:'marca', 5: 'modelo', 6: 'cantidad', 7: 'total_pagado', 8: 'imagen')}
-                
+    df = df.rename(columns={0: 'num_venta', 1: 'fechaVenta', 2: 'nombre', 3: 'apellidos', 4: 'marca', 5: 'modelo', 6: 'cantidad', 7: 'total_pagado', 8: 'imagen'})                
     buffer = io.BytesIO()
     df.to_excel(buffer, index=False)
     response = make_response(buffer.getvalue())
