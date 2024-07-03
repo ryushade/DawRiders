@@ -12,7 +12,6 @@ import pandas as pd
 
 import urllib
 import os
-import pdfkit
 import io 
 from controladores import controlador_pago
 from controladores import controlador_cliente
@@ -127,20 +126,14 @@ def formulario_historial_venta():
 
 @app.route('/descargar_comprobante/<int:id_venta>')
 def descargar_comprobante(id_venta):
-    # Obtener detalles de la venta y el cliente utilizando el ID de la venta
-    venta = controlador_pago.obtener_venta_por_id(id_venta)
-    if not venta:
-        return "Venta no encontrada", 404
-    
-    productos = controlador_pago.obtener_productos_por_venta(id_venta)
-    
-    # Renderizar la plantilla HTML con los datos de la venta y los productos
-    rendered = render_template('comprobante_pago.html', venta=venta, productos=productos)
+    # Suponiendo que tienes una función para obtener los detalles de la venta
+    venta = controlador_pago.obtener_detalle_venta(id_venta)
+    rendered = render_template('comprobante_pago.html', venta=venta)
     pdf = pdfkit.from_string(rendered, False)
     
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = f'attachment; filename=comprobante_venta_{id_venta}.pdf'
+    response.headers['Content-Disposition'] = 'attachment; filename=comprobante_venta_{}.pdf'.format(id_venta)
     
     return response
 
@@ -1576,15 +1569,6 @@ def guardar_venta():
         return redirect(url_for("formulario_pago"))
     finally:
         conexion.close()
-
-@app.route("/compra_exitosa/<int:id_venta>")
-def compra_exitosa(id_venta):
-    venta = controlador_pago.obtener_venta_por_id(id_venta)  # Asumiendo que esta función devuelve los detalles de la venta
-    if not venta:
-        return "Venta no encontrada", 404
-    
-    return render_template("compraexitosa.html", venta=venta)
-
 
 ##### APIS
 

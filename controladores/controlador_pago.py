@@ -72,32 +72,6 @@ def obtener_ventas_excel():
 
 
 
-def obtener_productos_por_venta(id_venta):
-    conexion = obtener_conexion()
-    productos = []
-    try:
-        with conexion.cursor() as cursor:
-            # Consulta SQL que recupera productos de una venta específica
-            cursor.execute("""
-                SELECT 
-                    p.descripcion,
-                    p.marca,
-                    p.modelo,
-                    ic.precioPorUnidad,
-                    ic.cantidad
-                FROM ITEM_CARRITO ic
-                JOIN PRODUCTO p ON ic.idProducto = p.idProducto
-                JOIN VENTA1 v ON v.idVenta1 = ic.idCarrito  
-                WHERE v.idVenta1 = %s
-            """, (id_venta,))
-            productos = cursor.fetchall()  # Recupera todos los registros que coinciden con la consulta
-    except Exception as e:
-        print(f"Error al obtener productos para la venta {id_venta}: {e}")
-    finally:
-        conexion.close()
-    
-    return productos
-
 def eliminar_venta(idVenta1):
     conexion = obtener_conexion()
     try:
