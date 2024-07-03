@@ -172,6 +172,8 @@ def formulario_ventas():
         flash("Acceso denegado. Debe ser administrador para acceder a esta página.", "admin_error")
         return redirect(url_for("formulario_login_cliente"))
     
+
+@app.route("/exportar_excel")
 def exportar_excel():
     # Obtener los datos de las ventas
     datos_ventas = controlador_pago.obtener_ventas_dashboard()
