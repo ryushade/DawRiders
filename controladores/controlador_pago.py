@@ -151,15 +151,13 @@ def obtener_ventas_comprobante(id_cliente):
     try:
         with conexion.cursor() as cursor:
             cursor.execute("""
-                SELECT p.imagen, p.marca, p.modelo, v.cantidad, p.precio, SUM(v.monto_final) AS total_pagado, v.fechaVenta, v.num_venta, cl.nombre, cl.apellidos, cl.email, cl.telefono
+                SELECT p.imagen, p.marca, p.modelo, v.cantidad, p.precio, v.monto_final, v.fechaVenta, v.num_venta, cl.nombre, cl.apellidos, cl.email, cl.telefono
                 FROM VENTA1 v
                 INNER JOIN PRODUCTO p ON v.idProducto = p.idProducto
                 INNER JOIN CLIENTE cl on v.idCliente = cl.idCliente
                 WHERE v.idCliente = %s
-                GROUP BY v.num_venta, p.imagen, p.marca, p.modelo, v.cantidad, p.precio
                 ORDER BY v.fechaVenta DESC
-                LIMIT 1
-            """, (id_cliente,))
+                """, (id_cliente,))
             ventas = cursor.fetchall()
     except Exception as e:
         print("Error al obtener el historial de ventas:", e)
