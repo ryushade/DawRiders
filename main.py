@@ -1577,6 +1577,15 @@ def guardar_venta():
     finally:
         conexion.close()
 
+@app.route("/compra_exitosa/<int:id_venta>")
+def compra_exitosa(id_venta):
+    venta = controlador_pago.obtener_venta_por_id(id_venta)  # Asumiendo que esta función devuelve los detalles de la venta
+    if not venta:
+        return "Venta no encontrada", 404
+    
+    return render_template("compraexitosa.html", venta=venta)
+
+
 ##### APIS
 
 @app.route("/api_obtener_ventas", methods=["GET"])
