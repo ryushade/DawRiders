@@ -87,6 +87,7 @@ def formulario_registrar_cliente():
 def formulario_nosotros():
     return render_template("nosotros.html")
 
+
 @app.route("/accesorios")
 def formulario_accesorios():
     return render_template("accesorios.html")
@@ -124,6 +125,27 @@ def formulario_historial_venta():
     return render_template("historial_venta.html", ventas_agrupadas=ventas_agrupadas, cliente=cliente)
 
 
+@app.route("/comprobante")
+def formulario_comprobante():
+    email = request.cookies.get('email')
+    token = request.cookies.get('token')
+    if not email or not token or 'user_id' not in session:
+        flash('Por favor, inicie sesión para ver esta página.', 'error')
+        return redirect(url_for("formulario_login_cliente"))
+
+    id_cliente = session['user_id']
+    ventas = controlador_pago.obtener_ventas_comprobante(id_cliente)
+
+    ventas_agrupadas = {}
+    for venta in ventas:
+        codigo_venta = venta[7]
+        if codigo_venta not in ventas_agrupadas:
+            ventas_agrupadas[codigo_venta] = {
+                'fecha_venta': venta[6],
+                'productos': []
+            }
+        ventas_agrupadas[codigo_venta]['productos'].append(venta)
+    return render_template("comprobante.html", ventas_agrupadas=ventas_agrupadas)
 
 @app.route("/administrador")
 def formulario_administrador():
