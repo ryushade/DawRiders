@@ -187,9 +187,7 @@ function decrementItem(index) {
         updateSubtotal(index, currentQuantity);
     }
 }
-function generatePDF(idVenta) {
-    window.location.href = `/generate_pdf/${idVenta}`;
-}
+
 sr.reveal(`.home__title, .popular__container, .features__img, .featured__filters`)
 sr.reveal(`.home__subtitle`, { delay: 500 })
 sr.reveal(`.home__elec`, { delay: 600 })

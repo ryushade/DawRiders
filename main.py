@@ -10,10 +10,6 @@ import time
 
 import urllib
 import os
-from flask import Flask, send_file
-import io
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
 from controladores import controlador_pago
 from controladores import controlador_cliente
 from controladores import controlador_moto
@@ -1461,18 +1457,6 @@ def compra_exitosa():
 
     return render_template("compraexitosa.html")
 
-@app.route("/compra_exitosa/<int:id_venta>")
-def compra_exitosa(id_venta):
-    email = request.cookies.get('email')
-    token = request.cookies.get('token')
-    if not email or not token or not session.get('user_id'):
-        flash("Debes iniciar sesión para proceder al pago.", "error")
-        return redirect(url_for("formulario_login_cliente"))
-
-    id_cliente = session['user_id']
-    if not venta_reciente(id_cliente):
-        flash("No se ha detectado una compra reciente.", "error")
-        return redirect(url_for("formulario_principal",id_venta=id_venta))
 
 def venta_reciente(id_cliente):
     conexion = obtener_conexion()
@@ -1491,25 +1475,7 @@ def venta_reciente(id_cliente):
     finally:
         conexion.close()
 
-@app.route('/generate_pdf/<int:id_venta>')
-def generate_pdf(id_venta):
-    venta = controlador_pago.obtener_datos_venta_comprobante(id_venta)  # Asegúrate de implementar esta función
-    if not venta:
-        return "Venta no encontrada", 404
 
-    # Configura el PDF
-    buffer = io.BytesIO()
-    p = canvas.Canvas(buffer, pagesize=letter)
-    p.drawString(72, 720, f"Comprobante de Pago - Venta ID: {id_venta}")
-    p.drawString(72, 700, f"Nombre: {venta['nombre']} {venta['apellidos']}")
-    p.drawString(72, 680, f"Monto Final: {venta['monto_final']}")
-
-    # Más detalles según sea necesario
-    p.showPage()
-    p.save()
-    
-    buffer.seek(0)
-    return send_file(buffer, as_attachment=True, mimetype='application/pdf', attachment_filename='comprobante_pago.pdf')
 
 # ---------------Venta------------------------
 @app.route("/guardar_venta", methods=["POST"])
