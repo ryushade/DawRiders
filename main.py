@@ -178,18 +178,16 @@ def ventas():
 @app.route("/exportar_excel")
 def exportar_excel():
     datosVentas = controlador_pago.obtener_ventas_excel()
-    # Crear DataFrame con nombres de columnas correspondientes a los índices de las columnas de los datos
+    # Adjust column names based on actual data structure printed
     df = pd.DataFrame(datosVentas, columns=[
-        "Imagen", "Marca", "Modelo", "Cantidad", "Precio", "Total", "Fecha Venta",
-        "Num. Venta", "Nombre", "Apellido", "Email", "Telefono"
+        "Imagen", "Marca", "Modelo", "Cantidad", "Precio", "Total Pagado", 
+        "Fecha Venta", "Num. Venta", "Nombre", "Apellido", "Email", "Telefono"
     ])
-
-    # Guardar el DataFrame a un archivo Excel
     buffer = io.BytesIO()
-    excel_path = "ventas.xlsx"  # Define aquí el nombre y la ruta del archivo Excel deseado
-    df.to_excel(excel_path, index=False)  # Guarda sin incluir el índice del DataFrame
-
+    excel_path = "ventas.xlsx"
+    df.to_excel(excel_path, index=False)
     return f"Datos exportados exitosamente a {excel_path}"
+
 
 
 
