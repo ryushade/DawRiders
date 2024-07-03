@@ -70,6 +70,16 @@ def obtener_venta_por_id(idVenta1):
     conexion.close()
     return venta
 
+def obtener_datos_venta_comprobante(id_venta):
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("SELECT * FROM VENTA1 WHERE idVenta = %s", (id_venta,))
+            return cursor.fetchone()
+    finally:
+        conexion.close()
+
+
 def obtener_venta_por_id_api():
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:

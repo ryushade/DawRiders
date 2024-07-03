@@ -187,23 +187,8 @@ function decrementItem(index) {
         updateSubtotal(index, currentQuantity);
     }
 }
-function generatePDF(idVenta1) {
-    fetch(`/generate_pdf/${idVenta1}`)
-        .then(response => {
-            if (!response.ok) throw new Error('Failed to download the PDF.');
-            return response.blob();
-        })
-        .then(blob => {
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = 'comprobante_pago.pdf';
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-        })
-        .catch(error => console.error('Error downloading the PDF:', error));
+function generatePDF(idVenta) {
+    window.location.href = `/generate_pdf/${idVenta}`;
 }
 sr.reveal(`.home__title, .popular__container, .features__img, .featured__filters`)
 sr.reveal(`.home__subtitle`, { delay: 500 })
