@@ -11,6 +11,7 @@ import pandas as pd
 
 import urllib
 import os
+import pdfkit
 import io 
 from controladores import controlador_pago
 from controladores import controlador_cliente
@@ -146,6 +147,17 @@ def formulario_comprobante():
             }
         ventas_agrupadas[codigo_venta]['productos'].append(venta)
     return render_template("comprobante.html", ventas_agrupadas=ventas_agrupadas)
+
+@app.route('/download-invoice/<int:venta_id>')
+def download_invoice(venta_id):
+    # Suponiendo que `obtener_datos_venta` es una función que devuelve los datos de la venta
+    data = controlador_pago.obtener_datos_venta(venta_id)
+    rendered = render_template('comprobante_venta.html', ventas_agrupadas=data)
+    pdf = pdfkit.from_string(rendered, False)
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'attachment; filename=comprobante_venta.pdf'
+    return response
 
 @app.route("/administrador")
 def formulario_administrador():

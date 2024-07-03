@@ -357,7 +357,9 @@ Compra Exitosa
                 <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
             </svg>
 
-            <button class="btn"><i class="fa-fa-download"></i> Descargar comprobante de pago</button>
+            <button class="btn" onclick="window.location.href = '/download-invoice/{{ venta_id }}'">
+                <i class="fa fa-download"></i> Descargar comprobante de pago
+            </button>
         </div>
         <div class="confetti" id="confetti"></div>
     </div>
