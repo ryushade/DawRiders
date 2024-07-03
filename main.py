@@ -7,6 +7,7 @@ from functools import wraps
 
 from bd import obtener_conexion
 import time
+import jinja2 
 import pandas as pd
 
 import urllib

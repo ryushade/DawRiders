@@ -1,7 +1,7 @@
 {% extends "maestra.html" %}
 
 {% block titulo %}
-    Compra Exitosa
+Compra Exitosa
 {% endblock %}
 
 {% block contenido %}
@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="/static/assets/css/styles-card.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="/static/css/anicollection.css">
     <link rel="stylesheet" href="/static/css/bootstrap.css">
     <link rel="shortcut icon" href="/static/img/logocicloriders_2-removebg-preview 1.png" type="image/x-icon">
@@ -66,7 +66,8 @@
             color: #0000FF;
         }
 
-        .nav__toggle, .nav__close {
+        .nav__toggle,
+        .nav__close {
             display: none;
         }
 
@@ -74,7 +75,8 @@
             margin-top: 60px;
         }
 
-        .login-container, .register-container {
+        .login-container,
+        .register-container {
             background-color: #FFFFFF;
             color: #333333;
             padding: 0;
@@ -105,7 +107,8 @@
             background-color: #22262A;
         }
 
-        .btn-success, .btn-success:hover {
+        .btn-success,
+        .btn-success:hover {
             background-color: #22262A;
             border: none;
         }
@@ -142,7 +145,9 @@
             margin: 10px 0;
         }
 
-        h3, h2, h1 {
+        h3,
+        h2,
+        h1 {
             color: #22262A;
         }
 
@@ -163,6 +168,45 @@
             font-size: 30px;
         }
 
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 9px #999;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #3e8e41
+        }
+
+        .btn:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+        .btn i {
+            margin-right: 5px;
+            /* Espacio entre el ícono y el texto */
+        }
+
+        .fa-fa-download:before {
+            content: "\f019";
+            /* Este es el código Unicode para el ícono de descarga en FontAwesome */
+            font-family: FontAwesome;
+            color: #fff;
+            /* Puedes cambiar el color del ícono si es necesario */
+        }
+
         .success-message {
             text-align: center;
             padding: 50px;
@@ -172,7 +216,9 @@
             animation: fadeIn 1s ease-in-out;
         }
 
-        .success-message h1, .success-message h2, .success-message h3 {
+        .success-message h1,
+        .success-message h2,
+        .success-message h3 {
             margin: 20px 0;
         }
 
@@ -202,6 +248,7 @@
             0% {
                 opacity: 0;
             }
+
             100% {
                 opacity: 1;
             }
@@ -211,6 +258,7 @@
             0% {
                 transform: translateY(-50px) rotate(0deg);
             }
+
             100% {
                 transform: translateY(600px) rotate(360deg);
             }
@@ -220,9 +268,11 @@
             0% {
                 transform: translateX(0);
             }
+
             50% {
                 transform: translateX(100px);
             }
+
             100% {
                 transform: translateX(0);
             }
@@ -265,9 +315,12 @@
         }
 
         @keyframes scale {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: none;
             }
+
             50% {
                 transform: scale3d(1.1, 1.1, 1);
             }
@@ -279,11 +332,11 @@
             }
         }
     </style>
-    
+
     <div class="row mt-5">
-        
+
     </div>
-    
+
     <div class="container py-5">
         <div class="success-message">
             <div class="row">
@@ -297,11 +350,14 @@
             </div>
             <div class="row">
                 <p>Gracias por su compra, su pedido ha sido procesado con éxito.</p>
+
             </div>
             <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
             </svg>
+
+            <button class="btn"><i class="fa-fa-download"></i> Descargar comprobante de pago</button>
         </div>
         <div class="confetti" id="confetti"></div>
     </div>

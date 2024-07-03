@@ -1,75 +1,181 @@
-<div class="page-container">Pagina de</div>
-<div class="logo-container"><img style="height: 18px;" src="/static/img/logocicloriders_2-removebg-preview 1.png" />
-</div>
-<table class="invoice-info-container">
-    <tbody>
-        <tr>
-            <td class="client-name" rowspan="2">{{client_name}}</td>
-            <td>CicloRiders</td>
-        </tr>
-        <tr>
-            <td>Ciro Alegria</td>
-        </tr>
-        <tr>
-            <td>Fecha Recibo: <strong>{{today_date}}</strong></td>
-            <td>Lambayeque, 14013</td>
-        </tr>
-        <tr>
-            <td>cicloriders@gmail.com</td>
-        </tr>
-    </tbody>
-</table>
-<table class="line-items-container">
-    <thead>
-        <tr>
-            <th class="heading-quantity">&nbsp;</th>
-            <th class="heading-description">Descripcion</th>
-            <th class="heading-price">&nbsp;</th>
-            <th class="heading-subtotal">Subtotal</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>&nbsp;</td>
-            <td>{{item1}}</td>
-            <td class="right">&nbsp;</td>
-            <td class="bold">{{subtotal1}}</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>{{item2}}</td>
-            <td class="right">&nbsp;</td>
-            <td class="bold">{{subtotal2}}</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>{{item3}}</td>
-            <td class="right">&nbsp;</td>
-            <td class="bold">{{subtotal3}}</td>
-        </tr>
-    </tbody>
-</table>
-<table class="line-items-container has-bottom-border">
-    <thead>
-        <tr>
-            <th>Info de pago</th>
-            <th>Mes a pagar</th>
-            <th>Total a pagar</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td class="payment-info">
-                <div>Account No: <strong>123567744</strong></div>
-                <div>Routing No: <strong>120000547</strong></div>
-            </td>
-            <td class="large">{{month}}</td>
-            <td class="large total">{{total}}</td>
-        </tr>
-    </tbody>
-</table>
-<div class="footer">
-    <div class="footer-info">cicloriders@gmail.com | 983 610 859 | grupo4daw24.pythonanywhere.com</div>
-    <div class="footer-thanks"><img src="https://github.com/anvilco/html-pdf-invoice-template/raw/main/img/heart.png"
-            alt="heart" />Gracias!</div>
-</div>
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CicloRiders comprobante de pago-PDF</title>
+  
+  <style>
+  @page {
+    size: a4 portrait;
+    margin: 0mm 0mm 0mm 0mm;
+    counter-increment: page;
+  }
+  .invoice-box {
+    max-width: 800px;
+    margin: auto;
+    padding: 30px;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    color: #555;
+  }
+  
+  .invoice-box table {
+    width: 100%;
+    line-height: inherit;
+    text-align: left;
+  }
+  
+  .invoice-box table td {
+    padding: 5px;
+    vertical-align: top;
+  }
+  
+  .invoice-box table tr td:nth-child(2) {
+    text-align: right;
+  }
+  
+  .invoice-box table tr.top table td {
+    padding-bottom: 20px;
+  }
+  
+  .invoice-box table tr.top table td.title {
+    font-size: 45px;
+    line-height: 45px;
+    color: #333;
+  }
+  
+  .invoice-box table tr.information table td {
+    padding-bottom: 40px;
+  }
+  
+  .invoice-box table tr.heading td {
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+  }
+  
+  .invoice-box table tr.details td {
+    padding-bottom: 20px;
+  }
+  
+  .invoice-box table tr.item td{
+    border-bottom: 1px solid #eee;
+  }
+  
+  .invoice-box table tr.item.last td {
+    border-bottom: none;
+  }
+  
+  .invoice-box table tr.total td:nth-child(2) {
+    border-top: 2px solid #eee;
+    font-weight: bold;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .invoice-box table tr.top table td {
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+    
+    .invoice-box table tr.information table td {
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+  }
+  div.divFooter {
+    position: fixed;
+    height: 30px;
+    background-color: purple;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+  }
+  
+  /** RTL **/
+  .rtl {
+    direction: rtl;
+    font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+  }
+  
+  .rtl table {
+    text-align: right;
+  }
+  
+  .rtl table tr td:nth-child(2) {
+    text-align: left;
+  }
+  </style>
+</head>
+
+<body>
+  <div class="invoice-box">
+    <table cellpadding="0" cellspacing="0">
+      <tr class="top">
+        <td colspan="2">
+          <table>
+            <tr>
+              <td class="title">
+                <img src="https://imgur.com/edx5Sb0.png" style="height: 100px;">
+              </td>
+              <td>
+                Invoice #: {{invoice_number}}<br>
+                Created: {{date}}<br>
+                Due: {{duedate}}
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      
+      <tr class="information">
+        <td colspan="2">
+          <table>
+            <tr>
+              <td>
+                {{from_addr['company_name']}}<br>
+                {{from_addr['addr1']}}<br>
+                {{from_addr['addr2']}}
+              </td>
+              <td>
+                {{to_addr['company_name']}}<br>
+                {{to_addr['person_name']}}<br>
+                {{to_addr['person_email']}}
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr class="heading">
+        <td>
+          Item
+        </td>
+        <td>
+          Price
+        </td>
+      </tr>
+
+      {% for item in items %}      
+      <tr class="item">
+        <td>
+          {{item['title']}}
+        </td>
+        <td>
+          ${{item['charge']}}
+        </td>
+      </tr>
+      {% endfor %}
+      
+      <tr class="total">
+        <td></td>
+        <td>
+           Total: ${{total}}
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="divFooter"></div>
+</body>
+</html>
