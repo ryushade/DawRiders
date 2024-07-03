@@ -176,22 +176,20 @@ def ventas():
 
 @app.route("/exportar_excel")
 def exportar_excel():
-    # Obtener los datos de las ventas
-    datos_ventas = controlador_pago.obtener_ventas_dashboard()
+    datosVentas = controlador_pago.obtener_ventas_excel()
+    # Crear DataFrame con nombres de columnas correspondientes a los índices de las columnas de los datos
+    df = pd.DataFrame(datosVentas, columns=[
+        "Imagen", "Marca", "Modelo", "Cantidad", "Precio", "Total", "Fecha Venta",
+        "Num. Venta", "Nombre", "Apellido", "Email", "Telefono"
+    ])
 
-    # Convertir los datos a DataFrame de pandas
-    df_ventas = pd.DataFrame(datos_ventas, columns=["ID Venta", "Nombre", "Apellidos", "País", "Dirección", "Región", "Localidad", "Teléfono", "Correo", "Mes", "Año", "CVV", "Número de Tarjeta", "ID Producto", "Monto Final", "Número de Venta", "ID Cliente", "Cantidad", "Fecha de Venta"])
+    # Guardar el DataFrame a un archivo Excel
+    excel_path = "ventas.xlsx"  # Define aquí el nombre y la ruta del archivo Excel deseado
+    df.to_excel(excel_path, index=False)  # Guarda sin incluir el índice del DataFrame
 
-    # Especificar un nombre de archivo
-    filename = "ventas.xlsx"
-    # Crear un writer de pandas usando openpyxl como motor
-    writer = pd.ExcelWriter(filename, engine='openpyxl')
-    # Escribir el DataFrame a Excel
-    df_ventas.to_excel(writer, index=False, sheet_name='Ventas')
-    # Guardar el archivo Excel
-    writer.save()
-    # Enviar el archivo para descarga
-    return send_file(filename, as_attachment=True, attachment_filename='Ventas.xlsx')
+    return f"Datos exportados exitosamente a {excel_path}"
+
+
 
 @app.route("/actualizar_cliente", methods=['POST'])
 def actualizar_cliente():

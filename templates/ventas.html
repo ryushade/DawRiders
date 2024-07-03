@@ -58,15 +58,15 @@
 
 			</ul>
 			<ul class="list-unstyle component m-0">
-                <li class="dropdown">
-                    <a href="#dashboardSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="material-icons">dashboard</i>Ventas
-                    </a>
-                    <ul class="collapse list-unstyled menu" id="dashboardSubmenu" style="margin-left: 20px;">
-                        <li><a href="{{url_for('ventas')}}">Ventas realizadas</a></li>
-                    </ul>
-                </li>
-            </ul>
+				<li class="dropdown">
+					<a href="#dashboardSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+						<i class="material-icons">dashboard</i>Ventas
+					</a>
+					<ul class="collapse list-unstyled menu" id="dashboardSubmenu" style="margin-left: 20px;">
+						<li><a href="{{url_for('ventas')}}">Ventas realizadas</a></li>
+					</ul>
+				</li>
+			</ul>
 		</div>
 
 		<!-------sidebar--design- close----------->
@@ -175,14 +175,19 @@
 										<h2 class="ml-lg-2">Tabla Ventas</h2>
 									</div>
 									<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+										<a href="{{ url_for('exportar_excel') }}" class="btn btn-success">
+											<i class="material-icons">&#xE147;</i>
+											<span>Exportar Excel</span>
+										</a>
 									</div>
+
 								</div>
 							</div>
 							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
 										<th>Num. Venta</th>
-                                        <th>Fecha Venta</th>
+										<th>Fecha Venta</th>
 										<th>Nombre</th>
 										<th>Apellido</th>
 										<th>Marca</th>
@@ -194,19 +199,20 @@
 								</thead>
 								<tbody>
 									{% for venta in ventas %}
-										<td>{{venta[7]}}</td>
-                                        <td>{{venta[6]}}</td>
-										<td>{{venta[8]}}</td>
-										<td>{{venta[9]}}</td>
-										<td>{{venta[1]}}</td>
-										<td>{{venta[2]}}</td>
-										<td>{{venta[3]}}</td>
-										<td>{{venta[5]}}</td>
-                                        <td><img data-anijs="if: mouseover, do: pulse animated"
-                                            src="{{ url_for('static', filename='img/' + venta[0])}}" alt="" class="img-fluid"></td>
-										</td>
+									<td>{{venta[7]}}</td>
+									<td>{{venta[6]}}</td>
+									<td>{{venta[8]}}</td>
+									<td>{{venta[9]}}</td>
+									<td>{{venta[1]}}</td>
+									<td>{{venta[2]}}</td>
+									<td>{{venta[3]}}</td>
+									<td>{{venta[5]}}</td>
+									<td><img data-anijs="if: mouseover, do: pulse animated"
+											src="{{ url_for('static', filename='img/' + venta[0])}}" alt=""
+											class="img-fluid"></td>
+									</td>
 									</tr>
-                                    {% endfor %}
+									{% endfor %}
 								</tbody>
 
 
