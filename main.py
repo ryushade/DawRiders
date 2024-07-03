@@ -7,7 +7,6 @@ from functools import wraps
 
 from bd import obtener_conexion
 import time
-import jinja2 
 import pandas as pd
 
 import urllib
@@ -124,18 +123,7 @@ def formulario_historial_venta():
 
     return render_template("historial_venta.html", ventas_agrupadas=ventas_agrupadas, cliente=cliente)
 
-@app.route('/descargar_comprobante/<int:id_venta>')
-def descargar_comprobante(id_venta):
-    # Suponiendo que tienes una función para obtener los detalles de la venta
-    venta = controlador_pago.obtener_detalle_venta(id_venta)
-    rendered = render_template('comprobante_pago.html', venta=venta)
-    pdf = pdfkit.from_string(rendered, False)
-    
-    response = make_response(pdf)
-    response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = 'attachment; filename=comprobante_venta_{}.pdf'.format(id_venta)
-    
-    return response
+
 
 @app.route("/administrador")
 def formulario_administrador():
