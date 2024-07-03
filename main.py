@@ -10,6 +10,10 @@ import time
 
 import urllib
 import os
+from flask import Flask, send_file
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
 from controladores import controlador_pago
 from controladores import controlador_cliente
 from controladores import controlador_moto
@@ -1474,6 +1478,26 @@ def venta_reciente(id_cliente):
             return tiene_venta_reciente
     finally:
         conexion.close()
+
+@app.route('/generate_pdf/<int:venta_id>')
+def generate_pdf(idVenta1):
+    # Obtiene los datos de la venta
+    venta = controlador_pago.obtener_venta_por_id(idVenta1)
+    if not venta:
+        return "Venta no encontrada", 404
+    
+    # Crea un buffer de bytes para el PDF
+    buffer = io.BytesIO()
+    c = canvas.Canvas(buffer, pagesize=letter)
+    # Añade los datos al PDF
+    c.drawString(100, 750, f"Nombre: {venta['nombre']} {venta['apellidos']}")
+    c.drawString(100, 735, f"Total: {venta['monto_final']}")
+    # Más campos según sea necesario
+    c.showPage()
+    c.save()
+    
+    buffer.seek(0)
+    return send_file(buffer, as_attachment=True, mimetype='application/pdf', attachment_filename='comprobante_pago.pdf')
 
 # ---------------Venta------------------------
 @app.route("/guardar_venta", methods=["POST"])
