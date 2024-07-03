@@ -12,6 +12,7 @@ import pandas as pd
 
 import urllib
 import os
+import pdfkit
 import io 
 from controladores import controlador_pago
 from controladores import controlador_cliente
@@ -124,7 +125,24 @@ def formulario_historial_venta():
 
     return render_template("historial_venta.html", ventas_agrupadas=ventas_agrupadas, cliente=cliente)
 
-
+@app.route('/descargar_comprobante/<int:id_venta>')
+def descargar_comprobante(id_venta):
+    # Obtener detalles de la venta y el cliente utilizando el ID de la venta
+    venta = controlador_pago.obtener_venta_por_id(id_venta)
+    if not venta:
+        return "Venta no encontrada", 404
+    
+    productos = controlador_pago.obtener_productos_por_venta(id_venta)
+    
+    # Renderizar la plantilla HTML con los datos de la venta y los productos
+    rendered = render_template('comprobante_pago.html', venta=venta, productos=productos)
+    pdf = pdfkit.from_string(rendered, False)
+    
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = f'attachment; filename=comprobante_venta_{id_venta}.pdf'
+    
+    return response
 
 @app.route("/administrador")
 def formulario_administrador():
