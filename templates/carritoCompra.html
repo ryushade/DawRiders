@@ -288,11 +288,11 @@ Iniciar Sesión
                                 <td>
                                     <div class="input-group">
                                         <button
-                                            onclick="updateItemQuantity({{ item.idItemCarrito }}, 'decrement')">-</button>
-                                        <input id="quantity{{ item.idItemCarrito }}" type="text"
-                                            value="{{ item.cantidad }}" readonly>
+                                            onclick="updateItemQuantity({{ item[0] }}, 'decrement')">-</button>
+                                        <input id="quantity{{ item[0] }}" type="text"
+                                            value="{{ item[4] }}" readonly>
                                         <button
-                                            onclick="updateItemQuantity({{ item.idItemCarrito }}, 'increment')">+</button>
+                                            onclick="updateItemQuantity({{ item[0] }}, 'increment')">+</button>
 
                                     </div>
 
