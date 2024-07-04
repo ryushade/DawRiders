@@ -86,8 +86,7 @@ Iniciar Sesión
             padding: 10px;
             border: 1px solid #ccc;
             cursor: pointer;
-            flex-direction: column;
-            /* Apila los elementos verticalmente */
+            flex-direction: column; /* Apila los elementos verticalmente */
 
         }
 
@@ -96,18 +95,7 @@ Iniciar Sesión
             border: 1px solid #ccc;
             width: 50px;
         }
-
-        td {
-            display: flex;
-            /* Activa Flexbox */
-            justify-content: center;
-            /* Centra horizontalmente */
-            align-items: center;
-            /* Centra verticalmente */
-            height: 100%;
-            /* Asegura que el <td> ocupe todo el espacio disponible en su contenedor */
-        }
-
+        
         .table-responsive {
             margin-bottom: 10px;
         }
@@ -305,7 +293,7 @@ Iniciar Sesión
                                         <button type="button" class="btn btn-default btn-increment"
                                             onclick="increment()">+</button>
                                     </div>
-
+                                    
                                 </td>
                                 <td class="subtotal" id="subtotal{{ loop.index }}">{{ item[5] }}</td>
                                 <td>
