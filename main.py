@@ -12,7 +12,7 @@ import pandas as pd
 import urllib
 import os
 import pdfkit
-import io 
+import io
 from controladores import controlador_pago
 from controladores import controlador_cliente
 from controladores import controlador_moto
@@ -137,7 +137,7 @@ def formulario_comprobante(output_format):
 
     id_cliente = session['user_id']
     ventas = controlador_pago.obtener_ventas_comprobante(id_cliente)
-    
+
     ventas_agrupadas = {}
     for venta in ventas:
         codigo_venta = venta[7]
@@ -150,7 +150,6 @@ def formulario_comprobante(output_format):
         ventas_agrupadas[codigo_venta]['productos'].append(venta)
         ventas_agrupadas[codigo_venta]['total_venta'] += venta[4] * venta[3]
 
-    # Selecciona la última venta basándose en la fecha
     ultima_venta_key = max(ventas_agrupadas.keys(), key=lambda x: ventas_agrupadas[x]['fecha_venta'])
     ultima_venta = {ultima_venta_key: ventas_agrupadas[ultima_venta_key]}
 
@@ -220,7 +219,7 @@ def exportar_excel():
     datosVentas = controlador_pago.obtener_ventas_excel()
     df = pd.DataFrame(datosVentas)
 
-    df = df.rename(columns={0: 'num_venta', 1: 'fechaVenta', 2: 'nombre', 3: 'apellidos', 4: 'marca', 5: 'modelo', 6: 'cantidad', 7: 'total_pagado', 8: 'imagen'})                
+    df = df.rename(columns={0: 'num_venta', 1: 'fechaVenta', 2: 'nombre', 3: 'apellidos', 4: 'marca', 5: 'modelo', 6: 'cantidad', 7: 'total_pagado', 8: 'imagen'})
     buffer = io.BytesIO()
     df.to_excel(buffer, index=False)
     response = make_response(buffer.getvalue())
@@ -1059,10 +1058,6 @@ def agregar_carrito():
     finally:
         conexion.close()
         return redirect(url_for("detalle_producto_moto", id=product_id))
-
-
-
-
 
 
 @app.route("/agregar_carrito_accesorio", methods=["POST"])
