@@ -42,6 +42,7 @@ Iniciar Sesión
             align-items: center;
             justify-content: space-between;
         }
+
         .input-group button {
             padding: 10px;
             border: 1px solid #ccc;
@@ -53,7 +54,7 @@ Iniciar Sesión
             border: 1px solid #ccc;
             width: 50px;
         }
-        
+
         .nav__list {
             display: flex;
             gap: 20px;
@@ -100,6 +101,21 @@ Iniciar Sesión
             background-color: #22262A;
             color: #FFF;
             border: none;
+        }
+
+        .existencias-section {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            justify-content: flex-start;
+        }
+
+        .existencias-section {
+            margin-right: 8px;
+        }
+
+        .existencias-section p {
+            margin: 0;
         }
 
         .form-control {
@@ -276,6 +292,10 @@ Iniciar Sesión
                 <div class="color-section">
                     <h6 class="mt-2">Color:</h6>
                     <p>{{producto[6]}}</p>
+                </div>
+                <div class="existencias-section">
+                    <h6 class="mt-2">Existencias disponibles:</h6>
+                    <p>{{producto[3]}}</p>
                 </div>
                 <form action="{{ url_for('agregar_carrito_accesorio')}}" method="post" id="addToCartForm">
                     <input type="hidden" name="product_id" value="{{ producto[0] }}">
@@ -469,14 +489,14 @@ Iniciar Sesión
 </div>
 <!--=============== SCRIPTS ===============-->
 <script>
-  function checkLogin() {
-    const isLoggedIn = '{{ 'true' if 'user_id' in session else 'false' }}';  // Make sure to pass as string
-    if (isLoggedIn === 'false') {  // Compare as string
-        $('#loginRequiredModal').modal('show');
-    } else {
-        document.getElementById('addToCartForm').submit();
+    function checkLogin() {
+        const isLoggedIn = '{{ 'true' if 'user_id' in session else 'false' }}';  // Make sure to pass as string
+        if (isLoggedIn === 'false') {  // Compare as string
+            $('#loginRequiredModal').modal('show');
+        } else {
+            document.getElementById('addToCartForm').submit();
+        }
     }
-}
 
 
     function redirectToLogin() {
