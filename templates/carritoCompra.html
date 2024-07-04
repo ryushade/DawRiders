@@ -281,32 +281,26 @@ Iniciar Sesión
                         <tbody id="detalle">
                             {% for item in items %}
                             <tr>
-                                <td><img src="../static/img/{{ item.imagen }}" alt="Imagen del producto" width="90"
-                                        height="60"></td>
+                                <td><img src="{{ url_for('static', filename='img/' + item.imagen) }}" alt="Imagen del producto" width="90" height="60"></td>
                                 <td>{{ item.descripcion }}</td>
+                                <td>${{ item.precioPorUnidad }}</td>
                                 <td>
                                     <form action="{{ url_for('actualizar_cantidad_carrito') }}" method="post">
                                         <input type="hidden" name="id_item" value="{{ item.idItemCarrito }}">
-                                        <div class="input-group">
-                                            <input type="number" name="nueva_cantidad" value="{{ item.cantidad }}"
-                                                min="1" max="{{ item.stock }}">
-                                            <div class="input-group-append">
-                                                <button type="submit" class="btn btn-info">Actualizar</button>
-                                            </div>
-                                        </div>
+                                        <input type="number" name="nueva_cantidad" value="{{ item.cantidad }}" min="1" max="{{ item.stock }}" class="form-control">
+                                        <button type="submit" class="btn btn-info btn-block mt-2">Actualizar</button>
                                     </form>
                                 </td>
-
-                                <td class="subtotal" id="subtotal{{ loop.index }}">{{ item[5] }}</td>
+                                <td>${{ item.subtotal }}</td>
                                 <td>
-                                    <button class="btn btn-danger eliminar-item" data-id="{{ item[6] }}"
-                                        data-toggle="modal" data-target="#confirmModal">X</button>
+                                    <form action="{{ url_for('eliminar_item_carrito', id_item=item.idItemCarrito) }}" method="post">
+                                        <button type="submit" class="btn btn-danger">X</button>
+                                    </form>
                                 </td>
                             </tr>
                             {% endfor %}
                         </tbody>
-
-
+                        
 
                     </table>
                 </div>
