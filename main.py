@@ -137,11 +137,7 @@ def formulario_comprobante(output_format):
 
     id_cliente = session['user_id']
     ventas = controlador_pago.obtener_ventas_comprobante(id_cliente)
-    id_cliente = session['user_id']
-    if not venta_reciente(id_cliente):
-        flash("No se ha detectado una compra reciente.", "error")
-        return redirect(url_for("formulario_principal"))
-
+    
     ventas_agrupadas = {}
     for venta in ventas:
         codigo_venta = venta[7]
