@@ -86,7 +86,8 @@ Iniciar Sesión
             padding: 10px;
             border: 1px solid #ccc;
             cursor: pointer;
-            flex-direction: column; /* Apila los elementos verticalmente */
+            flex-direction: column;
+            /* Apila los elementos verticalmente */
 
         }
 
@@ -95,7 +96,7 @@ Iniciar Sesión
             border: 1px solid #ccc;
             width: 50px;
         }
-        
+
         .table-responsive {
             margin-bottom: 10px;
         }
@@ -287,13 +288,14 @@ Iniciar Sesión
                                 <td>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-default btn-decrement"
-                                            onclick="decrement()">-</button>
+                                            onclick="decrementItem()">-</button>
                                         <input type="text" name="quantity" id="quantity" value="1" min="1"
-                                            max="{{ item[4] }}" readonly>
+                                            max="{{ item.stock }}" readonly>
                                         <button type="button" class="btn btn-default btn-increment"
-                                            onclick="increment()">+</button>
+                                            onclick="incrementItem()">+</button>
                                     </div>
-                                    
+
+
                                 </td>
                                 <td class="subtotal" id="subtotal{{ loop.index }}">{{ item[5] }}</td>
                                 <td>

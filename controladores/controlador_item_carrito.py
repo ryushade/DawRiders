@@ -34,13 +34,21 @@ def obtener_items_carrito():
     conexion.close()
     return items_carrito
 
-def obtener_item_carrito_por_id(id_item):
+def obtener_items_carrito_por_id_carrito(id_carrito):
+    # Esta función debe obtener también el stock actual desde la tabla PRODUCTO
     conexion = obtener_conexion()
-    item = None
-    with conexion.cursor() as cursor:
-        cursor.execute(
-            "SELECT idItemCarrito, idCarrito, idProducto, cantidad, precioPorUnidad, subtotal FROM ITEM_CARRITO WHERE idItemCarrito = %s", (id_item,))
-        item = cursor.fetchone()
-    conexion.close()
-    return item
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("""
+            SELECT ic.idItemCarrito, ic.cantidad, ic.precioPorUnidad, ic.subtotal, 
+                   p.idProducto, p.stock, p.precio, p.descripcion
+            FROM ITEM_CARRITO ic
+            JOIN PRODUCTO p ON ic.idProducto = p.idProducto
+            WHERE ic.idCarrito = %s
+            """, (id_carrito,))
+            items = cursor.fetchall()
+            return items
+    finally:
+        conexion.close()
+
 

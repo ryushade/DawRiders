@@ -173,6 +173,24 @@ function decrement() {
     }
 }
 
+function incrementItem() {
+    var quantity = parseInt(document.getElementById('quantity').value);
+    var maxQuantity = parseInt(document.getElementById('quantity').max);
+    if (quantity < maxQuantity) {
+        document.getElementById('quantity').value = quantity + 1;
+    } else {
+        alert('No hay más stock disponible.');
+    }
+}
+
+function decrementItem() {
+    var quantity = parseInt(document.getElementById('quantity').value);
+    if (quantity > 1) {
+        document.getElementById('quantity').value = quantity - 1;
+    } else {
+        alert('La cantidad mínima es 1.');
+    }
+}
 
 
 
