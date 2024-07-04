@@ -286,14 +286,15 @@ Iniciar Sesión
                                 <td>{{ item[2] }}</td>
                                 <td>{{ item[3] }}</td>
                                 <td>
-                                    <div class="input-group">
-                                        <button type="button" class="btn btn-default btn-decrement"
-                                            onclick="decrementItem()">-</button>
-                                        <input type="text" name="quantity" id="quantity" value="1" min="1"
-                                            max="{{ item[4] }}" readonly>
-                                        <button type="button" class="btn btn-default btn-increment"
-                                            onclick="incrementItem()">+</button>
-                                    </div>
+                                    <form action="{{ url_for('actualizar_cantidad_carrito') }}" method="post">
+                                        <input type="hidden" name="id_item" value="{{ item[0] }}">
+                                        <div class="input-group">
+                                            <input type="number" name="nueva_cantidad" value="{{ item[4] }}"
+                                                min="1" max="{{ item.stock }}">
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-info">Actualizar</button>
+                                            </div>
+                                        </div>
 
 
                                 </td>
@@ -430,84 +431,84 @@ Iniciar Sesión
     <script src="/static/assets/js/main.js"></script>
     <script src="/static/js/"></script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var itemIdToDelete = null; // Variable para almacenar el ID del item a eliminar
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var itemIdToDelete = null; // Variable para almacenar el ID del item a eliminar
 
-        // Al abrir el modal, capturar el ID del item a eliminar
-        $('#confirmModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            itemIdToDelete = button.data('id'); // Captura el ID desde el botón que abrió el modal
-        });
+            // Al abrir el modal, capturar el ID del item a eliminar
+            $('#confirmModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                itemIdToDelete = button.data('id'); // Captura el ID desde el botón que abrió el modal
+            });
 
-        // Manejador para el botón de confirmación de eliminación
-        document.getElementById('delete-confirm').addEventListener('click', function () {
-            fetch(`/eliminar_item_carrito/${itemIdToDelete}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        var tr = document.querySelector(`button[data-id="${itemIdToDelete}"]`).closest('tr');
-                        tr.remove();
-                        actualizarTotal();
-                        $('#confirmModal').modal('hide'); // Cierra el modal
-                    } else {
-                        alert(data.error);
+            // Manejador para el botón de confirmación de eliminación
+            document.getElementById('delete-confirm').addEventListener('click', function () {
+                fetch(`/eliminar_item_carrito/${itemIdToDelete}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
                     }
                 })
-                .catch(error => alert('Error al eliminar el producto: ' + error));
-        });
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            var tr = document.querySelector(`button[data-id="${itemIdToDelete}"]`).closest('tr');
+                            tr.remove();
+                            actualizarTotal();
+                            $('#confirmModal').modal('hide'); // Cierra el modal
+                        } else {
+                            alert(data.error);
+                        }
+                    })
+                    .catch(error => alert('Error al eliminar el producto: ' + error));
+            });
 
-        window.incrementItem = function (index) {
-            var input = document.getElementById('quantity' + index);
-            var currentVal = parseInt(input.value, 10);
-            input.value = currentVal + 1;
-            actualizarSubtotal(index);
-            actualizarTotal();
-        }
-
-        window.decrementItem = function (index) {
-            var input = document.getElementById('quantity' + index);
-            var currentVal = parseInt(input.value, 10);
-            if (currentVal > 1) {
-                input.value = currentVal - 1;
+            window.incrementItem = function (index) {
+                var input = document.getElementById('quantity' + index);
+                var currentVal = parseInt(input.value, 10);
+                input.value = currentVal + 1;
                 actualizarSubtotal(index);
                 actualizarTotal();
             }
-        }
 
-        function actualizarSubtotal(index) {
-            var input = document.getElementById('quantity' + index);
-            var quantity = parseInt(input.value, 10);
-            var price = parseFloat(document.getElementById('price' + index).textContent);
-            var subtotal = quantity * price;
-            document.getElementById('subtotal' + index).textContent = subtotal.toFixed(2);
-        }
+            window.decrementItem = function (index) {
+                var input = document.getElementById('quantity' + index);
+                var currentVal = parseInt(input.value, 10);
+                if (currentVal > 1) {
+                    input.value = currentVal - 1;
+                    actualizarSubtotal(index);
+                    actualizarTotal();
+                }
+            }
 
-        function actualizarTotal() {
-            var subtotals = document.querySelectorAll('.subtotal');
-            var total = 0;
-            subtotals.forEach(function (subtotal) {
-                total += parseFloat(subtotal.textContent);
-            });
+            function actualizarSubtotal(index) {
+                var input = document.getElementById('quantity' + index);
+                var quantity = parseInt(input.value, 10);
+                var price = parseFloat(document.getElementById('price' + index).textContent);
+                var subtotal = quantity * price;
+                document.getElementById('subtotal' + index).textContent = subtotal.toFixed(2);
+            }
 
-            var totalDisplay = document.querySelector('.total');
-            totalDisplay.textContent = total.toFixed(2);
-        }
+            function actualizarTotal() {
+                var subtotals = document.querySelectorAll('.subtotal');
+                var total = 0;
+                subtotals.forEach(function (subtotal) {
+                    total += parseFloat(subtotal.textContent);
+                });
 
-        // Call actualizarTotal on page load to initialize the total
-        actualizarTotal();
-    });
-</script>
+                var totalDisplay = document.querySelector('.total');
+                totalDisplay.textContent = total.toFixed(2);
+            }
+
+            // Call actualizarTotal on page load to initialize the total
+            actualizarTotal();
+        });
+    </script>
 
 
     {% endblock %}

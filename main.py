@@ -227,6 +227,35 @@ def exportar_excel():
     response.headers['Content-Disposition'] = 'attachment; filename=ventas.xlsx'
     return response
 
+@app.route("/actualizar_cantidad_carrito", methods=["POST"])
+def actualizar_cantidad_carrito():
+    id_item = request.form.get('id_item', type=int)
+    nueva_cantidad = request.form.get('nueva_cantidad', type=int)
+
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            # Obtener stock actual del producto asociado al item del carrito
+            cursor.execute("SELECT p.stock, ic.idProducto FROM ITEM_CARRITO ic JOIN PRODUCTO p ON ic.idProducto = p.idProducto WHERE ic.idItemCarrito = %s", (id_item,))
+            resultado = cursor.fetchone()
+            stock_actual, id_producto = resultado
+
+            if nueva_cantidad > stock_actual:
+                flash("No hay suficiente stock disponible.", "error")
+                return redirect(url_for("formulario_carrito"))
+
+            # Actualizar la cantidad en el carrito
+            cursor.execute("UPDATE ITEM_CARRITO SET cantidad = %s WHERE idItemCarrito = %s", (nueva_cantidad, id_item))
+            conexion.commit()
+
+            flash("Cantidad actualizada correctamente.", "success")
+            return redirect(url_for("formulario_carrito"))
+    except Exception as e:
+        flash(f"Error al actualizar el carrito: {e}", "error")
+        return redirect(url_for("formulario_carrito"))
+    finally:
+        conexion.close()
+
 
 
 
