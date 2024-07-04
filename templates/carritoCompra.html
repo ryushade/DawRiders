@@ -461,6 +461,14 @@ Iniciar Sesión
                     })
                     .catch(error => alert('Error al eliminar el producto: ' + error));
             });
+            document.addEventListener('DOMContentLoaded', function () {
+                window.incrementItem = function (index) {
+                    var input = document.getElementById('quantity' + index);
+                    var currentVal = parseInt(input.value, 10);
+                    input.value = currentVal + 1;
+                    actualizarTotal();
+                }
+            });
 
             function actualizarTotal() {
                 var subtotals = document.querySelectorAll('.subtotal');
