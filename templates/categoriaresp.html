@@ -286,6 +286,37 @@
             text-align: center;
             min-width: 20%;
         }
+
+        @media (min-width: 1200px) {
+
+
+            /**
+   * #TESTIMONIALS, CTA, SERVICE
+   */
+
+            .testimonial,
+            .service {
+                min-width: calc(25% - 20px);
+                width: calc(25% - 20px);
+            }
+
+            .cta-container {
+                min-width: calc(50% - 20px);
+                width: calc(50% - 20px);
+                aspect-ratio: unset;
+            }
+
+            .service-container {
+                justify-content: flex-start;
+                gap: 16px;
+                padding: 30px;
+            }
+
+            .service-item {
+                flex-direction: row;
+                text-align: left;
+            }
+        }
     </style>
 
     <!--==================== HOME ====================-->
