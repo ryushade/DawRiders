@@ -1061,34 +1061,7 @@ def agregar_carrito():
         return redirect(url_for("detalle_producto_moto", id=product_id))
 
 
-@app.route("/actualizar_carrito", methods=["POST"])
-def actualizar_carrito():
-    if 'user_id' not in session:
-        return jsonify({"error": "No has iniciado sesión"}), 401
 
-    id_item = request.json.get('id_item')
-    nueva_cantidad = request.json.get('quantity')
-
-    if not id_item or not nueva_cantidad:
-        return jsonify({"error": "Datos incompletos"}), 400
-
-    conexion = obtener_conexion()
-    try:
-        with conexion.cursor() as cursor:
-            cursor.execute("SELECT stock FROM PRODUCTO WHERE idProducto = (SELECT idProducto FROM ITEM_CARRITO WHERE idItemCarrito = %s)", (id_item,))
-            stock = cursor.fetchone()[0]
-            if nueva_cantidad > stock:
-                return jsonify({"error": "No hay suficiente stock para la cantidad solicitada"}), 400
-
-            cursor.execute("UPDATE ITEM_CARRITO SET cantidad = %s, subtotal = precioPorUnidad * %s WHERE idItemCarrito = %s", 
-                           (nueva_cantidad, nueva_cantidad, id_item))
-            conexion.commit()
-            return jsonify({"success": "Cantidad actualizada correctamente"}), 200
-    except Exception as e:
-        conexion.rollback()
-        return jsonify({"error": str(e)}), 500
-    finally:
-        conexion.close()
 
 
 

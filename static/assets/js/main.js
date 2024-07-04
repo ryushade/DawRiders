@@ -61,29 +61,6 @@ function scrollHeader() {
 }
 window.addEventListener('scroll', scrollHeader)
 
-function decrementItem(index, id_item) {
-    var quantityInput = document.getElementById('quantity' + index);
-    var currentValue = parseInt(quantityInput.value);
-    var minValue = parseInt(quantityInput.min);
-
-    if (currentValue > minValue) {
-        quantityInput.value = currentValue - 1;
-        updateCart(index, currentValue - 1, id_item);
-    }
-}
-
-function updateCart(index, newQuantity, id_item) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/actualizar_carrito", true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log("Carrito actualizado");
-            // Opcional: Actualizar la interfaz de usuario según la respuesta del servidor.
-        }
-    };
-    xhr.send(JSON.stringify({ id_item: id_item, quantity: newQuantity }));
-}
 
 
 
@@ -196,16 +173,6 @@ function decrement() {
     }
 }
 
-function incrementItem(index, id_item) {
-    var quantityInput = document.getElementById('quantity' + index);
-    var currentValue = parseInt(quantityInput.value);
-    var maxValue = parseInt(quantityInput.max);
-
-    if (currentValue < maxValue) {
-        quantityInput.value = currentValue + 1;
-        updateCart(index, currentValue + 1, id_item);
-    }
-}
 
 
 
