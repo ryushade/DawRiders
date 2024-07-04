@@ -288,10 +288,11 @@ Iniciar Sesión
                                 <td>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-default btn-decrement"
-                                            onclick="decrementItem({{ item[0] }})">-</button>
-                                        <input type="text" name="quantity{{ item[0] }}" id="quantity{{ item[0] }}" value="{{ item[4] }}" min="1" max="{{ item[6] }}" readonly>
+                                            onclick="decrementItem()">-</button>
+                                        <input type="text" name="quantity" id="quantity" value="1" min="1"
+                                            max="{{ item[4] }}" readonly>
                                         <button type="button" class="btn btn-default btn-increment"
-                                            onclick="incrementItem({{ item[0] }})">+</button>
+                                            onclick="incrementItem()">+</button>
                                     </div>
 
 

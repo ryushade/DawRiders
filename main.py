@@ -1060,9 +1060,6 @@ def agregar_carrito():
         return redirect(url_for("detalle_producto_moto", id=product_id))
 
 
-
-
-
 @app.route("/agregar_carrito_accesorio", methods=["POST"])
 def agregar_carrito_accesorio():
     if 'user_id' not in session:
