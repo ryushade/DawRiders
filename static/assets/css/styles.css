@@ -80,43 +80,7 @@ img {
   max-width: 100%;
   height: auto;
 }
-
-/**
-   * #TESTIMONIALS, CTA & SERVICE 
-   */
-
-.testimonials-box {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  gap: 30px;
-}
-
-.testimonial-card {
-  margin-bottom: 0;
-}
-
-.testimonial,
-.cta-container {
-  min-width: calc(50% - 15px);
-  width: calc(50% - 15px);
-  margin-bottom: 0;
-}
-
-.service {
-  width: 100%;
-}
-
-.service-container {
-  gap: 0;
-}
-
-.service-item {
-  flex-direction: column;
-  text-align: center;
-  min-width: 20%;
-}
-
+  
 /*=============== REUSABLE CSS CLASSES ===============*/
 .container {
   max-width: 1024px;
@@ -509,7 +473,6 @@ img {
   margin: .75rem 0 1.25rem 1.5rem;
   transition: .3s;
 }
-
 .form-check-input {
   margin-top: 0.3rem;
   margin-left: 0;
