@@ -10,6 +10,16 @@ if (navToggle) {
         navMenu.classList.add('show-menu')
     })
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.btn-increment').forEach((button, index) => {
+        button.addEventListener('click', () => incrementItem(index + 1)); // Adjust if needed
+    });
+    document.querySelectorAll('.btn-decrement').forEach((button, index) => {
+        button.addEventListener('click', () => decrementItem(index + 1)); // Adjust if needed
+    });
+});
+
 document.addEventListener('DOMContentLoaded', function () {
     const sliderContainer = document.querySelector('.slider-container');
     const slides = sliderContainer.querySelectorAll('.slider-item');
