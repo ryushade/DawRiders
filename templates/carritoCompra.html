@@ -430,65 +430,84 @@ Iniciar Sesión
     <script src="/static/assets/js/main.js"></script>
     <script src="/static/js/"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var itemIdToDelete = null; // Variable para almacenar el ID del item a eliminar
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var itemIdToDelete = null; // Variable para almacenar el ID del item a eliminar
 
-            // Al abrir el modal, capturar el ID del item a eliminar
-            $('#confirmModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget);
-                itemIdToDelete = button.data('id'); // Captura el ID desde el botón que abrió el modal
-            });
+        // Al abrir el modal, capturar el ID del item a eliminar
+        $('#confirmModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            itemIdToDelete = button.data('id'); // Captura el ID desde el botón que abrió el modal
+        });
 
-            // Manejador para el botón de confirmación de eliminación
-            document.getElementById('delete-confirm').addEventListener('click', function () {
-                fetch(`/eliminar_item_carrito/${itemIdToDelete}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
+        // Manejador para el botón de confirmación de eliminación
+        document.getElementById('delete-confirm').addEventListener('click', function () {
+            fetch(`/eliminar_item_carrito/${itemIdToDelete}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        var tr = document.querySelector(`button[data-id="${itemIdToDelete}"]`).closest('tr');
+                        tr.remove();
+                        actualizarTotal();
+                        $('#confirmModal').modal('hide'); // Cierra el modal
+                    } else {
+                        alert(data.error);
                     }
                 })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.success) {
-                            var tr = document.querySelector(`button[data-id="${itemIdToDelete}"]`).closest('tr');
-                            tr.remove();
-                            actualizarTotal();
-                            $('#confirmModal').modal('hide'); // Cierra el modal
-                        } else {
-                            alert(data.error);
-                        }
-                    })
-                    .catch(error => alert('Error al eliminar el producto: ' + error));
-            });
-            document.addEventListener('DOMContentLoaded', function () {
-                window.incrementItem = function (index) {
-                    var input = document.getElementById('quantity' + index);
-                    var currentVal = parseInt(input.value, 10);
-                    input.value = currentVal + 1;
-                    actualizarTotal();
-                }
-            });
-
-            function actualizarTotal() {
-                var subtotals = document.querySelectorAll('.subtotal');
-                var total = 0;
-                subtotals.forEach(function (subtotal) {
-                    total += parseFloat(subtotal.textContent);
-                });
-
-                var totalDisplay = document.querySelector('.total');
-                totalDisplay.textContent = total.toFixed(2);
-            }
-
-
+                .catch(error => alert('Error al eliminar el producto: ' + error));
         });
-    </script>
+
+        window.incrementItem = function (index) {
+            var input = document.getElementById('quantity' + index);
+            var currentVal = parseInt(input.value, 10);
+            input.value = currentVal + 1;
+            actualizarSubtotal(index);
+            actualizarTotal();
+        }
+
+        window.decrementItem = function (index) {
+            var input = document.getElementById('quantity' + index);
+            var currentVal = parseInt(input.value, 10);
+            if (currentVal > 1) {
+                input.value = currentVal - 1;
+                actualizarSubtotal(index);
+                actualizarTotal();
+            }
+        }
+
+        function actualizarSubtotal(index) {
+            var input = document.getElementById('quantity' + index);
+            var quantity = parseInt(input.value, 10);
+            var price = parseFloat(document.getElementById('price' + index).textContent);
+            var subtotal = quantity * price;
+            document.getElementById('subtotal' + index).textContent = subtotal.toFixed(2);
+        }
+
+        function actualizarTotal() {
+            var subtotals = document.querySelectorAll('.subtotal');
+            var total = 0;
+            subtotals.forEach(function (subtotal) {
+                total += parseFloat(subtotal.textContent);
+            });
+
+            var totalDisplay = document.querySelector('.total');
+            totalDisplay.textContent = total.toFixed(2);
+        }
+
+        // Call actualizarTotal on page load to initialize the total
+        actualizarTotal();
+    });
+</script>
 
 
     {% endblock %}
