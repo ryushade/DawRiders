@@ -481,21 +481,7 @@ Iniciar Sesión
                 totalDisplay.textContent = total.toFixed(2);
             }
 
-            function incrementItem(index) {
-                var input = document.getElementById('quantity' + index);
-                var currentValue = parseInt(input.value);
-                if (currentValue < parseInt(input.max)) {
-                    input.value = currentValue + 1;
-                }
-            }
-
-            function decrementItem(index) {
-                var input = document.getElementById('quantity' + index);
-                var currentValue = parseInt(input.value);
-                if (currentValue > parseInt(input.min)) {
-                    input.value = currentValue - 1;
-                }
-            }
+           
         });
     </script>
 

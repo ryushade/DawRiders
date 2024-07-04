@@ -167,7 +167,21 @@ function decrement() {
     }
 }
 
+function incrementItem(index) {
+    var input = document.getElementById('quantity' + index);
+    var currentValue = parseInt(input.value);
+    if (currentValue < parseInt(input.max)) {
+        input.value = currentValue + 1;
+    }
+}
 
+function decrementItem(index) {
+    var input = document.getElementById('quantity' + index);
+    var currentValue = parseInt(input.value);
+    if (currentValue > parseInt(input.min)) {
+        input.value = currentValue - 1;
+    }
+}
 
 sr.reveal(`.home__title, .popular__container, .features__img, .featured__filters`)
 sr.reveal(`.home__subtitle`, { delay: 500 })
