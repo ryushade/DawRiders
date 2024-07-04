@@ -8,7 +8,175 @@
 <!--==================== MAIN ====================-->
 <main class="main">
     <link rel="stylesheet" href="/static/assets/css/styles-card.css">
+    <style>
+        /*-----------------------------------*\
+  #TESTIMONIAL
+\*-----------------------------------*/
 
+        .testimonials-box {
+            margin-bottom: 50px;
+        }
+
+        .testimonial-card {
+            padding: 30px 20px;
+            border: 1px solid var(--cultured);
+            border-radius: var(--border-radius-md);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .testimonial-banner {
+            margin: auto;
+            margin-bottom: 20px;
+            border-radius: 50%;
+        }
+
+        .testimonial-name {
+            font-weight: var(--weight-700);
+            text-transform: uppercase;
+            color: var(--sonic-silver);
+            margin-bottom: 5px;
+        }
+
+        .testimonial-title {
+            color: var(--onyx);
+            font-size: var(--fs-7);
+            margin-bottom: 15px;
+        }
+
+        .quotation-img {
+            margin: auto;
+            margin-bottom: 10px;
+        }
+
+        .testimonial-desc {
+            max-width: 70%;
+            margin: auto;
+            color: var(--sonic-silver);
+            font-size: var(--fs-7);
+        }
+
+
+
+
+
+        /*-----------------------------------*\
+  #CTA
+\*-----------------------------------*/
+
+        .cta-container {
+            position: relative;
+            aspect-ratio: 5 / 6;
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .cta-banner {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cta-content {
+            background: hsla(0, 0%, 100%, 0.7);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: fit-content;
+            padding: 15px 20px;
+            text-align: center;
+            border-radius: var(--border-radius-sm);
+        }
+
+        .cta-content .discount {
+            background: var(--eerie-black);
+            color: var(--white);
+            font-size: var(--fs-11);
+            font-weight: var(--weight-600);
+            text-transform: uppercase;
+            width: max-content;
+            margin: auto;
+            padding: 0 5px;
+            border-radius: var(--border-radius-sm);
+            margin-bottom: 5px;
+        }
+
+        .cta-title {
+            color: var(--onyx);
+            font-size: var(--fs-5);
+            text-transform: capitalize;
+            margin-bottom: 5px;
+        }
+
+        .cta-text {
+            color: var(--sonic-silver);
+            font-size: var(--fs-7);
+            margin-bottom: 5px;
+        }
+
+        .cta-btn {
+            font-size: var(--fs-9);
+            color: var(--sonic-silver);
+            text-transform: uppercase;
+            font-weight: var(--weight-700);
+            margin: auto;
+        }
+
+
+
+
+
+        /*-----------------------------------*\
+  #SERVICE
+\*-----------------------------------*/
+
+        .service-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 30px 15px;
+            border: 1px solid var(--cultured);
+            border-radius: var(--border-radius-md);
+        }
+
+        .service-item {
+            min-width: 190px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .service-icon {
+            font-size: 35px;
+            color: var(--salmon-pink);
+            transition: var(--transition-timing);
+        }
+
+        .service-icon ion-icon {
+            --ionicon-stroke-width: 25px;
+        }
+
+        .service-item:hover .service-icon {
+            color: var(--eerie-black);
+        }
+
+        .service-title {
+            color: var(--sonic-silver);
+            font-size: var(--fs-7);
+            font-weight: var(--weight-600);
+            text-transform: capitalize;
+            margin-bottom: 5px;
+        }
+
+        .service-desc {
+            color: var(--sonic-silver);
+            font-size: var(--fs-9);
+        }
+    </style>
 
     <!--==================== HOME ====================-->
     <section class="home section" id="home">
@@ -90,97 +258,260 @@
 </section>
 <div>
 
-</main>
+    </main>
+
+
+    <!--
+      - TESTIMONIALS, CTA & SERVICE
+    -->
+
+    <div>
+
+        <div class="container">
+
+            <div class="testimonials-box">
+
+                <!--
+              - TESTIMONIALS
+            -->
+
+                <div class="testimonial">
+
+                    <h2 class="title">testimonial</h2>
+
+                    <div class="testimonial-card">
+
+                        <img src="./assets/images/testimonial-1.jpg" alt="alan doe" class="testimonial-banner"
+                            width="80" height="80">
+
+                        <p class="testimonial-name">Alan Doe</p>
+
+                        <p class="testimonial-title">CEO & Founder Invision</p>
+
+                        <img src="./assets/images/icons/quotes.svg" alt="quotation" class="quotation-img" width="26">
+
+                        <p class="testimonial-desc">
+                            Lorem ipsum dolor sit amet consectetur Lorem ipsum
+                            dolor dolor sit amet.
+                        </p>
+
+                    </div>
+
+                </div>
 
 
 
+                <!--
+              - CTA
+            -->
+
+                <div class="cta-container">
+
+                    <img src="./assets/images/cta-banner.jpg" alt="summer collection" class="cta-banner">
+
+                    <a href="#" class="cta-content">
+
+                        <p class="discount">25% Discount</p>
+
+                        <h2 class="cta-title">Summer collection</h2>
+
+                        <p class="cta-text">Starting @ $10</p>
+
+                        <button class="cta-btn">Shop now</button>
+
+                    </a>
+
+                </div>
 
 
 
+                <!--
+              - SERVICE
+            -->
 
-<!--==================== FOOTER ====================-->
-<footer class="footer section">
-    <div class="shape shape__big"></div>
-    <div class="shape shape__small"></div>
+                <div class="service">
 
-    <div class="footer__container container grid">
-        <div class="footer__content">
-            <a href="#" class="footer__logo">
-                <i class="ri-steering-line"></i> CicloRiders
-            </a>
-            <p class="footer__description">
-                Ofrecemos las mejores motocicletas y accesorios <br>
-                de las marcas más reconocidas de todo el mundo <br>
-            </p>
+                    <h2 class="title">Our Services</h2>
+
+                    <div class="service-container">
+
+                        <a href="#" class="service-item">
+
+                            <div class="service-icon">
+                                <ion-icon name="boat-outline"></ion-icon>
+                            </div>
+
+                            <div class="service-content">
+
+                                <h3 class="service-title">Worldwide Delivery</h3>
+                                <p class="service-desc">For Order Over $100</p>
+
+                            </div>
+
+                        </a>
+
+                        <a href="#" class="service-item">
+
+                            <div class="service-icon">
+                                <ion-icon name="rocket-outline"></ion-icon>
+                            </div>
+
+                            <div class="service-content">
+
+                                <h3 class="service-title">Next Day delivery</h3>
+                                <p class="service-desc">UK Orders Only</p>
+
+                            </div>
+
+                        </a>
+
+                        <a href="#" class="service-item">
+
+                            <div class="service-icon">
+                                <ion-icon name="call-outline"></ion-icon>
+                            </div>
+
+                            <div class="service-content">
+
+                                <h3 class="service-title">Best Online Support</h3>
+                                <p class="service-desc">Hours: 8AM - 11PM</p>
+
+                            </div>
+
+                        </a>
+
+                        <a href="#" class="service-item">
+
+                            <div class="service-icon">
+                                <ion-icon name="arrow-undo-outline"></ion-icon>
+                            </div>
+
+                            <div class="service-content">
+
+                                <h3 class="service-title">Return Policy</h3>
+                                <p class="service-desc">Easy & Free Return</p>
+
+                            </div>
+
+                        </a>
+
+                        <a href="#" class="service-item">
+
+                            <div class="service-icon">
+                                <ion-icon name="ticket-outline"></ion-icon>
+                            </div>
+
+                            <div class="service-content">
+
+                                <h3 class="service-title">30% money back</h3>
+                                <p class="service-desc">For Order Over $100</p>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="footer__content">
-            <h3 class="footer__title">
-                Empresa
-            </h3>
-
-            <ul class="footer__links">
-                <li>
-                    <a href="{{url_for('nosotros')}}" class="footer__link">Nosotros</a>
-                </li>
-                <li>
-                    <a href="{{url_for('formulario_detalle_categoria')}}" class="footer__link">Motos</a>
-                </li>
-
-                <li>
-                    <a href="{{url_for('formulario_detalle_accesorio')}}" class="footer__link">Accesorios</a>
-                </li>
-                <li>
-                    <a href="{{url_for('formulario_login_cliente')}}" class="footer__link">Login</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="footer__content">
-            <h3 class="footer__title">
-                Informacion
-            </h3>
-
-            <ul class="footer__links">
-
-                <a href="{{url_for('formulario_contacto')}}" class="footer__link">Contactanos</a>
-                </li>
-                <li>
-                    <a href="{{url_for('formulario_terminos')}}" class="footer__link">Terminos y condiciones</a>
-                </li>
-                <li>
-                    <a href="{{url_for('formulario_libro')}}" class="footer__link">Libro de reclamaciones</a>
-            </ul>
-        </div>
-
-        <div class="footer__content">
-            <h3 class="footer__title">
-                Pagos online
-            </h3>
-            <ul class="footer__links">
-                <li>Visa</li>
-                <li>Mastercard</li>
-                <li>American Express</li>
-            </ul>
-        </div>
     </div>
 
-    <span class="footer__copy">
-        &#169; CicloRiders. Todos los derechos reservados 2023-2024
-    </span>
-</footer>
-
-<!--========== SCROLL UP ==========-->
-<a href="#" class="scrollup" id="scroll-up">
-    <i class="ri-arrow-up-line"></i>
-</a>
-
-<!--=============== MAIN JS ===============-->
-<script src="/static/assets/js/main.js"></script>
-
-<!--=============== MODAL ===============-->
-
-<script src="/static/assets/js/modal.js"></script>
 
 
-{% endblock %}
+
+
+
+
+
+
+
+    <!--==================== FOOTER ====================-->
+    <footer class="footer section">
+        <div class="shape shape__big"></div>
+        <div class="shape shape__small"></div>
+
+        <div class="footer__container container grid">
+            <div class="footer__content">
+                <a href="#" class="footer__logo">
+                    <i class="ri-steering-line"></i> CicloRiders
+                </a>
+                <p class="footer__description">
+                    Ofrecemos las mejores motocicletas y accesorios <br>
+                    de las marcas más reconocidas de todo el mundo <br>
+                </p>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Empresa
+                </h3>
+
+                <ul class="footer__links">
+                    <li>
+                        <a href="{{url_for('nosotros')}}" class="footer__link">Nosotros</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('formulario_detalle_categoria')}}" class="footer__link">Motos</a>
+                    </li>
+
+                    <li>
+                        <a href="{{url_for('formulario_detalle_accesorio')}}" class="footer__link">Accesorios</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('formulario_login_cliente')}}" class="footer__link">Login</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Informacion
+                </h3>
+
+                <ul class="footer__links">
+
+                    <a href="{{url_for('formulario_contacto')}}" class="footer__link">Contactanos</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('formulario_terminos')}}" class="footer__link">Terminos y condiciones</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('formulario_libro')}}" class="footer__link">Libro de reclamaciones</a>
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Pagos online
+                </h3>
+                <ul class="footer__links">
+                    <li>Visa</li>
+                    <li>Mastercard</li>
+                    <li>American Express</li>
+                </ul>
+            </div>
+        </div>
+
+        <span class="footer__copy">
+            &#169; CicloRiders. Todos los derechos reservados 2023-2024
+        </span>
+    </footer>
+
+    <!--========== SCROLL UP ==========-->
+    <a href="#" class="scrollup" id="scroll-up">
+        <i class="ri-arrow-up-line"></i>
+    </a>
+
+    <!--=============== MAIN JS ===============-->
+    <script src="/static/assets/js/main.js"></script>
+
+    <!--=============== MODAL ===============-->
+
+    <script src="/static/assets/js/modal.js"></script>
+
+
+    {% endblock %}
