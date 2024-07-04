@@ -11,14 +11,7 @@ if (navToggle) {
     })
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.btn-increment').forEach((button, index) => {
-        button.addEventListener('click', () => incrementItem(index + 1)); // Adjust if needed
-    });
-    document.querySelectorAll('.btn-decrement').forEach((button, index) => {
-        button.addEventListener('click', () => decrementItem(index + 1)); // Adjust if needed
-    });
-});
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const sliderContainer = document.querySelector('.slider-container');
@@ -177,21 +170,41 @@ function decrement() {
     }
 }
 
-function incrementItem(index) {
-    var input = document.getElementById('quantity' + index);
-    var currentValue = parseInt(input.value);
-    if (currentValue < parseInt(input.max)) {
-        input.value = currentValue + 1;
+function incrementItem(index, id_item) {
+    var quantityInput = document.getElementById('quantity' + index);
+    var currentValue = parseInt(quantityInput.value);
+    var maxValue = parseInt(quantityInput.max);
+
+    if (currentValue < maxValue) {
+        quantityInput.value = currentValue + 1;
+        updateCart(index, currentValue + 1, id_item);
     }
 }
 
-function decrementItem(index) {
-    var input = document.getElementById('quantity' + index);
-    var currentValue = parseInt(input.value);
-    if (currentValue > parseInt(input.min)) {
-        input.value = currentValue - 1;
+function decrementItem(index, id_item) {
+    var quantityInput = document.getElementById('quantity' + index);
+    var currentValue = parseInt(quantityInput.value);
+    var minValue = parseInt(quantityInput.min);
+
+    if (currentValue > minValue) {
+        quantityInput.value = currentValue - 1;
+        updateCart(index, currentValue - 1, id_item);
     }
 }
+
+function updateCart(index, newQuantity, id_item) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/actualizar_carrito", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log("Carrito actualizado");
+            // Opcional: Actualizar la interfaz de usuario según la respuesta del servidor.
+        }
+    };
+    xhr.send(JSON.stringify({ id_item: id_item, quantity: newQuantity }));
+}
+
 
 sr.reveal(`.home__title, .popular__container, .features__img, .featured__filters`)
 sr.reveal(`.home__subtitle`, { delay: 500 })
