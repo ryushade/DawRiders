@@ -52,11 +52,3 @@ def obtener_items_carrito_por_id_carrito(id_carrito):
         conexion.close()
 
 
-def actualizar_cantidad_item_carrito(id_item_carrito, new_quantity):
-    conexion = obtener_conexion()
-    try:
-        with conexion.cursor() as cursor:
-            cursor.execute("UPDATE ITEM_CARRITO SET cantidad = %s WHERE idItemCarrito = %s", (new_quantity, id_item_carrito))
-            conexion.commit()
-    finally:
-        conexion.close()

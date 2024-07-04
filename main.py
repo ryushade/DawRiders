@@ -1061,23 +1061,6 @@ def agregar_carrito():
 
 
 
-@app.route("/api_update_item_quantity/<int:id_item_carrito>/<operation>", methods=['POST'])
-def api_update_item_quantity(id_item_carrito, operation):
-    try:
-        item = controlador_item_carrito.obtener_item_por_id(id_item_carrito)
-        if not item:
-            return jsonify({'success': False, 'message': 'Item no encontrado'}), 404
-        
-        new_quantity = item.cantidad + 1 if operation == 'increment' else item.cantidad - 1
-        if new_quantity > item.producto.stock:
-            return jsonify({'success': False, 'message': 'No hay suficiente stock disponible'})
-        if new_quantity < 1:
-            return jsonify({'success': False, 'message': 'La cantidad no puede ser menor que 1'})
-
-        controlador_item_carrito.actualizar_cantidad_item_carrito(id_item_carrito, new_quantity)
-        return jsonify({'success': True, 'newQuantity': new_quantity})
-    except Exception as e:
-        return jsonify({'success': False, 'message': str(e)}), 500
 
 
 

@@ -192,19 +192,6 @@ function decrementItem() {
     }
 }
 
-function updateItemQuantity(idItemCarrito, operation) {
-    fetch(`/api_update_item_quantity/${idItemCarrito}/${operation}`, {
-        method: 'POST'
-    }).then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            document.getElementById(`quantity${idItemCarrito}`).value = data.newQuantity;
-        } else {
-            alert(data.message);
-        }
-    })
-    .catch(error => console.error('Error:', error));
-}
 
 
 sr.reveal(`.home__title, .popular__container, .features__img, .featured__filters`)
