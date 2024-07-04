@@ -295,7 +295,7 @@ Iniciar Sesión
                 </div>
                 <div class="existencias-section">
                     <h6 class="mt-2"><strong>Existencias disponibles:</strong></h6>
-                    <p>{{producto[3]}}</p>
+                    <p style="margin-top: 20px;">{{producto[3]}}</p>
                 </div>
                 <form action="{{ url_for('agregar_carrito')}}" method="post" id="addToCartForm">
                     <input type="hidden" name="product_id" value="{{ producto[0] }}">
