@@ -278,6 +278,9 @@ Iniciar Sesión
                     <h6 class="mt-2">Color:</h6>
                     <p>{{producto[6]}}</p>
                 </div>
+                <div class"existencias-section">
+                    <h6 class="mt-2"><strong>Existencias disponibles:</strong></h6>
+                    <p>{{producto[3]}}</p>
                 <form action="{{ url_for('agregar_carrito')}}" method="post" id="addToCartForm">
                     <input type="hidden" name="product_id" value="{{ producto[0] }}">
                     <input type="hidden" name="precio" value="{{ producto[2] }}">
