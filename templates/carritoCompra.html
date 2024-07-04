@@ -289,12 +289,13 @@ Iniciar Sesión
                                     <form action="{{ url_for('actualizar_cantidad_carrito') }}" method="post">
                                         <input type="hidden" name="id_item" value="{{ item[0] }}">
                                         <div class="input-group">
-                                            <input type="number" name="nueva_cantidad" value="{{ item[4] }}"
-                                                min="1" max="{{ item.stock }}">
+                                            <input type="number" name="nueva_cantidad" value="{{ item[4] }}" min="1"
+                                                max="{{ item.stock }}">
                                             <div class="input-group-append">
                                                 <button type="submit" class="btn btn-info">Actualizar</button>
                                             </div>
                                         </div>
+                                    </form>
 
 
                                 </td>
