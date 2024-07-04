@@ -285,12 +285,13 @@ Iniciar Sesión
                                 <td>
                                     <div class="input-group">
                                         <button type="button" class="btn btn-default btn-decrement"
-                                            onclick="decrementItem({{ loop.index }})">-</button>
+                                            onclick="decrementItem({{ loop.index }}, {{ item.id_item }})">-</button>
                                         <input type="text" name="quantity{{ loop.index }}" id="quantity{{ loop.index }}"
-                                            value="1" min="1" max="{{ item[4] }}" readonly>
+                                            value="{{ item.quantity }}" min="1" max="{{ item.max }}" readonly>
                                         <button type="button" class="btn btn-default btn-increment"
-                                            onclick="incrementItem({{ loop.index }})">+</button>
+                                            onclick="incrementItem({{ loop.index }}, {{ item.id_item }})">+</button>
                                     </div>
+
                                 </td>
                                 <td class="subtotal" id="subtotal{{ loop.index }}">{{ item[5] }}</td>
                                 <td>
@@ -481,7 +482,7 @@ Iniciar Sesión
                 totalDisplay.textContent = total.toFixed(2);
             }
 
-           
+
         });
     </script>
 
