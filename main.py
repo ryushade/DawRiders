@@ -1000,7 +1000,21 @@ def formulario_carrito():
     else:
         id_carrito = carrito[0]
 
-    items = controlador_carrito.obtener_items_carrito_por_id_carrito(id_carrito)
+    conexion = obtener_conexion()
+    items = []
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("""
+                SELECT ic.idItemCarrito, ic.cantidad, ic.precioPorUnidad, ic.subtotal,
+                       p.descripcion, p.stock, p.imagen
+                FROM ITEM_CARRITO ic
+                JOIN PRODUCTO p ON ic.idProducto = p.idProducto
+                WHERE ic.idCarrito = %s
+            """, (id_carrito,))
+            items = cursor.fetchall()
+    finally:
+        conexion.close()
+
     return render_template("carritoCompra.html", items=items)
 
 
