@@ -295,8 +295,13 @@ Iniciar Sesión
                 </div>
                 <div class="existencias-section">
                     <h6 class="mt-2"><strong>Existencias disponibles: </strong></h6>
-                    <p>{{producto[3]}}</p>
+                    {% if producto[3] > 0 %}
+                    <p>{{ producto[3] }}</p>
+                    {% else %}
+                    <p style="color: red;">NO HAY EXISTENCIAS DISPONIBLES</p>
+                    {% endif %}
                 </div>
+
                 <form action="{{ url_for('agregar_carrito')}}" method="post" id="addToCartForm">
                     <input type="hidden" name="product_id" value="{{ producto[0] }}">
                     <input type="hidden" name="precio" value="{{ producto[2] }}">
@@ -313,8 +318,11 @@ Iniciar Sesión
                     <input type="hidden" name="nombre" value="{{ producto[5] }}">
                     <input type="hidden" name="imagen" value="{{ producto[7] }}">
                     <button type="button" class="btn btn-primary btn-add-to-cart"
-                        style="padding: 10px 20px; margin-top: 10px; border: none;" onclick="checkLogin()">Agregar al
-                        Carrito</button>
+                        style="padding: 10px 20px; margin-top: 10px; border: none;" onclick="checkLogin()" {% if
+                        producto[3] <=0 %}disabled style="background-color: grey; cursor: not-allowed;" {% endif %}>
+                        Agregar al Carrito
+                    </button>
+
                 </form>
                 {% endfor %}
             </div>
