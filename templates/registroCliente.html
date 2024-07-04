@@ -1,7 +1,7 @@
 {% extends "maestra.html" %}
 
 {% block titulo %}
-    Crear Cuenta Cliente
+Crear Cuenta Cliente
 {% endblock %}
 
 {% block contenido %}
@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="/static/assets/css/styles-card.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/static/css/anicollection.css">
@@ -66,7 +65,8 @@
             color: #0000FF;
         }
 
-        .nav__toggle, .nav__close {
+        .nav__toggle,
+        .nav__close {
             display: none;
         }
 
@@ -74,7 +74,8 @@
             margin-top: 60px;
         }
 
-        .login-container, .register-container {
+        .login-container,
+        .register-container {
             background-color: #FFFFFF;
             color: #333333;
             padding: 0;
@@ -105,7 +106,8 @@
             background-color: #22262A;
         }
 
-        .btn-success, .btn-success:hover {
+        .btn-success,
+        .btn-success:hover {
             background-color: #22262A;
             border: none;
         }
@@ -162,6 +164,7 @@
             text-decoration: none;
             font-size: 30px;
         }
+
         .form-control.is-invalid {
             border-color: red;
         }
@@ -180,54 +183,67 @@
                 <div class="row py-3 px-5 mx-3">
                     <form action="{{url_for('guardar_cliente')}}" method="POST" onsubmit="return validateForm()">
                         <div class="input-group flex-nowrap py-2">
-                            <span class="input-group-text" id="addon-wrapping"><i class="fa-regular fa-user fa-xl"></i></span>
+                            <span class="input-group-text" id="addon-wrapping"><i
+                                    class="fa-regular fa-user fa-xl"></i></span>
                             <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
-                                aria-describedby="addon-wrapping" id="nombre" name="nombre" required minlength="3" pattern="[A-Za-z ]+"
-                                oninput="validateText(this, 'nombreError')">
+                                aria-describedby="addon-wrapping" id="nombre" name="nombre" required minlength="3"
+                                pattern="[A-Za-z ]+" oninput="validateText(this, 'nombreError')">
                         </div>
-                        <small id="nombreError" class="text-danger" style="display: none;">El nombre no puede contener números.</small>
-                    
+                        <small id="nombreError" class="text-danger" style="display: none;">El nombre no puede contener
+                            números.</small>
+
                         <div class="input-group flex-nowrap py-2">
-                            <span class="input-group-text" id="addon-wrapping"><i class="fa-regular fa-user fa-xl"></i></span>
+                            <span class="input-group-text" id="addon-wrapping"><i
+                                    class="fa-regular fa-user fa-xl"></i></span>
                             <input type="text" class="form-control" placeholder="Apellidos" aria-label="Apellidos"
-                                aria-describedby="addon-wrapping" id="apellidos" name="apellidos" required minlength="3" pattern="[A-Za-z ]+"
-                                oninput="validateText(this, 'apellidosError')">
+                                aria-describedby="addon-wrapping" id="apellidos" name="apellidos" required minlength="3"
+                                pattern="[A-Za-z ]+" oninput="validateText(this, 'apellidosError')">
                         </div>
-                        <small id="apellidosError" class="text-danger" style="display: none;">Los apellidos no pueden contener números.</small>
-                    
+                        <small id="apellidosError" class="text-danger" style="display: none;">Los apellidos no pueden
+                            contener números.</small>
+
                         <div class="input-group flex-nowrap py-2">
-                            <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-phone fa-xl"></i></span>
-                            <input type="text" class="form-control" placeholder="Número de Celular" aria-label="Número de Celular"
-                                aria-describedby="addon-wrapping" id="telefono" name="telefono" required pattern="\d{9}"
-                                oninput="validatePhone(this)">
+                            <span class="input-group-text" id="addon-wrapping"><i
+                                    class="fa-solid fa-phone fa-xl"></i></span>
+                            <input type="text" class="form-control" placeholder="Número de Celular"
+                                aria-label="Número de Celular" aria-describedby="addon-wrapping" id="telefono"
+                                name="telefono" required pattern="\d{9}" oninput="validatePhone(this)">
                         </div>
-                        <small id="telefonoError" class="text-danger" style="display: none;">El teléfono debe contener 9 dígitos.</small>
-                    
+                        <small id="telefonoError" class="text-danger" style="display: none;">El teléfono debe contener 9
+                            dígitos.</small>
+
                         <div class="input-group flex-nowrap py-2">
-                            <span class="input-group-text" id="addon-wrapping"><i class="fa-regular fa-envelope fa-xl"></i></span>
+                            <span class="input-group-text" id="addon-wrapping"><i
+                                    class="fa-regular fa-envelope fa-xl"></i></span>
                             <input type="email" class="form-control" placeholder="Email" aria-label="Email"
-                                aria-describedby="addon-wrapping" id="email" name="email" value="{{ form_data['email'] if form_data else '' }}" required
+                                aria-describedby="addon-wrapping" id="email" name="email"
+                                value="{{ form_data['email'] if form_data else '' }}" required
                                 oninput="validateEmail(this)">
                         </div>
-                        <small id="emailError" class="text-danger" style="display: none;">El correo electrónico debe ser válido.</small>
-                    
+                        <small id="emailError" class="text-danger" style="display: none;">El correo electrónico debe ser
+                            válido.</small>
+
                         {% if error_msg %}
                         <div style="color: red;">{{ error_msg }}</div>
                         {% endif %}
-                    
+
                         <div class="input-group flex-nowrap py-2">
-                            <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-lock fa-xl"></i></span>
+                            <span class="input-group-text" id="addon-wrapping"><i
+                                    class="fa-solid fa-lock fa-xl"></i></span>
                             <input type="password" class="form-control" placeholder="Password" aria-label="Password"
-                                aria-describedby="addon-wrapping" id="contraseña" name="contraseña" required minlength="4">
+                                aria-describedby="addon-wrapping" id="contraseña" name="contraseña" required
+                                minlength="4">
                         </div>
                         <div class="input-group flex-nowrap py-2">
-                            <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-lock fa-xl"></i></span>
-                            <input type="password" class="form-control" placeholder="Confirma tu Password" aria-label="Confirma tu Password"
-                                aria-describedby="addon-wrapping" id="confirm-password" required required minlength="4"
-                                oninput="validatePassword()">
+                            <span class="input-group-text" id="addon-wrapping"><i
+                                    class="fa-solid fa-lock fa-xl"></i></span>
+                            <input type="password" class="form-control" placeholder="Confirma tu Password"
+                                aria-label="Confirma tu Password" aria-describedby="addon-wrapping"
+                                id="confirm-password" required required minlength="4" oninput="validatePassword()">
                         </div>
-                        <small id="passwordError" class="text-danger" style="display: none;">Las contraseñas no coinciden.</small>
-                    
+                        <small id="passwordError" class="text-danger" style="display: none;">Las contraseñas no
+                            coinciden.</small>
+
                         <div>
                             <progress id="strength-meter" max="4" value="0" style="width: 100%"></progress>
                             <label id="strength-text">Muy débil</label>
@@ -237,7 +253,8 @@
                         </div>
                     </form>
                     <div class="row pt-2">
-                        <p>Si ya tienes una cuenta. <a href="{{url_for('formulario_login_cliente')}}">Inicia sesión aquí</a></p>
+                        <p>Si ya tienes una cuenta. <a href="{{url_for('formulario_login_cliente')}}">Inicia sesión
+                                aquí</a></p>
                     </div>
                 </div>
             </div>
@@ -248,29 +265,30 @@
 </main>
 
 {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            <div class="modal fade" id="flash-modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalLabel">{{ "Información" if category == 'success' else "Error" }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            {{ message }}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
-                    </div>
-                </div>
+{% if messages %}
+{% for category, message in messages %}
+<div class="modal fade" id="flash-modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">{{ "Información" if category == 'success' else "Error" }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        {% endfor %}
-    {% endif %}
+            <div class="modal-body">
+                {{ message }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
 {% endwith %}
 
-<footer class="footer section no-underline">
+<!--==================== FOOTER ====================-->
+<footer class="footer section">
     <div class="shape shape__big"></div>
     <div class="shape shape__small"></div>
 
@@ -292,52 +310,46 @@
 
             <ul class="footer__links">
                 <li>
-                    <a href="#" class="footer__link">Nosotros</a>
+                    <a href="{{url_for('nosotros')}}" class="footer__link">Nosotros</a>
                 </li>
                 <li>
-                    <a href="#" class="footer__link">Motos</a>
+                    <a href="{{url_for('formulario_detalle_categoria')}}" class="footer__link">Motos</a>
+                </li>
+
+                <li>
+                    <a href="{{url_for('formulario_detalle_accesorio')}}" class="footer__link">Accesorios</a>
                 </li>
                 <li>
-                    <a href="#" class="footer__link">Producto</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Catalogo</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Login</a>
+                    <a href="{{url_for('formulario_login_cliente')}}" class="footer__link">Login</a>
                 </li>
             </ul>
         </div>
 
         <div class="footer__content">
             <h3 class="footer__title">
-                Información
+                Informacion
             </h3>
 
             <ul class="footer__links">
-                <a href="#" class="footer__link">Contáctanos</a>
+
+                <a href="{{url_for('formulario_contacto')}}" class="footer__link">Contactanos</a>
                 </li>
                 <li>
-                    <a href="#" class="footer__link">Servicios</a>
+                    <a href="{{url_for('formulario_terminos')}}" class="footer__link">Terminos y condiciones</a>
                 </li>
+                <li>
+                    <a href="{{url_for('formulario_libro')}}" class="footer__link">Libro de reclamaciones</a>
             </ul>
         </div>
 
         <div class="footer__content">
             <h3 class="footer__title">
-                Síguenos en nuestras redes:
+                Pagos online
             </h3>
-
-            <ul class="footer__social">
-                <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
-                    <i class="ri-facebook-fill"></i>
-                </a>
-                <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
-                    <i class="ri-instagram-line"></i>
-                </a>
-                <a href="https://twitter.com/" target="_blank" class="footer__social-link">
-                    <i class="ri-twitter-line"></i>
-                </a>
+            <ul class="footer__links">
+                <li>Visa</li>
+                <li>Mastercard</li>
+                <li>American Express</li>
             </ul>
         </div>
     </div>
@@ -365,11 +377,11 @@
         const form = document.querySelector('form');
         const strengthMeter = document.getElementById('strength-meter');
         const strengthText = document.getElementById('strength-text');
-    
+
         password.addEventListener('input', function () {
             const passwordValue = password.value;
             let score;
-    
+
             if (passwordValue.length === 0) {
                 score = 0;
             } else if (passwordValue.length < 2) {
@@ -380,19 +392,19 @@
                 const result = zxcvbn(passwordValue);
                 score = result.score;
             }
-    
+
             strengthMeter.value = score;
             let strengthInfo = ["Muy débil", "Débil", "Moderada", "Fuerte", "Muy fuerte"];
             strengthText.textContent = strengthInfo[score];
         });
-    
+
         form.addEventListener('submit', function (event) {
             if (password.value !== confirmPassword.value) {
                 alert('Las contraseñas no coinciden.');
                 event.preventDefault();
             }
         });
-    
+
         // Verificar si hay modales para mostrar y mostrarlos si existen
         const modals = document.querySelectorAll('.modal');
         modals.forEach(modal => {
@@ -403,7 +415,7 @@
     function validateText(input, errorId) {
         const regex = /^[a-zA-Z\s]*$/;
         const errorElement = document.getElementById(errorId);
-        
+
         if (!regex.test(input.value)) {
             input.setCustomValidity('Este campo no puede contener números.');
             errorElement.style.display = 'block';
@@ -418,7 +430,7 @@
     function validatePhone(input) {
         const regex = /^\d{9}$/;
         const errorElement = document.getElementById('telefonoError');
-        
+
         if (!regex.test(input.value)) {
             input.setCustomValidity('El teléfono debe contener 9 dígitos.');
             errorElement.style.display = 'block';
@@ -433,7 +445,7 @@
     function validateEmail(input) {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const errorElement = document.getElementById('emailError');
-        
+
         if (!regex.test(input.value)) {
             input.setCustomValidity('El correo electrónico debe ser válido.');
             errorElement.style.display = 'block';
@@ -449,7 +461,7 @@
         const password = document.getElementById('contraseña');
         const confirmPassword = document.getElementById('confirm-password');
         const errorElement = document.getElementById('passwordError');
-        
+
         if (password.value !== confirmPassword.value) {
             confirmPassword.setCustomValidity('Las contraseñas no coinciden.');
             errorElement.style.display = 'block';
@@ -470,8 +482,8 @@
         });
         return document.querySelectorAll('.is-invalid').length === 0;
     }
-    </script>
-    
+</script>
 
 
-{% endblock %}  
+
+{% endblock %}

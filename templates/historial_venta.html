@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="/static/assets/css/styles-card.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/static/css/anicollection.css">
@@ -66,7 +65,8 @@
             color: #0000FF;
         }
 
-        .nav__toggle, .nav__close {
+        .nav__toggle,
+        .nav__close {
             display: none;
         }
 
@@ -74,7 +74,8 @@
             margin-top: 60px;
         }
 
-        .login-container, .register-container {
+        .login-container,
+        .register-container {
             background-color: #FFFFFF;
             color: #333333;
             padding: 0;
@@ -105,7 +106,8 @@
             background-color: #22262A;
         }
 
-        .btn-success, .btn-success:hover {
+        .btn-success,
+        .btn-success:hover {
             background-color: #22262A;
             border: none;
         }
@@ -142,7 +144,8 @@
             margin: 10px 0;
         }
 
-        h3, h2 {
+        h3,
+        h2 {
             color: #22262A;
             font-weight: bold;
         }
@@ -167,6 +170,7 @@
             text-decoration: none;
             font-size: 30px;
         }
+
         .general-container {
             background-color: #22262A;
             border-radius: 10px;
@@ -214,7 +218,8 @@
             margin-bottom: 10px;
         }
 
-        .card-title, .card-text {
+        .card-title,
+        .card-text {
             color: #333;
             margin-top: 10px;
 
@@ -233,16 +238,22 @@
                     <h2 class="text-white">Datos Personales</h2>
                 </div>
                 <div class="card-container">
-                    <h3>Nombre:</h3> <h5> - {{ cliente[1] }} </h5>
-                    <h3>Apellido:</h3> <h5> - {{ cliente[2] }} </h5>
-                    <h3>Email:</h3> <h5> - {{ cliente[3] }} </h5>
-                    <h3>Telefono:</h3> <h5> - {{ cliente[5] }} </h5><br><br>
+                    <h3>Nombre:</h3>
+                    <h5> - {{ cliente[1] }} </h5>
+                    <h3>Apellido:</h3>
+                    <h5> - {{ cliente[2] }} </h5>
+                    <h3>Email:</h3>
+                    <h5> - {{ cliente[3] }} </h5>
+                    <h3>Telefono:</h3>
+                    <h5> - {{ cliente[5] }} </h5><br><br>
                     <div class="row">
                         <div class="col-lg-6">
-                            <a href="#" class="btn btn-primary" style="width: 100%" data-toggle="modal" data-target="#configModal">Configurar Cuenta</a>
+                            <a href="#" class="btn btn-primary" style="width: 100%" data-toggle="modal"
+                                data-target="#configModal">Configurar Cuenta</a>
                         </div>
                         <div class="col-lg-6">
-                            <a href="#" class="btn btn-primary" style="width: 100%" data-toggle="modal" data-target="#configContraModal">Cambiar Contraseña</a>
+                            <a href="#" class="btn btn-primary" style="width: 100%" data-toggle="modal"
+                                data-target="#configContraModal">Cambiar Contraseña</a>
                         </div>
                     </div>
                 </div>
@@ -257,231 +268,240 @@
                     {% for codigo_venta, data in ventas_agrupadas.items() %}
                     <div class="card mb-3">
                         <div class="card-header">
-                            <b>Código de Venta:</b> {{ codigo_venta }}  -
+                            <b>Código de Venta:</b> {{ codigo_venta }} -
                             <b>Fecha de Venta:</b> {{ data.fecha_venta }}
                         </div>
                         {% for producto in data.productos %}
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="{{ url_for('static', filename='img/' + producto[0])}}" class="img-fluid rounded-start" alt="Imagen de {{ producto[2] }}">
+                                <img src="{{ url_for('static', filename='img/' + producto[0])}}"
+                                    class="img-fluid rounded-start" alt="Imagen de {{ producto[2] }}">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <p class="card-text"><small class="text-muted">Marca: {{ producto[1] }}</small></p>
                                     <p class="card-text"><small class="text-muted">Modelo: {{ producto[2] }}</small></p>
-                                    <p class="card-text"><small class="text-muted">Cantidad comprada: {{ producto[3] }}</small></p>
-                                    <p class="card-text"><small class="text-muted">Precio Unitario: S/{{ producto[4] }}</small></p>
+                                    <p class="card-text"><small class="text-muted">Cantidad comprada: {{ producto[3]
+                                            }}</small></p>
+                                    <p class="card-text"><small class="text-muted">Precio Unitario: S/{{ producto[4]
+                                            }}</small></p>
                                     <h6 class="subtotal">SubTotal: S/{{ producto[3] * producto[4] }}</h6>
                                 </div>
                             </div>
                         </div>
                         {% endfor %}
-                        <div class="card-footer" style="display: flex; justify-content: flex-end; align-items: center; width: 100%;">
-                            <h5 class="monto-pagado" style="margin-bottom: 0;">Monto Pagado: S/<span id="monto-{{ codigo_venta }}"></span></h5>
+                        <div class="card-footer"
+                            style="display: flex; justify-content: flex-end; align-items: center; width: 100%;">
+                            <h5 class="monto-pagado" style="margin-bottom: 0;">Monto Pagado: S/<span
+                                    id="monto-{{ codigo_venta }}"></span></h5>
                         </div>
 
                     </div>
                     {% endfor %}
                 </div>
             </div>
+        </div>
     </div>
-</div>
 
-<!-- Modal -->
-<div class="modal fade" id="configModal" tabindex="-1" role="dialog" aria-labelledby="configModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="configModalLabel">Configuración de Cuenta</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
+    <!-- Modal -->
+    <div class="modal fade" id="configModal" tabindex="-1" role="dialog" aria-labelledby="configModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="configModalLabel">Configuración de Cuenta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
-        <form method="post" action="{{ url_for('actualizar_cliente') }}">
-			<div class="modal-body">
-				<input type="hidden" name="idCliente" value="{{cliente[0]}}">
-					<div class="container">
-					    <div class="row">
-					        <div class="col-lg-6">
-								<div class="row me-1">
-									<label>Nombre</label>
-									<input type="text" class="form-control" value="{{cliente[1]}}" name="nombre" required>
-								</div>
-                        </div>
-					    <div class="col-lg-6">
-							<div class="row">
-								<label>Apellido</label>
-									<input type="text" class="form-control"value="{{cliente[2]}}" name="apellido" required>
-								</div>
-                            </div>
-                        </div>
-					    <div class="row  mt-3">
-							<label>Teléfono</label>
-							<input type="number" class="form-control" value="{{cliente[5]}}" name="telefono" required>
-						</div>
-					    <div class="row  mt-3">
-							<label>Email</label>
-							<input type="email" class="form-control" value="{{cliente[3]}}" name="email" readonly>
-						</div>
+                    <form method="post" action="{{ url_for('actualizar_cliente') }}">
+                        <div class="modal-body">
+                            <input type="hidden" name="idCliente" value="{{cliente[0]}}">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="row me-1">
+                                            <label>Nombre</label>
+                                            <input type="text" class="form-control" value="{{cliente[1]}}" name="nombre"
+                                                required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <label>Apellido</label>
+                                            <input type="text" class="form-control" value="{{cliente[2]}}"
+                                                name="apellido" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row  mt-3">
+                                    <label>Teléfono</label>
+                                    <input type="number" class="form-control" value="{{cliente[5]}}" name="telefono"
+                                        required>
+                                </div>
+                                <div class="row  mt-3">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" value="{{cliente[3]}}" name="email"
+                                        readonly>
+                                </div>
 
-					    <div class="row mt-3 mb-3">
-							<div class="row me-1">
-								<label>Contraseña Actual</label>
-								<input type="password" class="form-control" name="contra" required>
-							</div>
-                        </div>
+                                <div class="row mt-3 mb-3">
+                                    <div class="row me-1">
+                                        <label>Contraseña Actual</label>
+                                        <input type="password" class="form-control" name="contra" required>
+                                    </div>
+                                </div>
 
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"data-dismiss="modal">Cancelar</button>
-							<button type="submit"href=""class="btn btn-primary">Guardar Cambios</button>
-						</div>
-		</form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" href="" class="btn btn-primary">Guardar Cambios</button>
+                                </div>
+                    </form>
 
-      </div>
+                </div>
 
-    </div>
-  </div>
-</div>
-</div>
-</div>
-
-<div class="modal fade" id="configContraModal" tabindex="-1" role="dialog" aria-labelledby="configContraModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="configContraModalLabel">Cambiar Contraseña</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="form-cambio-contrasena" method="post" action="{{ url_for('actualizar_contra') }}">
-                    <input type="hidden" name="email" value="{{ cliente[3] }}">
-                    <div class="form-group">
-                        <label for="current-password">Contraseña Actual</label>
-                        <input type="password" class="form-control" id="current-password" name="current-password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="new-password">Nueva Contraseña</label>
-                        <input type="password" class="form-control" id="new-password" name="new-password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="confirm-password">Confirmar Nueva Contraseña</label>
-                        <input type="password" class="form-control" id="confirm-password" name="confirm-password" required>
-                    </div>
-                </form>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" form="form-cambio-contrasena">Guardar Cambios</button>
             </div>
         </div>
     </div>
-</div>
+    </div>
+    </div>
 
-<footer class="footer section no-underline">
-    <div class="shape shape__big"></div>
-    <div class="shape shape__small"></div>
+    <div class="modal fade" id="configContraModal" tabindex="-1" role="dialog" aria-labelledby="configContraModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="configContraModalLabel">Cambiar Contraseña</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-cambio-contrasena" method="post" action="{{ url_for('actualizar_contra') }}">
+                        <input type="hidden" name="email" value="{{ cliente[3] }}">
+                        <div class="form-group">
+                            <label for="current-password">Contraseña Actual</label>
+                            <input type="password" class="form-control" id="current-password" name="current-password"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">Nueva Contraseña</label>
+                            <input type="password" class="form-control" id="new-password" name="new-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirmar Nueva Contraseña</label>
+                            <input type="password" class="form-control" id="confirm-password" name="confirm-password"
+                                required>
+                        </div>
+                    </form>
 
-    <div class="footer__container container grid">
-        <div class="footer__content">
-            <a href="#" class="footer__logo">
-                <i class="ri-steering-line"></i> CicloRiders
-            </a>
-            <p class="footer__description">
-                Ofrecemos las mejores motocicletas y accesorios <br>
-                de las marcas más reconocidas de todo el mundo <br>
-            </p>
-        </div>
-
-        <div class="footer__content">
-            <h3 class="footer__title">
-                Empresa
-            </h3>
-
-            <ul class="footer__links">
-                <li>
-                    <a href="#" class="footer__link">Nosotros</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Motos</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Producto</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Catalogo</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Login</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="footer__content">
-            <h3 class="footer__title">
-                Información
-            </h3>
-
-            <ul class="footer__links">
-                <a href="#" class="footer__link">Contáctanos</a>
-                </li>
-                <li>
-                    <a href="#" class="footer__link">Servicios</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="footer__content">
-            <h3 class="footer__title">
-                Síguenos en nuestras redes:
-            </h3>
-
-            <ul class="footer__social">
-                <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
-                    <i class="ri-facebook-fill"></i>
-                </a>
-                <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
-                    <i class="ri-instagram-line"></i>
-                </a>
-                <a href="https://twitter.com/" target="_blank" class="footer__social-link">
-                    <i class="ri-twitter-line"></i>
-                </a>
-            </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" form="form-cambio-contrasena">Guardar Cambios</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <span class="footer__copy">
-        &#169; CicloRiders. Todos los derechos reservados 2023-2024
-    </span>
-</footer>
+    <!--==================== FOOTER ====================-->
+    <footer class="footer section">
+        <div class="shape shape__big"></div>
+        <div class="shape shape__small"></div>
 
-<a href="#" class="scrollup" id="scroll-up">
-    <i class="ri-arrow-up-line"></i>
-</a>
+        <div class="footer__container container grid">
+            <div class="footer__content">
+                <a href="#" class="footer__logo">
+                    <i class="ri-steering-line"></i> CicloRiders
+                </a>
+                <p class="footer__description">
+                    Ofrecemos las mejores motocicletas y accesorios <br>
+                    de las marcas más reconocidas de todo el mundo <br>
+                </p>
+            </div>
 
-<script src="/static/assets/js/scrollreveal.min.js"></script>
-<script src="/static/assets/js/swiper-bundle.min.js"></script>
-<script src="/static/assets/js/mixitup.min.js"></script>
-<script src="/static/assets/js/main.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/zxcvbn/dist/zxcvbn.js"></script>
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Empresa
+                </h3>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll('.card').forEach(card => {
-        let total = 0;
-        card.querySelectorAll('.subtotal').forEach(sub => {
-            let subtotalText = sub.textContent;
-            let subtotal = parseFloat(subtotalText.split('S/')[1]);
-            total += subtotal;
+                <ul class="footer__links">
+                    <li>
+                        <a href="{{url_for('nosotros')}}" class="footer__link">Nosotros</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('formulario_detalle_categoria')}}" class="footer__link">Motos</a>
+                    </li>
+
+                    <li>
+                        <a href="{{url_for('formulario_detalle_accesorio')}}" class="footer__link">Accesorios</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('formulario_login_cliente')}}" class="footer__link">Login</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Informacion
+                </h3>
+
+                <ul class="footer__links">
+
+                    <a href="{{url_for('formulario_contacto')}}" class="footer__link">Contactanos</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('formulario_terminos')}}" class="footer__link">Terminos y condiciones</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('formulario_libro')}}" class="footer__link">Libro de reclamaciones</a>
+                </ul>
+            </div>
+
+            <div class="footer__content">
+                <h3 class="footer__title">
+                    Pagos online
+                </h3>
+                <ul class="footer__links">
+                    <li>Visa</li>
+                    <li>Mastercard</li>
+                    <li>American Express</li>
+                </ul>
+            </div>
+        </div>
+
+        <span class="footer__copy">
+            &#169; CicloRiders. Todos los derechos reservados 2023-2024
+        </span>
+    </footer>
+
+    <a href="#" class="scrollup" id="scroll-up">
+        <i class="ri-arrow-up-line"></i>
+    </a>
+
+    <script src="/static/assets/js/scrollreveal.min.js"></script>
+    <script src="/static/assets/js/swiper-bundle.min.js"></script>
+    <script src="/static/assets/js/mixitup.min.js"></script>
+    <script src="/static/assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/zxcvbn/dist/zxcvbn.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('.card').forEach(card => {
+                let total = 0;
+                card.querySelectorAll('.subtotal').forEach(sub => {
+                    let subtotalText = sub.textContent;
+                    let subtotal = parseFloat(subtotalText.split('S/')[1]);
+                    total += subtotal;
+                });
+                let montoPagadoElement = card.querySelector('.monto-pagado span');
+                montoPagadoElement.innerHTML = total.toFixed(2);
+            });
         });
-        let montoPagadoElement = card.querySelector('.monto-pagado span');
-        montoPagadoElement.innerHTML = total.toFixed(2);
-    });
-});
-</script>
+    </script>
 
-{% endblock %}
+    {% endblock %}

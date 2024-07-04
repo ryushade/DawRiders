@@ -326,7 +326,7 @@ Iniciar Sesión
     </div>
 
     <!--==================== FOOTER ====================-->
-    <footer class="footer section no-underline">
+    <footer class="footer section">
         <div class="shape shape__big"></div>
         <div class="shape shape__small"></div>
 
@@ -348,19 +348,17 @@ Iniciar Sesión
 
                 <ul class="footer__links">
                     <li>
-                        <a href="#" class="footer__link">Nosotros</a>
+                        <a href="{{url_for('nosotros')}}" class="footer__link">Nosotros</a>
                     </li>
                     <li>
-                        <a href="#" class="footer__link">Motos</a>
+                        <a href="{{url_for('formulario_detalle_categoria')}}" class="footer__link">Motos</a>
+                    </li>
+
+                    <li>
+                        <a href="{{url_for('formulario_detalle_accesorio')}}" class="footer__link">Accesorios</a>
                     </li>
                     <li>
-                        <a href="#" class="footer__link">Producto</a>
-                    </li>
-                    <li>
-                        <a href="#" class="footer__link">Catalogo</a>
-                    </li>
-                    <li>
-                        <a href="#" class="footer__link">Login</a>
+                        <a href="{{url_for('formulario_login_cliente')}}" class="footer__link">Login</a>
                     </li>
                 </ul>
             </div>
@@ -372,29 +370,24 @@ Iniciar Sesión
 
                 <ul class="footer__links">
 
-                    <a href="#" class="footer__link">Contactanos</a>
+                    <a href="{{url_for('formulario_contacto')}}" class="footer__link">Contactanos</a>
                     </li>
                     <li>
-                        <a href="#" class="footer__link">Servicios</a>
+                        <a href="{{url_for('formulario_terminos')}}" class="footer__link">Terminos y condiciones</a>
                     </li>
+                    <li>
+                        <a href="{{url_for('formulario_libro')}}" class="footer__link">Libro de reclamaciones</a>
                 </ul>
             </div>
 
             <div class="footer__content">
                 <h3 class="footer__title">
-                    Siguenos en nuestras redes:
+                    Pagos online
                 </h3>
-
-                <ul class="footer__social">
-                    <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
-                        <i class="ri-facebook-fill"></i>
-                    </a>
-                    <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
-                        <i class="ri-instagram-line"></i>
-                    </a>
-                    <a href="https://twitter.com/" target="_blank" class="footer__social-link">
-                        <i class="ri-twitter-line"></i>
-                    </a>
+                <ul class="footer__links">
+                    <li>Visa</li>
+                    <li>Mastercard</li>
+                    <li>American Express</li>
                 </ul>
             </div>
         </div>
@@ -419,84 +412,84 @@ Iniciar Sesión
     <script src="/static/assets/js/main.js"></script>
     <script src="/static/js/"></script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var itemIdToDelete = null; // Variable para almacenar el ID del item a eliminar
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var itemIdToDelete = null; // Variable para almacenar el ID del item a eliminar
 
-        // Al abrir el modal, capturar el ID del item a eliminar
-        $('#confirmModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            itemIdToDelete = button.data('id'); // Captura el ID desde el botón que abrió el modal
-        });
+            // Al abrir el modal, capturar el ID del item a eliminar
+            $('#confirmModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                itemIdToDelete = button.data('id'); // Captura el ID desde el botón que abrió el modal
+            });
 
-        // Manejador para el botón de confirmación de eliminación
-        document.getElementById('delete-confirm').addEventListener('click', function () {
-            fetch(`/eliminar_item_carrito/${itemIdToDelete}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        var tr = document.querySelector(`button[data-id="${itemIdToDelete}"]`).closest('tr');
-                        tr.remove();
-                        actualizarTotal();
-                        $('#confirmModal').modal('hide'); // Cierra el modal
-                    } else {
-                        alert(data.error);
+            // Manejador para el botón de confirmación de eliminación
+            document.getElementById('delete-confirm').addEventListener('click', function () {
+                fetch(`/eliminar_item_carrito/${itemIdToDelete}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
                     }
                 })
-                .catch(error => alert('Error al eliminar el producto: ' + error));
-        });
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            var tr = document.querySelector(`button[data-id="${itemIdToDelete}"]`).closest('tr');
+                            tr.remove();
+                            actualizarTotal();
+                            $('#confirmModal').modal('hide'); // Cierra el modal
+                        } else {
+                            alert(data.error);
+                        }
+                    })
+                    .catch(error => alert('Error al eliminar el producto: ' + error));
+            });
 
-        window.incrementItem = function (index) {
-            var input = document.getElementById('quantity' + index);
-            var currentVal = parseInt(input.value, 10);
-            input.value = currentVal + 1;
-            actualizarSubtotal(index);
-            actualizarTotal();
-        }
-
-        window.decrementItem = function (index) {
-            var input = document.getElementById('quantity' + index);
-            var currentVal = parseInt(input.value, 10);
-            if (currentVal > 1) {
-                input.value = currentVal - 1;
+            window.incrementItem = function (index) {
+                var input = document.getElementById('quantity' + index);
+                var currentVal = parseInt(input.value, 10);
+                input.value = currentVal + 1;
                 actualizarSubtotal(index);
                 actualizarTotal();
             }
-        }
 
-        function actualizarSubtotal(index) {
-            var input = document.getElementById('quantity' + index);
-            var quantity = parseInt(input.value, 10);
-            var price = parseFloat(document.getElementById('price' + index).textContent);
-            var subtotal = quantity * price;
-            document.getElementById('subtotal' + index).textContent = subtotal.toFixed(2);
-        }
+            window.decrementItem = function (index) {
+                var input = document.getElementById('quantity' + index);
+                var currentVal = parseInt(input.value, 10);
+                if (currentVal > 1) {
+                    input.value = currentVal - 1;
+                    actualizarSubtotal(index);
+                    actualizarTotal();
+                }
+            }
 
-        function actualizarTotal() {
-            var subtotals = document.querySelectorAll('.subtotal');
-            var total = 0;
-            subtotals.forEach(function (subtotal) {
-                total += parseFloat(subtotal.textContent);
-            });
+            function actualizarSubtotal(index) {
+                var input = document.getElementById('quantity' + index);
+                var quantity = parseInt(input.value, 10);
+                var price = parseFloat(document.getElementById('price' + index).textContent);
+                var subtotal = quantity * price;
+                document.getElementById('subtotal' + index).textContent = subtotal.toFixed(2);
+            }
 
-            var totalDisplay = document.querySelector('.total');
-            totalDisplay.textContent = total.toFixed(2);
-        }
+            function actualizarTotal() {
+                var subtotals = document.querySelectorAll('.subtotal');
+                var total = 0;
+                subtotals.forEach(function (subtotal) {
+                    total += parseFloat(subtotal.textContent);
+                });
 
-        // Call actualizarTotal on page load to initialize the total
-        actualizarTotal();
-    });
-</script>
+                var totalDisplay = document.querySelector('.total');
+                totalDisplay.textContent = total.toFixed(2);
+            }
+
+            // Call actualizarTotal on page load to initialize the total
+            actualizarTotal();
+        });
+    </script>
 
 
     {% endblock %}
