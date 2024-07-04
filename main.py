@@ -1063,9 +1063,6 @@ def agregar_carrito():
 
 
 
-
-
-
 @app.route("/agregar_carrito_accesorio", methods=["POST"])
 def agregar_carrito_accesorio():
     if 'user_id' not in session:

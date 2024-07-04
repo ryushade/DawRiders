@@ -173,24 +173,24 @@ function decrement() {
     }
 }
 
-function incrementItem() {
-    var quantity = parseInt(document.getElementById('quantity').value);
-    var maxQuantity = parseInt(document.getElementById('quantity').max);
-    if (quantity < maxQuantity) {
-        document.getElementById('quantity').value = quantity + 1;
-    } else {
-        alert('No hay más stock disponible.');
+function decrementItem(idItemCarrito) {
+    var quantityInput = document.getElementById('quantity' + idItemCarrito);
+    var currentValue = parseInt(quantityInput.value);
+    var minValue = parseInt(quantityInput.min);
+    if (currentValue > minValue) {
+        quantityInput.value = currentValue - 1;
     }
 }
 
-function decrementItem() {
-    var quantity = parseInt(document.getElementById('quantity').value);
-    if (quantity > 1) {
-        document.getElementById('quantity').value = quantity - 1;
-    } else {
-        alert('La cantidad mínima es 1.');
+function incrementItem(idItemCarrito) {
+    var quantityInput = document.getElementById('quantity' + idItemCarrito);
+    var currentValue = parseInt(quantityInput.value);
+    var maxValue = parseInt(quantityInput.max);
+    if (currentValue < maxValue) {
+        quantityInput.value = currentValue + 1;
     }
 }
+
 
 
 
