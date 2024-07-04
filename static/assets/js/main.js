@@ -167,26 +167,7 @@ function decrement() {
     }
 }
 
-function incrementItem(index) {
-    let quantityInput = document.getElementById('quantity' + index);
-    let maxQuantity = parseInt(quantityInput.max);
-    let currentQuantity = parseInt(quantityInput.value);
-    if (currentQuantity < maxQuantity) {
-        currentQuantity++;
-        quantityInput.value = currentQuantity;
-        updateSubtotal(index, currentQuantity);
-    }
-}
 
-function decrementItem(index) {
-    let quantityInput = document.getElementById('quantity' + index);
-    let currentQuantity = parseInt(quantityInput.value);
-    if (currentQuantity > 1) {
-        currentQuantity--;
-        quantityInput.value = currentQuantity;
-        updateSubtotal(index, currentQuantity);
-    }
-}
 
 sr.reveal(`.home__title, .popular__container, .features__img, .featured__filters`)
 sr.reveal(`.home__subtitle`, { delay: 500 })

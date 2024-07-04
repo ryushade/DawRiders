@@ -472,6 +472,31 @@ Iniciar Sesión
                 var totalDisplay = document.querySelector('.total');
                 totalDisplay.textContent = total.toFixed(2);
             }
+
+            function updateSubtotal(index) {
+                var price = parseFloat(document.getElementById('price' + index).textContent);
+                var quantity = parseInt(document.getElementById('quantity' + index).value, 10);
+                var newSubtotal = price * quantity;
+                document.getElementById('subtotal' + index).textContent = newSubtotal.toFixed(2);
+                actualizarTotal();
+            }
+
+            function incrementItem(index) {
+                var input = document.getElementById('quantity' + index);
+                var currentVal = parseInt(input.value, 10);
+                input.value = currentVal + 1;
+                actualizarTotal(); // Update the total after increment
+            }
+
+            function decrementItem(index) {
+                var input = document.getElementById('quantity' + index);
+                var currentVal = parseInt(input.value, 10);
+                if (currentVal > 1) {
+                    input.value = currentVal - 1;
+                    actualizarTotal(); // Update the total after decrement
+                }
+            }
+
         });
     </script>
 
