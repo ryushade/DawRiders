@@ -4,26 +4,35 @@
 <meta charset="utf-8">
 <title>Comprobante de Venta</title>
 <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
     .invoice-box {
         max-width: 800px;
-        margin: auto;
-        padding: 30px;
-        font-size: 16px;
-        line-height: 24px;
-        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-        color: #555;
+        margin: 40px auto;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        padding: 20px;
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .title img {
+        height: 80px;
+        width: auto;
     }
     .invoice-box table {
         width: 100%;
         line-height: inherit;
         text-align: left;
+        border-collapse: collapse;
     }
     .invoice-box table td {
-        padding: 5px;
+        padding: 10px;
         vertical-align: top;
-    }
-    .invoice-box table tr td:nth-child(2) {
-        text-align: right;
     }
     .invoice-box table tr.top table td {
         padding-bottom: 20px;
@@ -32,7 +41,8 @@
         padding-bottom: 40px;
     }
     .invoice-box table tr.heading td {
-        background: #eee;
+        background: #0d47a1;
+        color: white;
         border-bottom: 1px solid #ddd;
         font-weight: bold;
     }
@@ -46,34 +56,16 @@
         border-top: 2px solid #eee;
         font-weight: bold;
     }
+    .footer {
+        text-align: center;
+        color: #777;
+        padding: 20px;
+    }
     @media only screen and (max-width: 600px) {
-        .invoice-box table tr.top table td {
+        .invoice-box {
             width: 100%;
-            display: block;
-            text-align: center;
+            margin: 20px;
         }
-        .invoice-box table tr.information table td {
-            width: 100%;
-            display: block;
-            text-align: center;
-        }
-    }
-    div.divFooter {
-        position: fixed;
-        height: 30px;
-        bottom: 0;
-        width: 100%;
-        left: 0;
-    }
-    .rtl {
-        direction: rtl;
-        font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-    }
-    .rtl table {
-        text-align:right;
-    }
-    .rtl table tr td:nth-child(2) {
-        text-align: left;
     }
 </style>
 </head>
@@ -87,7 +79,7 @@
                 <table>
                     <tr>
                         <td class="title">
-                          <img src="{{ url_for('static', filename='img/logocicloriders_2-removebg-preview 1.png') }}" style="height: 100px;">
+                          <img src="{{ url_for('static', filename='img/logocicloriders_2-removebg-preview 1.png') }}">
                         </td>
                         <td>
                             Número de Comprobante: {{ ultima_venta_key }}<br>
@@ -139,6 +131,8 @@
         </tr>
     </table>
 </div>
-<div class="divFooter"></div>
+<div class="footer">
+    Gracias por su compra.
+</div>
 </body>
 </html>
