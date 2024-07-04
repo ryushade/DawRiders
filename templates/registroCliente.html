@@ -1,0 +1,477 @@
+{% extends "maestra.html" %}
+
+{% block titulo %}
+    Crear Cuenta Cliente
+{% endblock %}
+
+{% block contenido %}
+<main class="main">
+    <link rel="stylesheet" href="/static/assets/css/styles-card.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/static/css/anicollection.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="shortcut icon" href="/static/img/logocicloriders_2-removebg-preview 1.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/static/assets/css/styles.css">
+
+    <style>
+        body {
+            background-color: #EDF1F7;
+            color: #22262A;
+        }
+
+        .header {
+            background-color: #22262A;
+        }
+
+        .nav__logo {
+            color: #FFF;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav__menu {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav__list {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav__link {
+            color: #FFF;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .nav__link:hover {
+            background-color: #555555;
+        }
+
+        .nav__link.active-link {
+            color: #0000FF;
+        }
+
+        .nav__toggle, .nav__close {
+            display: none;
+        }
+
+        .main-content {
+            margin-top: 60px;
+        }
+
+        .login-container, .register-container {
+            background-color: #FFFFFF;
+            color: #333333;
+            padding: 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            width: 500px;
+        }
+
+        .input-group-text {
+            background-color: #22262A;
+            color: #FFF;
+            border: none;
+        }
+
+        .form-control {
+            background-color: #F0F0F0;
+            color: #333333;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: #22262A;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #22262A;
+        }
+
+        .btn-success, .btn-success:hover {
+            background-color: #22262A;
+            border: none;
+        }
+
+        .btn-success i {
+            color: #FFF;
+        }
+
+        .btn-primary i {
+            color: #FFF;
+        }
+
+        .form-check-input {
+            background-color: #F0F0F0;
+            border: none;
+        }
+
+        .form-check-label {
+            color: #333333;
+        }
+
+        a {
+            color: #22262A;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #22262A;
+        }
+
+        .row.pt-4 p {
+            width: 100%;
+            text-align: justify;
+            margin: 10px 0;
+        }
+
+        h3 {
+            color: #22262A;
+        }
+
+        .contenedor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #22262A;
+            padding: 3px 20px;
+            margin: 0;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .footer__logo {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 30px;
+        }
+        .form-control.is-invalid {
+            border-color: red;
+        }
+    </style>
+
+    <div class="container mt-5 py-5">
+        <div class="row">
+            <div class="col-lg-3 col-md-0 px-5"></div>
+
+            <div class="col-lg-6 col-md-12 register-container">
+                <div class="contenedor">
+                    <div class="mt-3">
+                        <a href="#" class="footer__logo"><i class="ri-steering-line"></i> Crear Cuenta Cliente</a>
+                    </div>
+                </div>
+                <div class="row py-3 px-5 mx-3">
+                    <form action="{{url_for('guardar_cliente')}}" method="POST" onsubmit="return validateForm()">
+                        <div class="input-group flex-nowrap py-2">
+                            <span class="input-group-text" id="addon-wrapping"><i class="fa-regular fa-user fa-xl"></i></span>
+                            <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
+                                aria-describedby="addon-wrapping" id="nombre" name="nombre" required minlength="3" pattern="[A-Za-z ]+"
+                                oninput="validateText(this, 'nombreError')">
+                        </div>
+                        <small id="nombreError" class="text-danger" style="display: none;">El nombre no puede contener números.</small>
+                    
+                        <div class="input-group flex-nowrap py-2">
+                            <span class="input-group-text" id="addon-wrapping"><i class="fa-regular fa-user fa-xl"></i></span>
+                            <input type="text" class="form-control" placeholder="Apellidos" aria-label="Apellidos"
+                                aria-describedby="addon-wrapping" id="apellidos" name="apellidos" required minlength="3" pattern="[A-Za-z ]+"
+                                oninput="validateText(this, 'apellidosError')">
+                        </div>
+                        <small id="apellidosError" class="text-danger" style="display: none;">Los apellidos no pueden contener números.</small>
+                    
+                        <div class="input-group flex-nowrap py-2">
+                            <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-phone fa-xl"></i></span>
+                            <input type="text" class="form-control" placeholder="Número de Celular" aria-label="Número de Celular"
+                                aria-describedby="addon-wrapping" id="telefono" name="telefono" required pattern="\d{9}"
+                                oninput="validatePhone(this)">
+                        </div>
+                        <small id="telefonoError" class="text-danger" style="display: none;">El teléfono debe contener 9 dígitos.</small>
+                    
+                        <div class="input-group flex-nowrap py-2">
+                            <span class="input-group-text" id="addon-wrapping"><i class="fa-regular fa-envelope fa-xl"></i></span>
+                            <input type="email" class="form-control" placeholder="Email" aria-label="Email"
+                                aria-describedby="addon-wrapping" id="email" name="email" value="{{ form_data['email'] if form_data else '' }}" required
+                                oninput="validateEmail(this)">
+                        </div>
+                        <small id="emailError" class="text-danger" style="display: none;">El correo electrónico debe ser válido.</small>
+                    
+                        {% if error_msg %}
+                        <div style="color: red;">{{ error_msg }}</div>
+                        {% endif %}
+                    
+                        <div class="input-group flex-nowrap py-2">
+                            <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-lock fa-xl"></i></span>
+                            <input type="password" class="form-control" placeholder="Password" aria-label="Password"
+                                aria-describedby="addon-wrapping" id="contraseña" name="contraseña" required minlength="4">
+                        </div>
+                        <div class="input-group flex-nowrap py-2">
+                            <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-lock fa-xl"></i></span>
+                            <input type="password" class="form-control" placeholder="Confirma tu Password" aria-label="Confirma tu Password"
+                                aria-describedby="addon-wrapping" id="confirm-password" required required minlength="4"
+                                oninput="validatePassword()">
+                        </div>
+                        <small id="passwordError" class="text-danger" style="display: none;">Las contraseñas no coinciden.</small>
+                    
+                        <div>
+                            <progress id="strength-meter" max="4" value="0" style="width: 100%"></progress>
+                            <label id="strength-text">Muy débil</label>
+                        </div>
+                        <div class="text-center py-4" data-anijs="if: mouseover, do: pulse animated">
+                            <button type="submit" class="btn btn-primary btn w-50">Registrar</button>
+                        </div>
+                    </form>
+                    <div class="row pt-2">
+                        <p>Si ya tienes una cuenta. <a href="{{url_for('formulario_login_cliente')}}">Inicia sesión aquí</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-0 px-5"></div>
+        </div>
+    </div>
+</main>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="modal fade" id="flash-modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalLabel">{{ "Información" if category == 'success' else "Error" }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {{ message }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<footer class="footer section no-underline">
+    <div class="shape shape__big"></div>
+    <div class="shape shape__small"></div>
+
+    <div class="footer__container container grid">
+        <div class="footer__content">
+            <a href="#" class="footer__logo">
+                <i class="ri-steering-line"></i> CicloRiders
+            </a>
+            <p class="footer__description">
+                Ofrecemos las mejores motocicletas y accesorios <br>
+                de las marcas más reconocidas de todo el mundo <br>
+            </p>
+        </div>
+
+        <div class="footer__content">
+            <h3 class="footer__title">
+                Empresa
+            </h3>
+
+            <ul class="footer__links">
+                <li>
+                    <a href="#" class="footer__link">Nosotros</a>
+                </li>
+                <li>
+                    <a href="#" class="footer__link">Motos</a>
+                </li>
+                <li>
+                    <a href="#" class="footer__link">Producto</a>
+                </li>
+                <li>
+                    <a href="#" class="footer__link">Catalogo</a>
+                </li>
+                <li>
+                    <a href="#" class="footer__link">Login</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer__content">
+            <h3 class="footer__title">
+                Información
+            </h3>
+
+            <ul class="footer__links">
+                <a href="#" class="footer__link">Contáctanos</a>
+                </li>
+                <li>
+                    <a href="#" class="footer__link">Servicios</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer__content">
+            <h3 class="footer__title">
+                Síguenos en nuestras redes:
+            </h3>
+
+            <ul class="footer__social">
+                <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
+                    <i class="ri-facebook-fill"></i>
+                </a>
+                <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
+                    <i class="ri-instagram-line"></i>
+                </a>
+                <a href="https://twitter.com/" target="_blank" class="footer__social-link">
+                    <i class="ri-twitter-line"></i>
+                </a>
+            </ul>
+        </div>
+    </div>
+
+    <span class="footer__copy">
+        &#169; CicloRiders. Todos los derechos reservados 2023-2024
+    </span>
+</footer>
+
+<a href="#" class="scrollup" id="scroll-up">
+    <i class="ri-arrow-up-line"></i>
+</a>
+
+<script src="/static/assets/js/scrollreveal.min.js"></script>
+<script src="/static/assets/js/swiper-bundle.min.js"></script>
+<script src="/static/assets/js/mixitup.min.js"></script>
+<script src="/static/assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/zxcvbn/dist/zxcvbn.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const password = document.getElementById('contraseña');
+        const confirmPassword = document.getElementById('confirm-password');
+        const form = document.querySelector('form');
+        const strengthMeter = document.getElementById('strength-meter');
+        const strengthText = document.getElementById('strength-text');
+    
+        password.addEventListener('input', function () {
+            const passwordValue = password.value;
+            let score;
+    
+            if (passwordValue.length === 0) {
+                score = 0;
+            } else if (passwordValue.length < 2) {
+                score = 0;
+            } else if (passwordValue.length < 4) {
+                score = 1;
+            } else {
+                const result = zxcvbn(passwordValue);
+                score = result.score;
+            }
+    
+            strengthMeter.value = score;
+            let strengthInfo = ["Muy débil", "Débil", "Moderada", "Fuerte", "Muy fuerte"];
+            strengthText.textContent = strengthInfo[score];
+        });
+    
+        form.addEventListener('submit', function (event) {
+            if (password.value !== confirmPassword.value) {
+                alert('Las contraseñas no coinciden.');
+                event.preventDefault();
+            }
+        });
+    
+        // Verificar si hay modales para mostrar y mostrarlos si existen
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            new bootstrap.Modal(modal).show(); // Asegurándose de usar Bootstrap 5 para manejar modales
+        });
+    });
+
+    function validateText(input, errorId) {
+        const regex = /^[a-zA-Z\s]*$/;
+        const errorElement = document.getElementById(errorId);
+        
+        if (!regex.test(input.value)) {
+            input.setCustomValidity('Este campo no puede contener números.');
+            errorElement.style.display = 'block';
+            input.classList.add('is-invalid');
+        } else {
+            input.setCustomValidity('');
+            errorElement.style.display = 'none';
+            input.classList.remove('is-invalid');
+        }
+    }
+
+    function validatePhone(input) {
+        const regex = /^\d{9}$/;
+        const errorElement = document.getElementById('telefonoError');
+        
+        if (!regex.test(input.value)) {
+            input.setCustomValidity('El teléfono debe contener 9 dígitos.');
+            errorElement.style.display = 'block';
+            input.classList.add('is-invalid');
+        } else {
+            input.setCustomValidity('');
+            errorElement.style.display = 'none';
+            input.classList.remove('is-invalid');
+        }
+    }
+
+    function validateEmail(input) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const errorElement = document.getElementById('emailError');
+        
+        if (!regex.test(input.value)) {
+            input.setCustomValidity('El correo electrónico debe ser válido.');
+            errorElement.style.display = 'block';
+            input.classList.add('is-invalid');
+        } else {
+            input.setCustomValidity('');
+            errorElement.style.display = 'none';
+            input.classList.remove('is-invalid');
+        }
+    }
+
+    function validatePassword() {
+        const password = document.getElementById('contraseña');
+        const confirmPassword = document.getElementById('confirm-password');
+        const errorElement = document.getElementById('passwordError');
+        
+        if (password.value !== confirmPassword.value) {
+            confirmPassword.setCustomValidity('Las contraseñas no coinciden.');
+            errorElement.style.display = 'block';
+            confirmPassword.classList.add('is-invalid');
+        } else {
+            confirmPassword.setCustomValidity('');
+            errorElement.style.display = 'none';
+            confirmPassword.classList.remove('is-invalid');
+        }
+    }
+
+    function validateForm() {
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            if (!input.checkValidity()) {
+                input.classList.add('is-invalid');
+            }
+        });
+        return document.querySelectorAll('.is-invalid').length === 0;
+    }
+    </script>
+    
+
+
+{% endblock %}  
