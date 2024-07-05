@@ -1333,10 +1333,16 @@ def eliminar_productoM():
         controlador_producto.eliminar_producto(producto_id)
         controlador_moto.eliminar_moto_por_cod(codMoto)
 
-        return redirect(url_for('crud_producto'))
+        return redirect(url_for('crud_producto', success='delete_success'))
+    except ValueError as ve:
+        print(f"Validation error: {str(ve)}")
+        # Redirigir con un mensaje de error que indique que faltó el ID o que no se encontró el código.
+        return redirect(url_for('crud_producto', error=str(ve)))
     except Exception as e:
         print(f"Error al eliminar el producto: {str(e)}")
-        return jsonify({"error": str(e)}), 500
+        # En lugar de devolver una respuesta JSON, redirige con un mensaje de error.
+        return redirect(url_for('crud_producto', error='delete_error'))
+
 
 
 @app.route("/eliminar_productoA", methods=["POST"])
