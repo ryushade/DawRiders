@@ -68,6 +68,25 @@
                     </ul>
                 </li>
             </ul>
+
+            <ul class="list-unstyle component m-0">
+				<li class="dropdown">
+					<a href="#paginasSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+						<i class="material-icons">dashboard</i>Paginas
+					</a>
+					<ul class="collapse list-unstyled menu" id="paginasSubMenu" style="margin-left: 20px;">
+						<li><a href="{{url_for('formulario_detalle_categoria')}}">Catalogo de motos</a></li>
+					</ul>
+					<ul class="collapse list-unstyled menu" id="ventasSubmenu" style="margin-left: 20px;">
+						<li><a href="{{url_for('formulario_detalle_accesorio')}}">Catalogo de accesorios</a></li>
+					</ul>
+					<ul class="collapse list-unstyled menu" id="ventasSubmenu" style="margin-left: 20px;">
+						<li><a href="{{url_for('formulario_historial_venta')}}">Informacion del usuario</a></li>
+					<ul class="collapse list-unstyled menu" id="ventasSubmenu" style="margin-left: 20px;">
+						<li><a href="{{url_for('formulario_carrito')}}">Carrito</a></li>
+					</ul>
+				</li>
+			</ul>
         </div>
 
         <!-------sidebar--design- close----------->
