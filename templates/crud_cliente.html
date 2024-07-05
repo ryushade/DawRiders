@@ -291,6 +291,7 @@
 										<td>{{cliente[4]}}</td>
 										<td>{{cliente[5]}}</td>
 										<td>
+											
 											<form action="{{ url_for('eliminar_cliente') }}" method="POST"
 												onsubmit="return confirm('¿Seguro que desea eliminar este cliente?')"
 												style="display: inline;">
@@ -299,6 +300,17 @@
 													<i class="material-icons" title="Delete">&#xE872;</i>
 												</button>
 											</form>
+											{% if request.args.get('error') == 'admin_error' %}
+											<div class="alert alert-danger">
+												No se puede eliminar este usuario porque es un administrador.
+											</div>
+											{% endif %}
+									
+											{% if request.args.get('success') == 'delete_success' %}
+											<div class="alert alert-success">
+												Cliente eliminado correctamente.
+											</div>
+											{% endif %}
 
 								</tbody>
 								<!----edit-modal start--------->

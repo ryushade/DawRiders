@@ -158,15 +158,13 @@ def formulario_comprobante(output_format):
 @app.route("/eliminar_cliente", methods=["POST"])
 def eliminar_cliente():
     id_cliente = request.form["id"]
-    # Verificar si el cliente es también un administrador
     admin = controlador_administrador.obtener_administrador_por_cliente_id(id_cliente)
     if admin:
-        flash("No se puede eliminar este usuario porque es un administrador.", "error")
-        return redirect(url_for('crud_cliente'))
+        return redirect(url_for('crud_cliente', error='admin_error'))
     else:
         controlador_cliente.eliminar_cliente(id_cliente)
-        flash("Cliente eliminado correctamente.", "success")
-        return redirect(url_for('crud_cliente'))
+        return redirect(url_for('crud_cliente', success='delete_success'))
+
 
 
 @app.route("/crud_cliente")
