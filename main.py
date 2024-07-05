@@ -1258,6 +1258,7 @@ def api_obtenerproductos():
         rpta["code"] = 0
         rpta["message"] = f"Problemas en el servicio web: {str(e)}"
 
+
 @app.route("/api_guardar_producto", methods=["POST"])
 @jwt_required()
 def api_guardar_producto():
