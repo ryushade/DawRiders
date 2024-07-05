@@ -84,22 +84,10 @@ def formulario_registrar_cliente():
     return render_template("registroCliente.html")
 
 
-@app.route("/nosotros")
-def formulario_nosotros():
-    return render_template("nosotros.html")
-
-
 @app.route("/accesorios")
 def formulario_accesorios():
     return render_template("accesorios.html")
 
-@app.route("/marcas")
-def formulario_marcas():
-    return render_template("marcas.html")
-
-@app.route("/nosotros")
-def nosotros():
-    return render_template("nosotros.html")
 
 @app.route("/historial_venta")
 def formulario_historial_venta():
@@ -165,29 +153,6 @@ def formulario_comprobante(output_format):
 
 
 
-@app.route("/administrador")
-def formulario_administrador():
-    return render_template("administrador.html")
-
-@app.route("/contacto")
-def formulario_contacto():
-    return render_template("contacto.html")
-
-@app.route("/libroreclamaciones")
-def formulario_libro():
-    return render_template("libroreclamaciones.html")
-
-@app.route("/terminos")
-def formulario_terminos():
-    return render_template("terminosGarantia.html")
-
-@app.route("/dashboard")
-def dashboard():
-    return render_template('index_d.html')
-
-@app.route("/comparar")
-def formulario_comparar():
-    return render_template("comparar.html")
 
 
 @app.route("/eliminar_cliente", methods=["POST"])
