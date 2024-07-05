@@ -251,9 +251,9 @@ Iniciar Sesión
                             <tr>
                                 <th scope="col"></th>
                                 <th scope="col">Producto</th>
-                                <th scope="col">Precio</th>
+                                <th scope="col">Precio (S/.)</th>
                                 <th scope="col">Cantidad</th>
-                                <th scope="col">SubTotal</th>
+                                <th scope="col">SubTotal (S/. )</th>
                                 <th scope="col">Eliminar</th>
                             </tr>
                         </thead>
@@ -284,9 +284,9 @@ Iniciar Sesión
                                 <td><img src="../static/img/{{ item[1] }}" alt="{{ item[2] }}" width="90" height="60">
                                 </td>
                                 <td>{{ item[2] }}</td>
-                                <td>S/. {{ item[3] }}</td>
+                                <td>{{ item[3] }}</td>
                                 <td>{{ item[4] }}</td>
-                                <td class="subtotal" id="subtotal{{ loop.index }}">S/. {{ item[5] }}</td>
+                                <td class="subtotal" id="subtotal{{ loop.index }}">{{ item[5] }}</td>
                                 <td>
                                     <button class="btn btn-danger eliminar-item" data-id="{{ item[6] }}"
                                         data-toggle="modal" data-target="#confirmModal">X</button>
