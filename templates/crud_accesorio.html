@@ -300,7 +300,8 @@
                                         <td>{{producto[5]}}</td>
                                         <td>{{producto[6]}}</td>
                                         <td><img data-anijs="if: mouseover, do: pulse animated"
-                                            src="{{ url_for('static', filename='img/' + producto[7])}}" alt="" class="img-fluid"></td>
+                                                src="{{ url_for('static', filename='img/' + producto[7])}}" alt=""
+                                                class="img-fluid"></td>
                                         <td>{{producto[12]}}</td>
                                         <td>{{producto[13]}}</td>
                                         <td>
@@ -396,7 +397,9 @@
                                                             <div class="form-group">
                                                                 <label>Imagen</label>
                                                                 <input type="text" class="form-control"
-                                                                    value="{{producto[7]}}" name="imagen" required>
+                                                                    value="{{producto[7]}}" name="imagen" readonly>
+                                                                <input type="file" class="form-control-file"
+                                                                    id="uploadedFile" name="uploadedFile">
                                                             </div>
                                                         </div>
                                                     </div>
