@@ -83,9 +83,9 @@
 					</ul>
 					<ul class="collapse list-unstyled menu" id="paginasSubMenu" style="margin-left: 20px;">
 						<li><a href="{{url_for('formulario_historial_venta')}}">Informacion del usuario</a></li>
-					<ul class="collapse list-unstyled menu" id="paginasSubMenu" style="margin-left: 20px;">
-						<li><a href="{{url_for('formulario_carrito')}}">Carrito</a></li>
-					</ul>
+						<ul class="collapse list-unstyled menu" id="paginasSubMenu" style="margin-left: 20px;">
+							<li><a href="{{url_for('formulario_carrito')}}">Carrito</a></li>
+						</ul>
 				</li>
 			</ul>
 		</div>
@@ -142,7 +142,8 @@
 
 										<li class="dropdown nav-item">
 											<a class="nav-link" href="#" data-toggle="dropdown">
-												<img src="/static/img/herrera.jpg" style="width:40px; border-radius:50%;" />
+												<img src="/static/img/herrera.jpg"
+													style="width:40px; border-radius:50%;" />
 												<span class="xp-user-live"></span>
 											</a>
 											<ul class="dropdown-menu small-menu">
@@ -183,7 +184,18 @@
 			</div>
 			<!------top-navbar-end----------->
 
+			<!-- Mensajes de éxito o error -->
+			{% if request.args.get('error') == 'admin_error' %}
+			<div class="alert alert-danger">
+				No se puede eliminar este usuario porque es un administrador.
+			</div>
+			{% endif %}
 
+			{% if request.args.get('success') == 'delete_success' %}
+			<div class="alert alert-success">
+				Cliente eliminado correctamente.
+			</div>
+			{% endif %}
 			<!------main-content-start----------->
 
 			<div class="main-content">
@@ -291,7 +303,7 @@
 										<td>{{cliente[4]}}</td>
 										<td>{{cliente[5]}}</td>
 										<td>
-											
+
 											<form action="{{ url_for('eliminar_cliente') }}" method="POST"
 												onsubmit="return confirm('¿Seguro que desea eliminar este cliente?')"
 												style="display: inline;">
@@ -300,17 +312,7 @@
 													<i class="material-icons" title="Delete">&#xE872;</i>
 												</button>
 											</form>
-											{% if request.args.get('error') == 'admin_error' %}
-											<div class="alert alert-danger">
-												No se puede eliminar este usuario porque es un administrador.
-											</div>
-											{% endif %}
-									
-											{% if request.args.get('success') == 'delete_success' %}
-											<div class="alert alert-success">
-												Cliente eliminado correctamente.
-											</div>
-											{% endif %}
+
 
 								</tbody>
 								<!----edit-modal start--------->
