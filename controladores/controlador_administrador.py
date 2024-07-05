@@ -62,3 +62,14 @@ def obtener_administrador_por_id(idAdmin):
         admin = cursor.fetchone()
     conexion.close()
     return admin
+
+
+def obtener_administrador_por_cliente_id(cliente_id):
+    conexion = obtener_conexion()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("SELECT * FROM ADMINISTRADOR WHERE cliente_id = %s", (cliente_id,))
+            result = cursor.fetchone()
+            return result
+    finally:
+        conexion.close()
