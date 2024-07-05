@@ -1046,7 +1046,7 @@ def agregar_carrito_accesorio():
 
     if cantidad < 1:
         flash("La cantidad debe ser al menos uno.", "error")
-        return redirect(url_for("detalle_producto_moto", id=product_id))
+        return redirect(url_for("detalle_producto_accesorio", id=product_id))
 
     conexion = obtener_conexion()
     try:
@@ -1066,9 +1066,18 @@ def agregar_carrito_accesorio():
                 cursor.execute("INSERT INTO CARRITO (idCliente, fechaCreacion) VALUES (%s, NOW())", (id_cliente,))
                 idCarrito = cursor.lastrowid
 
+            # Verificar si el producto ya está en el carrito
+            cursor.execute("SELECT cantidad FROM ITEM_CARRITO WHERE idCarrito = %s AND idProducto = %s", (idCarrito, product_id))
+            item = cursor.fetchone()
+            if item:
+                nueva_cantidad = item[0] + cantidad
+                nuevo_subtotal = nueva_cantidad * precio
+                cursor.execute("UPDATE ITEM_CARRITO SET cantidad = %s, subtotal = %s WHERE idCarrito = %s AND idProducto = %s",
+                               (nueva_cantidad, nuevo_subtotal, idCarrito, product_id))
+            else:
+                cursor.execute("INSERT INTO ITEM_CARRITO (idCarrito, idProducto, cantidad, precioPorUnidad, subtotal) VALUES (%s, %s, %s, %s, %s)",
+                               (idCarrito, product_id, cantidad, precio, cantidad * precio))
 
-            cursor.execute("INSERT INTO ITEM_CARRITO (idCarrito, idProducto, cantidad, precioPorUnidad, subtotal) VALUES (%s, %s, %s, %s, %s)",
-                           (idCarrito, product_id, cantidad, precio, cantidad * precio))
             conexion.commit()
             flash("Producto agregado al carrito exitosamente!", "success")
     except Exception as e:
@@ -1077,7 +1086,6 @@ def agregar_carrito_accesorio():
     finally:
         conexion.close()
         return redirect(url_for("detalle_producto_accesorio", id=product_id))
-
 
 
 @app.route("/eliminar_item_carrito/<int:id_item>", methods=["POST"])
