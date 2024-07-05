@@ -272,10 +272,6 @@
 										<td>{{cliente[4]}}</td>
 										<td>{{cliente[5]}}</td>
 										<td>
-											<a href="#editEmployeeModal" class="edit" data-toggle="modal">
-												<i class="material-icons" data-toggle="tooltip"
-													title="Edit">&#xE254;</i>
-											</a>
 											<form action="{{ url_for('eliminar_cliente') }}" method="POST"
 												onsubmit="return confirm('¿Seguro que desea eliminar este cliente?')"
 												style="display: inline;">
